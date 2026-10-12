@@ -34,9 +34,9 @@
 
   /* ================= estado y guardado ================= */
   const KEY = "aventura-escolar-v1";
-  const DEF = () => ({ profile: null, progress: {}, courses: [], stars: 0, stickers: [], plan: null, sound: true, streak: { n: 0, last: null }, apiKey: "", history: [], updatedAt: 0 });
+  const DEF = () => ({ profile: null, progress: {}, courses: [], stars: 0, stickers: [], plan: null, sound: true, streak: { n: 0, last: null }, apiKey: "", history: [], xp: 0, bestCombo: 0, updatedAt: 0 });
   let S = DEF();
-  try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(DEF(), JSON.parse(raw)); } catch (e) { /* sin almacenamiento */ }
+  try { const raw = localStorage.getItem(KEY); if (raw) { S = Object.assign(DEF(), JSON.parse(raw)); if (!S.xp && S.stars) S.xp = S.stars * 10; } } catch (e) { /* sin almacenamiento */ }
 
   // Nube (dentro de claude.ai): guarda perfil, progreso y cursos por persona.
   const cloud = { db: null, uid: null, chain: Promise.resolve(), timer: null };
@@ -135,6 +135,15 @@
       if (++f < 150) requestAnimationFrame(loop); else ctx.clearRect(0, 0, W, H);
     })();
   }
+  function burst(el) {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = (el || document.body).getBoundingClientRect(), cv = $("#confetti"), ctx = cv.getContext("2d");
+    cv.width = innerWidth; cv.height = innerHeight;
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2, cols = ["#ffd23f", "#3ee6ff", "#ff6bd6", "#2ee59d"];
+    const P = Array.from({ length: 40 }, () => { const a = Math.random() * 6.28, v = 3 + Math.random() * 6; return { x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: 2 + Math.random() * 4, c: pick(cols) }; });
+    let f = 0;
+    (function loop() { ctx.clearRect(0, 0, cv.width, cv.height); P.forEach((p) => { p.x += p.vx; p.y += p.vy; p.vx *= .93; p.vy = p.vy * .93 + .15; ctx.globalAlpha = 1 - f / 40; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); }); ctx.globalAlpha = 1; if (++f < 40) requestAnimationFrame(loop); else ctx.clearRect(0, 0, cv.width, cv.height); })();
+  }
   let toastT;
   function toast(msg) {
     let t = $(".toast"); if (t) t.remove();
@@ -142,8 +151,8 @@
     clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 2600);
   }
 
-  /* ================= mascota Lumi ================= */
-  const LUMI = `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M60 6 L66 20 L60 17 L54 20 Z" fill="#ffc93c"/><line x1="60" y1="18" x2="60" y2="30" stroke="#1b2150" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="8" r="7" fill="#ff6b4a"/><ellipse cx="60" cy="72" rx="44" ry="42" fill="#ffc93c"/><ellipse cx="60" cy="84" rx="28" ry="22" fill="#ffe08a"/><ellipse cx="18" cy="76" rx="9" ry="14" fill="#ffc93c" transform="rotate(-20 18 76)"/><ellipse cx="102" cy="76" rx="9" ry="14" fill="#ffc93c" transform="rotate(20 102 76)"/><g class="blink"><ellipse cx="45" cy="64" rx="8" ry="10" fill="#1b2150"/><ellipse cx="75" cy="64" rx="8" ry="10" fill="#1b2150"/><circle cx="48" cy="60" r="3" fill="#fff"/><circle cx="78" cy="60" r="3" fill="#fff"/></g><circle cx="34" cy="80" r="6" fill="#ff8f7a" opacity=".7"/><circle cx="86" cy="80" r="6" fill="#ff8f7a" opacity=".7"/><path d="M50 82 Q60 92 70 82" stroke="#1b2150" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`;
+  /* ================= mascota Nova ================= */
+  const NOVA = `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="nv-b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cf3ff"/><stop offset="1" stop-color="#7b5cff"/></linearGradient></defs><line x1="60" y1="12" x2="60" y2="28" stroke="#c9d2ff" stroke-width="4" stroke-linecap="round"/><circle class="glow" cx="60" cy="10" r="7" fill="#ffd23f"/><rect x="6" y="56" width="14" height="26" rx="7" fill="#5f5cff"/><rect x="100" y="56" width="14" height="26" rx="7" fill="#5f5cff"/><rect x="16" y="26" width="88" height="76" rx="32" fill="url(#nv-b)"/><rect x="27" y="42" width="66" height="40" rx="20" fill="#0d1030"/><g class="blink"><rect x="40" y="52" width="12" height="18" rx="6" fill="#7cf3ff"/><rect x="68" y="52" width="12" height="18" rx="6" fill="#7cf3ff"/></g><path d="M52 90 Q60 96 68 90" stroke="#0d1030" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="38" r="4" fill="#fff" opacity=".6"/></svg>`;
   let sayT;
   function say(text, mood) {
     const b = $(".buddy"); if (!b) return;
@@ -349,7 +358,7 @@
   const app = () => $("#app");
   let view = { name: "home", p: {} };
   let play = null; // estado de la partida
-  function go(name, p = {}) { view = { name, p }; if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) { /* */ } render(); window.scrollTo(0, 0); }
+  function go(name, p = {}) { stopTimer(); view = { name, p }; if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) { /* */ } render(); window.scrollTo(0, 0); }
   function render() {
     if (!S.profile && view.name !== "setup") view = { name: "setup", p: { first: true } };
     $("#top").innerHTML = topbar();
@@ -357,11 +366,19 @@
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
   }
+  const sv = (sub) => { const k = SUBJECTS[sub] ? sub : "mat"; return `--c:var(--c-${k});--g:var(--g-${k})`; };
+  const RANKS = ["Aprendiz", "Explorador", "Aventurero", "Inventor", "Experto", "Maestro", "Genio", "Leyenda"];
+  function levelInfo(xp) {
+    let lv = 1, need = 100, base = 0;
+    while (xp >= base + need) { base += need; lv++; need = 100 + (lv - 1) * 50; }
+    return { lv, cur: xp - base, need, pct: Math.round(((xp - base) / need) * 100), rank: RANKS[Math.min(RANKS.length - 1, Math.floor((lv - 1) / 3))] };
+  }
   function topbar() {
     const n = view.name, cur = (x) => (x === n || (x === "home" && ["subject", "lesson"].includes(n)) || (x === "courses" && ["course", "maker"].includes(n)) ? 'aria-current="page"' : "");
-    const p = S.profile;
-    return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${LUMI}</span><span>Aventura Escolar</span></button>
-      ${p ? `<span class="pill star" title="Estrellas">⭐ ${S.stars}</span><span class="pill" title="Días seguidos estudiando">🔥 ${S.streak.n}</span>` : ""}
+    const p = S.profile, L = levelInfo(S.xp);
+    return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${NOVA}</span><span>Aventura <b>Escolar</b></span></button>
+      ${p ? `<span class="lvl-chip" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP"><span class="av" style="--p:${L.pct}"><span>${p.avatar}</span></span><span><b>Nv. ${L.lv}</b><small>${L.rank}</small></span></span>
+      <span class="pill star" title="Estrellas">⭐ ${S.stars}</span><span class="pill" title="Días seguidos estudiando">🔥 ${S.streak.n}</span>` : ""}
       ${p ? `<nav aria-label="Principal">
         <button class="navbtn" data-act="go" data-to="home" ${cur("home")}>🗺️ Mapa</button>
         <button class="navbtn" data-act="go" data-to="courses" ${cur("courses")}>📚 Cursos</button>
@@ -379,9 +396,9 @@
     draft = draft || Object.assign({ name: "", avatar: "🦊", adult: "Mamá", adultAvatar: "👩", country: "co", grade: 3 }, S.profile || {});
     const c = COUNTRIES[draft.country];
     return `<section class="setup">
-      <div class="hero"><div class="mascot-big">${LUMI}</div><div>
+      <div class="hero"><div class="mascot-big">${NOVA}</div><div>
         <p class="eyebrow">${p.first ? "¡Bienvenidos!" : "Ajustes del perfil"}</p>
-        <h1>${p.first ? "Hola, soy Lumi. ¡Vamos a estudiar juntos!" : "Cambiemos el perfil"}</h1>
+        <h1>${p.first ? "Hola, soy Nova. ¡Vamos a estudiar juntos!" : "Cambiemos el perfil"}</h1>
         <p>Elige el país y el grado y te muestro lo que se estudia en ese curso: matemáticas, inglés, lengua, ciencias, sociales y tecnología, con juegos para hacer en familia.</p></div></div>
       <div class="card stack">
         <div class="two">
@@ -406,30 +423,43 @@
 
   /* ---------- inicio ---------- */
   function subjPct(s) { const list = TOPICS[s][S.profile.grade]; const done = list.filter((t) => prog(t.id)).length; return Math.round((done / list.length) * 100); }
+  function quests() {
+    const t = todayStr(), h = S.history.filter((x) => x.d === t);
+    const subj = new Set(h.map((x) => x.subj)).size, best = h.reduce((m, x) => Math.max(m, x.pct), 0);
+    return [
+      { icon: "🎮", title: "Completa 3 misiones", cur: Math.min(h.length, 3), max: 3 },
+      { icon: "🌈", title: "Practica 2 materias distintas", cur: Math.min(subj, 2), max: 2 },
+      { icon: "🎯", title: "Saca 90 % o más en una misión", cur: best >= 90 ? 1 : 0, max: 1 }
+    ];
+  }
   function vHome() {
-    const P = S.profile, c = COUNTRIES[P.country];
+    const P = S.profile, c = COUNTRIES[P.country], L = levelInfo(S.xp);
     const today = (new Date().getDay() + 6) % 7, plan = S.plan && S.plan.days[today];
     let mission = plan && plan.items.length ? plan.items.map((it, i) => ({ ref: it.ref, done: it.done, fromPlan: i })) : null;
     if (!mission) mission = dailySuggestions().map((ref) => ({ ref }));
     const mine = S.courses.slice(-3).reverse();
     return `<section class="stack">
-      <div class="welcome"><div><p class="eyebrow">${c.name} · ${esc(gradeLabel(P.country, P.grade))}</p>
-        <h1>¡Hola, ${esc(P.name || "campeón")}! ${P.avatar}</h1><p class="meta" style="margin:4px 0 0">Hoy estudias con ${esc(P.adult || "tu acompañante")} ${P.adultAvatar}. Elige un mundo o pídele a Lumi un tema.</p></div>
-        <div class="stats"><button class="btn" data-act="together">🤝 Reto en familia</button></div></div>
-      <form class="ask" data-form="ask"><h2>✨ ¿Qué quieren aprender hoy?</h2>
-        <div class="row"><input id="ask-q" class="input" name="q" placeholder="Ej.: divisiones de 2 cifras, los planetas, verbos en inglés…" autocomplete="off"><button class="btn" type="submit">Buscar o crear curso</button></div>
+      <div class="player-card"><div class="big-av">${P.avatar}</div>
+        <div><p class="eyebrow">${c.name} · ${esc(gradeLabel(P.country, P.grade))}</p><h1>¡Hola, ${esc(P.name || "campeón")}!</h1>
+          <p class="meta">${L.rank} · estudias con ${esc(P.adult || "tu acompañante")} ${P.adultAvatar}</p>
+          <div class="lvlbar"><div class="top"><b>Nivel ${L.lv}</b><span>${L.cur} / ${L.need} XP</span></div><div class="xpbar"><i style="width:${L.pct}%"></i></div></div></div>
+        <div class="side"><button class="btn big" data-act="quick">⚡ Jugar ahora</button><button class="btn ghost" data-act="together">🤝 Reto en familia</button></div></div>
+      <div class="section-head"><h2>🏁 Retos del día</h2></div>
+      <div class="quests">${quests().map((q) => `<div class="quest ${q.cur >= q.max ? "complete" : ""}"><span class="ring" style="--p:${Math.round((q.cur / q.max) * 100)}"><span>${q.cur >= q.max ? "✅" : q.icon}</span></span><span><b>${q.title}</b><small>${q.cur}/${q.max}</small></span></div>`).join("")}</div>
+      <form class="ask" data-form="ask"><h2>✨ ¿Qué quieres aprender hoy?</h2>
+        <div class="row"><input id="ask-q" class="input" name="q" placeholder="Ej.: divisiones de 2 cifras, los planetas, verbos en inglés…" autocomplete="off"><button class="btn cyan" type="submit">Buscar o crear con IA</button></div>
         <div class="chips">${["Divisiones de 2 cifras", "Fracciones", "Tablas de multiplicar", "El sistema solar", "Verbos en inglés", "Ortografía"].map((x) => `<button type="button" class="chip" data-act="askChip" data-q="${x}">${x}</button>`).join("")}</div>
       </form>
-      <div class="section-head"><h2>🎯 Misión de hoy</h2><span class="muted">${plan ? "Del plan de estudio" : "Sugerida por Lumi"}</span><span class="spacer"></span>${S.plan ? "" : '<button class="btn ghost small" data-act="go" data-to="plan">Crear plan semanal</button>'}</div>
+      <div class="section-head"><h2>🎯 Misiones de hoy</h2><span class="muted">${plan ? "Del plan de estudio" : "Elegidas por Nova"}</span><span class="spacer"></span>${S.plan ? "" : '<button class="btn ghost small" data-act="go" data-to="plan">Crear plan semanal</button>'}</div>
       <div class="mission">${mission.map((m) => taskCard(m.ref, m.done, m.fromPlan)).join("")}</div>
-      <div class="section-head"><h2>🗺️ Mundos de ${esc(gradeLabel(P.country, P.grade))}</h2></div>
-      <div class="worlds">${SUBJ_KEYS.map((s) => `<button class="world" style="--c:${SUBJECTS[s].color}" data-act="go" data-to="subject" data-id="${s}"><span class="icon">${SUBJECTS[s].icon}</span><h3>${esc(subjName(s))}</h3><span class="sub">${SUBJECTS[s].world} · ${TOPICS[s][P.grade].length} temas</span><span class="prog" aria-label="Progreso ${subjPct(s)}%"><i style="width:${subjPct(s)}%"></i></span></button>`).join("")}</div>
+      <div class="section-head"><h2>🌍 Mundos de ${esc(gradeLabel(P.country, P.grade))}</h2></div>
+      <div class="worlds">${SUBJ_KEYS.map((s) => `<button class="world" data-tilt style="${sv(s)}" data-act="go" data-to="subject" data-id="${s}"><span class="icon">${SUBJECTS[s].icon}</span><span class="ring" style="--p:${subjPct(s)}" aria-label="Progreso ${subjPct(s)}%"><span>${subjPct(s)}%</span></span><span class="txt"><h3>${esc(subjName(s))}</h3><span class="sub">${SUBJECTS[s].world} · ${TOPICS[s][P.grade].length} niveles</span></span></button>`).join("")}</div>
       ${mine.length ? `<div class="section-head"><h2>📚 Mis cursos</h2><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="courses">Ver todos</button></div><div class="courses">${mine.map(courseCard).join("")}</div>` : ""}
     </section>`;
   }
   function taskCard(ref, done, fromPlan) {
     const u = unit(ref); if (!u) return "";
-    return `<button class="task ${done ? "done" : ""}" style="--c:${SUBJECTS[u.subj].color}" data-act="open" data-ref='${esc(JSON.stringify(ref))}' ${fromPlan != null ? `data-plan="${fromPlan}"` : ""}><span class="dot">${done ? "" : SUBJECTS[u.subj].icon}</span><span><b>${esc(u.title)}</b><small>${esc(subjName(u.subj))}</small></span><span class="stars">${starStr((prog(u.key) || {}).stars || 0)}</span></button>`;
+    return `<button class="task ${done ? "done" : ""}" style="${sv(u.subj)}" data-act="open" data-ref='${esc(JSON.stringify(ref))}' ${fromPlan != null ? `data-plan="${fromPlan}"` : ""}><span class="dot">${done ? "" : SUBJECTS[u.subj].icon}</span><span><b>${esc(u.title)}</b><small>${esc(subjName(u.subj))}</small></span><span class="stars">${starStr((prog(u.key) || {}).stars || 0)}</span></button>`;
   }
   function dailySuggestions() {
     const g = S.profile.grade;
@@ -441,44 +471,50 @@
     const s = p.id, g = p.grade != null ? +p.grade : S.profile.grade, list = TOPICS[s][g], c = COUNTRIES[S.profile.country];
     const nextIdx = list.findIndex((t) => !prog(t.id));
     return `<section class="stack">
-      <div class="subject-hero" style="--c:${SUBJECTS[s].color}"><span class="icon">${SUBJECTS[s].icon}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">${SUBJECTS[s].world}</p><h1>${esc(subjName(s))}</h1><p>${esc(gradeLabel(S.profile.country, g))} · ${list.length} temas para explorar</p></div></div>
+      <div class="subject-hero" style="${sv(s)}"><span class="icon">${SUBJECTS[s].icon}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">${SUBJECTS[s].world}</p><h1>${esc(subjName(s))}</h1><p>${esc(gradeLabel(S.profile.country, g))} · ${list.length} temas para explorar</p></div></div>
       <div class="row"><button class="btn ghost small" data-act="go" data-to="home">← Mapa</button><span class="spacer"></span>
         <label class="muted" for="sel-grade">Ver otro grado:</label><select id="sel-grade" class="input" style="width:auto" data-act-change="gradeView" data-s="${s}">${c.grades.map((x, i) => `<option value="${i}" ${i === g ? "selected" : ""}>${esc(gradeLabel(S.profile.country, i))}</option>`).join("")}</select></div>
-      <div class="path">${list.map((t, i) => { const pr = prog(t.id); return `<div class="stop"><button class="node ${pr ? "done" : ""} ${i === nextIdx ? "next" : ""}" style="--c:${SUBJECTS[s].color}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id })}' aria-label="Tema ${i + 1}: ${esc(t.title)}">${pr ? "✓" : i + 1}</button><div class="info"><b>${esc(t.title)}</b><span class="stars">${starStr(pr ? pr.stars : 0)}</span>${pr ? `<div class="muted" style="font-size:.85rem">Mejor resultado: ${pr.best}%</div>` : ""}</div></div>`; }).join("")}</div>
+      <div class="path">${list.map((t, i) => { const pr = prog(t.id); return `<div class="stop"><button class="node ${pr ? "done" : ""} ${i === nextIdx ? "next" : ""}" style="${sv(s)}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id })}' aria-label="Tema ${i + 1}: ${esc(t.title)}">${pr ? "✓" : i + 1}</button><div class="info"><b>${esc(t.title)}</b><span class="stars">${starStr(pr ? pr.stars : 0)}</span>${pr ? `<div class="muted" style="font-size:.85rem">Mejor resultado: ${pr.best}%</div>` : ""}</div></div>`; }).join("")}</div>
       <p class="muted">Temas guiados por: ${esc(c.framework)}.</p>
     </section>`;
   }
 
   /* ---------- lección ---------- */
-  let modeTogether = false;
+  let playMode = "solo";
+  const MODES = [
+    ["solo", "🎮", "Solo", (P) => `${esc(P.name)} juega y ${esc(P.adult)} anima.`],
+    ["juntos", "🤝", "Juntos", (P) => `Turnos entre ${esc(P.name)} y ${esc(P.adult)}, con marcador.`],
+    ["reloj", "⏱️", "Contrarreloj", () => "Responde antes de que acabe el tiempo: ¡más rápido, más XP!"]
+  ];
   function vLesson(p) {
     const ref = p.ref, u = unit(ref); if (!u) return `<p>No encontramos esa lección.</p>`;
     const P = S.profile;
     return `<section class="lesson">
       <button class="btn ghost small" style="justify-self:start" data-act="back" data-ref='${esc(JSON.stringify(ref))}'>← Volver</button>
-      <div class="lesson-head" style="--c:${SUBJECTS[u.subj].color}"><span class="badge">${SUBJECTS[u.subj].icon}</span><div><p class="eyebrow">${esc(u.where)}</p><h1>${esc(u.title)}</h1></div></div>
+      <div class="lesson-head" style="${sv(u.subj)}"><span class="badge">${SUBJECTS[u.subj].icon}</span><div><p class="eyebrow">${esc(u.where)}</p><h1>${esc(u.title)}</h1></div></div>
       <div class="bubble"><b>Aprendamos 💡</b><br>${esc(u.lesson || "")}</div>
       ${u.example ? `<div class="example">${esc(u.example)}</div>` : ""}
       ${u.tip ? `<div class="parent"><b>${P.adultAvatar} Para hacer juntos:</b> ${esc(u.tip)}</div>` : ""}
       <div class="row"><button class="btn ghost small" data-act="readLesson" data-ref='${esc(JSON.stringify(ref))}'>🔊 Escuchar la lección</button></div>
-      <div class="mode-pick">
-        <button class="mode" data-act="mode" data-v="0" aria-pressed="${!modeTogether}"><b>${P.avatar} Juego solo</b><span class="muted">${esc(P.name)} responde y ${esc(P.adult)} anima.</span></button>
-        <button class="mode" data-act="mode" data-v="1" aria-pressed="${modeTogether}"><b>🤝 Modo juntos</b><span class="muted">Turnos entre ${esc(P.name)} y ${esc(P.adult)}, con marcador.</span></button>
-      </div>
+      <h2>Elige el modo de juego</h2>
+      <div class="mode-pick">${MODES.map(([k, ic, t, d]) => `<button class="mode" data-act="mode" data-v="${k}" aria-pressed="${playMode === k}"><span class="mi">${ic}</span><b>${t}</b><span class="muted">${d(P)}</span></button>`).join("")}</div>
       <button class="btn big" data-act="start" data-ref='${esc(JSON.stringify(ref))}' ${p.plan != null ? `data-plan="${p.plan}"` : ""}>¡A jugar! 🎮</button>
     </section>`;
   }
 
   /* ---------- partida ---------- */
-  function startPlay(ref, planIdx, together, qsOverride) {
+  let tmr = null;
+  function startPlay(ref, planIdx, mode, qsOverride) {
     const u = unit(ref); if (!u) return;
     const P = S.profile;
-    const players = [{ name: P.name || "Yo", av: P.avatar, pts: 0 }]; if (together) players.push({ name: P.adult || "Adulto", av: P.adultAvatar, pts: 0 });
+    const players = [{ name: P.name || "Yo", av: P.avatar, pts: 0 }]; if (mode === "juntos") players.push({ name: P.adult || "Adulto", av: P.adultAvatar, pts: 0 });
     const qs = qsOverride || buildQuestions(u);
     if (!qs.length) { toast("Esta lección no tiene actividades todavía"); return; }
-    play = { ref, u, planIdx, players, qs, i: 0, correct: 0, answered: false, hinted: false };
+    play = { ref, u, planIdx, players, qs, mode, timed: mode === "reloj", i: 0, correct: 0, answered: false, hinted: false, combo: 0, bestCombo: 0, xp: 0, tLeft: 0 };
     go("play");
   }
+  const qTime = (q) => (q.kind === "order" ? 45 : q.small ? 30 : 20);
+  const nextBtn = () => `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Siguiente ➜" : "Ver resultado 🏁"}</button>`;
   function vPlay() {
     const g = play, q = g.qs[g.i], turn = g.players.length > 1 ? g.i % 2 : 0, P = S.profile;
     const turnMsg = g.players.length > 1 ? (turn === 0 ? `Turno de ${esc(g.players[0].name)} ${g.players[0].av}. ${esc(P.adult)}: ¡solo pistas!` : `Turno de ${esc(g.players[1].name)} ${g.players[1].av}. Explica en voz alta cómo lo piensas.`) : "";
@@ -486,7 +522,8 @@
     if (q.kind === "choice") {
       const opts = q.keepOrder ? q.keepOrder.filter((o) => q.options.includes(o)) : q.options;
       body = `${q.visual ? `<div class="visual ${q.visualClass || ""}">${q.visual}</div>` : ""}
-        <div class="opts" id="opts">${opts.map((o) => `<button class="opt" data-act="answer" data-v="${esc(o)}" style="${q.emojiOpts ? "font-size:2.4rem" : ""}">${esc(o)}</button>`).join("")}</div>`;
+        <div class="opts" id="opts">${opts.map((o, i) => `<button class="opt" data-act="answer" data-v="${esc(o)}" style="${q.emojiOpts ? "font-size:2.2rem" : ""}"><span class="k" aria-hidden="true">${i + 1}</span>${esc(o)}</button>`).join("")}</div>
+        <p class="kbd-hint">Atajo: teclas 1–${opts.length} para responder · Enter para seguir</p>`;
     } else if (q.kind === "order") {
       body = `<div class="slots ${q.vertical ? "vertical" : ""}" id="slots" aria-label="Tu respuesta"></div><div class="pool ${q.vertical ? "vertical" : ""}" id="pool"></div>`;
     } else if (q.kind === "robot") {
@@ -494,11 +531,13 @@
     }
     const canSpeak = q.speak || q.readText;
     return `<section class="play">
-      <div class="play-top"><button class="btn ghost small" data-act="quit" aria-label="Salir">✕</button><div class="progress" aria-label="Pregunta ${g.i + 1} de ${g.qs.length}"><i style="width:${(g.i / g.qs.length) * 100}%"></i></div><span class="pill">${g.i + 1}/${g.qs.length}</span></div>
+      <div class="hud"><button class="btn ghost small" data-act="quit" aria-label="Salir">✕</button><div class="progress" aria-label="Pregunta ${g.i + 1} de ${g.qs.length}"><i style="width:${(g.i / g.qs.length) * 100}%"></i></div><span class="pill">${g.i + 1}/${g.qs.length}</span>
+        <span class="combo ${g.combo >= 3 ? "hot" : ""}" id="combo" title="Respuestas seguidas">🔥 x${g.combo}</span><span class="pill xp-pill" id="xpnow">+${g.xp} XP</span>
+        ${g.timed && q.kind !== "robot" ? `<span class="timer" id="timer" style="--p:100" role="timer" aria-label="Tiempo restante"><span>${qTime(q)}</span></span>` : ""}</div>
       ${g.players.length > 1 ? `<div class="players">${g.players.map((pl, i) => `<span class="player ${i === turn ? "turn" : ""}"><span class="av">${pl.av}</span>${esc(pl.name)} · ${pl.pts}</span>`).join("")}</div>` : ""}
-      <div class="qcard">
+      <div class="qcard" id="qcard">
         ${turnMsg ? `<div class="turnmsg">${turnMsg}</div>` : ""}
-        <div class="row" style="justify-content:center"><div class="prompt" style="${q.small ? "font-size:clamp(1.1rem,2.6vw,1.45rem)" : ""}">${esc(q.prompt)}</div>${canSpeak && !q.speakAfter ? `<button class="speak" data-act="speakQ" aria-label="Escuchar">🔊</button>` : ""}</div>
+        <div class="row" style="justify-content:center"><div class="prompt" style="${q.small ? "font-size:clamp(1.05rem,2.6vw,1.35rem)" : ""}">${esc(q.prompt)}</div>${canSpeak && !q.speakAfter ? `<button class="speak" data-act="speakQ" aria-label="Escuchar">🔊</button>` : ""}</div>
         ${body}
         <div class="feedback" id="fb" role="status"></div>
         <div id="after" class="row" style="justify-content:center">${q.kind === "choice" && q.options.length > 2 ? '<button class="btn ghost small" data-act="hint">🤝 Pista</button>' : ""}</div>
@@ -509,11 +548,44 @@
     if (q.kind === "order") mountOrder(q);
     if (q.kind === "robot") mountRobot(q);
     if (q.speak && q.speakFirst) setTimeout(() => speak(q.speak, "en-US"), 350);
+    if (play.timed && q.kind !== "robot") startTimer(qTime(q));
   }
-  function award(ok) {
+  function startTimer(sec) {
+    stopTimer(); const g = play, t0 = Date.now(); g.tLeft = sec;
+    tmr = setInterval(() => {
+      if (play !== g || g.answered) return stopTimer();
+      const left = Math.max(0, sec - (Date.now() - t0) / 1000); g.tLeft = left;
+      const el = $("#timer"); if (el) { el.style.setProperty("--p", ((left / sec) * 100).toFixed(1)); el.firstElementChild.textContent = Math.ceil(left); el.classList.toggle("low", left <= 5); }
+      if (left <= 0) { stopTimer(); timeUp(); }
+    }, 100);
+  }
+  function stopTimer() { clearInterval(tmr); tmr = null; }
+  function timeUp() {
+    const g = play, q = g.qs[g.i]; if (!g || g.answered) return; g.answered = true; g.tLeft = 0;
+    award(false); const fb = $("#fb"); fb.className = "feedback bad";
+    if (q.kind === "choice") { $("#opts").classList.add("locked"); document.querySelectorAll("#opts .opt").forEach((b) => b.classList.add(b.dataset.v === q.answer ? "right" : "dim")); fb.textContent = `⏰ ¡Se acabó el tiempo! Era: ${q.answer}`; }
+    else { $("#slots").classList.add("no"); $("#after").onclick = null; fb.textContent = `⏰ ¡Se acabó el tiempo! Orden correcto: ${q.items.join(q.vertical ? " → " : " ")}`; }
+    $("#after").innerHTML = (q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : "") + nextBtn();
+  }
+  function floatText(txt, el) {
+    const r = (el || $("#qcard") || document.body).getBoundingClientRect();
+    const d = document.createElement("div"); d.className = "xp-float"; d.textContent = txt;
+    d.style.left = `${r.left + r.width / 2}px`; d.style.top = `${Math.max(70, r.top + 10)}px`;
+    document.body.appendChild(d); setTimeout(() => d.remove(), 1200);
+  }
+  function award(ok, el) {
+    stopTimer();
     const g = play, turn = g.players.length > 1 ? g.i % 2 : 0;
-    if (ok) { g.correct++; g.players[turn].pts++; sfx.right(); say(pick(CHEERS), "happy"); }
-    else { sfx.wrong(); say(pick(OOPS) + " ¡Inténtalo en la próxima!", "sad"); }
+    const card = $("#qcard"); if (card) { card.classList.remove("flash-good", "flash-bad"); void card.offsetWidth; card.classList.add(ok ? "flash-good" : "flash-bad"); }
+    if (ok) {
+      g.correct++; g.players[turn].pts++; g.combo++; g.bestCombo = Math.max(g.bestCombo, g.combo);
+      const gain = 10 + (g.combo >= 3 ? 5 : 0) + (g.timed ? Math.ceil(g.tLeft / 2) : 0); g.xp += gain;
+      floatText(`+${gain} XP${g.combo >= 3 ? " 🔥" : ""}`, el); sfx.right();
+      say(g.combo >= 3 ? `¡Combo x${g.combo}! Sigue así 🔥` : pick(CHEERS), "happy");
+      if (g.combo >= 3) burst(el);
+    } else { g.combo = 0; sfx.wrong(); say(pick(OOPS) + " ¡Vamos con la próxima!", "sad"); }
+    const c = $("#combo"); if (c) { c.textContent = `🔥 x${g.combo}`; c.classList.toggle("hot", g.combo >= 3); }
+    const x = $("#xpnow"); if (x) x.textContent = `+${g.xp} XP`;
   }
   function onAnswer(btn) {
     const g = play, q = g.qs[g.i]; if (g.answered) return; g.answered = true;
@@ -521,13 +593,12 @@
     $("#opts").classList.add("locked");
     document.querySelectorAll("#opts .opt").forEach((b) => { if (b.dataset.v === q.answer) b.classList.add("right"); else if (b !== btn) b.classList.add("dim"); });
     if (!ok) btn.classList.add("wrong");
-    award(ok);
+    award(ok, btn);
     const fb = $("#fb"); fb.className = "feedback " + (ok ? "good" : "bad");
     fb.textContent = ok ? pick(CHEERS) : `${pick(OOPS)} La respuesta es: ${q.answer}`;
     if (q.speak && (q.speakAfter || !q.speakFirst)) speak(q.speak, q.speakLang || "en-US");
-    const after = $("#after");
-    after.innerHTML = `${q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : ""}<button class="btn" data-act="next">${g.i + 1 < g.qs.length ? "Siguiente ➜" : "Ver resultado 🏁"}</button>`;
-    if (ok && !q.explain) setTimeout(() => { if (play === g && g.answered && g.qs[g.i] === q) nextQ(); }, 1300);
+    $("#after").innerHTML = `${q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : ""}${nextBtn()}`;
+    if (ok && !q.explain) setTimeout(() => { if (play === g && g.answered && g.qs[g.i] === q) nextQ(); }, 1200);
   }
   function nextQ() { const g = play; if (!g) return; g.i++; g.answered = false; g.hinted = false; if (g.i >= g.qs.length) return finish(); render(); }
   function hint() {
@@ -550,12 +621,12 @@
     $("#after").onclick = (e) => {
       if (e.target.id !== "chk" || play.answered) return; play.answered = true;
       const ok = st.placed.map((x) => x.w).join("|") === q.items.join("|");
-      $("#slots").classList.add(ok ? "ok" : "no"); award(ok);
+      $("#slots").classList.add(ok ? "ok" : "no"); award(ok, $("#slots"));
       const fb = $("#fb"); fb.className = "feedback " + (ok ? "good" : "bad");
       fb.textContent = ok ? pick(CHEERS) : `${pick(OOPS)} El orden correcto es: ${q.items.join(q.vertical ? " → " : " ")}`;
       if (q.speak) speak(q.speak, "en-US");
       $("#after").onclick = null;
-      $("#after").innerHTML = `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Siguiente ➜" : "Ver resultado 🏁"}</button>`;
+      $("#after").innerHTML = nextBtn();
     };
     draw();
   }
@@ -594,7 +665,7 @@
       const b = e.target.closest("[data-rb]"); if (!b || st.running || play.answered) return; const k = b.dataset.rb;
       if (ARR[k]) { if (st.prog.length < 30) { st.prog.push(k); sfx.tap(); } }
       else if (k === "undo") st.prog.pop();
-      else if (k === "skip") { play.answered = true; award(false); $("#fb").className = "feedback bad"; $("#fb").textContent = "¡No pasa nada! Lo intentamos en el siguiente."; $("#after").innerHTML = `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Siguiente ➜" : "Ver resultado 🏁"}</button>`; }
+      else if (k === "skip") { play.answered = true; award(false); $("#fb").className = "feedback bad"; $("#fb").textContent = "¡No pasa nada! Lo intentamos en el siguiente."; $("#after").innerHTML = nextBtn(); }
       else if (k === "run") {
         st.running = true; st.pos = [...L.start]; st.trail = []; draw();
         let fail = "";
@@ -608,9 +679,9 @@
         st.running = false;
         const okGoal = !fail && st.pos[0] === L.goal[0] && st.pos[1] === L.goal[1];
         if (okGoal) {
-          play.answered = true; award(st.fails === 0);
+          play.answered = true; award(st.fails === 0, $("#robot .grid-robot"));
           $("#fb").className = "feedback good"; $("#fb").textContent = st.prog.length === L.best ? "¡Perfecto! Camino más corto 🏅" : `¡Llegaste! Usaste ${st.prog.length} pasos.`;
-          draw(); $("#after").innerHTML = `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Siguiente ➜" : "Ver resultado 🏁"}</button>`; return;
+          draw(); $("#after").innerHTML = nextBtn(); return;
         }
         st.fails++; sfx.wrong(); say(fail || "Todavía no llega a la estrella. ¡Corrige el programa!", "sad");
         $("#fb").className = "feedback bad"; $("#fb").textContent = (fail || "No llegó a la estrella.") + " Ajusta tu programa y vuelve a intentar.";
@@ -633,11 +704,24 @@
     S.history.push({ k, d: t, pct, title: g.u.title, subj: g.u.subj }); if (S.history.length > 200) S.history = S.history.slice(-200);
     if (g.planIdx != null && S.plan) { const day = S.plan.days[(new Date().getDay() + 6) % 7]; if (day && day.items[g.planIdx]) day.items[g.planIdx].done = true; }
     if (g.ref.type === "course") { const c = S.courses.find((x) => x.id === g.ref.cid); if (c) { c.lastStudied = t; } }
+    const bonus = stars * 10 + (pct === 100 ? 20 : 0), xpGain = g.xp + bonus, before = levelInfo(S.xp);
+    S.xp += xpGain; S.bestCombo = Math.max(S.bestCombo || 0, g.bestCombo);
     save();
-    play.result = { pct, stars, sticker };
+    play.result = { pct, stars, sticker, xpGain, bonus, before, after: levelInfo(S.xp) };
     go("result");
+    animateResult(play.result);
     sfx.win(); if (stars >= 2) confetti();
     say(stars === 3 ? "¡Tres estrellas! ¡Eres increíble!" : stars === 2 ? "¡Muy bien! Un poco más y llegas a 3 estrellas." : "¡Buen esfuerzo! Repasemos juntos otra vez.", "happy");
+  }
+  function animateResult(r) {
+    const el = $("#xpcount"), t0 = performance.now(), dur = 1100;
+    const tick = (t) => { const k = Math.min(1, (t - t0) / dur); if (el) el.textContent = `+${Math.round(r.xpGain * (1 - Math.pow(1 - k, 3)))} XP`; if (k < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    setTimeout(() => {
+      const f = $("#lvlfill"); if (!f) return;
+      if (r.after.lv > r.before.lv) { f.style.width = "100%"; setTimeout(() => { f.style.transition = "none"; f.style.width = "0%"; void f.offsetWidth; f.style.transition = ""; f.style.width = r.after.pct + "%"; const n = $("#lvlname"); if (n) n.textContent = `Nivel ${r.after.lv}`; sfx.win(); confetti(120); }, 1000); }
+      else f.style.width = r.after.pct + "%";
+    }, 350);
   }
   function vResult() {
     const g = play; if (!g || !g.result) return vHome();
@@ -647,7 +731,10 @@
       <p class="eyebrow">${esc(g.u.title)}</p>
       <div class="big-stars">${[1, 2, 3].map((i) => `<span class="${i <= stars ? "" : "off"}">⭐</span>`).join("")}</div>
       <h1>${stars === 3 ? "¡Misión perfecta!" : stars === 2 ? "¡Muy bien hecho!" : "¡Buen intento!"}</h1>
-      <p class="muted" style="margin:0">Acertaste ${g.correct} de ${g.qs.length} (${pct}%).</p>
+      <p class="muted" style="margin:0">Acertaste ${g.correct} de ${g.qs.length} (${pct}%) · mejor combo x${g.bestCombo}</p>
+      <div class="xp-total" id="xpcount" aria-label="${g.result.xpGain} XP ganados">+0 XP</div>
+      <div class="lvlbar"><div class="top"><b id="lvlname">Nivel ${g.result.before.lv}</b><span>${g.result.bonus ? `incluye bonus de ${g.result.bonus} XP` : ""}</span></div><div class="xpbar"><i id="lvlfill" style="width:${g.result.before.pct}%"></i></div></div>
+      ${g.result.after.lv > g.result.before.lv ? `<div class="levelup">⬆️ ¡Subiste a nivel ${g.result.after.lv}!${g.result.after.rank !== g.result.before.rank ? ` Nuevo rango: ${g.result.after.rank}` : ""}</div>` : ""}
       ${g.players.length > 1 ? `<div class="scoreboard">${g.players.map((p) => `<span class="player"><span class="av">${p.av}</span>${esc(p.name)}: ${p.pts}</span>`).join("")}</div><b>${winner}</b>` : ""}
       ${sticker ? `<div class="sticker-won">${sticker}</div><p style="margin:0">¡Nueva lámina para tu álbum!</p>` : ""}
       ${stars < 2 ? `<div class="parent" style="text-align:left"><b>${S.profile.adultAvatar} Sugerencia:</b> repasen juntos la explicación y vuelvan a intentarlo. Equivocarse es parte de aprender.</div>` : ""}
@@ -671,7 +758,7 @@
       <div class="field"><label>Minutos por día</label><div class="toggles">${[15, 20, 30, 45].map((m) => `<button class="toggle" data-act="pl" data-k="minutes" data-v="${m}" aria-pressed="${d.minutes === m}">${m} min</button>`).join("")}</div></div>
       ${S.courses.length ? `<div class="field"><label>Mis cursos</label><div class="toggles"><button class="toggle" data-act="pl" data-k="withCourses" data-v="1" aria-pressed="${d.withCourses}">📚 Incluir lecciones de mis cursos</button></div></div>` : ""}
       <div class="row"><button class="btn" data-act="makePlan">✨ Crear plan</button>${S.plan ? '<button class="btn ghost" data-act="planCancel">Cancelar</button>' : ""}</div></div>`;
-    if (!S.plan || view.p.edit) return `<section class="stack"><div class="section-head"><h1>📅 Plan de estudio</h1></div><p class="muted" style="margin:0">Lumi reparte los temas del grado entre los días que elijan, empezando por lo que aún no han practicado.</p>${form}</section>`;
+    if (!S.plan || view.p.edit) return `<section class="stack"><div class="section-head"><h1>📅 Plan de estudio</h1></div><p class="muted" style="margin:0">Nova reparte los temas del grado entre los días que elijan, empezando por lo que aún no han practicado.</p>${form}</section>`;
     const done = S.plan.days.flatMap((x) => x.items).filter((x) => x.done).length, all = S.plan.days.flatMap((x) => x.items).length;
     return `<section class="stack">
       <div class="section-head"><h1>📅 Plan de la semana</h1><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="plan" data-edit="1">✏️ Cambiar plan</button></div>
@@ -708,7 +795,7 @@
   function courseCard(c) {
     const ls = courseLessons(c), done = ls.filter((_, i) => prog(`${c.id}:${i}`)).length, saved = S.courses.some((x) => x.id === c.id);
     const weak = ls.filter((_, i) => { const p = prog(`${c.id}:${i}`); return p && p.stars < 2; }).length;
-    return `<button class="course" style="--c:${SUBJECTS[c.subject] ? SUBJECTS[c.subject].color : "var(--c-mat)"}" data-act="go" data-to="course" data-id="${esc(c.id)}">
+    return `<button class="course" style="${sv(c.subject)}" data-act="go" data-to="course" data-id="${esc(c.id)}">
       <span class="top"><span class="em">${esc(c.emoji || "📘")}</span><span><h3>${esc(c.title)}</h3><span class="tag ${c.source === "ai" ? "ai" : ""}">${c.source === "ai" ? "✨ Creado con IA" : SUBJECTS[c.subject] ? esc(subjName(c.subject)) : "Curso"}</span> ${weak ? `<span class="tag weak">${weak} por reforzar</span>` : ""}</span></span>
       <p>${esc(c.summary || "")}</p>
       ${saved ? `<span class="muted" style="font-size:.85rem">${done} de ${ls.length} lecciones</span><span class="bar"><i style="width:${ls.length ? (done / ls.length) * 100 : 0}%"></i></span>` : `<span class="muted" style="font-size:.85rem">${ls.length} lecciones</span>`}
@@ -740,7 +827,7 @@
     const nextIdx = ls.findIndex((_, i) => !prog(`${c.id}:${i}`));
     return `<section class="stack">
       <button class="btn ghost small" style="justify-self:start" data-act="go" data-to="courses">← Cursos</button>
-      <div class="subject-hero" style="--c:${SUBJECTS[c.subject] ? SUBJECTS[c.subject].color : "var(--c-mat)"}"><span class="icon">${esc(c.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">${c.source === "ai" ? "✨ Curso creado con IA" : "Curso listo"} · ${SUBJECTS[c.subject] ? esc(subjName(c.subject)) : ""}</p><h1>${esc(c.title)}</h1><p>${esc(c.summary || "")}</p></div></div>
+      <div class="subject-hero" style="${sv(c.subject)}"><span class="icon">${esc(c.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">${c.source === "ai" ? "✨ Curso creado con IA" : "Curso listo"} · ${SUBJECTS[c.subject] ? esc(subjName(c.subject)) : ""}</p><h1>${esc(c.title)}</h1><p>${esc(c.summary || "")}</p></div></div>
       ${saved ? `<div class="card row"><div><b style="font-family:var(--f-display)">Seguimiento</b><div class="muted">${done}/${ls.length} lecciones · promedio ${avg}% ${saved.lastStudied ? `· último estudio ${saved.lastStudied}` : ""}</div></div><div class="bar" style="flex:1;min-width:140px"><i style="width:${ls.length ? (done / ls.length) * 100 : 0}%"></i></div>${nextIdx >= 0 ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify({ type: "course", cid: c.id, li: nextIdx }))}'>Continuar ➜</button>` : '<span class="tag">¡Completado! 🏆</span>'}</div>`
         : `<div class="card row"><span style="font-size:1.8rem">💾</span><div style="flex:1;min-width:200px"><b style="font-family:var(--f-display)">Guarda este curso</b><div class="muted">Así queda en “Mis cursos”, con progreso por lección y sugerencias de refuerzo.</div></div><button class="btn" data-act="saveReady" data-id="${esc(c.id)}">Guardar en mis cursos</button></div>`}
       ${c.parentGuide ? `<div class="parent"><b>${S.profile.adultAvatar} Guía para el adulto:</b> ${esc(c.parentGuide)}</div>` : ""}
@@ -756,10 +843,10 @@
     const P = S.profile;
     maker.form = maker.form || { topic: p.q || "", subject: "auto", grade: P.grade, lessons: 5, notes: "" };
     const f = maker.form, c = COUNTRIES[P.country];
-    if (maker.status === "loading") return `<section class="card thinking"><div class="orbit">🪐</div><h2>Lumi está creando tu curso…</h2><p class="log" id="mk-log">Revisando lo que se estudia en ${esc(gradeLabel(P.country, f.grade))}…</p><p class="muted">Puede tardar hasta un minuto.</p></section>`;
+    if (maker.status === "loading") return `<section class="card thinking"><div class="orbit">🪐</div><h2>Nova está creando tu curso…</h2><p class="log" id="mk-log">Revisando lo que se estudia en ${esc(gradeLabel(P.country, f.grade))}…</p><p class="muted">Puede tardar hasta un minuto.</p></section>`;
     if (maker.status === "done" && maker.course) {
       const m = maker.course;
-      return `<section class="stack"><div class="subject-hero" style="--c:${SUBJECTS[m.subject] ? SUBJECTS[m.subject].color : "var(--c-ing)"}"><span class="icon">${esc(m.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">✨ Vista previa del curso</p><h1>${esc(m.title)}</h1><p>${esc(m.summary || "")}</p></div></div>
+      return `<section class="stack"><div class="subject-hero" style="${sv(m.subject)}"><span class="icon">${esc(m.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">✨ Vista previa del curso</p><h1>${esc(m.title)}</h1><p>${esc(m.summary || "")}</p></div></div>
         ${m.parentGuide ? `<div class="parent"><b>${P.adultAvatar} Guía para el adulto:</b> ${esc(m.parentGuide)}</div>` : ""}
         <div class="lessons">${m.lessons.map((l, i) => `<div class="lesson-row"><span class="num">${i + 1}</span><span><b>${esc(l.title)}</b><span class="muted" style="font-size:.9rem">${esc(l.explanation).slice(0, 140)}${(l.explanation || "").length > 140 ? "…" : ""} · ${l.activities.length} actividades</span></span></div>`).join("")}</div>
         <div class="row"><button class="btn big" data-act="saveAi">💾 Guardar en mis cursos</button><button class="btn ghost" data-act="makerRetry">🔁 Generar otra versión</button><button class="btn ghost" data-act="makerReset">Cambiar el pedido</button></div></section>`;
@@ -862,7 +949,7 @@ Reglas:
     try {
       const raw = await askAI(prompt);
       const extra = cleanCourse({ lessons: [{ title: l.title, activities: raw.activities }] }, { topic: c.title, subject: c.subject, grade: c.grade }).lessons[0].activities;
-      startPlay({ type: "course", cid, li }, null, modeTogether, buildQuestions({ activities: extra }));
+      startPlay({ type: "course", cid, li }, null, playMode, buildQuestions({ activities: extra }));
     } catch (e) { toast(aiErrorMsg(e).replace(/<[^>]+>/g, "")); }
   }
 
@@ -873,7 +960,8 @@ Reglas:
     const weak = Object.entries(S.progress).filter(([, v]) => v.stars < 2).map(([k]) => k).slice(0, 6);
     return `<section class="stack">
       <div class="section-head"><h1>🏆 Logros de ${esc(P.name)}</h1></div>
-      <div class="row"><span class="pill star">⭐ ${S.stars} estrellas</span><span class="pill">🔥 ${S.streak.n} ${S.streak.n === 1 ? "día" : "días"} seguidos</span><span class="pill">🎴 ${S.stickers.length}/${STICKERS.length} láminas</span><span class="pill">📚 ${S.courses.length} cursos</span></div>
+      <div class="player-card"><div class="big-av">${P.avatar}</div><div><p class="eyebrow">Rango</p><h2>${levelInfo(S.xp).rank} · Nivel ${levelInfo(S.xp).lv}</h2><div class="lvlbar" style="margin-top:10px"><div class="top"><b>${S.xp} XP en total</b><span>${levelInfo(S.xp).cur} / ${levelInfo(S.xp).need} para subir</span></div><div class="xpbar"><i style="width:${levelInfo(S.xp).pct}%"></i></div></div></div></div>
+      <div class="row"><span class="pill">🔥 Mejor combo x${S.bestCombo || 0}</span><span class="pill star">⭐ ${S.stars} estrellas</span><span class="pill">🔥 ${S.streak.n} ${S.streak.n === 1 ? "día" : "días"} seguidos</span><span class="pill">🎴 ${S.stickers.length}/${STICKERS.length} láminas</span><span class="pill">📚 ${S.courses.length} cursos</span></div>
       <div class="card stack"><h2>Avance por materia · ${esc(gradeLabel(P.country, g))}</h2>
         ${SUBJ_KEYS.map((s) => `<div class="row"><span style="width:2rem;font-size:1.4rem">${SUBJECTS[s].icon}</span><b style="font-family:var(--f-display);min-width:150px">${esc(subjName(s))}</b><div class="bar" style="flex:1;min-width:120px"><i style="width:${subjPct(s)}%;background:${SUBJECTS[s].color}"></i></div><span class="muted" style="min-width:3.5ch;text-align:right">${subjPct(s)}%</span></div>`).join("")}
       </div>
@@ -930,15 +1018,16 @@ Reglas:
       }
       case "open": return go("lesson", { ref, plan: b.dataset.plan != null ? +b.dataset.plan : null });
       case "back": { if (ref.type === "topic") { const x = TOPIC_INDEX[ref.id]; return go("subject", { id: x.s, grade: x.g }); } return go("course", { id: ref.cid }); }
-      case "mode": modeTogether = b.dataset.v === "1"; sfx.tap(); document.querySelectorAll(".mode").forEach((m) => m.setAttribute("aria-pressed", String(m === b))); return;
-      case "start": return startPlay(ref, b.dataset.plan != null ? +b.dataset.plan : null, modeTogether);
-      case "together": { modeTogether = true; const r = dailySuggestions()[0]; return startPlay(r, null, true); }
+      case "mode": playMode = b.dataset.v; sfx.tap(); document.querySelectorAll(".mode").forEach((m) => m.setAttribute("aria-pressed", String(m === b))); return;
+      case "start": return startPlay(ref, b.dataset.plan != null ? +b.dataset.plan : null, playMode);
+      case "together": return startPlay(dailySuggestions()[0], null, "juntos");
+      case "quick": return startPlay(dailySuggestions()[0], null, "solo");
       case "readLesson": { const u = unit(ref); return speak(`${u.title}. ${u.lesson || ""} ${u.example || ""}`, "es-ES"); }
       case "answer": return onAnswer(b);
       case "hint": return hint();
       case "next": return nextQ();
-      case "quit": play = null; return go("home");
-      case "again": return startPlay(play.ref, null, play.players.length > 1);
+      case "quit": stopTimer(); play = null; return go("home");
+      case "again": return startPlay(play.ref, null, play.mode);
       case "speakQ": { const q = play.qs[play.i]; return speak(q.readText || q.speak, q.readText ? "es-ES" : q.speakLang || "en-US"); }
       case "askChip": return go("courses", { q: b.dataset.q });
       case "pl": {
@@ -968,8 +1057,42 @@ Reglas:
   });
   document.addEventListener("click", (e) => { if (e.target.closest(".buddy svg")) say(pick(["¡Tú puedes! 💪", "¿Jugamos un reto en familia?", "Aprender es una aventura 🚀", "¡Me encanta estudiar contigo!", "Tip: lean la pregunta en voz alta 📢"]), "happy"); });
 
+  document.addEventListener("keydown", (e) => {
+    if (view.name !== "play" || !play || e.target.closest("input, textarea, select")) return;
+    const q = play.qs[play.i];
+    if (q.kind === "choice" && !play.answered && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll("#opts .opt")[+e.key - 1]; if (b && !b.disabled) { e.preventDefault(); onAnswer(b); } }
+    else if ((e.key === "Enter" || e.key === "ArrowRight") && play.answered) { const n = $('[data-act="next"]'); if (n) { e.preventDefault(); nextQ(); } }
+  });
+  const fine = window.matchMedia && matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches;
+  if (fine) {
+    document.addEventListener("pointermove", (e) => {
+      const w = e.target.closest && e.target.closest("[data-tilt]"); if (!w) return;
+      const r = w.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      w.style.setProperty("--ry", `${(x - 0.5) * 14}deg`); w.style.setProperty("--rx", `${(0.5 - y) * 14}deg`);
+      w.style.setProperty("--mx", `${x * 100}%`); w.style.setProperty("--my", `${y * 100}%`);
+    });
+    document.addEventListener("pointerout", (e) => { const w = e.target.closest && e.target.closest("[data-tilt]"); if (w && !w.contains(e.relatedTarget)) { w.style.setProperty("--rx", "0deg"); w.style.setProperty("--ry", "0deg"); } });
+  }
+  function background() {
+    const cv = $("#bg"); if (!cv || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+    const ctx = cv.getContext("2d"); let W, H;
+    const size = () => { W = cv.width = innerWidth; H = cv.height = innerHeight; };
+    size(); addEventListener("resize", size);
+    const blobs = ["#8f63ff", "#3ee6ff", "#ff5fd2", "#ff8a3d"].map((c, i) => ({ c, x: Math.random(), y: Math.random(), r: 0.35 + i * 0.05, sx: (Math.random() - 0.5) * 0.0004, sy: (Math.random() - 0.5) * 0.0004 }));
+    const stars = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + 0.3, p: Math.random() * 6 }));
+    let t = 0;
+    (function loop() {
+      t += 1; ctx.clearRect(0, 0, W, H);
+      blobs.forEach((b) => { b.x += b.sx; b.y += b.sy; if (b.x < -0.1 || b.x > 1.1) b.sx *= -1; if (b.y < -0.1 || b.y > 1.1) b.sy *= -1; const g = ctx.createRadialGradient(b.x * W, b.y * H, 0, b.x * W, b.y * H, b.r * Math.max(W, H)); g.addColorStop(0, b.c + "55"); g.addColorStop(1, b.c + "00"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); });
+      ctx.fillStyle = "#ffffff"; stars.forEach((s) => { ctx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(s.p + t / 60)); ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill(); }); ctx.globalAlpha = 1;
+      if (!document.hidden) requestAnimationFrame(loop); else setTimeout(() => requestAnimationFrame(loop), 500);
+    })();
+  }
+
   /* ================= arranque ================= */
-  document.body.insertAdjacentHTML("beforeend", `<div class="buddy" aria-live="polite"><div class="say"></div>${LUMI}</div><canvas id="confetti"></canvas>`);
+  document.body.insertAdjacentHTML("afterbegin", '<canvas id="bg" aria-hidden="true"></canvas>');
+  background();
+  document.body.insertAdjacentHTML("beforeend", `<div class="buddy" aria-live="polite"><div class="say"></div>${NOVA}</div><canvas id="confetti"></canvas>`);
   render();
   if (S.profile) setTimeout(() => say(`¡Hola de nuevo, ${S.profile.name}! ${S.streak.n > 1 ? `Llevas ${S.streak.n} días seguidos 🔥` : "¿Qué aprendemos hoy?"}`), 600);
   initCloud();
