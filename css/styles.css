@@ -591,3 +591,45 @@ body.focus .buddy, body.bare .buddy { display: none; }
 .cb-icon { background: transparent !important; width: 72px !important; height: 72px !important; }
 .checkbar.good .cb-icon::after, .checkbar.bad .cb-icon::after { content: none !important; }
 .cb-icon .art { width: 72px; animation: pop .35s; }
+
+/* ---------- íconos propios y avatares ---------- */
+.ico { display: inline-block; width: 1.25em; height: 1.25em; vertical-align: -.28em; flex: none; }
+.navbtn .ni .ico { width: 32px; height: 32px; vertical-align: middle; }
+@media (max-width: 999px) { .navbtn .ni .ico { width: 26px; height: 26px; } }
+.stat .ico { width: 24px; height: 24px; }
+.btn .ico { width: 1.35em; height: 1.35em; }
+.stop .node .ico { width: 34px; height: 34px; vertical-align: middle; }
+.task .dot .ico, .lesson-head .badge .ico { width: 60%; height: 60%; }
+.mode .mi .ico { width: 40px; height: 40px; }
+.quest .ring .ico { width: 26px; height: 26px; position: relative; }
+.speak .ico { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+.avi { display: inline-block; width: 1em; height: 1em; vertical-align: -.12em; line-height: 1; }
+svg.avi { border-radius: 50%; }
+.big-av .avi { width: 100%; height: 100%; }
+.big-av { overflow: hidden; padding: 0; }
+.big-av[data-frame="f-arcoiris"] { padding: 5px; }
+.avatar-opt .avi { width: 44px; height: 44px; }
+.avatar-opt.create { display: grid; place-items: center; gap: 0; font-size: 1.3rem; color: var(--cyan-ink); border-style: dashed; }
+.avatar-opt.create small { font-size: .62rem; font-weight: 900; text-transform: uppercase; letter-spacing: .04em; line-height: 1; }
+.pp-av .avi { width: 100%; height: 100%; }
+.pp-av { overflow: hidden; }
+.player .av .avi { width: 30px; height: 30px; }
+.bz-av .avi { width: 1.2em; height: 1.2em; }
+.parent b .avi { width: 1.4em; height: 1.4em; vertical-align: -.35em; }
+.avatar-maker { display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: 22px; align-items: start; }
+.av-preview { position: sticky; top: 20px; display: grid; gap: 12px; justify-items: center; text-align: center; }
+.av-big { width: min(220px, 60vw); height: min(220px, 60vw); }
+.av-big .avi { width: 100%; height: 100%; animation: pop .35s; }
+.av-parts { display: grid; gap: 18px; }
+.av-row h3 { font-size: .95rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+.av-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; }
+.av-opts.sw { grid-template-columns: repeat(auto-fill, 44px); }
+.av-thumb { display: grid; justify-items: center; gap: 4px; padding: 8px 4px; border-radius: 14px; border: 2px solid var(--stroke); border-bottom-width: 4px; background: var(--panel); }
+.av-thumb .avi { width: 52px; height: 52px; }
+.av-thumb small { font-size: .68rem; font-weight: 800; color: var(--ink-soft); line-height: 1.1; }
+.av-thumb[aria-pressed="true"] { border-color: var(--cyan); background: var(--sel-bg); }
+.swatch { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--panel); box-shadow: 0 0 0 2px var(--stroke); }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--cyan); transform: scale(1.08); }
+@media (max-width: 760px) { .avatar-maker { grid-template-columns: 1fr; } .av-preview { position: static; } }
+.notice.share pre { white-space: pre-wrap; font-family: inherit; font-weight: 700; background: var(--panel); border: 2px dashed var(--stroke); border-radius: 12px; padding: 12px; margin: 8px 0; }
+.notice.share { display: grid; gap: 6px; justify-items: start; }

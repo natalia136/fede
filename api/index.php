@@ -194,6 +194,17 @@ $resp = with_db(function (&$db) use ($parts, $method, $AI_KEY) {
       }
       return [200, ['users' => $out]];
     }
+    if ($method === 'POST' && $p1 === 'users' && empty($parts[2])) {
+      $b = body(); $email = strtolower(trim((string) ($b['email'] ?? ''))); $name = mb_substr(trim((string) ($b['name'] ?? '')), 0, 40); $pw = (string) ($b['password'] ?? '');
+      if (!preg_match('/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/', $email)) return [400, ['error' => 'Escribe un email válido.']];
+      if ($name === '') return [400, ['error' => 'Escribe el nombre.']];
+      if ($pw !== '' && strlen($pw) < 8) return [400, ['error' => 'La contraseña debe tener al menos 8 caracteres.']];
+      foreach ($db['users'] as $u) if ($u['email'] === $email) return [409, ['error' => 'Ya existe una cuenta con ese email.']];
+      if ($pw === '') { $A = 'abcdefghjkmnpqrstuvwxyz23456789'; for ($i = 0; $i < 10; $i++) $pw .= $A[random_int(0, strlen($A) - 1)]; }
+      $nu = ['id' => new_id(), 'email' => $email, 'name' => $name, 'role' => (($b['role'] ?? '') === 'admin') ? 'admin' : 'user', 'created' => iso(), 'lastLogin' => null, 'pw' => password_hash($pw, PASSWORD_DEFAULT)];
+      $db['users'][] = $nu;
+      return [201, ['user' => public_user($nu), 'password' => $pw]];
+    }
     $tid = $parts[2] ?? ''; $target = &find_user($db, $tid);
     if ($p1 !== 'users' || !$target) return [404, ['error' => 'Usuario no encontrado.']];
     if ($method === 'PATCH') {

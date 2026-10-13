@@ -50,6 +50,7 @@ function authUser(req) {
 }
 const publicUser = (u) => ({ id: u.id, email: u.email, name: u.name, role: u.role, created: u.created, lastLogin: u.lastLogin });
 const id = () => crypto.randomBytes(8).toString("hex");
+function tempPassword() { const A = "abcdefghjkmnpqrstuvwxyz23456789"; return Array.from(crypto.randomBytes(10), (x) => A[x % A.length]).join(""); }
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
 
 // límite simple de intentos de inicio de sesión por IP
@@ -167,6 +168,18 @@ async function api(req, res, pathname) {
     if (user.role !== "admin") return fail(res, 403, "Solo un administrador puede hacer esto.");
     if (method === "GET" && parts[1] === "users") {
       return send(res, 200, { users: db.users.map((u) => Object.assign(publicUser(u), { profiles: db.profiles.filter((p) => p.userId === u.id).map((p) => (p.state && p.state.profile ? p.state.profile.name : "")).filter(Boolean) })) });
+    }
+    if (method === "POST" && parts[1] === "users" && !parts[2]) {
+      const b = await readJson(req), email = String(b.email || "").trim().toLowerCase(), name = String(b.name || "").trim().slice(0, 40);
+      let pw = String(b.password || "");
+      if (!EMAIL.test(email)) return fail(res, 400, "Escribe un email válido.");
+      if (!name) return fail(res, 400, "Escribe el nombre.");
+      if (pw && pw.length < 8) return fail(res, 400, "La contraseña debe tener al menos 8 caracteres.");
+      if (db.users.some((u) => u.email === email)) return fail(res, 409, "Ya existe una cuenta con ese email.");
+      if (!pw) pw = tempPassword();
+      const nu = Object.assign({ id: id(), email, name, role: b.role === "admin" ? "admin" : "user", created: new Date().toISOString(), lastLogin: null }, hashPassword(pw));
+      db.users.push(nu); persist();
+      return send(res, 201, { user: publicUser(nu), password: pw });
     }
     const target = db.users.find((u) => u.id === parts[2]);
     if (parts[1] !== "users" || !target) return fail(res, 404, "Usuario no encontrado.");

@@ -4,8 +4,8 @@
   const CUR = window.CURRICULUM, COUNTRIES = window.COUNTRIES;
   const { SUBJECTS, TOPICS, COURSES, VOCAB, Q, SORT, ORDER, READ, SYLL, VOWELS, INITIAL, SYNANT, SPELL } = CUR;
   const SUBJ_KEYS = Object.keys(SUBJECTS);
-  const AVATARS = ["🦊", "🐼", "🦁", "🐸", "🦄", "🐙", "🐯", "🐨", "🦖", "🐧", "🚀", "🧑‍🚀"];
-  const ADULT_AVATARS = ["👩", "👨", "👵", "👴", "🧑", "🦸"];
+  const AVATARS = window.ART.KID_AVATARS;
+  const ADULT_AVATARS = window.ART.ADULT_AVATARS;
   const STICKERS = ["🦄", "🐉", "🦕", "🐙", "🦋", "🐳", "🦜", "🐢", "🦩", "🦔", "🐝", "🦀", "🐬", "🦒", "🦓", "🐘", "🦉", "🦚", "🌋", "🌈", "🪐", "🚀", "🛸", "🌟", "⚡", "🔮", "🎸", "🏆", "👑", "💎", "🍩", "🧁", "🍉", "🌮", "🎡", "🎢", "🏰", "🗿", "🧩", "🎨"];
   const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
   const CHEERS = ["¡Excelente!", "¡Genial!", "¡Lo lograste!", "¡Súper!", "¡Bravo!", "¡Increíble!", "¡Eres un crack!", "¡Muy bien!"];
@@ -184,7 +184,7 @@
   }
 
   /* ================= mascota Nova ================= */
-  const ART = window.ART, NOVA = ART.nova("happy");
+  const ART = window.ART, NOVA = ART.nova("happy"), I = ART.icon, av = (v) => ART.avatar(v);
   let sayT;
   function say(text, mood) {
     const b = $(".buddy"); if (!b) return;
@@ -359,7 +359,7 @@
   const gradeLabel = (cc, g) => { const c = COUNTRIES[cc] || COUNTRIES.xx; return `${c.grades[g]} ${c.gradeSuffix[g] || ""}`.trim(); };
   const findCourse = (id) => S.courses.find((c) => c.id === id) || COURSES.find((c) => c.id === id);
   function courseLessons(c) { if (!c) return []; if (c.source === "ai" || c.lessons) return c.lessons || []; const pc = COURSES.find((x) => x.id === (c.ref || c.id)); return pc ? pc.lessons : []; }
-  const LEVELS = [null, { name: "Aprende", icon: "📖", n: 6 }, { name: "Practica", icon: "💪", n: 8 }, { name: "Domina", icon: "👑", n: 10 }];
+  const LEVELS = [null, { name: "Aprende", icon: "book", n: 6 }, { name: "Practica", icon: "dumbbell", n: 8 }, { name: "Domina", icon: "crown", n: 10 }];
   const lkey = (id, lv) => (lv > 1 ? `${id}#${lv}` : id);
   const refOfKey = (k) => (k.includes(":") ? { type: "course", cid: k.split(":")[0], li: +k.split(":")[1] } : { type: "topic", id: k.split("#")[0], lv: +(k.split("#")[1] || 1) });
   function firstOpen(s, g) { for (const t of TOPICS[s][g]) for (let lv = 1; lv <= 3; lv++) if (!prog(lkey(t.id, lv))) return { type: "topic", id: t.id, lv }; return null; }
@@ -367,7 +367,7 @@
     if (ref.type === "topic") {
       const x = TOPIC_INDEX[ref.id]; if (!x) return null;
       const lv = Math.min(3, Math.max(1, ref.lv || 1)), L = LEVELS[lv];
-      return { key: lkey(ref.id, lv), lv, g: x.g, levelName: `${L.icon} ${L.name}`, title: x.t.title, subj: x.s, lesson: x.t.lesson, example: x.t.example, tip: x.t.tip, gen: x.t.gen, params: x.t.params, where: `${subjName(x.s)} · Lección ${lv} de 3: ${L.name}` };
+      return { key: lkey(ref.id, lv), lv, g: x.g, levelName: L.name, title: x.t.title, subj: x.s, lesson: x.t.lesson, example: x.t.example, tip: x.t.tip, gen: x.t.gen, params: x.t.params, where: `${subjName(x.s)} · Lección ${lv} de 3: ${L.name}` };
     }
     const c = findCourse(ref.cid); if (!c) return null;
     const ls = courseLessons(c), l = ls[ref.li]; if (!l) return null;
@@ -408,12 +408,12 @@
   function render() {
     if (API.on) {
       if (!API.user) view = { name: "auth", p: view.name === "auth" ? view.p : {} };
-      else if (!API.pid && !["profiles", "setup", "admin"].includes(view.name)) view = { name: "profiles", p: {} };
-    } else if (!S.profile && view.name !== "setup") view = { name: "setup", p: { first: true } };
+      else if (!API.pid && !["profiles", "setup", "admin", "avatar"].includes(view.name)) view = { name: "profiles", p: {} };
+    } else if (!S.profile && !["setup", "avatar"].includes(view.name)) view = { name: "setup", p: { first: true } };
     document.body.classList.toggle("focus", ["play", "result"].includes(view.name) || (view.name === "duel" && !!duel));
-    document.body.classList.toggle("bare", ["auth", "profiles"].includes(view.name) || (!S.profile && view.name === "setup"));
+    document.body.classList.toggle("bare", ["auth", "profiles"].includes(view.name) || (!S.profile && ["setup", "avatar"].includes(view.name)));
     $("#top").innerHTML = topbar();
-    const V = { auth: vAuth, profiles: vProfiles, admin: vAdmin, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
+    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
   }
@@ -427,13 +427,13 @@
   function topbar() {
     const n = view.name, cur = (x) => (x === n || (x === "home" && ["subject", "lesson"].includes(n)) || (x === "courses" && ["course", "maker"].includes(n)) ? 'aria-current="page"' : "");
     const p = S.profile, L = levelInfo(S.xp);
-    const item = (to, icon, label) => `<button class="navbtn" data-act="go" data-to="${to}" ${cur(to)}><span class="ni">${icon}</span><span class="nl">${label}</span></button>`;
+    const item = (to, icon, label) => `<button class="navbtn" data-act="go" data-to="${to}" ${cur(to)}><span class="ni">${I(icon)}</span><span class="nl">${label}</span></button>`;
     return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${NOVA}</span><span class="bt">aventura</span></button>
-      ${p ? `<div class="stats-bar"><span class="stat streak" title="Días seguidos estudiando">🔥 <b>${S.streak.n}</b></span><span class="stat coins" title="Monedas para la tienda">🪙 <b>${S.coins}</b></span><span class="stat lvl" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP">⚡ <b>Nv. ${L.lv}</b></span></div>
+      ${p ? `<div class="stats-bar"><span class="stat streak" title="Días seguidos estudiando">${I("flame")} <b>${S.streak.n}</b></span><span class="stat coins" title="Monedas para la tienda">${I("coin")} <b>${S.coins}</b></span><span class="stat lvl" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP">${I("gem")} <b>Nv. ${L.lv}</b></span></div>
       <nav aria-label="Principal">
-        ${item("home", "🏠", "Aprender")}${item("courses", "📚", "Cursos")}${item("duel", "⚡", "Duelo")}${item("plan", "📅", "Plan")}${item("shop", "🛍️", "Tienda")}${item("trophies", "🏆", "Logros")}
-        ${API.on ? '<button class="navbtn" data-act="account"><span class="ni">👤</span><span class="nl">Cuenta</span></button>' : ""}
-        <button class="navbtn" data-act="settings"><span class="ni">⚙️</span><span class="nl">Ajustes</span></button>
+        ${item("home", "home", "Aprender")}${item("courses", "courses", "Cursos")}${item("duel", "duel", "Duelo")}${item("plan", "plan", "Plan")}${item("shop", "shop", "Tienda")}${item("trophies", "trophy", "Logros")}
+        ${API.on ? `<button class="navbtn" data-act="account"><span class="ni">${I("account")}</span><span class="nl">Cuenta</span></button>` : ""}
+        <button class="navbtn" data-act="settings"><span class="ni">${I("settings")}</span><span class="nl">Ajustes</span></button>
       </nav>` : ""}`;
   }
   const starStr = (n) => [1, 2, 3].map((i) => (i <= n ? "⭐" : '<span class="off">⭐</span>')).join("");
@@ -442,7 +442,7 @@
   /* ---------- configuración ---------- */
   let draft = null;
   function vSetup(p) {
-    draft = draft || Object.assign({ name: "", avatar: "🦊", adult: "Mamá", adultAvatar: "👩", country: "co", grade: 3 }, S.profile || {});
+    draft = draft || Object.assign({ name: "", avatar: "fox", adult: "Mamá", adultAvatar: "mom", country: "co", grade: 3 }, S.profile || {});
     const c = COUNTRIES[draft.country];
     return `<section class="setup">
       <div class="hero"><div class="mascot-big">${ART.nova("wave")}</div><div>
@@ -455,8 +455,8 @@
           <div class="field"><label for="f-adult">¿Quién acompaña?</label><input id="f-adult" class="input" maxlength="20" placeholder="Ej.: Mamá" value="${esc(draft.adult)}" data-bind="adult"></div>
         </div>
         <div class="two">
-          <div class="field"><label>Personaje</label><div class="avatars">${AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="avatar" data-v="${a}" aria-pressed="${draft.avatar === a}" aria-label="Personaje ${a}">${a}</button>`).join("")}</div></div>
-          <div class="field"><label>Personaje del adulto</label><div class="avatars">${ADULT_AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="adultAvatar" data-v="${a}" aria-pressed="${draft.adultAvatar === a}" aria-label="Personaje ${a}">${a}</button>`).join("")}</div></div>
+          <div class="field"><label>Personaje</label><div class="avatars">${String(draft.avatar).startsWith("c:") ? `<button class="avatar-opt" data-act="draft" data-k="avatar" data-v="${draft.avatar}" aria-pressed="true" aria-label="Mi avatar">${av(draft.avatar)}</button>` : ""}${AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="avatar" data-v="${a}" aria-pressed="${ART.avatarId(draft.avatar) === a}" aria-label="Personaje">${av(a)}</button>`).join("")}<button class="avatar-opt create" data-act="go" data-to="avatar" data-q="setup" aria-label="Crear mi avatar">${I("sparkle")}<small>Crear</small></button></div></div>
+          <div class="field"><label>Personaje del adulto</label><div class="avatars">${ADULT_AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="adultAvatar" data-v="${a}" aria-pressed="${ART.avatarId(draft.adultAvatar) === a}" aria-label="Personaje del adulto">${av(a)}</button>`).join("")}</div></div>
         </div>
       </div>
       <div class="card stack"><h2>1. ¿En qué país estudian?</h2>
@@ -476,9 +476,9 @@
     const t = todayStr(), h = S.history.filter((x) => x.d === t);
     const subj = new Set(h.map((x) => x.subj)).size, best = h.reduce((m, x) => Math.max(m, x.pct), 0);
     return [
-      { icon: "🎮", title: "Completa 3 misiones", cur: Math.min(h.length, 3), max: 3 },
-      { icon: "🌈", title: "Practica 2 materias distintas", cur: Math.min(subj, 2), max: 2 },
-      { icon: "🎯", title: "Saca 90 % o más en una misión", cur: best >= 90 ? 1 : 0, max: 1 }
+      { icon: "play", title: "Completa 3 misiones", cur: Math.min(h.length, 3), max: 3 },
+      { icon: "rainbow", title: "Practica 2 materias distintas", cur: Math.min(subj, 2), max: 2 },
+      { icon: "target", title: "Saca 90 % o más en una misión", cur: best >= 90 ? 1 : 0, max: 1 }
     ];
   }
   function vHome() {
@@ -488,27 +488,27 @@
     if (!mission) mission = dailySuggestions().map((ref) => ({ ref }));
     const mine = S.courses.slice(-3).reverse();
     return `<section class="stack">
-      <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${P.avatar}</div>${petHTML()}</div>
+      <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${av(P.avatar)}</div>${petHTML()}</div>
         <div><p class="eyebrow">${c.name} · ${esc(gradeLabel(P.country, P.grade))}</p><h1>¡Hola, ${esc(P.name || "campeón")}!</h1>
-          <p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span> ` : ""}${L.rank} · estudias con ${esc(P.adult || "tu acompañante")} ${P.adultAvatar}</p>
+          <p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span> ` : ""}${L.rank} · estudias con ${esc(P.adult || "tu acompañante")} ${av(P.adultAvatar)}</p>
           <div class="lvlbar"><div class="top"><b>Nivel ${L.lv}</b><span>${L.cur} / ${L.need} XP</span></div><div class="xpbar"><i style="width:${L.pct}%"></i></div></div></div>
-        <div class="side"><button class="btn big" data-act="quick">🎮 Jugar ahora</button><div class="row"><button class="btn cyan" data-act="go" data-to="duel">⚡ Duelo relámpago</button><button class="btn ghost" data-act="together">🤝 En familia</button></div>${S.chest !== todayStr() ? '<button class="btn ghost chest-btn" data-act="chest">🎁 ¡Cofre diario listo!</button>' : ""}</div></div>
-      <div class="section-head"><h2>🏁 Retos del día</h2></div>
-      <div class="quests">${quests().map((q) => `<div class="quest ${q.cur >= q.max ? "complete" : ""}"><span class="ring" style="--p:${Math.round((q.cur / q.max) * 100)}"><span>${q.cur >= q.max ? "✅" : q.icon}</span></span><span><b>${q.title}</b><small>${q.cur}/${q.max}</small></span></div>`).join("")}</div>
-      <form class="ask" data-form="ask"><h2>✨ ¿Qué quieres aprender hoy?</h2>
+        <div class="side"><button class="btn big" data-act="quick">${I("play")} Jugar ahora</button><div class="row"><button class="btn cyan" data-act="go" data-to="duel">${I("duel")} Duelo relámpago</button><button class="btn ghost" data-act="together">${I("team")} En familia</button></div>${S.chest !== todayStr() ? `<button class="btn ghost chest-btn" data-act="chest">${I("gift")} ¡Cofre diario listo!</button>` : ""}</div></div>
+      <div class="section-head"><h2>${I("target")} Retos del día</h2></div>
+      <div class="quests">${quests().map((q) => `<div class="quest ${q.cur >= q.max ? "complete" : ""}"><span class="ring" style="--p:${Math.round((q.cur / q.max) * 100)}"><span>${q.cur >= q.max ? I("done") : I(q.icon)}</span></span><span><b>${q.title}</b><small>${q.cur}/${q.max}</small></span></div>`).join("")}</div>
+      <form class="ask" data-form="ask"><h2>${I("sparkle")} ¿Qué quieres aprender hoy?</h2>
         <div class="row"><input id="ask-q" class="input" name="q" placeholder="Ej.: divisiones de 2 cifras, los planetas, verbos en inglés…" autocomplete="off"><button class="btn cyan" type="submit">Buscar o crear con IA</button></div>
         <div class="chips">${["Divisiones de 2 cifras", "Fracciones", "Tablas de multiplicar", "El sistema solar", "Verbos en inglés", "Ortografía"].map((x) => `<button type="button" class="chip" data-act="askChip" data-q="${x}">${x}</button>`).join("")}</div>
       </form>
-      <div class="section-head"><h2>🎯 Misiones de hoy</h2><span class="muted">${plan ? "Del plan de estudio" : "Elegidas por Nova"}</span><span class="spacer"></span>${S.plan ? "" : '<button class="btn ghost small" data-act="go" data-to="plan">Crear plan semanal</button>'}</div>
+      <div class="section-head"><h2>${I("star")} Misiones de hoy</h2><span class="muted">${plan ? "Del plan de estudio" : "Elegidas por Nova"}</span><span class="spacer"></span>${S.plan ? "" : '<button class="btn ghost small" data-act="go" data-to="plan">Crear plan semanal</button>'}</div>
       <div class="mission">${mission.map((m) => taskCard(m.ref, m.done, m.fromPlan)).join("")}</div>
-      <div class="section-head"><h2>🌍 Mundos de ${esc(gradeLabel(P.country, P.grade))}</h2></div>
+      <div class="section-head"><h2>${I("home")} Mundos de ${esc(gradeLabel(P.country, P.grade))}</h2></div>
       <div class="worlds">${SUBJ_KEYS.map((s) => `<button class="world" data-tilt style="${sv(s)}" data-act="go" data-to="subject" data-id="${s}"><span class="w-art">${ART.world(s)}</span><span class="ring" style="--p:${subjPct(s)}" aria-label="Progreso ${subjPct(s)}%"><span>${subjPct(s)}%</span></span><span class="txt"><h3>${esc(subjName(s))}</h3><span class="sub">${SUBJECTS[s].world} · ${TOPICS[s][P.grade].length} niveles</span></span></button>`).join("")}</div>
-      ${mine.length ? `<div class="section-head"><h2>📚 Mis cursos</h2><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="courses">Ver todos</button></div><div class="courses">${mine.map(courseCard).join("")}</div>` : ""}
+      ${mine.length ? `<div class="section-head"><h2>${I("courses")} Mis cursos</h2><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="courses">Ver todos</button></div><div class="courses">${mine.map(courseCard).join("")}</div>` : ""}
     </section>`;
   }
   function taskCard(ref, done, fromPlan) {
     const u = unit(ref); if (!u) return "";
-    return `<button class="task ${done ? "done" : ""}" style="${sv(u.subj)}" data-act="open" data-ref='${esc(JSON.stringify(ref))}' ${fromPlan != null ? `data-plan="${fromPlan}"` : ""}><span class="dot">${done ? "" : SUBJECTS[u.subj].icon}</span><span><b>${esc(u.title)}</b><small>${esc(subjName(u.subj))}${u.levelName ? ` · ${u.levelName}` : ""}</small></span><span class="stars">${starStr((prog(u.key) || {}).stars || 0)}</span></button>`;
+    return `<button class="task ${done ? "done" : ""}" style="${sv(u.subj)}" data-act="open" data-ref='${esc(JSON.stringify(ref))}' ${fromPlan != null ? `data-plan="${fromPlan}"` : ""}><span class="dot">${done ? "" : I(u.subj)}</span><span><b>${esc(u.title)}</b><small>${esc(subjName(u.subj))}${u.levelName ? ` · ${u.levelName}` : ""}</small></span><span class="stars">${starStr((prog(u.key) || {}).stars || 0)}</span></button>`;
   }
   function dailySuggestions() {
     const g = S.profile.grade;
@@ -524,7 +524,7 @@
       const doneN = [1, 2, 3].filter((lv) => prog(lkey(t.id, lv))).length;
       const stops = [1, 2, 3].map((lv) => {
         const pr = prog(lkey(t.id, lv)), isNext = open && open.id === t.id && open.lv === lv, zz = ZZ[k++ % 8];
-        return `<div class="stop" style="--zk:${zz}"><button class="node ${pr ? "done" : isNext ? "next" : "todo"}" style="${sv(s)}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id, lv })}' aria-label="${esc(t.title)}, lección ${lv}: ${LEVELS[lv].name}">${pr ? "✓" : LEVELS[lv].icon}</button><div class="info"><b>${LEVELS[lv].name}</b>${pr ? `<span class="stars">${starStr(pr.stars)}</span>` : ""}</div></div>`;
+        return `<div class="stop" style="--zk:${zz}"><button class="node ${pr ? "done" : isNext ? "next" : "todo"}" style="${sv(s)}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id, lv })}' aria-label="${esc(t.title)}, lección ${lv}: ${LEVELS[lv].name}">${pr ? I("check") : I(LEVELS[lv].icon)}</button><div class="info"><b>${LEVELS[lv].name}</b>${pr ? `<span class="stars">${starStr(pr.stars)}</span>` : ""}</div></div>`;
       }).join("");
       return `<section class="unit"><div class="unit-head" style="${sv(s)}"><div><p class="eyebrow">Unidad ${i + 1} · ${doneN}/3 lecciones</p><h2>${esc(t.title)}</h2></div><span class="unit-art" aria-hidden="true">${ART.unit(s, i)}</span></div><div class="path">${stops}</div></section>`;
     }).join("");
@@ -541,22 +541,22 @@
   /* ---------- lección ---------- */
   let playMode = "solo";
   const MODES = [
-    ["solo", "🎮", "Solo", (P) => `${esc(P.name)} juega y ${esc(P.adult)} anima.`],
-    ["juntos", "🤝", "Juntos", (P) => `Turnos entre ${esc(P.name)} y ${esc(P.adult)}, con marcador.`],
-    ["reloj", "⏱️", "Contrarreloj", () => "Responde antes de que acabe el tiempo: ¡más rápido, más XP!"]
+    ["solo", "gamepad", "Solo", (P) => `${esc(P.name)} juega y ${esc(P.adult)} anima.`],
+    ["juntos", "team", "Juntos", (P) => `Turnos entre ${esc(P.name)} y ${esc(P.adult)}, con marcador.`],
+    ["reloj", "stopwatch", "Contrarreloj", () => "Responde antes de que acabe el tiempo: ¡más rápido, más XP!"]
   ];
   function vLesson(p) {
     const ref = p.ref, u = unit(ref); if (!u) return `<p>No encontramos esa lección.</p>`;
     const P = S.profile;
     return `<section class="lesson">
       <button class="btn ghost small" style="justify-self:start" data-act="back" data-ref='${esc(JSON.stringify(ref))}'>← Volver</button>
-      <div class="lesson-head" style="${sv(u.subj)}"><span class="badge">${SUBJECTS[u.subj].icon}</span><div><p class="eyebrow">${esc(u.where)}</p><h1>${esc(u.title)}</h1></div></div>
+      <div class="lesson-head" style="${sv(u.subj)}"><span class="badge">${I(u.subj)}</span><div><p class="eyebrow">${esc(u.where)}</p><h1>${esc(u.title)}</h1></div></div>
       <div class="teach"><span class="teach-art">${ART.nova("think")}</span><div class="bubble"><b>Aprendamos</b><br>${esc(u.lesson || "")}</div></div>
       ${u.example ? `<div class="example">${esc(u.example)}</div>` : ""}
-      ${u.tip ? `<div class="parent"><b>${P.adultAvatar} Para hacer juntos:</b> ${esc(u.tip)}</div>` : ""}
+      ${u.tip ? `<div class="parent"><b>${av(P.adultAvatar)} Para hacer juntos:</b> ${esc(u.tip)}</div>` : ""}
       <div class="row"><button class="btn ghost small" data-act="readLesson" data-ref='${esc(JSON.stringify(ref))}'>🔊 Escuchar la lección</button></div>
       <h2>Elige el modo de juego</h2>
-      <div class="mode-pick">${MODES.map(([k, ic, t, d]) => `<button class="mode" data-act="mode" data-v="${k}" aria-pressed="${playMode === k}"><span class="mi">${ic}</span><b>${t}</b><span class="muted">${d(P)}</span></button>`).join("")}</div>
+      <div class="mode-pick">${MODES.map(([k, ic, t, d]) => `<button class="mode" data-act="mode" data-v="${k}" aria-pressed="${playMode === k}"><span class="mi">${I(ic)}</span><b>${t}</b><span class="muted">${d(P)}</span></button>`).join("")}</div>
       <button class="btn big" data-act="start" data-ref='${esc(JSON.stringify(ref))}' ${p.plan != null ? `data-plan="${p.plan}"` : ""}>¡A jugar! 🎮</button>
     </section>`;
   }
@@ -576,7 +576,7 @@
   const nextBtn = () => `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Continuar" : "Ver resultado"}</button>`;
   function vPlay() {
     const g = play, q = g.qs[g.i], turn = g.players.length > 1 ? g.i % 2 : 0, P = S.profile;
-    const turnMsg = g.players.length > 1 ? (turn === 0 ? `Turno de ${esc(g.players[0].name)} ${g.players[0].av}. ${esc(P.adult)}: ¡solo pistas!` : `Turno de ${esc(g.players[1].name)} ${g.players[1].av}. Explica en voz alta cómo lo piensas.`) : "";
+    const turnMsg = g.players.length > 1 ? (turn === 0 ? `Turno de ${esc(g.players[0].name)} ${av(g.players[0].av)}. ${esc(P.adult)}: ¡solo pistas!` : `Turno de ${esc(g.players[1].name)} ${av(g.players[1].av)}. Explica en voz alta cómo lo piensas.`) : "";
     let body = "";
     if (q.kind === "choice") {
       const opts = q.keepOrder ? q.keepOrder.filter((o) => q.options.includes(o)) : q.options;
@@ -594,14 +594,14 @@
         <span class="combo ${g.combo >= 3 ? "hot" : ""}" id="combo" title="Respuestas seguidas">🔥 x${g.combo}</span><span class="pill xp-pill" id="xpnow">+${g.xp} XP</span>${S.equip.pet ? `<span class="hud-pet" id="hudpet" aria-hidden="true">${itemIcon(S.equip.pet)}</span>` : ""}
         ${g.timed && q.kind !== "robot" ? `<span class="timer" id="timer" style="--p:100" role="timer" aria-label="Tiempo restante"><span>${qTime(q)}</span></span>` : ""}</div>
       ${g.boss ? arenaHTML() : ""}
-      ${g.players.length > 1 ? `<div class="players">${g.players.map((pl, i) => `<span class="player ${i === turn ? "turn" : ""}"><span class="av">${pl.av}</span>${esc(pl.name)} · ${pl.pts}</span>`).join("")}</div>` : ""}
+      ${g.players.length > 1 ? `<div class="players">${g.players.map((pl, i) => `<span class="player ${i === turn ? "turn" : ""}"><span class="av">${av(pl.av)}</span>${esc(pl.name)} · ${pl.pts}</span>`).join("")}</div>` : ""}
       <div class="qcard" id="qcard">
         ${turnMsg ? `<div class="turnmsg">${turnMsg}</div>` : ""}
-        <div class="row" style="justify-content:center"><div class="prompt" style="${q.small ? "font-size:clamp(1.05rem,2.6vw,1.35rem)" : ""}">${esc(q.prompt)}</div>${canSpeak && !q.speakAfter ? `<button class="speak" data-act="speakQ" aria-label="Escuchar">🔊</button>` : ""}</div>
+        <div class="row" style="justify-content:center"><div class="prompt" style="${q.small ? "font-size:clamp(1.05rem,2.6vw,1.35rem)" : ""}">${esc(q.prompt)}</div>${canSpeak && !q.speakAfter ? `<button class="speak" data-act="speakQ" aria-label="Escuchar">${I("speaker")}</button>` : ""}</div>
         ${body}
       </div>
       <div class="checkbar" id="checkbar"><div class="cb-inner">
-        <div class="cb-left"><span class="cb-icon" aria-hidden="true"></span><div><div class="feedback" id="fb" role="status"></div><div id="fbx"></div></div>${q.kind === "choice" && q.options.length > 2 ? '<button class="btn ghost" id="hintbtn" data-act="hint">💡 Pista</button>' : ""}</div>
+        <div class="cb-left"><span class="cb-icon" aria-hidden="true"></span><div><div class="feedback" id="fb" role="status"></div><div id="fbx"></div></div>${q.kind === "choice" && q.options.length > 2 ? `<button class="btn ghost" id="hintbtn" data-act="hint">${I("bulb")} Pista</button>` : ""}</div>
         <div id="after">${q.kind === "choice" ? '<button class="btn" id="checkbtn" data-act="check" disabled>Comprobar</button>' : ""}</div>
       </div></div></section>`;
   }
@@ -812,9 +812,9 @@
       <div class="xp-total" id="xpcount" aria-label="${g.result.xpGain} XP ganados">+0 XP</div>
       <div class="lvlbar"><div class="top"><b id="lvlname">Nivel ${g.result.before.lv}</b><span>${g.result.bonus ? `incluye bonus de ${g.result.bonus} XP` : ""}</span></div><div class="xpbar"><i id="lvlfill" style="width:${g.result.before.pct}%"></i></div></div>
       ${g.result.after.lv > g.result.before.lv ? `<div class="levelup">⬆️ ¡Subiste a nivel ${g.result.after.lv}!${g.result.after.rank !== g.result.before.rank ? ` Nuevo rango: ${g.result.after.rank}` : ""}</div>` : ""}
-      ${g.players.length > 1 ? `<div class="scoreboard">${g.players.map((p) => `<span class="player"><span class="av">${p.av}</span>${esc(p.name)}: ${p.pts}</span>`).join("")}</div><b>${winner}</b>` : ""}
+      ${g.players.length > 1 ? `<div class="scoreboard">${g.players.map((p) => `<span class="player"><span class="av">${av(p.av)}</span>${esc(p.name)}: ${p.pts}</span>`).join("")}</div><b>${winner}</b>` : ""}
       ${sticker ? `<div class="sticker-won">${sticker}</div><p style="margin:0">¡Nueva lámina para tu álbum!</p>` : ""}
-      ${stars < 2 ? `<div class="parent" style="text-align:left"><b>${S.profile.adultAvatar} Sugerencia:</b> repasen juntos la explicación y vuelvan a intentarlo. Equivocarse es parte de aprender.</div>` : ""}
+      ${stars < 2 ? `<div class="parent" style="text-align:left"><b>${av(S.profile.adultAvatar)} Sugerencia:</b> repasen juntos la explicación y vuelvan a intentarlo. Equivocarse es parte de aprender.</div>` : ""}
       <div class="row" style="justify-content:center">
         <button class="btn ghost" data-act="again">🔁 Otra vez</button>
         ${nx ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify(nx))}'>Siguiente tema ➜</button>` : ""}
@@ -835,10 +835,10 @@
       <div class="field"><label>Minutos por día</label><div class="toggles">${[15, 20, 30, 45].map((m) => `<button class="toggle" data-act="pl" data-k="minutes" data-v="${m}" aria-pressed="${d.minutes === m}">${m} min</button>`).join("")}</div></div>
       ${S.courses.length ? `<div class="field"><label>Mis cursos</label><div class="toggles"><button class="toggle" data-act="pl" data-k="withCourses" data-v="1" aria-pressed="${d.withCourses}">📚 Incluir lecciones de mis cursos</button></div></div>` : ""}
       <div class="row"><button class="btn" data-act="makePlan">✨ Crear plan</button>${S.plan ? '<button class="btn ghost" data-act="planCancel">Cancelar</button>' : ""}</div></div>`;
-    if (!S.plan || view.p.edit) return `<section class="stack"><div class="section-head"><h1>📅 Plan de estudio</h1></div><p class="muted" style="margin:0">Nova reparte los temas del grado entre los días que elijan, empezando por lo que aún no han practicado.</p>${form}</section>`;
+    if (!S.plan || view.p.edit) return `<section class="stack"><div class="section-head"><h1>${I("plan")} Plan de estudio</h1></div><p class="muted" style="margin:0">Nova reparte los temas del grado entre los días que elijan, empezando por lo que aún no han practicado.</p>${form}</section>`;
     const done = S.plan.days.flatMap((x) => x.items).filter((x) => x.done).length, all = S.plan.days.flatMap((x) => x.items).length;
     return `<section class="stack">
-      <div class="section-head"><h1>📅 Plan de la semana</h1><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="plan" data-edit="1">✏️ Cambiar plan</button></div>
+      <div class="section-head"><h1>${I("plan")} Plan de la semana</h1><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="plan" data-edit="1">✏️ Cambiar plan</button></div>
       <div class="card row"><b style="font-family:var(--f-display)">Avance: ${done} de ${all}</b><div class="bar" style="flex:1;min-width:120px"><i style="width:${all ? (done / all) * 100 : 0}%"></i></div></div>
       <div class="week">${S.plan.days.map((day, di) => `<div class="day ${di === today ? "today" : ""}"><h3>${DAYS[di]}${di === today ? '<span class="tag">Hoy</span>' : ""}</h3>${day.items.length ? day.items.map((it, ii) => di === today ? taskCard(it.ref, it.done, ii) : taskCard(it.ref, it.done)).join("") : '<span class="muted">Descanso 😴</span>'}</div>`).join("")}</div>
     </section>`;
@@ -907,7 +907,7 @@
       <div class="subject-hero" style="${sv(c.subject)}"><span class="icon">${esc(c.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">${c.source === "ai" ? "✨ Curso creado con IA" : "Curso listo"} · ${SUBJECTS[c.subject] ? esc(subjName(c.subject)) : ""}</p><h1>${esc(c.title)}</h1><p>${esc(c.summary || "")}</p></div></div>
       ${saved ? `<div class="card row"><div><b style="font-family:var(--f-display)">Seguimiento</b><div class="muted">${done}/${ls.length} lecciones · promedio ${avg}% ${saved.lastStudied ? `· último estudio ${saved.lastStudied}` : ""}</div></div><div class="bar" style="flex:1;min-width:140px"><i style="width:${ls.length ? (done / ls.length) * 100 : 0}%"></i></div>${nextIdx >= 0 ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify({ type: "course", cid: c.id, li: nextIdx }))}'>Continuar ➜</button>` : '<span class="tag">¡Completado! 🏆</span>'}</div>`
         : `<div class="card row"><span style="font-size:1.8rem">💾</span><div style="flex:1;min-width:200px"><b style="font-family:var(--f-display)">Guarda este curso</b><div class="muted">Así queda en “Mis cursos”, con progreso por lección y sugerencias de refuerzo.</div></div><button class="btn" data-act="saveReady" data-id="${esc(c.id)}">Guardar en mis cursos</button></div>`}
-      ${c.parentGuide ? `<div class="parent"><b>${S.profile.adultAvatar} Guía para el adulto:</b> ${esc(c.parentGuide)}</div>` : ""}
+      ${c.parentGuide ? `<div class="parent"><b>${av(S.profile.adultAvatar)} Guía para el adulto:</b> ${esc(c.parentGuide)}</div>` : ""}
       ${weakIdx.length ? `<div class="notice"><b>🎯 Para reforzar:</b> ${weakIdx.map((i) => esc(ls[i].title)).join(", ")}. Repítanlas o pidan más ejercicios.</div>` : ""}
       <div class="lessons">${ls.map((l, i) => { const pr = prog(`${c.id}:${i}`); const ref = JSON.stringify({ type: "course", cid: c.id, li: i }); return `<div class="lesson-row ${pr ? "done" : ""}"><span class="num">${pr ? "✓" : i + 1}</span><span><b>${esc(l.title)}</b><span class="stars">${starStr(pr ? pr.stars : 0)}</span> ${pr ? `<span class="muted" style="font-size:.85rem">mejor ${pr.best}% · ${pr.plays} ${pr.plays === 1 ? "vez" : "veces"}</span>` : ""}</span><span class="row">${c.source === "ai" && pr && pr.stars < 3 ? `<button class="btn ghost small" data-act="morePractice" data-id="${esc(c.id)}" data-li="${i}">✨ Más ejercicios</button>` : ""}<button class="btn small" data-act="open" data-ref='${esc(ref)}'>${pr ? "Repasar" : "Empezar"}</button></span></div>`; }).join("")}</div>
       ${saved ? `<div class="row"><span class="spacer"></span><button class="btn ghost small" data-act="removeCourse" data-id="${esc(c.id)}">Quitar de mis cursos</button></div>` : ""}
@@ -924,7 +924,7 @@
     if (maker.status === "done" && maker.course) {
       const m = maker.course;
       return `<section class="stack"><div class="subject-hero" style="${sv(m.subject)}"><span class="icon">${esc(m.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">✨ Vista previa del curso</p><h1>${esc(m.title)}</h1><p>${esc(m.summary || "")}</p></div></div>
-        ${m.parentGuide ? `<div class="parent"><b>${P.adultAvatar} Guía para el adulto:</b> ${esc(m.parentGuide)}</div>` : ""}
+        ${m.parentGuide ? `<div class="parent"><b>${av(P.adultAvatar)} Guía para el adulto:</b> ${esc(m.parentGuide)}</div>` : ""}
         <div class="lessons">${m.lessons.map((l, i) => `<div class="lesson-row"><span class="num">${i + 1}</span><span><b>${esc(l.title)}</b><span class="muted" style="font-size:.9rem">${esc(l.explanation).slice(0, 140)}${(l.explanation || "").length > 140 ? "…" : ""} · ${l.activities.length} actividades</span></span></div>`).join("")}</div>
         <div class="row"><button class="btn big" data-act="saveAi">💾 Guardar en mis cursos</button><button class="btn ghost" data-act="makerRetry">🔁 Generar otra versión</button><button class="btn ghost" data-act="makerReset">Cambiar el pedido</button></div></section>`;
     }
@@ -1040,8 +1040,8 @@ Reglas:
     const recent = S.history.slice(-8).reverse();
     const weak = Object.entries(S.progress).filter(([, v]) => v.stars < 2).map(([k]) => k).slice(0, 6);
     return `<section class="stack">
-      <div class="section-head"><h1>🏆 Logros de ${esc(P.name)}</h1></div>
-      <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${P.avatar}</div>${petHTML()}</div><div><p class="eyebrow">Rango</p><h2>${levelInfo(S.xp).rank} · Nivel ${levelInfo(S.xp).lv}</h2><div class="lvlbar" style="margin-top:10px"><div class="top"><b>${S.xp} XP en total</b><span>${levelInfo(S.xp).cur} / ${levelInfo(S.xp).need} para subir</span></div><div class="xpbar"><i style="width:${levelInfo(S.xp).pct}%"></i></div></div></div></div>
+      <div class="section-head"><h1>${I("trophy")} Logros de ${esc(P.name)}</h1></div>
+      <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${av(P.avatar)}</div>${petHTML()}</div><div><p class="eyebrow">Rango</p><h2>${levelInfo(S.xp).rank} · Nivel ${levelInfo(S.xp).lv}</h2><div class="lvlbar" style="margin-top:10px"><div class="top"><b>${S.xp} XP en total</b><span>${levelInfo(S.xp).cur} / ${levelInfo(S.xp).need} para subir</span></div><div class="xpbar"><i style="width:${levelInfo(S.xp).pct}%"></i></div></div></div></div>
       <div class="row"><span class="pill">🔥 Mejor combo x${S.bestCombo || 0}</span><span class="pill star">⭐ ${S.stars} estrellas</span><span class="pill">🔥 ${S.streak.n} ${S.streak.n === 1 ? "día" : "días"} seguidos</span><span class="pill">🎴 ${S.stickers.length}/${STICKERS.length} láminas</span><span class="pill">📚 ${S.courses.length} cursos</span></div>
       <div class="card stack"><h2>Avance por materia · ${esc(gradeLabel(P.country, g))}</h2>
         ${SUBJ_KEYS.map((s) => `<div class="row"><span style="width:2rem;font-size:1.4rem">${SUBJECTS[s].icon}</span><b style="font-family:var(--f-display);min-width:150px">${esc(subjName(s))}</b><div class="bar" style="flex:1;min-width:120px"><i style="width:${subjPct(s)}%;background:${SUBJECTS[s].color}"></i></div><span class="muted" style="min-width:3.5ch;text-align:right">${subjPct(s)}%</span></div>`).join("")}
@@ -1092,8 +1092,8 @@ Reglas:
   function vShop() {
     const P = S.profile;
     return `<section class="stack">
-      <div class="section-head"><h1>🛍️ Tienda</h1><span class="spacer"></span><span class="pill star" style="font-size:1rem">🪙 ${S.coins} monedas</span></div>
-      <div class="player-card shop-preview"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${P.avatar}</div>${petHTML()}</div><div><p class="eyebrow">Así te ves</p><h2>${esc(P.name)}</h2><p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span>` : "Sin título todavía"}</p></div></div>
+      <div class="section-head"><h1>${I("shop")} Tienda</h1><span class="spacer"></span><span class="pill star" style="font-size:1rem">🪙 ${S.coins} monedas</span></div>
+      <div class="player-card shop-preview"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${av(P.avatar)}</div>${petHTML()}</div><div><p class="eyebrow">Así te ves</p><h2>${esc(P.name)}</h2><button class="btn small" style="margin-top:8px" data-act="go" data-to="avatar" data-q="profile">${I("sparkle")} Crear mi avatar</button><p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span>` : "Sin título todavía"}</p></div></div>
       <p class="muted" style="margin:0">Ganas 🪙 con cada estrella, con el cofre diario y venciendo jefes. Toca un objeto que ya tienes para equiparlo o quitártelo.</p>
       ${Object.entries(SHOP_CATS).map(([cat, label]) => `<h2>${label}</h2><div class="shop">${SHOP.filter((x) => x.cat === cat).map((x) => {
         const have = owns(x.id), on = S.equip[cat] === x.id || (cat === "theme" && !S.equip.theme && x.id === "t-galaxia");
@@ -1126,7 +1126,7 @@ Reglas:
   // --- jefes
   function bossCard(s, g) {
     const [name, em] = BOSSES[s], won = S.bosses[`${s}:${g}`];
-    return `<div class="boss-card" style="${sv(s)}"><span class="boss-em">${em}</span><div><p class="eyebrow">⚔️ Jefe final del mundo</p><h2>${name}</h2><p class="muted" style="margin:4px 0 0">${won ? "¡Ya lo venciste! Vuelve a retarlo para ganar más XP." : "Mezcla todos los temas del grado. Tienes 3 corazones: ¡derrótalo antes de que se acaben!"}</p></div><button class="btn big" data-act="boss" data-s="${s}" data-g="${g}">${won ? "🔁 Revancha" : "⚔️ ¡Pelear!"}</button></div>`;
+    return `<div class="boss-card" style="${sv(s)}"><span class="boss-em">${em}</span><div><p class="eyebrow">${I("sword")} Jefe final del mundo</p><h2>${name}</h2><p class="muted" style="margin:4px 0 0">${won ? "¡Ya lo venciste! Vuelve a retarlo para ganar más XP." : "Mezcla todos los temas del grado. Tienes 3 corazones: ¡derrótalo antes de que se acaben!"}</p></div><button class="btn big" data-act="boss" data-s="${s}" data-g="${g}">${won ? "🔁 Revancha" : `${I("sword")} ¡Pelear!`}</button></div>`;
   }
   function startBoss(s, g) {
     const topics = TOPICS[s][g].filter((t) => t.gen !== "robot"), qs = [];
@@ -1143,7 +1143,7 @@ Reglas:
   function arenaHTML() {
     const b = play.boss, P = S.profile;
     return `<div class="arena" id="arena" style="${sv(b.s)}">
-      <div class="fighter you"><span class="f-em">${P.avatar}${S.equip.pet ? `<small>${itemIcon(S.equip.pet)}</small>` : ""}</span><b>${esc(P.name)}</b><span class="hearts" id="hearts">${"❤️".repeat(b.hearts)}${"🖤".repeat(b.maxHearts - b.hearts)}</span></div>
+      <div class="fighter you"><span class="f-em">${av(P.avatar)}${S.equip.pet ? `<small>${itemIcon(S.equip.pet)}</small>` : ""}</span><b>${esc(P.name)}</b><span class="hearts" id="hearts">${"❤️".repeat(b.hearts)}${"🖤".repeat(b.maxHearts - b.hearts)}</span></div>
       <span class="vs">VS</span>
       <div class="fighter boss" id="boss"><span class="f-em">${b.em}</span><b>${b.name}</b><span class="hpbar"><i id="bosshp" style="width:${(b.hp / b.max) * 100}%"></i></span></div></div>`;
   }
@@ -1220,22 +1220,22 @@ Reglas:
   function vDuel() {
     const P = S.profile;
     if (!duel) return `<section class="stack duel-intro">
-      <div class="duel-hero"><div class="duel-vs"><span>${P.avatar}</span><b>VS</b><span>${P.adultAvatar}</span></div><h1>⚡ Duelo relámpago</h1>
+      <div class="duel-hero"><div class="duel-vs"><span>${av(P.avatar)}</span><b>VS</b><span>${av(P.adultAvatar)}</span></div><h1>⚡ Duelo relámpago</h1>
         <p class="muted">${esc(P.name || "Jugador 1")} contra ${esc(P.adult || "Jugador 2")} en el mismo dispositivo. Sale una pregunta: quien presione primero su botón, responde. Si falla, el otro tiene su oportunidad. ¡Gana quien llegue a 5 puntos!</p>
         <div class="row" style="justify-content:center"><span class="pill">⌨️ ${esc(P.name || "Jugador 1")}: tecla A</span><span class="pill">⌨️ ${esc(P.adult || "Jugador 2")}: tecla L</span></div>
         <button class="btn big" data-act="duelStart">⚡ ¡Empezar duelo!</button></div></section>`;
     const d = duel, q = d.qs[d.i];
     if (d.phase === "end") {
       const w = d.scores[0] === d.scores[1] ? -1 : d.scores[0] > d.scores[1] ? 0 : 1;
-      return `<section class="result card"><div class="duel-vs"><span>${d.avs[0]}</span><b>${d.scores[0]} – ${d.scores[1]}</b><span>${d.avs[1]}</span></div>
+      return `<section class="result card"><div class="duel-vs"><span>${av(d.avs[0])}</span><b>${d.scores[0]} – ${d.scores[1]}</b><span>${av(d.avs[1])}</span></div>
         <h1>${w < 0 ? "¡Empate épico!" : `¡${esc(d.names[w])} gana el duelo! 🏆`}</h1><p class="muted" style="margin:0">+30 XP y +5 🪙 por jugar en familia</p>
         <div class="row" style="justify-content:center"><button class="btn" data-act="duelStart">🔁 Revancha</button><button class="btn ghost" data-act="duelQuit">Salir</button></div></section>`;
     }
-    const pad = (p) => `<button class="buzzer p${p + 1} ${d.who === p ? "active" : ""} ${d.tried.includes(p) ? "out" : ""}" data-act="buzz" data-p="${p}" ${d.phase !== "buzz" || d.tried.includes(p) ? 'aria-disabled="true"' : ""}><span class="bz-av">${d.avs[p]}</span><b>${esc(d.names[p])}</b><span class="bz-score">${d.scores[p]}<small>/${d.goal}</small></span><span class="bz-key">${p === 0 ? "Tecla A" : "Tecla L"}</span></button>`;
+    const pad = (p) => `<button class="buzzer p${p + 1} ${d.who === p ? "active" : ""} ${d.tried.includes(p) ? "out" : ""}" data-act="buzz" data-p="${p}" ${d.phase !== "buzz" || d.tried.includes(p) ? 'aria-disabled="true"' : ""}><span class="bz-av">${av(d.avs[p])}</span><b>${esc(d.names[p])}</b><span class="bz-score">${d.scores[p]}<small>/${d.goal}</small></span><span class="bz-key">${p === 0 ? "Tecla A" : "Tecla L"}</span></button>`;
     const center = d.phase === "count" ? `<div class="qcard duel-q"><div class="dcount" id="dcount">3</div><p class="muted" style="text-align:center;margin:0">¡Prepárense!</p></div>`
       : `<div class="qcard duel-q" id="qcard"><p class="eyebrow" style="text-align:center">${SUBJECTS[q.subj].icon} ${esc(subjName(q.subj))} · Pregunta ${d.i + 1}</p><div class="prompt" style="${q.small ? "font-size:clamp(1rem,2.4vw,1.3rem)" : ""}">${esc(q.prompt)}</div>${q.visual ? `<div class="visual ${q.visualClass || ""}">${q.visual}</div>` : ""}
         <div class="opts ${d.phase === "answer" ? "" : "locked"}" id="dopts">${(q.keepOrder ? q.keepOrder.filter((o) => q.options.includes(o)) : q.options).map((o, i) => `<button class="opt ${d.phase === "reveal" && o === q.answer ? "right" : ""} ${d.wrong && d.wrong.includes(o) ? "wrong" : ""}" data-act="duelAnswer" data-v="${esc(o)}" ${d.wrong && d.wrong.includes(o) ? "disabled" : ""}><span class="k">${i + 1}</span>${esc(o)}</button>`).join("")}</div>
-        <div class="feedback ${d.phase === "reveal" ? (d.lastOk ? "good" : "bad") : ""}" id="dfb">${d.phase === "buzz" ? "¡Presiona tu botón!" : d.phase === "answer" ? `Responde, ${esc(d.names[d.who])} ${d.avs[d.who]}` : esc(d.msg || "")}</div></div>`;
+        <div class="feedback ${d.phase === "reveal" ? (d.lastOk ? "good" : "bad") : ""}" id="dfb">${d.phase === "buzz" ? "¡Presiona tu botón!" : d.phase === "answer" ? `Responde, ${esc(d.names[d.who])} ${av(d.avs[d.who])}` : esc(d.msg || "")}</div></div>`;
     return `<section class="duel"><div class="hud"><button class="btn ghost small" data-act="duelQuit" aria-label="Salir">✕</button><span class="spacer"></span><span class="pill">⚡ Primero en llegar a ${d.goal}</span></div>
       <div class="duel-grid">${pad(0)}${center}${pad(1)}</div></section>`;
   }
@@ -1345,7 +1345,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     return `<section class="stack profiles-page">
       <div class="center-head"><div class="mascot-mid">${ART.nova("wave")}</div><p class="eyebrow">Cuenta de ${esc(U.name || "")} · ${esc(U.email || "")}</p><h1>¿Quién va a estudiar hoy?</h1></div>
       <div class="profile-grid">${API.profiles.map((x) => { const pr = x.profile || {}, L = levelInfo(x.xp || 0); return `<div class="profile-tile">
-        <button class="profile-pick" data-act="pickProfile" data-id="${esc(x.id)}"><span class="pp-av">${pr.avatar || "🙂"}</span><b>${esc(pr.name || "Sin nombre")}</b><small>${pr.country ? esc(gradeLabel(pr.country, pr.grade)) : ""}</small><span class="tag">Nivel ${L.lv}</span></button>
+        <button class="profile-pick" data-act="pickProfile" data-id="${esc(x.id)}"><span class="pp-av">${av(pr.avatar || "bunny")}</span><b>${esc(pr.name || "Sin nombre")}</b><small>${pr.country ? esc(gradeLabel(pr.country, pr.grade)) : ""}</small><span class="tag">Nivel ${L.lv}</span></button>
         ${p.confirm === x.id ? `<div class="confirm-row"><span>¿Eliminar a ${esc(pr.name || "este perfil")} y todo su progreso?</span><button class="btn small danger" data-act="delProfileYes" data-id="${esc(x.id)}">Sí, eliminar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>` : `<button class="linkbtn" data-act="delProfile" data-id="${esc(x.id)}">Eliminar</button>`}
       </div>`; }).join("")}
         ${API.profiles.length < 8 ? '<button class="profile-pick add" data-act="newProfile"><span class="pp-av">＋</span><b>Agregar perfil</b><small>Para cada niño o niña</small></button>' : ""}</div>
@@ -1360,6 +1360,13 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     const fmt = (d) => (d ? new Date(d).toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric" }) : "—");
     return `<section class="stack">
       <div class="section-head"><h1>🛡️ Usuarios</h1><span class="spacer"></span><span class="pill">${adminData.length} ${adminData.length === 1 ? "cuenta" : "cuentas"}</span><button class="btn ghost small" data-act="go" data-to="${API.pid ? "home" : "profiles"}">Volver</button></div>
+      <form class="card stack invite" data-form="newUser"><h2>${I("users")} Crear cuenta para un amigo</h2>
+        <div class="two"><div class="field"><label for="nu-name">Nombre</label><input id="nu-name" class="input" name="name" required maxlength="40" placeholder="Ej.: Carolina"></div>
+        <div class="field"><label for="nu-email">Email</label><input id="nu-email" class="input" name="email" type="email" required placeholder="amiga@email.com"></div></div>
+        <div class="field"><label for="nu-pw">Contraseña <span class="muted">(déjala vacía y se crea una automáticamente)</span></label><input id="nu-pw" class="input" name="password" type="text" minlength="8" autocomplete="off" placeholder="Opcional, mínimo 8 caracteres"></div>
+        <div class="row"><button class="btn" type="submit">Crear cuenta</button></div>
+        ${p.created ? `<div class="notice share"><b>¡Cuenta creada! Comparte estos datos con ${esc(p.created.name)}:</b><pre id="share-text">${esc(shareText(p.created))}</pre><button type="button" class="btn small" data-act="copyShare">Copiar mensaje</button><p class="muted" style="margin:0">Esta contraseña no se puede volver a ver después. Si se pierde, usa "Cambiar clave".</p></div>` : ""}
+      </form>
       <div class="table-wrap"><table class="users"><thead><tr><th>Cuenta</th><th>Rol</th><th>Perfiles</th><th>Creada</th><th>Último ingreso</th><th><span class="sr">Acciones</span></th></tr></thead><tbody>
       ${adminData.map((u) => { const me = u.id === API.user.id; return `<tr>
         <td><b>${esc(u.name)}</b><br><span class="muted">${esc(u.email)}</span></td>
@@ -1373,6 +1380,13 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       </tbody></table></div>
       <p class="muted">Los datos se guardan en <code>data/db.json</code>, en la carpeta del proyecto. Las contraseñas se guardan cifradas.</p>
     </section>`;
+  }
+  const shareText = (c) => `¡Hola, ${c.name}! Te invito a Aventura Escolar.\nEntra en: ${location.origin}${location.pathname}\nEmail: ${c.email}\nContraseña: ${c.password}\nDespués puedes cambiarla en Cuenta → Cambiar contraseña.`;
+  async function submitNewUser(fd) {
+    try {
+      const r = await callApi("POST", "admin/users", { name: String(fd.get("name") || ""), email: String(fd.get("email") || ""), password: String(fd.get("password") || "") });
+      adminData = null; toast("Cuenta creada"); go("admin", { created: { name: r.user.name, email: r.user.email, password: r.password } });
+    } catch (e) { toast(e.message); }
   }
   async function adminAct(b) {
     const op = b.dataset.op, uid = b.dataset.id;
@@ -1403,6 +1417,30 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
   async function submitPwd(fd) {
     try { await callApi("POST", "password", { current: String(fd.get("current")), next: String(fd.get("next")) }); toast("Contraseña actualizada 🔑"); const m = $(".modal-back"); if (m) m.remove(); }
     catch (e) { toast(e.message); }
+  }
+
+  /* ================= creador de avatar ================= */
+  let avd = null; // { o: partes, from: "setup" | "profile" }
+  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo" };
+  function vAvatar(p) {
+    const from = p.q === "setup" || !S.profile ? "setup" : "profile";
+    if (!avd || avd.from !== from) { const cur = from === "setup" ? (draft && draft.avatar) : S.profile.avatar; avd = { from, o: ART.parseC(String(cur || "").startsWith("c:") ? cur : ART.randomC()) }; }
+    const o = avd.o, code = ART.encodeC(o);
+    const row = (k) => {
+      const opts = ART.PARTS[k], swatch = typeof opts[0] === "string" && opts[0].startsWith("#");
+      return `<div class="av-row"><h3>${AV_LABELS[k]}</h3><div class="av-opts ${swatch ? "sw" : ""}">${opts.map((v, i) => {
+        const on = o[k] === i, attrs = `data-act="avPart" data-k="${k}" data-v="${i}" aria-pressed="${on}"`;
+        if (swatch) return `<button class="swatch" ${attrs} aria-label="${AV_LABELS[k]} ${i + 1}" style="background:${v}"></button>`;
+        const alt = Object.assign({}, o, { [k]: i });
+        return `<button class="av-thumb" ${attrs} aria-label="${esc(v)}">${av(ART.encodeC(alt))}<small>${esc(v)}</small></button>`;
+      }).join("")}</div></div>`;
+    };
+    return `<section class="avatar-maker">
+      <div class="av-preview card"><div class="av-big">${av(code)}</div><h2>${esc((from === "setup" ? draft && draft.name : S.profile.name) || "Mi avatar")}</h2>
+        <div class="row" style="justify-content:center"><button class="btn ghost" data-act="avRandom">${I("sparkle")} Sorpresa</button><button class="btn" data-act="avSave">Usar este avatar</button></div>
+        <button class="linkbtn" data-act="avCancel">Cancelar</button></div>
+      <div class="av-parts">${ART.AVKEYS.map(row).join("")}</div>
+    </section>`;
   }
 
   /* ================= eventos ================= */
@@ -1459,6 +1497,14 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       case "makerReset": maker.status = "idle"; maker.course = null; return render();
       case "morePractice": return morePractice(b.dataset.id, +b.dataset.li);
       case "settings": return settings();
+      case "avPart": avd.o[b.dataset.k] = +b.dataset.v; sfx.tap(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
+      case "avRandom": avd.o = ART.parseC(ART.randomC()); sfx.right(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
+      case "avCancel": { const f = avd && avd.from; avd = null; return go(f === "setup" ? "setup" : "shop", f === "setup" ? { first: !S.profile } : {}); }
+      case "avSave": {
+        const code = ART.encodeC(avd.o), f = avd.from; avd = null;
+        if (f === "setup") { draft.avatar = code; return go("setup", { first: !S.profile }); }
+        S.profile.avatar = code; save(); confetti(90); toast("¡Avatar nuevo!"); return go("shop");
+      }
       case "account": return accountMenu();
       case "authMode": return go("auth", { mode: b.dataset.v });
       case "pickProfile": return pickProfile(b.dataset.id);
@@ -1467,6 +1513,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       case "delProfileYes": return delProfile(b.dataset.id);
       case "logout": return logout();
       case "adminAct": return adminAct(b);
+      case "copyShare": { const t = $("#share-text").textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Mensaje copiado")).catch(() => { const r = document.createRange(); r.selectNodeContents($("#share-text")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Selecciona y copia el mensaje"); }); return; }
       case "boss": return startBoss(b.dataset.s, +b.dataset.g);
       case "chest": return openChest();
       case "buy": return buyItem(b.dataset.id);
@@ -1485,6 +1532,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     if (f.dataset.form === "ask") { const q = String(fd.get("q") || "").trim(); if (q) go("courses", { q }); }
     if (f.dataset.form === "auth") return submitAuth(fd);
     if (f.dataset.form === "pwd") return submitPwd(fd);
+    if (f.dataset.form === "newUser") return submitNewUser(fd);
     if (f.dataset.form === "maker") { maker.form = { topic: String(fd.get("topic") || "").trim(), subject: String(fd.get("subject")), grade: +fd.get("grade"), lessons: +fd.get("lessons"), notes: String(fd.get("notes") || "").trim() }; runMaker(); }
   });
   document.addEventListener("click", (e) => { if (e.target.closest(".buddy .face")) say(pick(["¡Tú puedes! 💪", "¿Jugamos un reto en familia?", "Aprender es una aventura 🚀", "¡Me encanta estudiar contigo!", "Tip: lean la pregunta en voz alta 📢"]), "happy"); });

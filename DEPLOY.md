@@ -37,11 +37,24 @@ En **hPanel → Seguridad → SSL**, instala el certificado gratuito para tu dom
 2. **Crea la primera cuenta: será la administradora.** Desde *Cuenta → Administrar usuarios* podrá ver todas las cuentas, dar o quitar permisos de administrador, cambiar contraseñas y eliminar cuentas.
 3. Cada familia crea su cuenta y agrega un perfil por niño (hasta 8).
 
-## 5. Copias de seguridad
+## 5. Invitar a tus amigos
+
+Tienes dos formas:
+
+- **Que se registren solos:** compárteles el enlace `https://tudominio.com`; cada uno toca *Crear cuenta*.
+- **Crearles la cuenta tú:** entra como administradora → *Cuenta → Administrar usuarios → Crear cuenta para un amigo*. Escribe su nombre y email; si dejas la contraseña vacía se genera una automáticamente. Aparece un mensaje listo para copiar y enviar por WhatsApp o correo con el enlace, el email y la contraseña.
+
+> Las contraseñas se guardan cifradas: nadie puede volver a verlas, ni siquiera la administradora. Si alguien la olvida, usa *Cambiar clave* en el panel para darle una nueva.
+
+## 6. Actualizar la app sin perder datos
+
+Para subir una versión nueva, reemplaza `index.html`, `css/`, `js/` y `api/index.php`. **No borres** `data/` (o tu `data_dir`) ni `api/config.php`: ahí están las cuentas, el progreso y tu configuración. El paquete `.zip` no incluye esas carpetas, así que no las sobrescribe.
+
+## 7. Copias de seguridad
 
 Todo está en un solo archivo: `db.json` (en `data_dir`). Descárgalo de vez en cuando desde el administrador de archivos. Para restaurar, súbelo de nuevo al mismo lugar.
 
-## 6. Comprobar que todo está bien
+## 8. Comprobar que todo está bien
 
 - `https://tudominio.com/api/health` debe responder `{"ok":true,...}`.
 - `https://tudominio.com/data/db.json` debe dar **error 404 o 403** (nunca mostrar el archivo).
