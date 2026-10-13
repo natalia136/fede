@@ -943,3 +943,200 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Dónde suele estar la idea principal de un párrafo?", "En la primera oración", ["En el título del libro", "En el número de la página"]]
     ]
   },
+  /* ===== 5.º ===== */
+  "c5a": {
+    hook: "Tu cuerpo está formado por billones de piezas diminutas que no puedes ver a simple vista. ¿Cuáles son esos ladrillos de la vida?",
+    steps: [
+      { title: "La unidad de la vida", text: "La célula es la unidad más pequeña de un ser vivo. Todos los seres vivos están formados por células: algunos por una sola (unicelulares) y otros por muchísimas (pluricelulares).", example: "🦠 bacteria: unicelular · 🧍 persona: pluricelular" },
+      { title: "Las tres partes básicas", text: "La membrana celular rodea la célula y controla lo que entra y sale. El citoplasma es el líquido interior donde están los organelos. El núcleo guarda el ADN y dirige la célula.", example: "Membrana · citoplasma · núcleo" },
+      { title: "Célula animal y vegetal", text: "La célula vegetal tiene además una pared celular rígida y cloroplastos con clorofila para hacer la fotosíntesis. La célula animal no los tiene.", example: "🌿 cloroplastos · 🧱 pared celular" },
+      { title: "Células especializadas", text: "En los seres pluricelulares las células se especializan: las neuronas transmiten mensajes, los glóbulos rojos llevan oxígeno y las células musculares se contraen.", example: "🧠 neurona · 🩸 glóbulo rojo · 💪 músculo" },
+      { title: "Observa células", text: "Con un adulto, separa la telita fina de una capa de cebolla, ponla sobre un vidrio con una gota de agua y mírala con una lupa potente o un microscopio. Verás pequeñas celdas: ¡son células!", example: "🧅 células de cebolla" }
+    ],
+    remember: ["Todos los seres vivos están hechos de células.", "Partes básicas: membrana, citoplasma y núcleo.", "Las células vegetales tienen pared celular y cloroplastos."],
+    mistake: "Muchos creen que todas las células son iguales. Varían mucho en forma y tamaño según su función: una neurona es muy distinta de un glóbulo rojo.",
+    fun: "¿Sabías que el cuerpo humano tiene alrededor de 30 billones de células, y que la palabra célula viene del latín y significa celdilla?",
+    check: [
+      ["¿Qué parte de la célula guarda el ADN?", "El núcleo", ["La membrana", "La pared celular"]],
+      ["¿Qué tiene la célula vegetal que no tiene la animal?", "Cloroplastos", ["Núcleo", "Citoplasma"]],
+      ["Un ser formado por una sola célula es…", "Unicelular", ["Pluricelular", "Vertebrado"]]
+    ]
+  },
+  "c5b": {
+    hook: "¿Por qué una pelota que pateas termina deteniéndose? ¿Y por qué una manzana cae hacia abajo y no hacia arriba?",
+    steps: [
+      { title: "¿Qué es una fuerza?", text: "Una fuerza es un empujón o un jalón que puede mover un objeto, detenerlo, cambiar su dirección o deformarlo. Las fuerzas se miden en newtons (N).", example: "⚽ patear · 🚪 empujar una puerta" },
+      { title: "La gravedad", text: "La gravedad es la fuerza con que la Tierra atrae todo hacia su centro. Por eso las cosas caen y tenemos peso.", example: "🍎 la manzana cae" },
+      { title: "La fricción", text: "La fricción o rozamiento aparece cuando dos superficies se frotan. Frena el movimiento: por eso una pelota se detiene en el pasto.", example: "⚽ el pasto frena el balón · 🚲 los frenos" },
+      { title: "El magnetismo", text: "El magnetismo es la fuerza de los imanes. Actúa a distancia, sin tocar, como la gravedad.", example: "🧲 imán atrae un clip" },
+      { title: "Experimento de la rampa", text: "Haz una rampa con un libro y deja rodar un carrito sobre la mesa, sobre una toalla y sobre papel aluminio. Mide qué tan lejos llega: más fricción, menos distancia.", example: "🚗 mesa lisa vs. toalla" }
+    ],
+    remember: ["Una fuerza es un empujón o un jalón.", "La gravedad atrae todo hacia la Tierra.", "La fricción frena el movimiento."],
+    mistake: "Muchos creen que un objeto se detiene porque se le acaba la fuerza. Se detiene porque la fricción y otras fuerzas lo frenan; sin ellas seguiría moviéndose.",
+    fun: "¿Sabías que en la Luna pesarías unas seis veces menos que en la Tierra porque su gravedad es más débil?",
+    check: [
+      ["¿Qué fuerza hace caer una manzana?", "La gravedad", ["La fricción", "El magnetismo"]],
+      ["¿Qué fuerza frena una pelota que rueda por el pasto?", "La fricción", ["La gravedad lunar", "El magnetismo"]],
+      ["¿En qué unidad se miden las fuerzas?", "Newtons", ["Litros", "Grados"]]
+    ]
+  },
+  "c5c": {
+    hook: "¿Por qué los cables tienen metal por dentro y plástico por fuera? ¡Es una pista sobre conductores y aislantes!",
+    steps: [
+      { title: "Conductores", text: "Los conductores dejan pasar la electricidad fácilmente. Los metales como el cobre, el aluminio y el hierro son buenos conductores.", example: "🔩 cobre · 🥄 cuchara de metal" },
+      { title: "Aislantes", text: "Los aislantes casi no dejan pasar la electricidad. El plástico, la madera seca, el caucho y el vidrio son aislantes.", example: "🧴 plástico · 🪵 madera seca · 🧤 caucho" },
+      { title: "¿Por qué los cables son así?", text: "El metal de adentro conduce la corriente y el plástico de afuera nos protege para no recibir una descarga.", example: "🔌 cobre por dentro, plástico por fuera" },
+      { title: "El agua y el cuerpo", text: "El agua con sales y el cuerpo humano conducen la electricidad. Por eso nunca debes tocar aparatos eléctricos con las manos mojadas.", example: "⚠️ manos secas siempre" },
+      { title: "Probador de materiales", text: "Con una pila, un bombillo pequeño y cables arma un circuito con un espacio libre. Pon distintos objetos en el espacio: si el bombillo enciende, el material es conductor.", example: "🔋 + 💡 + clip = enciende" }
+    ],
+    remember: ["Los metales son buenos conductores.", "El plástico, la madera y el caucho son aislantes.", "El agua y el cuerpo conducen la electricidad: cuidado."],
+    mistake: "Algunos creen que el agua es siempre aislante porque no es metal. El agua de la llave tiene sales que la hacen conductora y peligrosa con electricidad.",
+    fun: "¿Sabías que la plata es el mejor conductor eléctrico de todos los metales, pero los cables se hacen de cobre porque es mucho más barato?",
+    check: [
+      ["¿Cuál es un buen conductor?", "El cobre", ["El plástico", "La madera seca"]],
+      ["¿Para qué sirve el plástico de los cables?", "Para aislar y protegernos", ["Para conducir mejor", "Para dar luz"]]
+    ]
+  },
+  "c5d": {
+    hook: "Más del 95 % de los animales del planeta no tiene columna vertebral. ¿Cómo se sostienen sus cuerpos?",
+    steps: [
+      { title: "Vertebrados", text: "Los vertebrados tienen esqueleto interno con columna vertebral y cráneo. Se dividen en cinco clases: peces, anfibios, reptiles, aves y mamíferos.", example: "🐟 pez · 🐸 anfibio · 🐊 reptil · 🦜 ave · 🐒 mamífero" },
+      { title: "Invertebrados", text: "Los invertebrados no tienen columna vertebral. Algunos tienen un esqueleto externo duro (exoesqueleto), otros una concha y otros el cuerpo totalmente blando.", example: "🐜 exoesqueleto · 🐌 concha · 🪱 cuerpo blando" },
+      { title: "Grupos de invertebrados", text: "Los artrópodos (insectos, arácnidos, crustáceos y miriápodos) tienen patas articuladas. Además están los moluscos, los gusanos, los equinodermos como la estrella de mar, y las medusas.", example: "🦂 artrópodo · 🐙 molusco · ⭐ equinodermo" },
+      { title: "Comparar", text: "Los vertebrados suelen ser más grandes, pero los invertebrados son muchísimos más en número y en especies. ¡Solo los escarabajos tienen cientos de miles de especies!", example: "🪲 escarabajos · 🐘 elefante" },
+      { title: "Inventario del jardín", text: "Durante 15 minutos anota todos los animales que veas en un parque. Clasifícalos en vertebrados e invertebrados. ¿Qué grupo ganó?", example: "📋 hormigas, pájaros, arañas, lagartijas" }
+    ],
+    remember: ["Vertebrados: tienen columna vertebral.", "Invertebrados: no tienen columna; son la gran mayoría.", "Los artrópodos tienen exoesqueleto y patas articuladas."],
+    mistake: "Algunos creen que los invertebrados son siempre pequeños. El calamar gigante es un invertebrado que puede medir más de 10 metros.",
+    fun: "¿Sabías que los insectos son el grupo de animales con más especies conocidas del planeta?",
+    check: [
+      ["¿Qué tienen los vertebrados?", "Columna vertebral", ["Exoesqueleto", "Concha"]],
+      ["¿Qué animal es invertebrado?", "La estrella de mar", ["El colibrí", "La iguana"]],
+      ["¿Qué grupo tiene patas articuladas y exoesqueleto?", "Los artrópodos", ["Los mamíferos", "Los peces"]]
+    ]
+  },
+  "xcie5a": {
+    hook: "En una cucharadita de tierra hay más seres vivos que personas en tu ciudad. ¡Son microorganismos!",
+    steps: [
+      { title: "¿Qué son?", text: "Los microorganismos son seres vivos tan pequeños que solo se ven con microscopio. Los principales son bacterias, hongos microscópicos (como las levaduras) y protozoos.", example: "🦠 bacterias · 🍞 levaduras · 🔬 protozoos" },
+      { title: "Microorganismos útiles", text: "Muchos son útiles: las levaduras hacen crecer el pan, ciertas bacterias convierten la leche en yogur y otras descomponen restos en el suelo para hacer abono.", example: "🍞 pan · 🥛 yogur · 🌱 compost" },
+      { title: "En tu cuerpo", text: "En tu intestino viven billones de bacterias que te ayudan a digerir y te protegen. Se llaman microbiota.", example: "🦠 bacterias amigas del intestino" },
+      { title: "Microorganismos dañinos", text: "Algunos causan enfermedades, como ciertas bacterias o protozoos. Lavarse las manos, hervir el agua y vacunarse nos protege.", example: "🧼 lavado de manos · 💉 vacunas" },
+      { title: "Experimento de la levadura", text: "Mezcla en una botella agua tibia, una cucharada de azúcar y levadura. Pon un globo en la boca: en unos minutos se inflará con el gas que producen las levaduras vivas.", example: "🍾 + 🎈 = gas de las levaduras" }
+    ],
+    remember: ["Los microorganismos solo se ven con microscopio.", "Muchos son útiles: pan, yogur, abono.", "Algunos causan enfermedades; la higiene nos protege."],
+    mistake: "Muchos creen que todas las bacterias son malas. La mayoría son inofensivas o útiles, y muchas son necesarias para nuestra salud.",
+    fun: "¿Sabías que la penicilina, el primer antibiótico, se descubrió en 1928 gracias a un hongo microscópico que creció por accidente en un experimento de Alexander Fleming?",
+    check: [
+      ["¿Qué microorganismo hace crecer el pan?", "La levadura", ["El protozoo", "El virus de la gripe"]],
+      ["¿Con qué se observan los microorganismos?", "Con un microscopio", ["Con un telescopio", "Con un termómetro"]],
+      ["¿Cuál afirmación es correcta?", "Muchos microorganismos son útiles", ["Todas las bacterias son dañinas", "Los microorganismos no están vivos"]]
+    ]
+  },
+  "xcie5b": {
+    hook: "Una planta nueva puede nacer de una semilla… ¡o de un pedacito de tallo! ¿Cómo es posible?",
+    steps: [
+      { title: "¿Para qué reproducirse?", text: "La reproducción permite que los seres vivos tengan descendientes y que su especie no desaparezca. Hay dos tipos: sexual y asexual.", example: "🐣 crías · 🌱 plantas nuevas" },
+      { title: "Reproducción sexual", text: "Participan dos progenitores. Una célula del padre (espermatozoide o polen) se une con una de la madre (óvulo): esto es la fecundación. Las crías se parecen a ambos, pero no son idénticas.", example: "🐣 fecundación en aves · 🌸 polinización" },
+      { title: "Reproducción asexual", text: "Participa un solo progenitor y las crías son copias casi idénticas. Es rápida y no necesita pareja.", example: "🦠 bacteria · 🌿 esqueje" },
+      { title: "Tipos de reproducción asexual", text: "En la bipartición una célula se divide en dos (bacterias). En la gemación sale un brote que se separa (levaduras, hidras). En los esquejes, un trozo de tallo forma una planta nueva.", example: "🦠 bipartición · 🍞 gemación · 🌿 esqueje" },
+      { title: "Haz un esqueje", text: "Corta con un adulto una ramita de poto o de albahaca y ponla en un vaso con agua. En una o dos semanas le saldrán raíces y podrás sembrarla.", example: "🌿 + 💧 = raíces nuevas" }
+    ],
+    remember: ["Sexual: dos progenitores y fecundación.", "Asexual: un solo progenitor, crías idénticas.", "Bipartición, gemación y esquejes son asexuales."],
+    mistake: "Algunos creen que las plantas solo se reproducen por semillas. Muchas también lo hacen de forma asexual, con esquejes, tubérculos o estolones.",
+    fun: "¿Sabías que algunas bacterias pueden dividirse en dos cada 20 minutos cuando las condiciones son ideales?",
+    check: [
+      ["¿Cuántos progenitores hay en la reproducción asexual?", "Uno", ["Dos", "Tres"]],
+      ["¿Cómo se reproducen las bacterias?", "Por bipartición", ["Por semillas", "Por fecundación"]],
+      ["¿Qué es un esqueje?", "Un trozo de tallo que forma una planta nueva", ["Un huevo de ave", "Un tipo de bacteria"]]
+    ]
+  },
+  "xcie5c": {
+    hook: "La gallina pone huevos y la perra tiene cachorros. ¿Y el ornitorrinco? ¡Es un mamífero que pone huevos!",
+    steps: [
+      { title: "Ovíparos", text: "Los animales ovíparos ponen huevos fuera del cuerpo de la madre. La cría se desarrolla dentro del huevo con los nutrientes que este contiene, hasta que nace.", example: "🐔 gallina · 🐢 tortuga · 🐊 caimán" },
+      { title: "Vivíparos", text: "En los vivíparos, la cría se desarrolla dentro del cuerpo de la madre y se alimenta a través de la placenta. Nace ya formada. Casi todos los mamíferos son vivíparos.", example: "🐶 perro · 🐄 vaca · 🧍 ser humano" },
+      { title: "Cuidando los huevos", text: "Muchos ovíparos cuidan sus huevos: las aves los incuban con el calor de su cuerpo. Las tortugas marinas, en cambio, los entierran en la arena y se van.", example: "🐦 incubación · 🐢 nido en la playa" },
+      { title: "Casos especiales", text: "El ornitorrinco de Australia es un mamífero que pone huevos. Algunos tiburones y serpientes guardan los huevos dentro del cuerpo hasta que eclosionan: se llaman ovovivíparos.", example: "🦆 ornitorrinco · 🦈 algunos tiburones" }
+    ],
+    remember: ["Ovíparos: nacen de huevos puestos fuera de la madre.", "Vivíparos: se desarrollan dentro de la madre.", "Casi todos los mamíferos son vivíparos."],
+    mistake: "Muchos creen que todos los mamíferos son vivíparos. El ornitorrinco y el equidna son mamíferos que ponen huevos.",
+    fun: "¿Sabías que las tortugas marinas que anidan en playas de Costa Rica y México vuelven a desovar a la región donde nacieron?",
+    check: [
+      ["¿Cómo es la gallina?", "Ovípara", ["Vivípara", "Ninguna"]],
+      ["¿Qué mamífero pone huevos?", "El ornitorrinco", ["El perro", "La ballena"]],
+      ["En los vivíparos, ¿dónde se desarrolla la cría?", "Dentro de la madre", ["En un huevo enterrado", "En el agua sola"]]
+    ]
+  },
+  "xcie5d": {
+    hook: "Durante una tormenta primero ves el relámpago y después oyes el trueno. ¿Por qué no llegan al mismo tiempo?",
+    steps: [
+      { title: "Reflexión de la luz", text: "La reflexión ocurre cuando la luz rebota en una superficie. En un espejo liso la luz rebota ordenada y por eso vemos nuestra imagen.", example: "🪞 espejo · 🌊 lago tranquilo" },
+      { title: "Refracción de la luz", text: "La refracción es el cambio de dirección de la luz al pasar de un material a otro, como del aire al agua. Por eso un lápiz en un vaso de agua parece quebrado.", example: "✏️ lápiz en el agua · 🔍 lupa" },
+      { title: "Los colores de la luz", text: "La luz blanca está formada por muchos colores. Un prisma o las gotas de lluvia la refractan y la separan en el arcoíris.", example: "🌈 rojo, naranja, amarillo, verde, azul, añil, violeta" },
+      { title: "Luz más rápida que sonido", text: "La luz viaja a unos 300 000 km por segundo; el sonido en el aire, a unos 340 metros por segundo. Por eso el relámpago llega antes que el trueno.", example: "⚡ luz primero · 🔊 trueno después" },
+      { title: "Tono e intensidad", text: "El tono indica si un sonido es agudo o grave y depende de qué tan rápido vibra la fuente. La intensidad indica si es fuerte o suave y se mide en decibeles.", example: "🎻 agudo · 🥁 grave · 🔊 fuerte" }
+    ],
+    remember: ["La luz se refleja (rebota) y se refracta (se desvía).", "La luz es muchísimo más rápida que el sonido.", "El sonido tiene tono (agudo o grave) e intensidad (fuerte o suave)."],
+    mistake: "Algunos confunden reflexión con refracción. Reflexión es rebotar (espejo); refracción es desviarse al cambiar de material (lápiz en el agua).",
+    fun: "¿Sabías que puedes estimar la distancia de una tormenta? Cuenta los segundos entre el relámpago y el trueno y divide entre 3: es la distancia aproximada en kilómetros.",
+    check: [
+      ["¿Qué fenómeno hace que un lápiz parezca quebrado en el agua?", "La refracción", ["La reflexión", "El eco"]],
+      ["¿Qué viaja más rápido?", "La luz", ["El sonido", "Viajan igual"]],
+      ["¿Qué indica el tono de un sonido?", "Si es agudo o grave", ["Si es fuerte o suave", "Su color"]]
+    ]
+  },
+  "xcie5e": {
+    hook: "Si pudieras viajar desde el Sol hacia afuera, ¿en qué orden visitarías los planetas?",
+    steps: [
+      { title: "Los planetas rocosos", text: "Los cuatro más cercanos al Sol son rocosos: Mercurio (el más pequeño y cercano), Venus (el más caliente), la Tierra y Marte (el planeta rojo).", example: "Mercurio → Venus → Tierra → Marte" },
+      { title: "El cinturón de asteroides", text: "Entre Marte y Júpiter hay un cinturón de asteroides: miles de rocas que giran alrededor del Sol y separan a los planetas rocosos de los gigantes.", example: "🪨🪨🪨 cinturón de asteroides" },
+      { title: "Los gigantes", text: "Luego vienen Júpiter (el más grande), Saturno (con sus anillos brillantes), Urano (gira de lado) y Neptuno (el más lejano y con vientos muy fuertes).", example: "Júpiter → Saturno → Urano → Neptuno" },
+      { title: "Fases de la Luna en orden", text: "Las fases de la Luna también tienen orden: luna nueva, cuarto creciente, luna llena y cuarto menguante. El ciclo completo dura unos 29 días y medio.", example: "🌑 → 🌓 → 🌕 → 🌗" },
+      { title: "Modelo a escala", text: "Con bolitas de plastilina de distintos tamaños, haz los planetas y ordénalos en una cuerda desde una pelota amarilla que sea el Sol.", example: "🟡 Sol · 🔵 Tierra · 🟠 Júpiter grande" }
+    ],
+    remember: ["Orden: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano, Neptuno.", "Los cuatro primeros son rocosos y los cuatro últimos, gigantes.", "Fases: nueva, creciente, llena, menguante."],
+    mistake: "Muchos creen que Mercurio es el planeta más caliente por estar más cerca del Sol. El más caliente es Venus, porque su atmósfera espesa atrapa el calor.",
+    fun: "¿Sabías que un día en Venus dura más que un año en Venus? Gira sobre sí mismo muy lentamente.",
+    check: [
+      ["¿Qué planeta va después de la Tierra?", "Marte", ["Venus", "Júpiter"]],
+      ["¿Cuál es el planeta más lejano del Sol?", "Neptuno", ["Saturno", "Urano"]],
+      ["¿Qué fase viene después de la luna nueva?", "Cuarto creciente", ["Luna llena", "Cuarto menguante"]]
+    ]
+  },
+  "xcie5f": {
+    hook: "La Luna a veces parece una sonrisa, a veces un círculo completo y a veces desaparece. ¿Está cambiando de forma?",
+    steps: [
+      { title: "El satélite de la Tierra", text: "La Luna es el satélite natural de la Tierra: gira a su alrededor y tarda unos 27 días en dar una vuelta. No tiene luz propia: refleja la luz del Sol.", example: "🌙 satélite natural" },
+      { title: "¿Por qué hay fases?", text: "El Sol siempre ilumina la mitad de la Luna. Según dónde esté la Luna en su órbita, desde la Tierra vemos una parte mayor o menor de esa mitad iluminada.", example: "☀️ → 🌗 parte iluminada" },
+      { title: "Las cuatro fases", text: "En la luna nueva no vemos la cara iluminada. Luego viene el cuarto creciente, después la luna llena con su cara iluminada completa, y luego el cuarto menguante.", example: "🌑 nueva → 🌓 creciente → 🌕 llena → 🌗 menguante" },
+      { title: "La Luna y la Tierra", text: "La gravedad de la Luna produce las mareas: el mar sube y baja en las costas dos veces al día aproximadamente. La Luna siempre nos muestra la misma cara.", example: "🌊 marea alta y marea baja" },
+      { title: "Diario lunar", text: "Durante un mes, mira la Luna cada noche (o cada vez que se pueda) y dibuja su forma. Al final tendrás tu propio calendario de fases.", example: "📅 dibujo diario de la Luna" }
+    ],
+    remember: ["La Luna gira alrededor de la Tierra y refleja la luz del Sol.", "Las fases dependen de cuánto vemos de su cara iluminada.", "La gravedad de la Luna produce las mareas."],
+    mistake: "Muchos creen que las fases se deben a la sombra de la Tierra sobre la Luna. Eso es un eclipse lunar; las fases se deben a la posición de la Luna respecto al Sol y la Tierra.",
+    fun: "¿Sabías que en 1969 los astronautas del Apolo 11 caminaron sobre la Luna y sus huellas pueden durar muchísimo tiempo porque allí no hay viento ni lluvia?",
+    check: [
+      ["¿Por qué brilla la Luna?", "Refleja la luz del Sol", ["Tiene luz propia", "Es un volcán encendido"]],
+      ["¿Qué fase viene después del cuarto creciente?", "Luna llena", ["Luna nueva", "Cuarto menguante"]],
+      ["¿Qué produce la gravedad de la Luna en el mar?", "Las mareas", ["Los terremotos", "La sal del mar"]]
+    ]
+  },
+  "xcie5g": {
+    hook: "Hoy llueve, pero tu ciudad tiene clima seco. ¿Es una contradicción? ¡No! Tiempo y clima no son lo mismo.",
+    steps: [
+      { title: "Tiempo atmosférico", text: "El tiempo atmosférico es el estado de la atmósfera en un lugar y un momento: si hoy hace sol, llueve o hace viento. Cambia de un día a otro, incluso en pocas horas.", example: "🌦️ hoy: nublado con lluvia" },
+      { title: "Clima", text: "El clima es el promedio del tiempo en un lugar durante muchos años (al menos 30). Por ejemplo, la selva amazónica tiene clima cálido y húmedo.", example: "🌴 cálido húmedo · 🏔️ frío de montaña" },
+      { title: "Instrumentos de medición", text: "El termómetro mide la temperatura; el pluviómetro, la lluvia; el anemómetro, la velocidad del viento; la veleta, su dirección; y el barómetro, la presión del aire.", example: "🌡️ termómetro · 🌧️ pluviómetro · 🌬️ anemómetro" },
+      { title: "¿Qué influye en el clima?", text: "La distancia al ecuador, la altura y la cercanía al mar influyen en el clima. Por eso en Quito, aunque está casi en el ecuador, hace fresco: está a gran altura.", example: "🏔️ más altura = más frío" },
+      { title: "Haz un pluviómetro", text: "Corta la parte de arriba de una botella de plástico, ponla invertida como embudo y marca una regla en centímetros por fuera. Déjala al aire libre y mide la lluvia cada día.", example: "🧴 botella + regla = pluviómetro" }
+    ],
+    remember: ["El tiempo cambia cada día; el clima es el promedio de muchos años.", "Termómetro, pluviómetro, anemómetro, veleta y barómetro miden el tiempo.", "La altura y la latitud influyen en el clima."],
+    mistake: "Muchos usan clima y tiempo como si fueran lo mismo. Un día frío no cambia el clima de un lugar; el clima se calcula con datos de muchos años.",
+    fun: "¿Sabías que el desierto de Atacama, en Chile, es uno de los lugares más secos del planeta y en algunas zonas casi nunca llueve?",
+    check: [
+      ["¿Qué instrumento mide la lluvia?", "El pluviómetro", ["El anemómetro", "El barómetro"]],
+      ["¿Qué es el clima?", "El promedio del tiempo durante muchos años", ["El tiempo de hoy", "La lluvia de una tarde"]],
+      ["¿Qué mide el anemómetro?", "La velocidad del viento", ["La temperatura", "La presión"]]
+    ]
+  },
