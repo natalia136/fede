@@ -9,3 +9,6 @@ RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
 <Files "config.sample.php">
   Require all denied
 </Files>
+<Files "config.example.php">
+  Require all denied
+</Files>

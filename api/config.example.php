@@ -1,6 +1,7 @@
 <?php
 /* CONFIGURACIÓN DEL SERVIDOR
    1. Copia este archivo en la misma carpeta (api/) con el nombre config.php
+      (o la forma más fácil: pega las claves en la app, en Cuenta → Claves de IA y voz)
    2. Pega tu clave de la API de Anthropic en 'api_key'.
    Este archivo nunca se envía al navegador: la clave queda solo en tu servidor. */
 return [

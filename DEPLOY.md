@@ -15,7 +15,7 @@ public_html/
 ├── css/styles.css
 ├── js/ (app.js, art.js, curriculum.js, countries.js, content/…)
 ├── ai/prompts.json
-└── api/ (index.php, .htaccess, config.sample.php)
+└── api/ (index.php, .htaccess, config.example.php)
 ```
 
 > Los archivos que empiezan con punto (`.htaccess`) son importantes. Si no los ves, activa "Mostrar archivos ocultos" en el administrador de archivos.
@@ -39,7 +39,7 @@ Las claves quedan en `data/settings.json` (carpeta protegida) y nunca se muestra
 La clave de la API de Anthropic va **solo** en un archivo del servidor. Nunca llega al navegador de quienes usan la app.
 
 1. En el Administrador de archivos entra a `public_html/api/`.
-2. Clic derecho sobre **`config.sample.php`** → *Copiar* → nómbralo **`config.php`** (en la misma carpeta).
+2. Clic derecho sobre **`config.example.php`** → *Copiar* → nómbralo **`config.php`** (en la misma carpeta).
 3. Clic derecho sobre `config.php` → *Editar*. Busca esta línea y pega tu clave entre las comillas:
 
 ```php

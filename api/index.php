@@ -2,14 +2,24 @@
 /* API de Aventura Escolar para hosting compartido con PHP (por ejemplo Hostinger).
    Misma API que server.js: cuentas con email y contraseña, perfiles por niño,
    administración de usuarios e IA opcional. Guarda todo en un archivo JSON.
-   Configuración opcional en api/config.php (ver api/config.sample.php). */
+   Configuración opcional en api/config.php (ver api/config.example.php). */
 declare(strict_types=1);
 
-// Si config.php tiene un error de escritura, la app sigue funcionando y /api/health dice en qué línea está.
+// Lee la configuración de api/config.php y también de api/config.sample.php (por si las claves se pusieron ahí).
+// Si alguno tiene un error de escritura, la app sigue funcionando y /api/health dice en qué línea está.
 $CONFIG_ERROR = null;
-try { $config = is_file(__DIR__ . '/config.php') ? (require __DIR__ . '/config.php') : []; }
-catch (\Throwable $e) { $config = []; $CONFIG_ERROR = 'api/config.php, línea ' . $e->getLine() . ': ' . $e->getMessage(); }
-if (!is_array($config)) { $config = []; $CONFIG_ERROR = 'api/config.php debe empezar con <?php y terminar con ]; (return [ ... ];)'; }
+function read_config(string $file, ?string &$err): array {
+  if (!is_file($file)) return [];
+  try { $c = require $file; } catch (\Throwable $e) { $err = 'api/' . basename($file) . ', línea ' . $e->getLine() . ': ' . $e->getMessage(); return []; }
+  if (!is_array($c)) { $err = 'api/' . basename($file) . ' debe empezar con <?php y terminar con ]; (return [ ... ];)'; return []; }
+  return $c;
+}
+$config = read_config(__DIR__ . '/config.sample.php', $CONFIG_ERROR);
+foreach (read_config(__DIR__ . '/config.php', $CONFIG_ERROR) as $k => $v) {
+  // config.php manda, pero un valor vacío (por ejemplo 'api_key' => '') no borra el de config.sample.php
+  if (is_array($v) && is_array($config[$k] ?? null)) { foreach ($v as $kk => $vv) if ($vv !== '' && $vv !== null) $config[$k][$kk] = $vv; }
+  elseif ($v !== '' && $v !== null) $config[$k] = $v;
+}
 $DATA_DIR = rtrim($config['data_dir'] ?? (__DIR__ . '/../data'), '/');
 $DB_FILE = $DATA_DIR . '/db.json';
 // Claves y opciones guardadas desde la pantalla "Configuración" de la app (solo administradores).
