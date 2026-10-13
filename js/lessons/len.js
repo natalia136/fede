@@ -519,7 +519,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     ]
   },
   "l3c": {
-    hook: "En inglés solo se pone el signo al final, pero en español los ponemos dos veces. ¿Sabes por qué? ¿!",
+    hook: "En inglés solo se pone el signo al final, pero en español los ponemos dos veces. ¿Sabes por qué? ¿? ¡!",
     steps: [
       { title: "Signos de interrogación", text: "Usamos ¿? para hacer preguntas. En español siempre ponemos el de apertura (¿) al principio y el de cierre (?) al final.", example: "¿Cómo te llamas?" },
       { title: "Signos de exclamación", text: "Usamos ¡! para expresar emociones fuertes como alegría, sorpresa, enojo o para llamar a alguien.", example: "¡Qué alegría verte! · ¡Cuidado!" },
@@ -681,6 +681,181 @@ Object.assign(window.CURRICULUM_LESSONS, {
     check: [
       ["¿Cómo se llama la enseñanza de una fábula?", "moraleja", ["título", "dato"]],
       ["«Las abejas fabrican miel con el néctar de las flores.» ¿Qué tipo de texto es?", "informativo", ["fábula", "poema"]]
+    ]
+  },
+});
+
+/* ===== 4.º primaria ===== */
+Object.assign(window.CURRICULUM_LESSONS, {
+  "l4a": {
+    hook: "Di «camión» en voz alta. ¿En qué parte de la palabra pusiste más fuerza? 🚚",
+    steps: [
+      { title: "La sílaba tónica", text: "En cada palabra hay una sílaba que se pronuncia con más fuerza. Se llama sílaba tónica. Las demás son átonas.", example: "ca-MIÓN · ÁR-bol · ME-sa" },
+      { title: "Cómo encontrarla", text: "Di la palabra como si llamaras a alguien desde lejos. La sílaba que alargas es la tónica. También puedes contar sílabas desde el final.", example: "¡ca-miooón! → la tónica es «mión»" },
+      { title: "Agudas", text: "Las palabras agudas tienen la fuerza en la última sílaba.", example: "ca-MIÓN · re-LOJ · so-FÁ · pa-RED" },
+      { title: "Llanas o graves", text: "Las palabras llanas (también llamadas graves) tienen la fuerza en la penúltima sílaba. Son las más comunes en español.", example: "ÁR-bol · ME-sa · LÁ-piz · ZA-pa-to" },
+      { title: "Esdrújulas", text: "Las esdrújulas tienen la fuerza en la antepenúltima sílaba (la tercera desde el final). ¡Todas llevan tilde, sin excepción!", example: "MÚ-si-ca · PÁ-ja-ro · lám-PA-ra → lÁm-pa-ra · RÁ-pi-do" }
+    ],
+    remember: ["La sílaba tónica es la que suena más fuerte.", "Agudas: última · Llanas: penúltima · Esdrújulas: antepenúltima.", "Las esdrújulas siempre llevan tilde."],
+    mistake: "Confundir la fuerza de voz con la tilde. Todas las palabras tienen sílaba tónica, pero no todas llevan tilde: «reloj» es aguda y no lleva tilde.",
+    fun: "¿Sabías que la mayoría de las palabras del español son llanas? Por eso nuestro idioma suena como suena.",
+    check: [
+      ["¿Qué tipo de palabra es «música»?", "esdrújula", ["aguda", "llana"]],
+      ["¿Qué tipo de palabra es «camión»?", "aguda", ["llana", "esdrújula"]],
+      ["¿Qué palabras llevan siempre tilde?", "las esdrújulas", ["las agudas", "las llanas"]]
+    ]
+  },
+  "l4b": {
+    hook: "¿Por qué escribimos «zapato» con z pero «cielo» con c, si suenan parecido? 🦓",
+    steps: [
+      { title: "Za, ce, ci, zo, zu", text: "Para el sonido /z/ escribimos za, zo, zu con z, pero ce y ci con c. Ze y zi casi no se usan.", example: "zapato · cereza · cielo · zorro · zumo" },
+      { title: "El plural de z", text: "Las palabras que terminan en z cambian la z por c en el plural, porque detrás viene la e.", example: "pez → peces · lápiz → lápices · nariz → narices" },
+      { title: "Lo mismo en familias", text: "Cuando agregamos -ito, -ero o -ería a una palabra con z, también cambia a c si sigue e o i.", example: "taza → tacita · luz → lucecita · cruz → crucero" },
+      { title: "En Latinoamérica, también s", text: "En casi toda Latinoamérica, la s, la z y la c (con e, i) suenan igual. Por eso hay que fijarse en cómo se escribe cada palabra.", example: "casa (vivienda) · caza (cazar)" },
+      { title: "Algunas pistas", text: "Las terminaciones -azo y -aza (golpes o aumentativos) van con z. Los diminutivos -cito y -cita van con c.", example: "pelotazo · manaza · cochecito · florecita" }
+    ],
+    remember: ["Escribimos za, ce, ci, zo, zu.", "Plural de z → -ces: pez, peces.", "En Latinoamérica s, z y c suenan igual: hay que fijarse."],
+    mistake: "Un error común es escribir «lápizes» o «felizes». Recuerda que la z cambia a c antes de e: «lápices», «felices».",
+    fun: "¿Sabías que «zigzag» es una de las pocas palabras del español que se escribe con «zi»? ⚡",
+    check: [
+      ["¿Cuál es el plural de «lápiz»?", "lápices", ["lápizes", "lápiz"]],
+      ["¿Cuál está bien escrita?", "cielo", ["zielo", "sielo"]]
+    ]
+  },
+  "l4c": {
+    hook: "Una receta, un cuento y una poesía… ¿por qué no se escriben igual? 📝",
+    steps: [
+      { title: "Texto narrativo", text: "Cuenta una historia con personajes, lugar y acciones en orden. Tiene inicio, nudo y desenlace.", example: "Cuentos, leyendas, fábulas, novelas" },
+      { title: "Texto instructivo", text: "Explica paso a paso cómo hacer algo. Usa verbos que dan órdenes y suele tener números o viñetas.", example: "Receta: 1. Bate los huevos. 2. Agrega la harina." },
+      { title: "Texto informativo", text: "Da datos reales sobre un tema para que aprendamos. Usa un lenguaje claro y preciso.", example: "Noticias, enciclopedias, artículos de ciencia" },
+      { title: "Texto poético", text: "Expresa sentimientos y emociones de forma bella. Suele estar escrito en versos y a veces tiene rima.", example: "Poemas, canciones, rimas, adivinanzas" },
+      { title: "¿Cómo reconocerlos?", text: "Pregúntate para qué sirve el texto: ¿contar?, ¿enseñar a hacer?, ¿informar?, ¿emocionar? La respuesta te dice el tipo.", example: "Manual de un juguete → instructivo" }
+    ],
+    remember: ["Narrativo: cuenta una historia.", "Instructivo: enseña a hacer algo paso a paso.", "Informativo: da datos reales · Poético: expresa sentimientos."],
+    mistake: "Confundir el instructivo con el informativo. Si te dice qué hacer paso a paso (como una receta), es instructivo; si solo te da datos, es informativo.",
+    fun: "¿Sabías que una de las recetas escritas más antiguas tiene casi 4000 años? Está grabada en tablillas de barro de Mesopotamia.",
+    check: [
+      ["¿Qué tipo de texto es una receta?", "instructivo", ["narrativo", "poético"]],
+      ["¿Qué tipo de texto suele estar en versos?", "poético", ["instructivo", "informativo"]]
+    ]
+  },
+  "l4d": {
+    hook: "En toda oración hay alguien de quien se habla y algo que se dice de él. ¿Puedes partirla en dos? ✂️",
+    steps: [
+      { title: "Las dos partes", text: "La oración se divide en dos partes: el sujeto (de quién se habla) y el predicado (lo que se dice del sujeto).", example: "[Los niños] [juegan en el parque]." },
+      { title: "Encuentra el verbo", text: "Primero busca el verbo. El verbo es el núcleo del predicado, la palabra más importante de esa parte.", example: "Los niños JUEGAN en el parque." },
+      { title: "Pregunta «¿quién?»", text: "Pregunta al verbo «¿quién?» o «¿quiénes?». La respuesta es el sujeto.", example: "¿Quiénes juegan? → Los niños (sujeto)" },
+      { title: "La prueba del número", text: "El sujeto y el verbo concuerdan en número. Si cambias el sujeto a singular, el verbo también cambia.", example: "El niño juega · Los niños juegan" },
+      { title: "El sujeto puede ir al final", text: "El sujeto no siempre está al principio. A veces va después del verbo o está escondido (sujeto omitido).", example: "Llegó [mi abuela]. · Comimos pizza (sujeto: nosotros)." }
+    ],
+    remember: ["Sujeto: de quién se habla.", "Predicado: lo que se dice del sujeto; su núcleo es el verbo.", "Pregunta «¿quién?» al verbo para hallar el sujeto."],
+    mistake: "Pensar que el sujeto siempre es la primera palabra. En «Ayer llegó mi abuela», el sujeto es «mi abuela». Usa siempre la pregunta «¿quién?».",
+    fun: "¿Sabías que en español podemos omitir el sujeto porque el verbo ya lo dice? «Cantamos» significa «nosotros cantamos». ¡En inglés no se puede!",
+    check: [
+      ["En «El gato duerme en el sofá», ¿cuál es el sujeto?", "El gato", ["duerme en el sofá", "el sofá"]],
+      ["¿Cuál es el núcleo del predicado?", "el verbo", ["el artículo", "el adjetivo"]]
+    ]
+  },
+  "xlen4a": {
+    hook: "Ayer comí, hoy como, mañana comeré… ¡El verbo viaja en el tiempo! ⏳",
+    steps: [
+      { title: "El verbo cambia con el tiempo", text: "El verbo cambia su forma para decirnos cuándo ocurre la acción. Hay tres tiempos principales: pasado, presente y futuro.", example: "comí · como · comeré" },
+      { title: "Pasado", text: "El pasado expresa algo que ya ocurrió. Suele ir con palabras como ayer, antes o el año pasado.", example: "Ayer jugué fútbol. · Antes vivíamos en Lima." },
+      { title: "Presente", text: "El presente expresa algo que ocurre ahora o que hacemos siempre. Va con hoy, ahora o siempre.", example: "Ahora leo un libro. · Siempre desayuno pan." },
+      { title: "Futuro", text: "El futuro expresa algo que todavía no ha pasado pero pasará. Va con mañana, luego o el próximo año.", example: "Mañana viajaré. · El próximo año estudiaremos inglés." },
+      { title: "Palabras pista", text: "Las palabras de tiempo ayudan a elegir la forma correcta del verbo. Fíjate en ellas.", example: "ayer → pasado · hoy → presente · mañana → futuro" }
+    ],
+    remember: ["Pasado: ya ocurrió.", "Presente: ocurre ahora.", "Futuro: ocurrirá."],
+    mistake: "A veces mezclamos tiempos: «Ayer voy al cine». Si dices «ayer», el verbo debe ir en pasado: «Ayer fui al cine».",
+    fun: "¿Sabías que en algunos idiomas, como el chino mandarín, los verbos no cambian según el tiempo? Usan otras palabras para indicar cuándo.",
+    check: [
+      ["¿En qué tiempo está «comeré»?", "futuro", ["pasado", "presente"]],
+      ["Completa: «Ayer ___ al parque.»", "fui", ["voy", "iré"]]
+    ]
+  },
+  "xlen4b": {
+    hook: "«Árbol» lleva tilde y «reloj» no. ¿Por qué? ¡Hay reglas que lo explican todo! ✍️",
+    steps: [
+      { title: "Primero, la sílaba tónica", text: "Antes de poner una tilde, encuentra la sílaba tónica y decide si la palabra es aguda, llana o esdrújula.", example: "can-CIÓN (aguda) · ÁR-bol (llana) · MÚ-si-ca (esdrújula)" },
+      { title: "Agudas", text: "Las agudas llevan tilde si terminan en n, s o vocal. Si terminan en otra consonante, no llevan tilde.", example: "canción · compás · sofá ✔ · reloj · pared · feliz (sin tilde)" },
+      { title: "Llanas", text: "Las llanas llevan tilde si NO terminan en n, s o vocal. Es justo al revés que las agudas.", example: "árbol · lápiz · azúcar ✔ · mesa · examen · lunes (sin tilde)" },
+      { title: "Esdrújulas", text: "Las esdrújulas llevan tilde siempre, sin importar en qué letra terminen.", example: "música · pájaro · teléfono · murciélago" },
+      { title: "Cómo aplicarlas", text: "Sigue tres pasos: 1) separa en sílabas, 2) halla la tónica, 3) mira la última letra y aplica la regla.", example: "ra-tón → aguda → termina en n → ¡tilde! ratón" }
+    ],
+    remember: ["Agudas: tilde si terminan en n, s o vocal.", "Llanas: tilde si NO terminan en n, s o vocal.", "Esdrújulas: siempre con tilde."],
+    mistake: "Poner tilde a todas las agudas, como «relój» o «paréd». Solo llevan tilde si terminan en n, s o vocal.",
+    fun: "¿Sabías que «sofá» y «sofás» llevan tilde, pero «examen» no y su plural «exámenes» sí? ¡Al pasar a plural se volvió esdrújula!",
+    check: [
+      ["¿Qué palabra está bien escrita?", "canción", ["cancion", "cánción"]],
+      ["¿Por qué lleva tilde «árbol»?", "es llana y no termina en n, s o vocal", ["es aguda y termina en l", "todas las palabras llevan tilde"]],
+      ["¿Cuál de estas agudas NO lleva tilde?", "reloj", ["café", "jamás"]]
+    ]
+  },
+  "xlen4c": {
+    hook: "Si quieres contarle algo a tu abuela, ¿le escribes una receta o una carta? 💌",
+    steps: [
+      { title: "La carta", text: "La carta sirve para comunicarnos con alguien que está lejos. Tiene lugar y fecha, saludo, cuerpo, despedida y firma.", example: "Lima, 3 de mayo · Querida abuela: … Un abrazo, Elena." },
+      { title: "La noticia", text: "La noticia informa sobre algo real que acaba de pasar. Tiene titular (llama la atención), entrada (resume lo más importante) y cuerpo (da los detalles).", example: "Titular: «Nace un panda en el zoológico»" },
+      { title: "Las preguntas de la noticia", text: "Una buena noticia responde a: ¿qué pasó?, ¿quién?, ¿cuándo?, ¿dónde?, ¿cómo? y ¿por qué?", example: "Ayer (cuándo) nació un panda (qué) en el zoológico (dónde)." },
+      { title: "La receta", text: "La receta enseña a preparar una comida. Tiene título, ingredientes con sus cantidades y la preparación paso a paso.", example: "Ingredientes: 2 huevos, 1 taza de harina · Preparación: 1. Bate los huevos." }
+    ],
+    remember: ["Carta: saludo, cuerpo, despedida y firma.", "Noticia: titular, entrada y cuerpo.", "Receta: ingredientes y preparación."],
+    mistake: "Olvidar la despedida y la firma en la carta. Sin ellas, la persona no sabrá quién le escribe. ¡Firma siempre tus cartas!",
+    fun: "¿Sabías que antes del correo electrónico, una carta podía tardar meses en cruzar el océano en barco? ⛵",
+    check: [
+      ["¿Qué parte de la noticia resume lo más importante?", "la entrada", ["el titular", "la firma"]],
+      ["¿Qué parte tiene la receta?", "ingredientes", ["saludo", "titular"]]
+    ]
+  },
+  "xlen4d": {
+    hook: "Si un texto fuera una casa, ¿qué sería el techo, las paredes y los cimientos? 🏠",
+    steps: [
+      { title: "Todo texto tiene orden", text: "Los textos no son un montón de palabras sueltas: tienen partes que van en un orden. Conocerlas te ayuda a leer y a escribir.", example: "Inicio → Desarrollo → Cierre" },
+      { title: "Partes del cuento", text: "El cuento tiene inicio (presenta personajes), nudo (aparece el problema) y desenlace (se resuelve).", example: "Había una vez… → De repente… → Al final…" },
+      { title: "Partes de la noticia", text: "La noticia tiene titular, entrada, cuerpo y a veces una foto con pie de foto. Lo más importante va primero.", example: "Titular → Entrada → Cuerpo → Cierre" },
+      { title: "Los párrafos", text: "Cada parte se escribe en párrafos. Un párrafo es un grupo de oraciones sobre una misma idea; empieza en una línea nueva y termina en punto aparte.", example: "Párrafo 1: presentación · Párrafo 2: desarrollo" },
+      { title: "Úsalo al escribir", text: "Antes de escribir, piensa qué tipo de texto harás y haz un plan con sus partes. Así tu texto se entenderá mejor.", example: "Plan de mi cuento: personaje, problema, solución" }
+    ],
+    remember: ["Los textos tienen partes en orden.", "Cada párrafo trata una idea.", "Planificar las partes ayuda a escribir mejor."],
+    mistake: "Escribir todo en un solo párrafo largo. Separa las ideas en párrafos distintos para que tu texto se lea fácilmente.",
+    fun: "¿Sabías que los periodistas usan la «pirámide invertida»? Ponen lo más importante al principio, por si el lector no termina la noticia.",
+    check: [
+      ["¿Qué es un párrafo?", "un grupo de oraciones sobre una misma idea", ["una sola palabra", "el título del texto"]],
+      ["¿Cuál es la última parte de un cuento?", "el desenlace", ["el nudo", "el inicio"]]
+    ]
+  },
+  "xlen4e": {
+    hook: "«Llueve», «¿Llueve?», «¡Llueve!», «Ojalá llueva»… ¿Dicen lo mismo? 🌧️",
+    steps: [
+      { title: "Enunciativas", text: "Afirman o niegan algo, es decir, informan. Terminan en punto.", example: "Hoy hace sol. · No tengo hambre." },
+      { title: "Interrogativas", text: "Hacen una pregunta. Se escriben entre signos de interrogación ¿?", example: "¿Vienes a mi casa? · ¿Qué hora es?" },
+      { title: "Exclamativas", text: "Expresan emociones fuertes: alegría, sorpresa, enojo o miedo. Van entre signos de exclamación ¡!", example: "¡Qué bien! · ¡Me encanta este regalo!" },
+      { title: "Imperativas", text: "Dan una orden, un consejo o hacen un pedido. A veces van con «por favor».", example: "Cierra la puerta. · Lávate las manos, por favor." },
+      { title: "Desiderativas", text: "Expresan un deseo. Suelen empezar con «ojalá» o «que».", example: "Ojalá llueva mañana. · Que tengas un buen viaje." }
+    ],
+    remember: ["Enunciativa: informa · Interrogativa: pregunta.", "Exclamativa: emoción · Imperativa: orden o pedido.", "Desiderativa: deseo (ojalá…)."],
+    mistake: "Confundir imperativas con exclamativas porque ambas pueden llevar ¡!. «¡Cierra la puerta!» es imperativa: lo importante es que da una orden.",
+    fun: "¿Sabías que «ojalá» viene del árabe y significa algo así como «si Dios quiere»? El español tiene más de 4000 palabras de origen árabe.",
+    check: [
+      ["¿Qué clase de oración es «Ojalá gane mi equipo»?", "desiderativa", ["imperativa", "interrogativa"]],
+      ["¿Qué clase de oración es «Recoge tus juguetes»?", "imperativa", ["enunciativa", "desiderativa"]],
+      ["¿Qué clase de oración es «¿Vienes?»?", "interrogativa", ["exclamativa", "enunciativa"]]
+    ]
+  },
+  "xlen4f": {
+    hook: "Si en un cuento alguien entra «con la ropa empapada y temblando», ¿qué pasa afuera aunque nadie lo diga? 🌧️",
+    steps: [
+      { title: "Lo literal y lo inferencial", text: "Lo literal es lo que el texto dice directamente. Lo inferencial es lo que descubrimos usando pistas, aunque no esté escrito.", example: "Literal: «llevaba paraguas» · Inferencia: estaba lloviendo" },
+      { title: "Busca las pistas", text: "Fíjate en detalles: acciones, gestos, lugares, objetos, comparaciones. Cada uno puede esconder información.", example: "«El cielo era naranja como tus mermeladas» → la abuela hace mermeladas" },
+      { title: "Suma lo que sabes", text: "Une las pistas del texto con tus conocimientos. Pista + lo que sé = inferencia.", example: "Pista: tiene la nariz roja y estornuda · Sé: eso pasa con los resfríos → está resfriado" },
+      { title: "Justifica tu respuesta", text: "Una buena inferencia se puede explicar: «Lo sé porque el texto dice…». Si no encuentras pistas, revisa tu idea.", example: "Creo que es invierno porque mencionan nieve y bufandas." }
+    ],
+    remember: ["Inferir es descubrir lo que no está escrito.", "Pistas del texto + lo que sé = inferencia.", "Justifica tu respuesta con el texto."],
+    mistake: "Confundir inferir con inventar. Una inferencia siempre se apoya en pistas del texto; si no hay ninguna pista, es solo una suposición.",
+    fun: "¿Sabías que tu cerebro hace inferencias todo el tiempo? Si ves un plato con migas y a tu hermano con chocolate en la boca, ¡ya sabes quién se comió el pastel!",
+    check: [
+      ["«Marta abrió el paraguas al salir.» ¿Qué podemos inferir?", "estaba lloviendo", ["hacía mucho calor", "era de noche"]],
+      ["¿Qué necesitas para hacer una inferencia?", "pistas del texto y lo que ya sabes", ["solo el título", "inventar una respuesta"]]
     ]
   },
 });
