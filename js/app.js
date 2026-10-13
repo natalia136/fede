@@ -963,7 +963,7 @@
     if (!promptsCache) promptsCache = await fetch("ai/prompts.json").then((r) => r.json());
     const def = promptsCache[task]; if (!def) throw { code: "http", message: "tarea desconocida" };
     const prompt = def.template.replace(/\{\{(\w+)\}\}/g, (_, k) => String(vars[k] ?? ""));
-    return sample.json(prompt, { modelTier: "default" });
+    return sample.json(prompt, { modelTier: "quick" });
   }
   function parseJSON(t) { const s = t.indexOf("{"), e = t.lastIndexOf("}"); if (s < 0 || e < s) throw { code: "invalid_json" }; return JSON.parse(t.slice(s, e + 1)); }
   function courseVars(f) {

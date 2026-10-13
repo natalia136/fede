@@ -43,7 +43,7 @@ En ese mismo archivo puedes ajustar:
 | Opción | Para qué sirve |
 |---|---|
 | `enabled` | `false` apaga toda la IA sin borrar la clave. |
-| `model` / `effort` | Qué modelo de Claude se usa y cuánto "piensa" (`low`, `medium`, `high`). Más alto = mejor y más costoso. |
+| `model` / `effort` | Qué modelo de Claude se usa y cuánto "piensa". Viene con el más económico (`claude-haiku-5-5`, esfuerzo `low`). Si los cursos con IA salen con errores, sube `effort` a `medium` o usa `claude-sonnet-5-5`. |
 | `daily_limit_per_user` | Cuántas veces al día puede usar la IA cada cuenta (protege tu saldo). `0` = sin límite. |
 | `tasks` | Activa o desactiva cada uso: `course` (crear cursos), `practice` (más ejercicios), `explain` ("Nova, explícame"). |
 | `data_dir` | Dónde se guardan las cuentas. Lo más seguro es una carpeta fuera de `public_html`, por ejemplo `/home/u123456789/domains/tudominio.com/app-data`. |

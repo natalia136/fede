@@ -8,7 +8,7 @@ declare(strict_types=1);
 $config = is_file(__DIR__ . '/config.php') ? (require __DIR__ . '/config.php') : [];
 $DATA_DIR = rtrim($config['data_dir'] ?? (__DIR__ . '/../data'), '/');
 $DB_FILE = $DATA_DIR . '/db.json';
-$AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-opus-5-5', 'effort' => 'medium', 'max_tokens' => 16000, 'daily_limit_per_user' => 40, 'tasks' => ['course' => true, 'practice' => true, 'explain' => true]], $config['ai'] ?? []);
+$AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-haiku-5-5', 'effort' => 'low', 'max_tokens' => 16000, 'daily_limit_per_user' => 40, 'tasks' => ['course' => true, 'practice' => true, 'explain' => true]], $config['ai'] ?? []);
 if ($AI['api_key'] === '') $AI['api_key'] = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
 $AI_KEY = ($AI['enabled'] && $AI['api_key'] !== '') ? $AI['api_key'] : '';
 $AI_TASKS = $AI_KEY === '' ? [] : array_keys(array_filter($AI['tasks'] ?? []));
@@ -151,10 +151,12 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
     if (!in_array($m[1], $def['vars'] ?? [], true)) return '';
     $v = $vars[$m[1]] ?? ''; return mb_substr(is_scalar($v) ? (string) $v : '', 0, 2000);
   }, $def['template']);
+  // Los modelos Opus, Sonnet y Fable aceptan un modelo de respaldo automático; Haiku no.
+  $fallback = (bool) preg_match('/opus|sonnet|fable/', (string) $AI['model']);
   $ch = curl_init('https://api.anthropic.com/v1/messages');
   curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 240,
-    CURLOPT_HTTPHEADER => ['content-type: application/json', 'x-api-key: ' . $AI_KEY, 'anthropic-version: 2023-06-01', 'anthropic-beta: server-side-fallback-2026-07-01'],
-    CURLOPT_POSTFIELDS => json_encode(['model' => $AI['model'], 'max_tokens' => (int) $AI['max_tokens'], 'output_config' => ['effort' => $AI['effort']], 'fallbacks' => 'default', 'messages' => [['role' => 'user', 'content' => $prompt]]])]);
+    CURLOPT_HTTPHEADER => array_merge(['content-type: application/json', 'x-api-key: ' . $AI_KEY, 'anthropic-version: 2023-06-01'], $fallback ? ['anthropic-beta: server-side-fallback-2026-07-01'] : []),
+    CURLOPT_POSTFIELDS => json_encode(['model' => $AI['model'], 'max_tokens' => (int) $AI['max_tokens'], 'output_config' => ['effort' => $AI['effort']], 'messages' => [['role' => 'user', 'content' => $prompt]]] + ($fallback ? ['fallbacks' => 'default'] : []))]);
   $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $cerr = curl_error($ch); curl_close($ch);
   if ($raw === false) fail(502, 'No se pudo conectar con la IA: ' . $cerr);
   $data = json_decode((string) $raw, true) ?: [];

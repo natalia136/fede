@@ -11,8 +11,8 @@ return [
   'ai' => [
     'enabled' => true,                 // false = apaga toda la IA
     'api_key' => '',                   // ← PEGA AQUÍ TU CLAVE (empieza con sk-ant-)
-    'model' => 'claude-opus-5-5',      // modelo de Claude que se usa
-    'effort' => 'medium',              // low | medium | high: más alto = más pensado y más costoso
+    'model' => 'claude-haiku-5-5',     // modelo de Claude: el más económico. Para más calidad: 'claude-sonnet-5-5'
+    'effort' => 'low',                 // low | medium | high: más alto = más pensado y más costoso
     'max_tokens' => 16000,             // largo máximo de cada respuesta
     'daily_limit_per_user' => 40,      // usos de IA por cuenta al día (0 = sin límite)
     'tasks' => [                       // usos de la IA (las instrucciones están en ai/prompts.json)
