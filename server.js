@@ -14,11 +14,27 @@ const PORT = +process.env.PORT || 3000;
 const SESSION_DAYS = 30;
 const MAX_BODY = 2 * 1024 * 1024;
 let CONFIG = {}; try { CONFIG = JSON.parse(fs.readFileSync(path.join(ROOT, "config.json"), "utf8")); } catch (e) { /* sin config.json */ }
-const AI = Object.assign({ enabled: true, api_key: "", model: "claude-haiku-5-5", effort: "low", max_tokens: 16000, daily_limit_per_user: 40, tasks: { course: true, practice: true, explain: true } }, CONFIG.ai || {});
-const AI_KEY = AI.enabled ? (AI.api_key || process.env.ANTHROPIC_API_KEY || "") : "";
-const AI_TASKS = AI_KEY ? Object.keys(AI.tasks || {}).filter((k) => AI.tasks[k]) : [];
-const VOICE = Object.assign({ enabled: true, api_key: "", voice_id: "", voice_id_en: "", model: "eleven_flash_v2_5", stability: 0.5, similarity: 0.75, style: 0.2, speed: 1.0, daily_chars_per_user: 20000 }, CONFIG.voice || {});
-const VOICE_ON = !!(VOICE.enabled && VOICE.api_key && VOICE.voice_id);
+// Claves y opciones: config.json y, por encima, data/settings.json (lo que guarda el administrador desde la app).
+const SETTINGS_FILE = path.join(DATA_DIR, "settings.json");
+let SETTINGS = {}; try { SETTINGS = JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8")); } catch (e) { /* sin ajustes */ }
+let AI, AI_KEY, AI_TASKS, VOICE, VOICE_ON;
+function applySettings() {
+  const over = (sec) => Object.fromEntries(Object.entries(SETTINGS[sec] || {}).filter(([, v]) => v !== "" && v != null));
+  AI = Object.assign({ enabled: true, api_key: "", model: "claude-haiku-5-5", effort: "low", max_tokens: 16000, daily_limit_per_user: 40, tasks: { course: true, practice: true, explain: true } }, CONFIG.ai || {}, over("ai"));
+  AI_KEY = AI.enabled ? (AI.api_key || process.env.ANTHROPIC_API_KEY || "") : "";
+  AI_TASKS = AI_KEY ? Object.keys(AI.tasks || {}).filter((k) => AI.tasks[k]) : [];
+  VOICE = Object.assign({ enabled: true, api_key: "", voice_id: "", voice_name: "", voice_id_en: "", voice_name_en: "", model: "eleven_flash_v2_5", stability: 0.5, similarity: 0.75, style: 0.2, speed: 1.0, daily_chars_per_user: 20000 }, CONFIG.voice || {}, over("voice"));
+  VOICE_ON = !!(VOICE.enabled && VOICE.api_key && VOICE.voice_id);
+}
+applySettings();
+function saveSettings(next) { SETTINGS = next; fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(SETTINGS_FILE, JSON.stringify(next, null, 2), { mode: 0o600 }); applySettings(); }
+async function extErr(r, who) {
+  if (r.status === 401) return `La clave de ${who} no es válida. Revisa que la copiaste completa, sin espacios.`;
+  if (r.status === 402 || r.status === 429) return `${who} dice que no hay saldo o se llegó al límite de la cuenta. Revisa tu plan en ${who}.`;
+  const e = await r.json().catch(() => ({})); const m = (e.error && e.error.message) || (e.detail && (e.detail.message || e.detail));
+  return typeof m === "string" ? `${who}: ${m}` : `${who} respondió con error ${r.status}.`;
+}
+const mask = (k) => (k ? "…" + String(k).slice(-4) : "");
 const PUBLIC = new Set(["/index.html", "/ai/prompts.json", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].flatMap((k) => [`/js/content/${k}.js`, `/js/lessons/${k}.js`])]);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 
@@ -209,6 +225,73 @@ async function api(req, res, pathname) {
   // administración de usuarios
   if (parts[0] === "admin") {
     if (user.role !== "admin") return fail(res, 403, "Solo un administrador puede hacer esto.");
+    const EL = "https://api.elevenlabs.io", ID = /^[A-Za-z0-9]{8,40}$/;
+    if (parts[1] === "settings" && method === "GET") {
+      return send(res, 200, {
+        ai: { enabled: !!AI.enabled, hasKey: !!AI.api_key, keyHint: mask(AI.api_key), model: AI.model, effort: AI.effort, daily_limit_per_user: +AI.daily_limit_per_user || 0 },
+        voice: { enabled: !!VOICE.enabled, hasKey: !!VOICE.api_key, keyHint: mask(VOICE.api_key), voice_id: VOICE.voice_id, voice_name: VOICE.voice_name || "", voice_id_en: VOICE.voice_id_en, voice_name_en: VOICE.voice_name_en || "", model: VOICE.model, speed: +VOICE.speed, daily_chars_per_user: +VOICE.daily_chars_per_user || 0 },
+        configError: null
+      });
+    }
+    if (parts[1] === "settings" && method === "PUT") {
+      const b = await readJson(req), cur = JSON.parse(JSON.stringify(SETTINGS));
+      const allow = {
+        ai: { api_key: "s", model: ["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"], effort: ["low", "medium", "high"], daily_limit_per_user: "i", enabled: "b" },
+        voice: { api_key: "s", voice_id: "id", voice_name: "t", voice_id_en: "id", voice_name_en: "t", model: ["eleven_flash_v2_5", "eleven_multilingual_v2"], speed: "f", daily_chars_per_user: "i", enabled: "b" }
+      };
+      for (const [sec, keys] of Object.entries(allow)) {
+        if (!b[sec] || typeof b[sec] !== "object") continue;
+        for (const [k, type] of Object.entries(keys)) {
+          if (!(k in b[sec])) continue; let v = b[sec][k];
+          if (k === "api_key") { v = String(v || "").trim(); if (!v) continue; if (v === "-") v = ""; if (v.length > 300 || /\s/.test(v)) return fail(res, 400, "La clave no parece válida: revisa que la copiaste completa y sin espacios."); }
+          else if (Array.isArray(type)) { if (!type.includes(v)) return fail(res, 400, `Valor no válido para ${k}.`); }
+          else if (type === "i") v = Math.max(0, Math.min(1e6, Math.floor(+v || 0)));
+          else if (type === "f") v = Math.max(0.7, Math.min(1.2, +v || 1));
+          else if (type === "b") v = !!v;
+          else if (type === "id") { v = String(v || "").trim(); if (v && !ID.test(v)) return fail(res, 400, "El ID de la voz no es válido."); }
+          else v = String(v || "").trim().slice(0, 80);
+          cur[sec] = cur[sec] || {}; cur[sec][k] = v;
+        }
+      }
+      saveSettings(cur); return send(res, 200, { ok: true });
+    }
+    if (parts[1] === "test-ai" && method === "POST") {
+      if (!AI.api_key) return fail(res, 400, "Primero guarda la clave de Anthropic.");
+      const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "content-type": "application/json", "x-api-key": AI.api_key, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model: AI.model, max_tokens: 40, messages: [{ role: "user", content: "Saluda a un niño en una frase corta y alegre, en español." }] }) }).catch(() => null);
+      if (!r) return fail(res, 502, "No se pudo conectar con Anthropic.");
+      if (!r.ok) return fail(res, 502, await extErr(r, "Anthropic"));
+      const d = await r.json(); return send(res, 200, { ok: true, text: (d.content || []).filter((c) => c.type === "text").map((c) => c.text).join(""), model: d.model });
+    }
+    if (parts[1] === "voices") {
+      if (!VOICE.api_key) return fail(res, 400, "Primero guarda la clave de ElevenLabs.");
+      const H = { accept: "application/json", "xi-api-key": VOICE.api_key }, q = new URL(req.url, "http://x").searchParams;
+      if (method === "GET") {
+        let url;
+        if (q.get("mine") === "1") url = `${EL}/v1/voices`;
+        else { const qs = new URLSearchParams({ language: q.get("lang") === "en" ? "en" : "es", page_size: "40", sort: "usage_character_count_1y" }); ["gender", "search", "age"].forEach((k) => { if (q.get(k)) qs.set(k, q.get(k).slice(0, 40)); }); url = `${EL}/v1/shared-voices?${qs}`; }
+        const r = await fetch(url, { headers: H }).catch(() => null);
+        if (!r) return fail(res, 502, "No se pudo conectar con ElevenLabs.");
+        if (!r.ok) return fail(res, 502, await extErr(r, "ElevenLabs"));
+        const d = await r.json();
+        const voices = (d.voices || []).map((v) => q.get("mine") === "1"
+          ? { voice_id: v.voice_id, name: v.name, accent: (v.labels || {}).accent || "", gender: (v.labels || {}).gender || "", age: (v.labels || {}).age || "", description: (v.labels || {}).description || v.description || "", preview_url: v.preview_url || "", owner: "" }
+          : { voice_id: v.voice_id, owner: v.public_owner_id || "", name: v.name, accent: v.accent || "", gender: v.gender || "", age: v.age || "", description: String(v.description || v.descriptive || "").slice(0, 160), preview_url: v.preview_url || "", locale: v.locale || "" });
+        return send(res, 200, { voices });
+      }
+      if (method === "POST") {
+        const b = await readJson(req); let vid = String(b.voice_id || ""); const owner = String(b.owner || ""), name = String(b.name || "Voz").trim().slice(0, 60), en = b.target === "en";
+        if (!ID.test(vid)) return fail(res, 400, "Voz no válida.");
+        if (owner) {
+          if (!/^[A-Za-z0-9]{8,100}$/.test(owner)) return fail(res, 400, "Voz no válida.");
+          const r = await fetch(`${EL}/v1/voices/add/${owner}/${vid}`, { method: "POST", headers: Object.assign({ "content-type": "application/json" }, H), body: JSON.stringify({ new_name: name + " (Aventura)" }) }).catch(() => null);
+          if (!r) return fail(res, 502, "No se pudo conectar con ElevenLabs.");
+          const txt = await r.text(); let d = {}; try { d = JSON.parse(txt); } catch (e) { /* */ }
+          if (r.ok && d.voice_id) vid = d.voice_id; else if (!/already|exist/i.test(txt)) return fail(res, 502, r.status === 401 ? "La clave de ElevenLabs no es válida." : `ElevenLabs respondió con error ${r.status}.`);
+        }
+        const cur = JSON.parse(JSON.stringify(SETTINGS)); cur.voice = cur.voice || {}; cur.voice[en ? "voice_id_en" : "voice_id"] = vid; cur.voice[en ? "voice_name_en" : "voice_name"] = name;
+        saveSettings(cur); return send(res, 200, { ok: true, voice_id: vid });
+      }
+    }
     if (method === "GET" && parts[1] === "users") {
       return send(res, 200, { users: db.users.map((u) => Object.assign(publicUser(u), { profiles: db.profiles.filter((p) => p.userId === u.id).map((p) => (p.state && p.state.profile ? p.state.profile.name : "")).filter(Boolean) })) });
     }

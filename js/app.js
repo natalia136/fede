@@ -451,12 +451,12 @@
   function render() {
     if (API.on) {
       if (!API.user) view = { name: "auth", p: view.name === "auth" ? view.p : {} };
-      else if (!API.pid && !["profiles", "setup", "admin", "avatar"].includes(view.name)) view = { name: "profiles", p: {} };
+      else if (!API.pid && !["profiles", "setup", "admin", "config", "avatar"].includes(view.name)) view = { name: "profiles", p: {} };
     } else if (!S.profile && !["setup", "avatar"].includes(view.name)) view = { name: "setup", p: { first: true } };
     document.body.classList.toggle("focus", ["play", "result"].includes(view.name) || (view.name === "duel" && !!duel));
     document.body.classList.toggle("bare", ["auth", "profiles"].includes(view.name) || (!S.profile && ["setup", "avatar"].includes(view.name)));
     $("#top").innerHTML = topbar();
-    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
+    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, config: vConfig, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
   }
@@ -1067,6 +1067,7 @@
   function aiErrorMsg(e) {
     const code = e && e.code;
     if (code === "no_ai" && API.configError) return "El archivo de configuración tiene un error de escritura, por eso la IA está apagada. " + API.configError + ". Revisa comillas y comas en esa línea.";
+    if (code === "no_ai" && API.user && API.user.role === "admin") return "La IA no está activada todavía. Entra en Cuenta → Claves de IA y voz, pega la clave de Anthropic y pulsa «Probar la IA».";
     if (code === "no_ai") return "La IA no está activada. Quien administra la app debe poner la clave de la API en el archivo de configuración del servidor (api/config.php). Mientras tanto, prueben los cursos listos.";
     if (code === "limit") return esc(e.message || "Llegaste al límite de usos de IA por hoy.");
     if (code === "not_granted") return "No se dio permiso para usar la IA. Puedes permitirlo desde el menú de permisos del artefacto e intentarlo de nuevo.";
@@ -1410,7 +1411,7 @@
         ${p.confirm === x.id ? `<div class="confirm-row"><span>¿Eliminar a ${esc(pr.name || "este perfil")} y todo su progreso?</span><button class="btn small danger" data-act="delProfileYes" data-id="${esc(x.id)}">Sí, eliminar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>` : `<button class="linkbtn" data-act="delProfile" data-id="${esc(x.id)}">Eliminar</button>`}
       </div>`; }).join("")}
         ${API.profiles.length < 8 ? '<button class="profile-pick add" data-act="newProfile"><span class="pp-av">＋</span><b>Agregar perfil</b><small>Para cada niño o niña</small></button>' : ""}</div>
-      <div class="row" style="justify-content:center">${U.role === "admin" ? '<button class="btn ghost" data-act="go" data-to="admin">🛡️ Administrar usuarios</button>' : ""}<button class="btn ghost" data-act="logout">Cerrar sesión</button></div>
+      <div class="row" style="justify-content:center">${U.role === "admin" ? `<button class="btn ghost" data-act="go" data-to="admin">🛡️ Administrar usuarios</button><button class="btn ghost" data-act="go" data-to="config">${I("settings")} Claves de IA y voz</button>` : ""}<button class="btn ghost" data-act="logout">Cerrar sesión</button></div>
     </section>`;
   }
   // panel de administración
@@ -1420,7 +1421,7 @@
     if (!adminData) { callApi("GET", "admin/users").then((d) => { adminData = d.users; if (view.name === "admin") render(); }).catch((e) => toast(e.message)); return `<section class="card"><p>Cargando usuarios…</p></section>`; }
     const fmt = (d) => (d ? new Date(d).toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric" }) : "—");
     return `<section class="stack">
-      <div class="section-head"><h1>🛡️ Usuarios</h1><span class="spacer"></span><span class="pill">${adminData.length} ${adminData.length === 1 ? "cuenta" : "cuentas"}</span><button class="btn ghost small" data-act="go" data-to="${API.pid ? "home" : "profiles"}">Volver</button></div>
+      <div class="section-head"><h1>🛡️ Usuarios</h1><span class="spacer"></span><span class="pill">${adminData.length} ${adminData.length === 1 ? "cuenta" : "cuentas"}</span><button class="btn small" data-act="go" data-to="config">${I("settings")} Claves de IA y voz</button><button class="btn ghost small" data-act="go" data-to="${API.pid ? "home" : "profiles"}">Volver</button></div>
       <form class="card stack invite" data-form="newUser"><h2>${I("users")} Crear cuenta para un amigo</h2>
         <div class="two"><div class="field"><label for="nu-name">Nombre</label><input id="nu-name" class="input" name="name" required maxlength="40" placeholder="Ej.: Carolina"></div>
         <div class="field"><label for="nu-email">Email</label><input id="nu-email" class="input" name="email" type="email" required placeholder="amiga@email.com"></div></div>
@@ -1442,6 +1443,67 @@
       <p class="muted">Los datos se guardan en <code>data/db.json</code>, en la carpeta del proyecto. Las contraseñas se guardan cifradas.</p>
     </section>`;
   }
+  /* ================= configuración del servidor (claves de IA y voz) ================= */
+  let cfg = { data: null, voices: null, loading: false, msg: {}, filter: { gender: "", search: "", lang: "es" } };
+  const loadCfg = () => callApi("GET", "admin/settings").then((d) => { cfg.data = d; if (view.name === "config") render(); }).catch((e) => toast(e.message));
+  function vConfig() {
+    if (!API.user || API.user.role !== "admin") return `<p>Solo un administrador puede ver esta página.</p>`;
+    if (!cfg.data) { loadCfg(); return `<section class="card"><p>Cargando configuración…</p></section>`; }
+    const a = cfg.data.ai, v = cfg.data.voice, m = cfg.msg;
+    const keyField = (sec, d, ph) => `<div class="field"><label for="k-${sec}">Clave ${d.hasKey ? `<span class="tag ok">Guardada ${esc(d.keyHint)}</span>` : `<span class="tag">Sin clave</span>`}</label>
+      <input id="k-${sec}" class="input" name="api_key" type="password" autocomplete="off" spellcheck="false" placeholder="${d.hasKey ? "Déjala vacía para mantener la actual" : ph}"></div>`;
+    const note = (k) => (m[k] ? `<div class="notice ${m[k].ok ? "good" : ""}">${esc(m[k].text)}</div>` : "");
+    const voices = cfg.voices;
+    return `<section class="stack cfg">
+      <div class="section-head"><h1>${I("settings")} Configuración</h1><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="admin">Usuarios</button></div>
+      <p class="muted">Las claves se guardan solo en tu servidor, en una carpeta protegida, y nunca se muestran completas ni se envían a los navegadores de las familias.</p>
+      ${cfg.data.configError ? `<div class="notice">Ojo: api/config.php tiene un error (${esc(cfg.data.configError)}). No importa: lo que guardes aquí funciona igual.</div>` : ""}
+      <form class="card stack" data-form="cfgAI"><h2>${I("sparkle")} Inteligencia artificial (Claude)</h2>
+        <p class="muted" style="margin:0">Crea cursos, ejercicios extra y explicaciones. La clave se crea en console.anthropic.com → API Keys.</p>
+        ${keyField("ai", a, "Pega aquí la clave (empieza con sk-ant-)")}
+        <div class="two"><div class="field"><label for="ai-model">Modelo</label><select id="ai-model" class="input" name="model">
+          ${[["claude-haiku-5-5", "Haiku · el más económico"], ["claude-sonnet-5-5", "Sonnet · mejor calidad"], ["claude-opus-5-5", "Opus · el más potente (costoso)"]].map(([k, t]) => `<option value="${k}" ${a.model === k ? "selected" : ""}>${t}</option>`).join("")}</select></div>
+          <div class="field"><label for="ai-lim">Usos por cuenta al día</label><input id="ai-lim" class="input" name="daily_limit_per_user" type="number" min="0" max="1000" value="${a.daily_limit_per_user}"></div></div>
+        <div class="row"><button class="btn" type="submit">Guardar</button><button type="button" class="btn ghost" data-act="cfgTestAI" ${a.hasKey ? "" : "disabled"}>Probar la IA</button>${a.hasKey ? `<button type="button" class="btn ghost small danger-text" data-act="cfgClear" data-sec="ai">Quitar clave</button>` : ""}</div>
+        ${note("ai")}
+      </form>
+      <form class="card stack" data-form="cfgVoice"><h2>${I("speaker")} Voz natural (ElevenLabs)</h2>
+        <p class="muted" style="margin:0">Lee las lecciones con voz humana. La clave se crea en elevenlabs.io → Developers → API Keys. Cada frase se paga una sola vez: queda guardada en el servidor.</p>
+        ${keyField("voice", v, "Pega aquí la clave (empieza con sk_)")}
+        <div class="two"><div class="field"><label for="v-model">Calidad</label><select id="v-model" class="input" name="model">
+          ${[["eleven_flash_v2_5", "Flash · económica (mitad de precio)"], ["eleven_multilingual_v2", "Multilingual · más natural"]].map(([k, t]) => `<option value="${k}" ${v.model === k ? "selected" : ""}>${t}</option>`).join("")}</select></div>
+          <div class="field"><label for="v-speed">Velocidad: <b id="v-speed-out">${v.speed.toFixed(2)}</b></label><input id="v-speed" name="speed" type="range" min="0.7" max="1.2" step="0.05" value="${v.speed}" oninput="document.getElementById('v-speed-out').textContent=(+this.value).toFixed(2)"></div></div>
+        <div class="field"><label for="v-lim">Letras nuevas por cuenta al día</label><input id="v-lim" class="input" name="daily_chars_per_user" type="number" min="0" max="1000000" value="${v.daily_chars_per_user}"></div>
+        <div class="row"><button class="btn" type="submit">Guardar</button>${v.hasKey ? `<button type="button" class="btn ghost small danger-text" data-act="cfgClear" data-sec="voice">Quitar clave</button>` : ""}</div>
+        <div class="cfg-chosen"><div><b>Voz en español:</b> ${v.voice_id ? esc(v.voice_name || v.voice_id) : '<span class="muted">sin elegir</span>'}</div><div><b>Voz en inglés:</b> ${v.voice_id_en ? esc(v.voice_name_en || v.voice_id_en) : '<span class="muted">la misma de español</span>'}</div>
+          ${v.voice_id && API.voice ? `<button type="button" class="btn ghost small" data-act="cfgTestVoice">🔊 Probar la voz</button>` : ""}</div>
+        ${note("voice")}
+      </form>
+      ${v.hasKey ? `<div class="card stack"><h2>Elige la voz</h2>
+        <form class="row cfg-filter" data-form="cfgSearch">
+          <select class="input" name="lang"><option value="es" ${cfg.filter.lang === "es" ? "selected" : ""}>Voces en español</option><option value="en" ${cfg.filter.lang === "en" ? "selected" : ""}>Voces en inglés</option></select>
+          <select class="input" name="gender"><option value="">Mujer u hombre</option><option value="female" ${cfg.filter.gender === "female" ? "selected" : ""}>Mujer</option><option value="male" ${cfg.filter.gender === "male" ? "selected" : ""}>Hombre</option></select>
+          <input class="input" name="search" placeholder="Buscar: latina, mexicana, colombiana, cuentos…" value="${esc(cfg.filter.search)}">
+          <button class="btn" type="submit">Buscar</button><button type="button" class="btn ghost" data-act="cfgMine">Mis voces</button>
+        </form>
+        ${cfg.loading ? `<p>Buscando voces…</p>` : voices ? (voices.length ? `<div class="voice-list">${voices.map((x, i) => `<div class="voice">
+            <div><b>${esc(x.name)}</b><span class="muted"> ${esc([x.accent, x.gender === "female" ? "mujer" : x.gender === "male" ? "hombre" : x.gender, x.age].filter(Boolean).join(" · "))}</span>${x.description ? `<p class="muted">${esc(x.description)}</p>` : ""}</div>
+            <div class="row">${x.preview_url ? `<button class="btn ghost small" data-act="cfgPreview" data-i="${i}">▶ Escuchar</button>` : ""}<button class="btn small" data-act="cfgUse" data-i="${i}" data-target="es">Usar en español</button><button class="btn ghost small" data-act="cfgUse" data-i="${i}" data-target="en">Usar en inglés</button></div></div>`).join("")}</div>` : `<p class="muted">No encontramos voces con ese filtro. Prueba otra búsqueda.</p>`) : `<p class="muted">Busca voces y escucha las muestras. Recomendado: escribe <b>latina</b>, <b>mexicana</b> o <b>colombiana</b>.</p>`}
+      </div>` : ""}
+    </section>`;
+  }
+  async function cfgSave(sec, body, msgOk) {
+    try { await callApi("PUT", "admin/settings", { [sec]: body }); cfg.msg[sec] = { ok: true, text: msgOk }; await detectServer(); await loadCfg(); }
+    catch (e) { cfg.msg[sec] = { ok: false, text: e.message }; render(); }
+  }
+  let previewAudio = null;
+  async function cfgSearch(mine) {
+    cfg.loading = true; render();
+    const q = new URLSearchParams(mine ? { mine: "1" } : { lang: cfg.filter.lang, gender: cfg.filter.gender, search: cfg.filter.search });
+    try { cfg.voices = (await callApi("GET", "admin/voices?" + q.toString())).voices; } catch (e) { cfg.voices = null; toast(e.message); }
+    cfg.loading = false; render();
+  }
+
   const shareText = (c) => `¡Hola, ${c.name}! Te invito a Aventura Escolar.\nEntra en: ${location.origin}${location.pathname}\nEmail: ${c.email}\nContraseña: ${c.password}\nDespués puedes cambiarla en Cuenta → Cambiar contraseña.`;
   async function submitNewUser(fd) {
     try {
@@ -1462,7 +1524,7 @@
     const back = document.createElement("div"); back.className = "modal-back";
     back.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="acc-t"><h2 id="acc-t">👤 ${esc(API.user.name)}</h2><p class="muted" style="margin:0">${esc(API.user.email)}</p>
       <button class="btn ghost" data-m="profiles">🔄 Cambiar de perfil</button>
-      ${API.user.role === "admin" ? '<button class="btn ghost" data-m="admin">🛡️ Administrar usuarios</button>' : ""}
+      ${API.user.role === "admin" ? `<button class="btn ghost" data-m="admin">🛡️ Administrar usuarios</button><button class="btn ghost" data-m="config">${I("settings")} Claves de IA y voz</button>` : ""}
       <details class="pwd"><summary>🔑 Cambiar contraseña</summary><form data-form="pwd" class="stack" style="margin-top:12px"><input class="input" name="current" type="password" autocomplete="current-password" placeholder="Contraseña actual" required><input class="input" name="next" type="password" autocomplete="new-password" minlength="8" placeholder="Nueva contraseña (mín. 8)" required><button class="btn" type="submit">Guardar contraseña</button></form></details>
       <button class="btn ghost" data-m="logout">Cerrar sesión</button><button class="btn ghost small" data-m="close">Cerrar</button></div>`;
     document.body.appendChild(back);
@@ -1472,6 +1534,7 @@
       const k = m.dataset.m; back.remove();
       if (k === "profiles") { pushProfile(); go("profiles"); }
       if (k === "admin") { adminData = null; go("admin"); }
+      if (k === "config") { cfg.data = null; go("config"); }
       if (k === "logout") logout();
     });
   }
@@ -1544,6 +1607,16 @@
         if (L && lsn.key === u.key && lsn.step < L.steps.length) { const st = L.steps[lsn.step]; return speak(`${lsn.step === 0 ? L.hook + " " : ""}${st.title}. ${st.text} ${st.example || ""}`, "es-ES"); }
         return speak(`${u.title}. ${u.lesson || ""} ${u.example || ""}`, "es-ES");
       }
+      case "cfgTestAI": { cfg.msg.ai = { ok: true, text: "Probando…" }; render(); callApi("POST", "admin/test-ai").then((d) => { cfg.msg.ai = { ok: true, text: `¡Funciona! La IA respondió: «${d.text.trim()}»` }; render(); }).catch((e) => { cfg.msg.ai = { ok: false, text: e.message }; render(); }); return; }
+      case "cfgClear": { const sec = b.dataset.sec; return cfgSave(sec, sec === "voice" ? { api_key: "-", voice_id: "", voice_id_en: "" } : { api_key: "-" }, "Clave quitada."); }
+      case "cfgMine": return cfgSearch(true);
+      case "cfgPreview": { const x = cfg.voices[+b.dataset.i]; try { if (previewAudio) previewAudio.pause(); previewAudio = new Audio(x.preview_url); previewAudio.play(); } catch (e) { /* */ } return; }
+      case "cfgUse": {
+        const x = cfg.voices[+b.dataset.i], target = b.dataset.target; b.disabled = true;
+        callApi("POST", "admin/voices", { voice_id: x.voice_id, owner: x.owner || "", name: x.name, target }).then(async () => { cfg.msg.voice = { ok: true, text: `Listo: «${x.name}» es ahora la voz en ${target === "en" ? "inglés" : "español"}.` }; await detectServer(); await loadCfg(); window.scrollTo(0, 0); }).catch((e) => { toast(e.message); b.disabled = false; });
+        return;
+      }
+      case "cfgTestVoice": voiceOff = false; return speak("¡Hola! Soy la voz de Aventura Escolar. Hoy vamos a aprender algo nuevo juntos.", "es-ES");
       case "lsnOpen": lsn.open = true; return render();
       case "lsnGo": { lsn.step = Math.max(0, +b.dataset.v); stopVoice(); sfx.step(); const y = window.scrollY; render(); const c = document.querySelector(".lsn"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); else window.scrollTo(0, y); return; }
       case "lsnAns": { const k = +b.dataset.k, L = richLesson(unit(view.p.ref)); if (!L || lsn.ans[k] != null) return; lsn.ans[k] = b.dataset.v; if (b.dataset.v === String(L.check[k][1])) sfx.right(); else sfx.wrong(); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
@@ -1608,6 +1681,9 @@
     if (f.dataset.form === "auth") return submitAuth(fd);
     if (f.dataset.form === "pwd") return submitPwd(fd);
     if (f.dataset.form === "newUser") return submitNewUser(fd);
+    if (f.dataset.form === "cfgAI") return cfgSave("ai", { api_key: String(fd.get("api_key") || ""), model: String(fd.get("model")), daily_limit_per_user: +fd.get("daily_limit_per_user") }, "Guardado. Usa «Probar la IA» para comprobar la clave.");
+    if (f.dataset.form === "cfgVoice") return cfgSave("voice", { api_key: String(fd.get("api_key") || ""), model: String(fd.get("model")), speed: +fd.get("speed"), daily_chars_per_user: +fd.get("daily_chars_per_user") }, "Guardado. Ahora elige una voz abajo.");
+    if (f.dataset.form === "cfgSearch") { cfg.filter = { lang: String(fd.get("lang")), gender: String(fd.get("gender")), search: String(fd.get("search") || "").trim() }; return cfgSearch(false); }
     if (f.dataset.form === "maker") { maker.form = { topic: String(fd.get("topic") || "").trim(), subject: String(fd.get("subject")), grade: +fd.get("grade"), lessons: +fd.get("lessons"), notes: String(fd.get("notes") || "").trim() }; runMaker(); }
   });
   document.addEventListener("click", (e) => { if (e.target.closest(".buddy .face")) say(pick(["¡Tú puedes! 💪", "¿Jugamos un reto en familia?", "Aprender es una aventura 🚀", "¡Me encanta estudiar contigo!", "Tip: lean la pregunta en voz alta 📢"]), "happy"); });

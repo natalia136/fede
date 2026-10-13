@@ -12,6 +12,14 @@ catch (\Throwable $e) { $config = []; $CONFIG_ERROR = 'api/config.php, línea ' 
 if (!is_array($config)) { $config = []; $CONFIG_ERROR = 'api/config.php debe empezar con <?php y terminar con ]; (return [ ... ];)'; }
 $DATA_DIR = rtrim($config['data_dir'] ?? (__DIR__ . '/../data'), '/');
 $DB_FILE = $DATA_DIR . '/db.json';
+// Claves y opciones guardadas desde la pantalla "Configuración" de la app (solo administradores).
+// Viven en data/settings.json (carpeta protegida) y tienen prioridad sobre config.php.
+$SETTINGS_FILE = $DATA_DIR . '/settings.json';
+$SETTINGS = is_file($SETTINGS_FILE) ? (json_decode((string) @file_get_contents($SETTINGS_FILE), true) ?: []) : [];
+foreach (['ai', 'voice'] as $sec) {
+  $over = array_filter($SETTINGS[$sec] ?? [], fn($v) => $v !== '' && $v !== null);
+  $config[$sec] = array_merge($config[$sec] ?? [], $over);
+}
 $AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-haiku-5-5', 'effort' => 'low', 'max_tokens' => 16000, 'daily_limit_per_user' => 40, 'tasks' => ['course' => true, 'practice' => true, 'explain' => true]], $config['ai'] ?? []);
 if ($AI['api_key'] === '') $AI['api_key'] = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
 $AI_KEY = ($AI['enabled'] && $AI['api_key'] !== '') ? $AI['api_key'] : '';
@@ -207,6 +215,113 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'tts') {
   } else $audio = file_get_contents($file);
   header('Content-Type: audio/mpeg'); header('Cache-Control: private, max-age=604800'); header('Content-Length: ' . strlen($audio));
   echo $audio; exit;
+}
+
+/* ---------- configuración desde la app (solo administradores) ---------- */
+function http_call(string $method, string $url, array $headers, $body = null, int $timeout = 30): array {
+  $ch = curl_init($url);
+  curl_setopt_array($ch, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => $timeout, CURLOPT_HTTPHEADER => $headers]);
+  if ($body !== null) curl_setopt($ch, CURLOPT_POSTFIELDS, is_string($body) ? $body : json_encode($body, JSON_UNESCAPED_UNICODE));
+  $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $err = curl_error($ch); curl_close($ch);
+  return [$code, $raw === false ? null : $raw, $err];
+}
+function api_error_text(?string $raw, int $code, string $who): string {
+  if ($code === 401) return "La clave de $who no es válida. Revisa que la copiaste completa, sin espacios.";
+  if ($code === 402 || $code === 429) return "$who dice que no hay saldo o se llegó al límite de la cuenta. Revisa tu plan en $who.";
+  $e = json_decode((string) $raw, true);
+  $m = is_array($e) ? ($e['error']['message'] ?? $e['detail']['message'] ?? $e['detail'] ?? null) : null;
+  if (is_string($m)) return "$who: $m";
+  return $code ? "$who respondió con error $code." : "No se pudo conectar con $who.";
+}
+function mask(string $k): string { return $k === '' ? '' : '…' . substr($k, -4); }
+function save_settings(array $new): void {
+  global $SETTINGS_FILE, $DATA_DIR, $SETTINGS;
+  protect_dir($DATA_DIR);
+  $SETTINGS = $new;
+  file_put_contents($SETTINGS_FILE, json_encode($new, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+  @chmod($SETTINGS_FILE, 0600);
+}
+if (($parts[0] ?? '') === 'admin' && in_array($parts[1] ?? '', ['settings', 'test-ai', 'voices'], true)) {
+  $who = with_db(function (&$db) { $u = &auth_user($db); return $u ? $u['role'] : null; });
+  if ($who === null) fail(401, 'Tu sesión terminó. Inicia sesión de nuevo.');
+  if ($who !== 'admin') fail(403, 'Solo un administrador puede hacer esto.');
+  $p1 = $parts[1]; $EL = 'https://api.elevenlabs.io';
+  $vkey = (string) ($VOICE['api_key'] ?? '');
+
+  if ($p1 === 'settings' && $method === 'GET') {
+    send(200, [
+      'ai' => ['enabled' => (bool) $AI['enabled'], 'hasKey' => $AI['api_key'] !== '', 'keyHint' => mask((string) $AI['api_key']), 'model' => $AI['model'], 'effort' => $AI['effort'], 'daily_limit_per_user' => (int) $AI['daily_limit_per_user']],
+      'voice' => ['enabled' => (bool) $VOICE['enabled'], 'hasKey' => $vkey !== '', 'keyHint' => mask($vkey), 'voice_id' => $VOICE['voice_id'], 'voice_name' => $VOICE['voice_name'] ?? '', 'voice_id_en' => $VOICE['voice_id_en'], 'voice_name_en' => $VOICE['voice_name_en'] ?? '', 'model' => $VOICE['model'], 'speed' => (float) $VOICE['speed'], 'daily_chars_per_user' => (int) $VOICE['daily_chars_per_user']],
+      'configError' => $CONFIG_ERROR,
+    ]);
+  }
+  if ($p1 === 'settings' && $method === 'PUT') {
+    $b = body(); $cur = $SETTINGS;
+    $allow = [
+      'ai' => ['api_key' => 's', 'model' => ['claude-haiku-5-5', 'claude-sonnet-5-5', 'claude-opus-5-5'], 'effort' => ['low', 'medium', 'high'], 'daily_limit_per_user' => 'i', 'enabled' => 'b'],
+      'voice' => ['api_key' => 's', 'voice_id' => 'id', 'voice_name' => 's', 'voice_id_en' => 'id', 'voice_name_en' => 's', 'model' => ['eleven_flash_v2_5', 'eleven_multilingual_v2'], 'speed' => 'f', 'daily_chars_per_user' => 'i', 'enabled' => 'b'],
+    ];
+    foreach ($allow as $sec => $keys) {
+      if (!is_array($b[$sec] ?? null)) continue;
+      foreach ($keys as $k => $type) {
+        if (!array_key_exists($k, $b[$sec])) continue;
+        $v = $b[$sec][$k];
+        if ($k === 'api_key') { $v = trim((string) $v); if ($v === '') continue; if ($v === '-') $v = ''; if (strlen($v) > 300 || preg_match('/\s/', $v)) fail(400, 'La clave no parece válida: revisa que la copiaste completa y sin espacios.'); }
+        elseif (is_array($type)) { if (!in_array($v, $type, true)) fail(400, "Valor no válido para $k."); }
+        elseif ($type === 'i') $v = max(0, min(1000000, (int) $v));
+        elseif ($type === 'f') $v = max(0.7, min(1.2, (float) $v));
+        elseif ($type === 'b') $v = (bool) $v;
+        elseif ($type === 'id') { $v = trim((string) $v); if ($v !== '' && !preg_match('/^[A-Za-z0-9]{8,40}$/', $v)) fail(400, 'El ID de la voz no es válido.'); }
+        else $v = mb_substr(trim((string) $v), 0, 80);
+        $cur[$sec][$k] = $v;
+      }
+    }
+    save_settings($cur);
+    send(200, ['ok' => true]);
+  }
+  if ($p1 === 'test-ai' && $method === 'POST') {
+    if ($AI['api_key'] === '') fail(400, 'Primero guarda la clave de Anthropic.');
+    [$code, $raw] = http_call('POST', 'https://api.anthropic.com/v1/messages', ['content-type: application/json', 'x-api-key: ' . $AI['api_key'], 'anthropic-version: 2023-06-01'],
+      ['model' => $AI['model'], 'max_tokens' => 40, 'messages' => [['role' => 'user', 'content' => 'Saluda a un niño en una frase corta y alegre, en español.']]]);
+    if ($code < 200 || $code >= 300) fail(502, api_error_text($raw, $code, 'Anthropic'));
+    $d = json_decode((string) $raw, true) ?: []; $t = '';
+    foreach ($d['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $t .= $c['text'];
+    send(200, ['ok' => true, 'text' => $t, 'model' => $d['model'] ?? $AI['model']]);
+  }
+  if ($p1 === 'voices' && $method === 'GET') {
+    if ($vkey === '') fail(400, 'Primero guarda la clave de ElevenLabs.');
+    $H = ['accept: application/json', 'xi-api-key: ' . $vkey];
+    if (($_GET['mine'] ?? '') === '1') {
+      [$code, $raw] = http_call('GET', "$EL/v1/voices", $H);
+      if ($code < 200 || $code >= 300) fail(502, api_error_text($raw, $code, 'ElevenLabs'));
+      $out = [];
+      foreach ((json_decode((string) $raw, true)['voices'] ?? []) as $v) $out[] = ['voice_id' => $v['voice_id'] ?? '', 'name' => $v['name'] ?? '', 'accent' => $v['labels']['accent'] ?? '', 'gender' => $v['labels']['gender'] ?? '', 'age' => $v['labels']['age'] ?? '', 'description' => $v['labels']['description'] ?? ($v['description'] ?? ''), 'preview_url' => $v['preview_url'] ?? '', 'owner' => ''];
+      send(200, ['voices' => $out]);
+    }
+    $q = ['language' => (($_GET['lang'] ?? 'es') === 'en' ? 'en' : 'es'), 'page_size' => 40, 'sort' => 'usage_character_count_1y'];
+    foreach (['gender', 'search', 'age'] as $k) if (!empty($_GET[$k])) $q[$k] = mb_substr((string) $_GET[$k], 0, 40);
+    [$code, $raw] = http_call('GET', "$EL/v1/shared-voices?" . http_build_query($q), $H);
+    if ($code < 200 || $code >= 300) fail(502, api_error_text($raw, $code, 'ElevenLabs'));
+    $out = [];
+    foreach ((json_decode((string) $raw, true)['voices'] ?? []) as $v) $out[] = ['voice_id' => $v['voice_id'] ?? '', 'owner' => $v['public_owner_id'] ?? '', 'name' => $v['name'] ?? '', 'accent' => $v['accent'] ?? '', 'gender' => $v['gender'] ?? '', 'age' => $v['age'] ?? '', 'description' => mb_substr((string) ($v['description'] ?? $v['descriptive'] ?? ''), 0, 160), 'preview_url' => $v['preview_url'] ?? '', 'locale' => $v['locale'] ?? ''];
+    send(200, ['voices' => $out]);
+  }
+  if ($p1 === 'voices' && $method === 'POST') {
+    if ($vkey === '') fail(400, 'Primero guarda la clave de ElevenLabs.');
+    $b = body(); $vid = (string) ($b['voice_id'] ?? ''); $owner = (string) ($b['owner'] ?? ''); $name = mb_substr(trim((string) ($b['name'] ?? 'Voz')), 0, 60); $en = ($b['target'] ?? '') === 'en';
+    if (!preg_match('/^[A-Za-z0-9]{8,40}$/', $vid)) fail(400, 'Voz no válida.');
+    if ($owner !== '') {
+      if (!preg_match('/^[A-Za-z0-9]{8,100}$/', $owner)) fail(400, 'Voz no válida.');
+      [$code, $raw] = http_call('POST', "$EL/v1/voices/add/$owner/$vid", ['content-type: application/json', 'xi-api-key: ' . $vkey], ['new_name' => $name . ' (Aventura)']);
+      $d = json_decode((string) $raw, true) ?: [];
+      if ($code >= 200 && $code < 300 && !empty($d['voice_id'])) $vid = (string) $d['voice_id'];
+      elseif (!preg_match('/already|exist/i', (string) $raw)) fail(502, api_error_text($raw, $code, 'ElevenLabs'));
+    }
+    $cur = $SETTINGS; $cur['voice'][$en ? 'voice_id_en' : 'voice_id'] = $vid; $cur['voice'][$en ? 'voice_name_en' : 'voice_name'] = $name;
+    save_settings($cur);
+    send(200, ['ok' => true, 'voice_id' => $vid]);
+  }
+  fail(404, 'Ruta no encontrada.');
 }
 
 /* ---------- rutas con sesión ---------- */

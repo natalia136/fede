@@ -663,3 +663,17 @@ svg.avi { border-radius: 50%; }
 .lsn-opts .chip.ok { border-color: #58cc02; background: var(--good-bg); color: var(--good-ink); }
 .lsn-opts .chip.bad { border-color: #ff4b4b; background: var(--bad-bg); color: var(--bad-ink); }
 .lsn-opts .chip:disabled { cursor: default; opacity: 1; }
+/* configuración de claves */
+.tag.ok { background: var(--good-bg); color: var(--good-ink); }
+.notice.good { background: var(--good-bg); border-color: color-mix(in srgb, #58cc02 55%, var(--stroke)); color: var(--good-ink); }
+.cfg .card h2 { display: flex; align-items: center; gap: 8px; margin: 0; }
+.cfg .card h2 .ico { width: 28px; height: 28px; }
+.cfg input[type="range"] { width: 100%; accent-color: var(--cyan); }
+.cfg-chosen { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--panel-2); }
+.cfg-filter { flex-wrap: wrap; gap: 8px; }
+.cfg-filter .input { flex: 1 1 160px; width: auto; min-width: 0; }
+.voice-list { display: grid; gap: 10px; }
+.voice { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 14px; border: 2px solid var(--stroke); border-radius: 14px; }
+.voice p { margin: 4px 0 0; font-size: .88rem; }
+.voice .row { flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+@media (max-width: 640px) { .voice { grid-template-columns: 1fr; } .voice .row { justify-content: flex-start; } }

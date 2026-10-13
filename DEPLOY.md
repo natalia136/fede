@@ -24,7 +24,17 @@ public_html/
 
 En **hPanel → Seguridad → SSL**, instala el certificado gratuito para tu dominio. El `.htaccess` ya redirige todo a `https://`, para que las contraseñas viajen cifradas.
 
-## 3. Poner la clave de la IA (archivo de configuración)
+## 3. Poner las claves de IA y voz
+
+**La forma más fácil es desde la app.** Entra con la cuenta administradora (la primera que se registró) → **Cuenta → Claves de IA y voz**:
+
+1. Pega la clave de Anthropic, pulsa **Guardar** y luego **Probar la IA**.
+2. Pega la clave de ElevenLabs y pulsa **Guardar**.
+3. En **Elige la voz**, busca *latina*, *mexicana* o *colombiana*, escucha las muestras y pulsa **Usar en español**. Puedes elegir otra para el inglés.
+
+Las claves quedan en `data/settings.json` (carpeta protegida) y nunca se muestran completas ni llegan a los navegadores. Tienen prioridad sobre `api/config.php`.
+
+### Alternativa: el archivo de configuración
 
 La clave de la API de Anthropic va **solo** en un archivo del servidor. Nunca llega al navegador de quienes usan la app.
 
