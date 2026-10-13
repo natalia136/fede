@@ -13,7 +13,7 @@ const DB_FILE = path.join(DATA_DIR, "db.json");
 const PORT = +process.env.PORT || 3000;
 const SESSION_DAYS = 30;
 const MAX_BODY = 2 * 1024 * 1024;
-const PUBLIC = new Set(["/index.html", "/css/styles.css", "/js/app.js", "/js/curriculum.js", "/js/countries.js"]);
+const PUBLIC = new Set(["/index.html", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].map((k) => `/js/content/${k}.js`)]);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 
 /* ---------- base de datos en un archivo JSON ---------- */

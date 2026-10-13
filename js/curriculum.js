@@ -867,5 +867,27 @@
       ] }
   ];
 
-  window.CURRICULUM = { SUBJECTS, TOPICS, COURSES, VOCAB, Q, SORT, ORDER, READ, SYLL, VOWELS, INITIAL, SYNANT, SPELL };
+  /* Paquetes de contenido adicional (js/content/*.js) llaman a CURRICULUM.extend({...}):
+     { subject, banks: { Q, SORT, ORDER, READ, VOCAB }, extendBanks: { Q, SORT, ORDER, VOCAB }, topics: { 0: [...], ..., 6: [...] } } */
+  const STORES = { Q, SORT, ORDER, READ, VOCAB };
+  function extend(pack) {
+    const where = `contenido de ${pack.subject || "?"}`;
+    Object.entries(pack.banks || {}).forEach(([kind, banks]) => Object.entries(banks).forEach(([k, v]) => {
+      if (!STORES[kind]) throw new Error(`${where}: tipo de banco desconocido ${kind}`);
+      if (STORES[kind][k]) throw new Error(`${where}: el banco ${kind}.${k} ya existe`);
+      STORES[kind][k] = v;
+    }));
+    Object.entries(pack.extendBanks || {}).forEach(([kind, banks]) => Object.entries(banks).forEach(([k, v]) => {
+      const cur = STORES[kind] && STORES[kind][k];
+      if (!cur) throw new Error(`${where}: no existe el banco ${kind}.${k} para ampliar`);
+      if (kind === "SORT") cur.items.push(...v.items); else cur.push(...v);
+    }));
+    Object.entries(pack.topics || {}).forEach(([g, list]) => {
+      const grade = TOPICS[pack.subject] && TOPICS[pack.subject][+g];
+      if (!grade) throw new Error(`${where}: grado ${g} no válido`);
+      list.forEach((tp) => grade.push(t(tp.id, tp.title, tp.gen, tp.params, tp.lesson, tp.example, tp.tip)));
+    });
+  }
+
+  window.CURRICULUM = { SUBJECTS, TOPICS, COURSES, VOCAB, Q, SORT, ORDER, READ, SYLL, VOWELS, INITIAL, SYNANT, SPELL, extend };
 })();
