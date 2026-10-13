@@ -161,7 +161,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     ],
     remember: ["Una sílaba es un golpe de voz.", "Aplaudimos para contar las sílabas.", "Cada sílaba tiene por lo menos una vocal."],
     mistake: "Algunos niños aplauden cada letra en vez de cada golpe de voz. «Sol» tiene tres letras, pero solo una sílaba.",
-    fun: "¿Sabías que una de las palabras más largas del español es «electroencefalografista»? ¡Tiene 11 sílabas!",
+    fun: "¿Sabías que una de las palabras más largas del español es «electroencefalografista»? ¡Tiene 10 sílabas!",
     check: [
       ["¿Cuántas sílabas tiene «pelota»?", "3", ["2", "6"]],
       ["¿Cuántas sílabas tiene «pan»?", "1", ["3", "2"]],
@@ -529,7 +529,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     ],
     remember: ["En español usamos signos de apertura y cierre.", "¿? para preguntar; ¡! para emocionarse.", "Qué, quién, cómo, dónde y cuándo llevan tilde al preguntar o exclamar."],
     mistake: "Muchas personas olvidan el signo de apertura y escriben «Cómo estás?». En español siempre van los dos: «¿Cómo estás?».",
-    fun: "¿Sabías que el español es casi el único idioma del mundo que usa los signos de apertura ¿ y ¡? La Real Academia los recomendó en 1754.",
+    fun: "¿Sabías que el español es casi el único idioma del mundo que usa los signos de apertura ¿ y ¡? La Real Academia Española empezó a recomendarlos en el siglo XVIII.",
     check: [
       ["¿Cuál está bien escrita?", "¿Cómo estás?", ["Cómo estás?", "¿Cómo estás¿"]],
       ["¿Qué signos usamos para expresar sorpresa?", "¡!", ["¿?", "( )"]]
@@ -645,7 +645,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     ],
     remember: ["El punto separa oraciones: seguido, aparte y final.", "La coma marca pausas cortas y separa listas.", "El punto y coma separa ideas relacionadas."],
     mistake: "Un error común es poner coma antes de «y» en una lista simple: «pan, leche, y huevos». Lo correcto es «pan, leche y huevos».",
-    fun: "¿Sabías que el punto y coma lo inventó un impresor italiano, Aldo Manuzio, hace más de 500 años?",
+    fun: "¿Sabías que el punto y coma lo popularizó un impresor italiano, Aldo Manuzio, hace más de 500 años?",
     check: [
       ["¿Cuál está bien puntuada?", "Compré pan, leche y huevos.", ["Compré pan leche, y huevos.", "Compré, pan leche y huevos."]],
       ["¿Qué punto cierra todo el texto?", "el punto final", ["el punto seguido", "el punto aparte"]]
@@ -692,7 +692,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     steps: [
       { title: "La sílaba tónica", text: "En cada palabra hay una sílaba que se pronuncia con más fuerza. Se llama sílaba tónica. Las demás son átonas.", example: "ca-MIÓN · ÁR-bol · ME-sa" },
       { title: "Cómo encontrarla", text: "Di la palabra como si llamaras a alguien desde lejos. La sílaba que alargas es la tónica. También puedes contar sílabas desde el final.", example: "¡ca-miooón! → la tónica es «mión»" },
-      { title: "Agudas", text: "Las palabras agudas tienen la fuerza en la última sílaba.", example: "ca-MIÓN · re-LOJ · so-FÁ · pa-RED" },
+      { title: "Agudas", text: "Las palabras agudas tienen la fuerza en la última sílaba. Algunas llevan tilde y otras no, según cómo terminen.", example: "ca-MIÓN · re-LOJ · so-FÁ · pa-RED" },
       { title: "Llanas o graves", text: "Las palabras llanas (también llamadas graves) tienen la fuerza en la penúltima sílaba. Son las más comunes en español.", example: "ÁR-bol · ME-sa · LÁ-piz · ZA-pa-to" },
       { title: "Esdrújulas", text: "Las esdrújulas tienen la fuerza en la antepenúltima sílaba (la tercera desde el final). ¡Todas llevan tilde, sin excepción!", example: "MÚ-si-ca · PÁ-ja-ro · LÁM-pa-ra · RÁ-pi-do" }
     ],
@@ -708,7 +708,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
   "l4b": {
     hook: "¿Por qué escribimos «zapato» con z pero «cielo» con c, si suenan parecido? 🦓",
     steps: [
-      { title: "Za, ce, ci, zo, zu", text: "Para el sonido /z/ escribimos za, zo, zu con z, pero ce y ci con c. Ze y zi casi no se usan.", example: "zapato · cereza · cielo · zorro · zumo" },
+      { title: "Za, ce, ci, zo, zu", text: "Para el sonido /z/ escribimos za, zo, zu con z, pero ce y ci con c. Ze y zi casi no se usan.", example: "zapato · cereza · cielo · zorro · zurdo" },
       { title: "El plural de z", text: "Las palabras que terminan en z cambian la z por c en el plural, porque detrás viene la e.", example: "pez → peces · lápiz → lápices · nariz → narices" },
       { title: "Lo mismo en familias", text: "Cuando agregamos -ito, -ero o -ería a una palabra con z, también cambia a c si sigue e o i.", example: "taza → tacita · luz → lucecita · cruz → crucero" },
       { title: "En Latinoamérica, también s", text: "En casi toda Latinoamérica, la s, la z y la c (con e, i) suenan igual. Por eso hay que fijarse en cómo se escribe cada palabra.", example: "casa (vivienda) · caza (cazar)" },
@@ -831,7 +831,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
       { title: "Interrogativas", text: "Hacen una pregunta. Se escriben entre signos de interrogación ¿?", example: "¿Vienes a mi casa? · ¿Qué hora es?" },
       { title: "Exclamativas", text: "Expresan emociones fuertes: alegría, sorpresa, enojo o miedo. Van entre signos de exclamación ¡!", example: "¡Qué bien! · ¡Me encanta este regalo!" },
       { title: "Imperativas", text: "Dan una orden, un consejo o hacen un pedido. A veces van con «por favor».", example: "Cierra la puerta. · Lávate las manos, por favor." },
-      { title: "Desiderativas", text: "Expresan un deseo. Suelen empezar con «ojalá» o «que».", example: "Ojalá llueva mañana. · Que tengas un buen viaje." }
+      { title: "Desiderativas", text: "Expresan un deseo de que algo ocurra. Suelen empezar con «ojalá» o con «que».", example: "Ojalá llueva mañana. · Que tengas un buen viaje." }
     ],
     remember: ["Enunciativa: informa · Interrogativa: pregunta.", "Exclamativa: emoción · Imperativa: orden o pedido.", "Desiderativa: deseo (ojalá…)."],
     mistake: "Confundir imperativas con exclamativas porque ambas pueden llevar ¡!. «¡Cierra la puerta!» es imperativa: lo importante es que da una orden.",
@@ -954,9 +954,9 @@ Object.assign(window.CURRICULUM_LESSONS, {
     hook: "Corre… pero ¿cómo?, ¿dónde?, ¿cuándo? Los adverbios responden a esas preguntas. 🏃",
     steps: [
       { title: "¿Qué es un adverbio?", text: "El adverbio es una palabra que no cambia de forma (no tiene género ni número) y modifica al verbo, al adjetivo o a otro adverbio.", example: "Corre rápido. · Muy alto. · Bastante bien." },
-      { title: "Lugar y tiempo", text: "Los de lugar responden a ¿dónde? y los de tiempo responden a ¿cuándo?", example: "aquí, allí, cerca, lejos · ayer, hoy, mañana, siempre, nunca" },
-      { title: "Modo y cantidad", text: "Los de modo responden a ¿cómo? y los de cantidad a ¿cuánto?", example: "bien, mal, así, lentamente · mucho, poco, muy, bastante" },
-      { title: "Afirmación, negación y duda", text: "Algunos adverbios afirman, niegan o expresan duda.", example: "sí, también, claro · no, tampoco, jamás · quizá, tal vez, acaso" },
+      { title: "Lugar y tiempo", text: "Los adverbios de lugar responden a la pregunta ¿dónde? y los de tiempo responden a ¿cuándo?", example: "aquí, allí, cerca, lejos · ayer, hoy, mañana, siempre, nunca" },
+      { title: "Modo y cantidad", text: "Los adverbios de modo responden a la pregunta ¿cómo? y los de cantidad responden a ¿cuánto?", example: "bien, mal, así, lentamente · mucho, poco, muy, bastante" },
+      { title: "Afirmación, negación y duda", text: "Algunos adverbios sirven para afirmar algo, para negarlo o para expresar que tenemos duda.", example: "sí, también, claro · no, tampoco, jamás · quizá, tal vez, acaso" },
       { title: "Adverbios en -mente", text: "Muchos adverbios de modo se forman con un adjetivo femenino + -mente. Si el adjetivo lleva tilde, la conserva.", example: "lenta → lentamente · rápida → rápidamente · fácil → fácilmente" }
     ],
     remember: ["El adverbio no cambia de género ni número.", "Modifica al verbo, al adjetivo o a otro adverbio.", "Indica lugar, tiempo, modo, cantidad, afirmación, negación o duda."],
@@ -993,7 +993,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
       { title: "Las que no cambian", text: "Adverbios, preposiciones y conjunciones son invariables: siempre se escriben igual.", example: "ayer · con · pero" },
       { title: "El pronombre y el adverbio", text: "El pronombre reemplaza al sustantivo (ellos). El adverbio modifica al verbo, adjetivo u otro adverbio (ayer, muy).", example: "Ellos (pronombre) llegaron ayer (adverbio)." },
       { title: "Preposición y conjunción", text: "La preposición relaciona palabras (con, de, para). La conjunción une palabras u oraciones (y, pero, porque).", example: "Fui con (prep.) Ana, pero (conj.) no entramos." },
-      { title: "Analiza una oración", text: "Toma una oración y clasifica cada palabra preguntándote qué trabajo hace. ¡Es como un rompecabezas!", example: "Mi(det.) gato(sust.) duerme(verbo) mucho(adv.) en(prep.) el(art.) sofá(sust.)" }
+      { title: "Analiza una oración", text: "Toma una oración y clasifica cada palabra preguntándote qué trabajo hace. ¡Es como un rompecabezas!", example: "Mi gato (sust.) duerme (verbo) mucho (adv.) en (prep.) el (art.) sofá (sust.)" }
     ],
     remember: ["Variables: sustantivo, adjetivo, artículo, pronombre, verbo.", "Invariables: adverbio, preposición, conjunción.", "Clasifica cada palabra por el trabajo que hace."],
     mistake: "Una misma palabra puede cambiar de clase según la oración. «Bajo» es adjetivo en «un niño bajo», verbo en «yo bajo» y preposición en «bajo la mesa».",
@@ -1072,6 +1072,206 @@ Object.assign(window.CURRICULUM_LESSONS, {
     check: [
       ["¿Cuál es el propósito de un texto informativo?", "informar con datos reales", ["contar una historia inventada", "expresar sentimientos en verso"]],
       ["¿Dónde suele estar la idea principal de un párrafo?", "en la primera oración", ["en la última palabra", "en el número de página"]]
+    ]
+  },
+});
+
+/* ===== 6.º primaria ===== */
+Object.assign(window.CURRICULUM_LESSONS, {
+  "l6a": {
+    hook: "¿Por qué «día» lleva tilde si es una palabra llana que termina en vocal? ¡La respuesta está en el hiato! 🔎",
+    steps: [
+      { title: "Vocales abiertas y cerradas", text: "Las vocales se dividen en abiertas o fuertes (a, e, o) y cerradas o débiles (i, u). Esta diferencia decide cómo se separan las sílabas.", example: "Abiertas: a, e, o · Cerradas: i, u" },
+      { title: "Diptongo", text: "Un diptongo son dos vocales seguidas que se pronuncian en la misma sílaba. Se forma con una abierta + una cerrada átona, o con dos cerradas distintas.", example: "ciu-dad · pie-dra · au-to · cui-da-do" },
+      { title: "Hiato", text: "Un hiato son dos vocales seguidas que se pronuncian en sílabas distintas. Ocurre con dos vocales abiertas o con una cerrada tónica junto a una abierta.", example: "le-ón · po-e-ta · dí-a · ba-úl" },
+      { title: "La tilde del hiato", text: "Cuando la vocal cerrada (i, u) es tónica y está junto a una abierta, siempre lleva tilde, aunque las reglas generales digan lo contrario.", example: "día · río · país · baúl · maíz · reúne" },
+      { title: "La h no separa", text: "La h entre dos vocales no impide que formen diptongo o hiato. Por eso «búho» y «prohíbe» llevan tilde.", example: "bú-ho · pro-hí-be · ahu-ma-do (diptongo)" }
+    ],
+    remember: ["Diptongo: dos vocales en la misma sílaba.", "Hiato: dos vocales en sílabas distintas.", "Si la i o la u tónica forma hiato, lleva tilde: día, baúl."],
+    mistake: "Separar mal los diptongos: «ci-u-dad» o «a-u-to». Una vocal abierta con una cerrada átona va en la misma sílaba: «ciu-dad», «au-to».",
+    fun: "¿Sabías que también existen los triptongos? Son tres vocales en una sola sílaba, como en «buey» o «U-ru-guay».",
+    check: [
+      ["¿Qué palabra tiene un hiato?", "león", ["ciudad", "piedra"]],
+      ["¿Qué palabra tiene un diptongo?", "auto", ["poeta", "día"]],
+      ["¿Por qué «país» lleva tilde?", "porque la i tónica forma hiato", ["porque es esdrújula", "porque termina en vocal"]]
+    ]
+  },
+  "l6b": {
+    hook: "¿«Viage» o «viaje»? ¿«Biolojía» o «biología»? ¿«Uevo» o «huevo»? Tres reglas resuelven estas dudas. ✈️🥚",
+    steps: [
+      { title: "-aje y -jero con j", text: "Las palabras terminadas en -aje se escriben con j. También las terminadas en -jero y -jera (excepto «ligero»).", example: "viaje · garaje · paisaje · extranjero · relojera" },
+      { title: "-logía con g", text: "Las palabras terminadas en -logía (que significa «estudio de») se escriben con g. También casi todas las que empiezan por geo-.", example: "biología · zoología · geología · geografía" },
+      { title: "Verbos en -ger y -gir", text: "Los verbos terminados en -ger y -gir llevan g (excepto tejer y crujir). Cuidado: delante de a y o cambian a j.", example: "proteger → protejo · elegir → elijo · recoger → recojamos" },
+      { title: "Hue-, hie-, hui- con h", text: "Las palabras que empiezan por los diptongos hue-, hie-, hui- se escriben con h.", example: "huevo · hueso · hielo · hierba · huida" },
+      { title: "Hum- e hiper- con h", text: "También llevan h las palabras que empiezan por hum- seguido de vocal y los prefijos hiper-, hipo-, hidro-, hexa-.", example: "humano · humedad · hipermercado · hidratar · hexágono" }
+    ],
+    remember: ["-aje con j: viaje.", "-logía con g: biología.", "hue-, hie-, hui- con h: huevo, hielo."],
+    mistake: "Escribir «protejer» porque en «protejo» hay j. El infinitivo va con g: «proteger». La j solo aparece antes de a y o.",
+    fun: "¿Sabías que «hueso» lleva h pero «óseo» no? Vienen de la misma palabra latina, pero la h solo se añadió cuando la palabra empezaba con «ue».",
+    check: [
+      ["¿Cuál está bien escrita?", "paisaje", ["paisage", "paisahe"]],
+      ["¿Cuál está bien escrita?", "biología", ["biolojía", "biolohía"]],
+      ["¿Cuál está bien escrita?", "hierba", ["ierba", "yerva"]]
+    ]
+  },
+  "l6c": {
+    hook: "¿Deberían los estudiantes tener más tiempo de recreo? Si quieres convencer a alguien, necesitas buenas razones. 🗣️",
+    steps: [
+      { title: "¿Qué es un texto argumentativo?", text: "Es un texto que defiende una opinión con razones para convencer al lector. Lo encontramos en artículos de opinión, cartas al director, debates y anuncios.", example: "«El recreo debería durar más.»" },
+      { title: "La opinión o tesis", text: "La tesis es la idea que el autor quiere defender. Debe estar clara, normalmente al principio.", example: "Tesis: «Los niños deberían leer todos los días.»" },
+      { title: "Los argumentos", text: "Los argumentos son las razones que apoyan la tesis. Pueden ser datos, ejemplos, opiniones de expertos o experiencias.", example: "Leer mejora el vocabulario. Los expertos lo recomiendan." },
+      { title: "La conclusión", text: "La conclusión cierra el texto recordando la tesis y resumiendo los argumentos más fuertes.", example: "«Por todo esto, leer cada día nos hace mejores estudiantes.»" },
+      { title: "Lenguaje para convencer", text: "Se usan expresiones como «creo que», «en primer lugar», «además», «por lo tanto» y «en conclusión» para ordenar las ideas.", example: "En primer lugar… Además… Por lo tanto…" }
+    ],
+    remember: ["El texto argumentativo defiende una opinión.", "Estructura: tesis + argumentos + conclusión.", "Los buenos argumentos se apoyan en datos y ejemplos."],
+    mistake: "Dar solo opiniones sin razones: «El recreo debe ser más largo porque sí». Un argumento necesita una razón: «porque el descanso mejora la concentración».",
+    fun: "¿Sabías que los antiguos griegos enseñaban a argumentar en una disciplina llamada «retórica»? Aristóteles escribió un libro entero sobre ella.",
+    check: [
+      ["¿Cómo se llama la opinión que defiende el autor?", "tesis", ["moraleja", "titular"]],
+      ["¿Qué apoya a la tesis?", "los argumentos", ["los personajes", "las rimas"]]
+    ]
+  },
+  "xlen6a": {
+    hook: "«Ana escribió la carta» y «La carta fue escrita por Ana» dicen lo mismo… ¿o no exactamente? ✉️",
+    steps: [
+      { title: "Voz activa", text: "En la voz activa, el sujeto realiza la acción del verbo. Es la forma más común y directa de hablar.", example: "Ana (sujeto que actúa) escribió la carta." },
+      { title: "Voz pasiva", text: "En la voz pasiva, el sujeto recibe la acción. Lo importante pasa a ser lo que se hizo, no quién lo hizo.", example: "La carta (sujeto que recibe) fue escrita por Ana." },
+      { title: "Cómo se forma", text: "La pasiva se forma con el verbo «ser» conjugado + el participio del verbo principal (-ado, -ido o irregular).", example: "fue escrita · son construidas · será pintado" },
+      { title: "El complemento agente", text: "Quien realiza la acción en la pasiva aparece introducido por «por». Se llama complemento agente y a veces se omite.", example: "El cuadro fue pintado por Frida. · El puente fue inaugurado ayer." },
+      { title: "Transformar paso a paso", text: "1) El objeto pasa a ser sujeto. 2) El verbo pasa a ser + participio, en el mismo tiempo. 3) El sujeto pasa a ser agente con «por». El participio concuerda con el nuevo sujeto.", example: "Los niños plantaron árboles → Los árboles fueron plantados por los niños." }
+    ],
+    remember: ["Activa: el sujeto hace la acción.", "Pasiva: el sujeto recibe la acción (ser + participio).", "El agente va con «por»."],
+    mistake: "Olvidar la concordancia del participio: «Las casas fueron construido». El participio concuerda con el sujeto: «Las casas fueron construidas».",
+    fun: "¿Sabías que las noticias usan mucho la voz pasiva cuando no se sabe quién hizo algo? «El banco fue robado anoche».",
+    check: [
+      ["¿Cuál es la voz pasiva de «Juan pintó la puerta»?", "La puerta fue pintada por Juan.", ["Juan fue pintado por la puerta.", "La puerta pintó a Juan."]],
+      ["¿Con qué verbo se forma la voz pasiva?", "ser", ["haber", "estar"]],
+      ["¿Qué preposición introduce el complemento agente?", "por", ["para", "con"]]
+    ]
+  },
+  "xlen6b": {
+    hook: "«Tubo» y «tuvo» suenan idéntico, pero uno es un objeto y el otro es un verbo. ¿Cómo no confundirlos? 🔧",
+    steps: [
+      { title: "¿Qué son?", text: "Las palabras homófonas suenan igual, pero se escriben distinto y tienen significados diferentes. El contexto nos dice cuál usar.", example: "tuvo (de tener) / tubo (cilindro hueco)" },
+      { title: "Con h y sin h", text: "Muchas homófonas se diferencian por la h, que en español no suena. Fíjate en el significado.", example: "hola (saludo) / ola (del mar) · hecho (de hacer) / echo (de echar) · hasta (preposición) / asta (palo o cuerno)" },
+      { title: "Con b y con v", text: "Como la b y la v suenan igual en español, hay muchas parejas homófonas que se escriben con una u otra.", example: "votar (en elecciones) / botar (tirar) · vaca (animal) / baca (portaequipajes) · tuvo / tubo" },
+      { title: "Con ll y con y", text: "En la mayoría de los países hispanos, ll e y suenan igual. Por eso también forman parejas homófonas.", example: "haya (de haber) / halla (de hallar) · valla (cerca) / vaya (de ir) · cayó (de caer) / calló (de callar)" },
+      { title: "Con s, c y z", text: "En Latinoamérica, s, c y z suenan igual, lo que crea más homófonas.", example: "casa (vivienda) / caza (de cazar) · ciento (100) / siento (de sentir)" }
+    ],
+    remember: ["Las homófonas suenan igual pero se escriben distinto.", "El contexto indica cuál usar.", "Suelen diferenciarse por h, b/v, ll/y o s/c/z."],
+    mistake: "Escribir «Se callo al suelo». Si viene de caer, es «cayó»; si viene de callar (guardar silencio), es «calló».",
+    fun: "¿Sabías que «hola» y «ola» son homófonas? Por eso un surfista podría decir: «¡Hola, ola!» 🏄",
+    check: [
+      ["Completa: «Ojalá ___ helado.»", "haya", ["halla", "aya"]],
+      ["Completa: «El agua pasa por el ___.»", "tubo", ["tuvo", "tuvó"]],
+      ["Completa: «Mañana vamos a ___ por el delegado.»", "votar", ["botar", "vottar"]]
+    ]
+  },
+  "xlen6c": {
+    hook: "¿«Ardiya» o «ardilla»? ¿«Reies» o «reyes»? Hoy aprenderás a no dudar más. 🐿️",
+    steps: [
+      { title: "Terminaciones -illo, -illa", text: "Las palabras terminadas en -illo e -illa se escriben con ll. Muchas son diminutivos.", example: "ardilla · cuchillo · pasillo · bombilla · casilla" },
+      { title: "Verbos en -llar, -ullir y -ullar", text: "Los verbos terminados en -illar, -ullar y -ullir se escriben con ll.", example: "brillar · arrullar · zambullir" },
+      { title: "Y al final de palabra", text: "Se escribe y al final de una palabra cuando el sonido i va después de otra vocal y no lleva tilde.", example: "rey · ley · hoy · muy · estoy · Paraguay" },
+      { title: "Plurales con y", text: "Las palabras terminadas en y mantienen la y en su plural, y luego se agrega -es.", example: "rey → reyes · ley → leyes · buey → bueyes" },
+      { title: "Verbos con y", text: "Llevan y las formas de los verbos terminados en -uir, y las de verbos como caer, leer y oír cuando aparece ese sonido.", example: "construir → construyó · huir → huyó · leer → leyó · oír → oyendo" }
+    ],
+    remember: ["-illo, -illa con ll.", "Plural de palabras con y final: reyes, leyes.", "Verbos en -uir: construyó, huyó."],
+    mistake: "Escribir «construió» o «huió». Los verbos terminados en -uir usan y en esas formas: «construyó», «huyó».",
+    fun: "¿Sabías que en algunas zonas de Bolivia, Paraguay y los Andes todavía se pronuncia la ll diferente de la y? A eso se le llama «lleísmo».",
+    check: [
+      ["¿Cuál está bien escrita?", "ardilla", ["ardiya", "ardila"]],
+      ["¿Cuál es el plural de «ley»?", "leyes", ["lelles", "leies"]],
+      ["¿Cuál está bien escrita?", "construyó", ["construlló", "construió"]]
+    ]
+  },
+  "xlen6d": {
+    hook: "—¿Vienes? —preguntó Leo. ¿Sabías que ese guion largo tiene nombre y reglas? 💬",
+    steps: [
+      { title: "Las comillas", text: "Las comillas («», \"\" o '') sirven para citar palabras exactas de alguien, para títulos de poemas o artículos, y para palabras usadas con un sentido especial.", example: "Mi abuela siempre dice: «Más vale tarde que nunca»." },
+      { title: "La raya en los diálogos", text: "La raya (—) marca lo que dice cada personaje. También separa los comentarios del narrador.", example: "—¿Vienes? —preguntó Leo. —Sí —respondió Ana." },
+      { title: "Los paréntesis", text: "Los paréntesis encierran aclaraciones, datos extra o explicaciones que interrumpen la oración.", example: "Simón Bolívar (1783-1830) nació en Caracas." },
+      { title: "Los puntos suspensivos", text: "Son siempre tres puntos (…). Dejan algo en suspenso, indican duda o una enumeración incompleta.", example: "Abrí la puerta y… ¡sorpresa! · Compré frutas: peras, uvas, mangos…" },
+      { title: "Los dos puntos", text: "Los dos puntos anuncian una enumeración, una cita textual o una explicación. También van después del saludo de una carta.", example: "Necesito tres cosas: lápiz, papel y goma. · Querida Ana:" }
+    ],
+    remember: ["Comillas: citas textuales y títulos.", "Raya: diálogos y comentarios del narrador.", "Paréntesis: aclaraciones · Puntos suspensivos: siempre tres."],
+    mistake: "Usar un guion corto (-) en los diálogos o poner cuatro o cinco puntos suspensivos. En los diálogos va la raya larga (—) y los puntos suspensivos son siempre tres.",
+    fun: "¿Sabías que las comillas latinas «» se llaman también «angulares» y son las que recomienda la RAE para los textos impresos en español?",
+    check: [
+      ["¿Qué signo marca los diálogos?", "la raya", ["los paréntesis", "el punto y coma"]],
+      ["¿Cuántos puntos tienen los puntos suspensivos?", "3", ["2", "4"]],
+      ["¿Para qué sirven los paréntesis?", "para hacer aclaraciones", ["para marcar diálogos", "para hacer preguntas"]]
+    ]
+  },
+  "xlen6e": {
+    hook: "«Verde que te quiero verde», escribió García Lorca. ¿Por qué repetir una palabra puede ser tan bello? 🌿",
+    steps: [
+      { title: "Repaso: comparación, metáfora, personificación, hipérbole", text: "La comparación usa «como»; la metáfora identifica sin «como»; la personificación da rasgos humanos; la hipérbole exagera.", example: "«El viento cantaba» (personificación) · «Lloró un río» (hipérbole)" },
+      { title: "Anáfora", text: "La anáfora repite una o varias palabras al comienzo de versos u oraciones seguidas para dar ritmo y fuerza.", example: "«Verde que te quiero verde. / Verde viento. Verdes ramas.» (García Lorca)" },
+      { title: "Aliteración", text: "La aliteración repite un mismo sonido en palabras cercanas para crear un efecto musical.", example: "«En el silencio solo se escuchaba un susurro sonoro»" },
+      { title: "Antítesis y epíteto", text: "La antítesis enfrenta dos ideas contrarias. El epíteto es un adjetivo que destaca una cualidad propia del sustantivo.", example: "Antítesis: «Es tan corto el amor, y es tan largo el olvido» (Neruda) · Epíteto: «la blanca nieve»" },
+      { title: "Hipérbaton", text: "El hipérbaton altera el orden habitual de las palabras para dar belleza o ritmo al verso.", example: "«Del salón en el ángulo oscuro» (Bécquer) = En el ángulo oscuro del salón" }
+    ],
+    remember: ["Anáfora: repetir al comienzo.", "Aliteración: repetir sonidos.", "Antítesis: ideas contrarias · Epíteto: cualidad propia · Hipérbaton: orden alterado."],
+    mistake: "Confundir anáfora y aliteración. La anáfora repite palabras al inicio de versos; la aliteración repite sonidos (letras) dentro del texto.",
+    fun: "¿Sabías que los trabalenguas son puras aliteraciones? «Tres tristes tigres» repite el sonido «tr» para que tu lengua se enrede.",
+    check: [
+      ["«La blanca nieve» es un ejemplo de…", "epíteto", ["hipérbaton", "anáfora"]],
+      ["Repetir una palabra al comienzo de varios versos es…", "anáfora", ["antítesis", "epíteto"]],
+      ["«Es tan corto el amor, y es tan largo el olvido» contiene una…", "antítesis", ["aliteración", "personificación"]]
+    ]
+  },
+  "xlen6f": {
+    hook: "Una leyenda, una oda y una tragedia entran en una biblioteca… ¿en qué estante va cada una? 📚",
+    steps: [
+      { title: "Narrativo", text: "Un narrador cuenta hechos que les ocurren a unos personajes en un lugar y un tiempo. Se escribe sobre todo en prosa.", example: "cuento · novela · leyenda · fábula · mito" },
+      { title: "Subgéneros narrativos", text: "La leyenda mezcla hechos reales y fantásticos de un lugar; el mito explica el origen del mundo con dioses; la novela es una narración larga.", example: "La leyenda de la Llorona · El mito de Quetzalcóatl" },
+      { title: "Lírico", text: "El autor expresa sentimientos y emociones, generalmente en verso, con ritmo y a veces rima. Habla un «yo poético».", example: "poema · oda (alaba algo) · copla (estrofa popular) · elegía (lamenta una pérdida)" },
+      { title: "Dramático", text: "Está escrito para ser representado. Se compone de diálogos y acotaciones, y se divide en actos y escenas.", example: "comedia (final feliz) · tragedia (final desgraciado) · drama" },
+      { title: "Cómo clasificar", text: "Observa la forma (prosa, verso o diálogo), la intención (contar, expresar, representar) y si hay narrador, yo poético o personajes que hablan directamente.", example: "«Oda a la alcachofa» (Neruda) → lírico" }
+    ],
+    remember: ["Narrativo: cuento, novela, leyenda, mito, fábula.", "Lírico: poema, oda, copla, elegía.", "Dramático: comedia, tragedia, drama."],
+    mistake: "Pensar que la leyenda es lírica porque es antigua o se cuenta oralmente. La leyenda cuenta una historia con personajes: es narrativa.",
+    fun: "¿Sabías que Pablo Neruda escribió odas a cosas cotidianas, como la cebolla, el tomate y los calcetines? ¡Hasta lo más simple puede ser poesía!",
+    check: [
+      ["¿A qué género pertenece una oda?", "lírico", ["narrativo", "dramático"]],
+      ["¿A qué género pertenece una leyenda?", "narrativo", ["lírico", "dramático"]],
+      ["¿Qué obra dramática tiene un final desgraciado?", "la tragedia", ["la comedia", "la copla"]]
+    ]
+  },
+  "xlen6g": {
+    hook: "Un buen argumento es como una mesa: necesita patas firmes para no caerse. ¿Cuáles son esas patas? 🪑",
+    steps: [
+      { title: "La tesis", text: "La tesis es la opinión principal que se defiende. Debe ser clara, concreta y discutible (que alguien pueda no estar de acuerdo).", example: "«Las escuelas deberían tener huertos.»" },
+      { title: "Los argumentos", text: "Son las razones que apoyan la tesis. Cada argumento responde a la pregunta «¿por qué?».", example: "Porque los niños aprenden de dónde vienen los alimentos." },
+      { title: "Los ejemplos y datos", text: "Cada argumento se refuerza con ejemplos, datos, experiencias o citas de expertos. Así se vuelve más convincente.", example: "En mi escuela, tras crear el huerto, comimos más verduras." },
+      { title: "La conclusión", text: "La conclusión retoma la tesis y resume los argumentos. Puede terminar con una propuesta o una invitación.", example: "«Por todo esto, cada escuela debería tener su huerto.»" },
+      { title: "Conectores", text: "Los conectores ordenan las ideas: para empezar (en primer lugar), sumar (además), oponer (sin embargo) y concluir (por lo tanto, en conclusión).", example: "En primer lugar… Además… Sin embargo… En conclusión…" }
+    ],
+    remember: ["Tesis → Argumento → Ejemplo → Conclusión.", "Cada argumento responde a «¿por qué?».", "Los conectores ordenan las ideas."],
+    mistake: "Repetir la tesis con otras palabras en vez de dar argumentos. «Los huertos son buenos porque son muy buenos» no es un argumento: falta la razón.",
+    fun: "¿Sabías que en muchos países hay torneos escolares de debate? Los equipos a veces deben defender una postura que no comparten, ¡y eso entrena muchísimo el pensamiento!",
+    check: [
+      ["¿Qué parte del texto argumentativo presenta la opinión principal?", "la tesis", ["el ejemplo", "la conclusión"]],
+      ["¿Qué conector sirve para concluir?", "por lo tanto", ["en primer lugar", "además"]]
+    ]
+  },
+  "xlen6h": {
+    hook: "Cuando lees una opinión, ¿te convence enseguida o te preguntas si tiene razón? 🧐",
+    steps: [
+      { title: "Identifica la tesis", text: "Primero busca qué opina el autor. Suele estar al principio o al final del texto, a veces tras expresiones como «creo que» o «considero que».", example: "«Considero que los videojuegos pueden ser educativos.»" },
+      { title: "Encuentra los argumentos", text: "Localiza las razones que da el autor y numéralas. Pregúntate si se apoyan en datos, ejemplos o solo en opiniones.", example: "1) Mejoran los reflejos. 2) Algunos enseñan historia." },
+      { title: "Detecta las objeciones", text: "Una objeción es una idea contraria a la tesis. Los buenos textos la mencionan y la responden. Suele introducirse con «sin embargo» o «aunque».", example: "«Sin embargo, algunos dicen que causan aislamiento…»" },
+      { title: "Fíjate en los conectores", text: "Los conectores revelan la función de cada parte: «además» suma, «sin embargo» opone, «por ejemplo» ejemplifica, «por todo esto» concluye.", example: "«Por todo esto» anuncia la conclusión." },
+      { title: "Forma tu propia opinión", text: "Evalúa si los argumentos son sólidos y si hay datos confiables. Luego decide si estás de acuerdo y explica por qué.", example: "«Estoy de acuerdo en parte, porque…»" }
+    ],
+    remember: ["Busca tesis, argumentos y objeciones.", "Los conectores indican la función de cada parte.", "Evalúa y forma tu propia opinión razonada."],
+    mistake: "Aceptar una opinión solo porque está escrita en un libro o en internet. Pregúntate siempre si el autor da pruebas y si hay otras posturas.",
+    fun: "¿Sabías que en muchos países se celebra el Día Internacional de la Verificación de Datos (2 de abril)? Se promueve revisar la información antes de creerla.",
+    check: [
+      ["¿Qué introduce el conector «sin embargo»?", "una idea contraria", ["un ejemplo", "la conclusión"]],
+      ["¿Cómo se llama una idea contraria a la tesis?", "objeción", ["argumento", "título"]],
+      ["¿Qué conector anuncia la conclusión?", "por todo esto", ["además", "por ejemplo"]]
     ]
   },
 });
