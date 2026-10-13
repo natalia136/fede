@@ -868,3 +868,183 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Cuántos ejes de simetría tiene un rectángulo (no cuadrado)?", "2", ["4", "0"]]
     ]
   },
+  "m5a": {
+    hook: "Compraste un jugo de $2,50 y un pan de $1,25. ¿Cuánto gastaste? Para sumar decimales hay un secreto: ¡la coma!",
+    steps: [
+      { title: "Alinea las comas", text: "Para sumar o restar decimales, escribe los números uno debajo del otro de modo que las comas queden en la misma columna. Así sumas décimos con décimos y centésimos con centésimos.", example: "  2,50\n+ 1,25" },
+      { title: "Completa con ceros", text: "Si un número tiene menos cifras decimales, agrégale ceros a la derecha. No cambia su valor y te ayuda a no equivocarte.", example: "2,5 = 2,50" },
+      { title: "Suma como siempre", text: "Suma de derecha a izquierda, llevando cuando haga falta, y baja la coma en el mismo lugar en el resultado.", example: "2,50 + 1,25 = 3,75" },
+      { title: "Restar decimales", text: "En la resta haces lo mismo: alinear comas, completar con ceros y restar pidiendo prestado si es necesario.", example: "5 − 2,75 → 5,00 − 2,75 = 2,25" },
+      { title: "Multiplicar por un entero", text: "Para multiplicar un decimal por un número entero, multiplica sin la coma y luego pon en el resultado tantas cifras decimales como tenía el decimal.", example: "1,5 × 3 → 15 × 3 = 45 → 4,5" }
+    ],
+    remember: ["Coma debajo de coma.", "Completa con ceros a la derecha.", "Al multiplicar, cuenta las cifras decimales."],
+    mistake: "Alinear los números por la derecha en vez de por la coma es el error más común: 2,5 + 1,25 no da 1,50. ¡Alinea las comas!",
+    fun: "¿Sabías que los atletas olímpicos se miden con centésimas de segundo? ¡Una carrera se puede ganar por 0,01 s!",
+    check: [
+      ["¿Cuánto es 2,5 + 1,25?", "3,75", ["1,50", "3,30"]],
+      ["¿Cuánto es 5 − 2,75?", "2,25", ["3,25", "2,75"]],
+      ["¿Cuánto es 1,5 × 3?", "4,5", ["45", "3,5"]]
+    ]
+  },
+  "m5b": {
+    hook: "Comiste 2/7 de una torta y tu hermano 3/7. ¿Cuánta torta comieron entre los dos?",
+    steps: [
+      { title: "Mismo denominador", text: "Si las fracciones tienen el mismo denominador, las partes son del mismo tamaño. Suma los numeradores y deja el mismo denominador.", example: "2/7 + 3/7 = 5/7" },
+      { title: "¿Por qué no se suma abajo?", text: "El denominador dice el tamaño de cada parte. Juntar trozos no cambia su tamaño, por eso el denominador queda igual.", example: "2 séptimos + 3 séptimos = 5 séptimos" },
+      { title: "Distinto denominador", text: "Si los denominadores son distintos, primero busca fracciones equivalentes con el mismo denominador. Luego suma.", example: "1/2 + 1/4 = 2/4 + 1/4 = 3/4" },
+      { title: "Un denominador común", text: "Puedes usar un múltiplo común de los dos denominadores. Para tercios y cuartos sirve 12.", example: "1/3 + 1/4 = 4/12 + 3/12 = 7/12" },
+      { title: "Simplifica al final", text: "Si el resultado se puede simplificar, divide numerador y denominador por el mismo número.", example: "1/6 + 3/6 = 4/6 = 2/3" }
+    ],
+    remember: ["Mismo denominador: suma los numeradores.", "El denominador no se suma.", "Si son distintos, busca un denominador común."],
+    mistake: "Nunca sumes los denominadores: 2/7 + 3/7 no es 5/14. Si fuera así, ¡tendrías menos torta que antes!",
+    fun: "¿Sabías que los antiguos egipcios escribían casi todas las fracciones como sumas de fracciones con numerador 1? Por ejemplo, 3/4 = 1/2 + 1/4.",
+    check: [
+      ["¿Cuánto es 2/7 + 3/7?", "5/7", ["5/14", "6/7"]],
+      ["¿Cuánto es 1/2 + 1/4?", "3/4", ["2/6", "1/6"]],
+      ["¿Cuánto es 2/5 + 1/5?", "3/5", ["3/10", "2/5"]]
+    ]
+  },
+  "m5c": {
+    hook: "¿Cuántas baldosas necesitas para cubrir el piso de tu pieza? ¡Para eso calculamos el área!",
+    steps: [
+      { title: "¿Qué es el área?", text: "El área es la cantidad de superficie que ocupa una figura. Podemos medirla contando cuántos cuadritos iguales caben dentro.", example: "Un rectángulo de 6 cuadritos por 4 cuadritos tiene 24 cuadritos" },
+      { title: "Área del rectángulo", text: "En lugar de contar uno por uno, multiplica la base (lo que mide de largo) por la altura (lo que mide de alto).", example: "Base 6 cm, altura 4 cm → 6 × 4 = 24 cm²" },
+      { title: "Área del cuadrado", text: "El cuadrado tiene base y altura iguales, así que multiplicas el lado por sí mismo.", example: "Lado 5 cm → 5 × 5 = 25 cm²" },
+      { title: "Área del triángulo", text: "Un triángulo es la mitad de un rectángulo con la misma base y altura. Por eso multiplicas base por altura y divides entre 2.", example: "Base 6 cm, altura 4 cm → 6 × 4 ÷ 2 = 12 cm²" },
+      { title: "Unidades cuadradas", text: "El área se mide en unidades cuadradas: cm², m², km². El ² indica que son cuadritos, no una línea.", example: "Una cancha de 20 m × 10 m = 200 m²" }
+    ],
+    remember: ["Rectángulo: base × altura.", "Triángulo: base × altura ÷ 2.", "El área se mide en unidades cuadradas."],
+    mistake: "No confundas área con perímetro. El perímetro suma el borde (6 + 4 + 6 + 4 = 20 cm); el área cuenta lo de adentro (6 × 4 = 24 cm²).",
+    fun: "¿Sabías que una cancha de fútbol profesional tiene un área de unos 7000 m²? ¡Cabrían miles de alfombras!",
+    check: [
+      ["Área de un rectángulo de base 7 y altura 3:", "21", ["10", "20"]],
+      ["Área de un cuadrado de lado 5 cm:", "25 cm²", ["20 cm²", "10 cm²"]],
+      ["Área de un triángulo de base 6 cm y altura 4 cm:", "12 cm²", ["24 cm²", "10 cm²"]]
+    ]
+  },
+  "m5d": {
+    hook: "¿Cuántas cajas de 12 huevos llenas con 96 huevos? Dividir entre números de dos cifras es cuestión de estimar bien.",
+    steps: [
+      { title: "Estima con números redondos", text: "Redondea el divisor a la decena más cercana para adivinar cuántas veces cabe. Es solo un primer intento.", example: "96 ÷ 12 → 12 ≈ 10 → 96 ÷ 10 ≈ 9" },
+      { title: "Prueba y ajusta", text: "Multiplica tu estimación por el divisor. Si te pasas, baja 1. Si sobra igual o más que el divisor, sube 1.", example: "12 × 9 = 108 (me paso) → 12 × 8 = 96 ✔ → 96 ÷ 12 = 8" },
+      { title: "Dividendos más grandes", text: "Si el divisor no cabe en las primeras dos cifras, toma tres. Divide, multiplica, resta y baja la siguiente cifra.", example: "156 ÷ 12: 15 ÷ 12 = 1, resto 3; bajo el 6 → 36 ÷ 12 = 3 → 13" },
+      { title: "Con residuo", text: "Si no queda exacto, lo que sobra es el residuo, que debe ser menor que el divisor.", example: "185 ÷ 23: 23 × 8 = 184 → cociente 8, residuo 1" },
+      { title: "Comprueba", text: "Multiplica el cociente por el divisor y suma el residuo. Debe darte el dividendo.", example: "12 × 13 = 156 ✔ · 23 × 8 + 1 = 185 ✔" }
+    ],
+    remember: ["Redondea el divisor para estimar.", "Si te pasas, baja; si sobra mucho, sube.", "Comprueba con multiplicación."],
+    mistake: "Cuando una cifra bajada no alcanza para dividir, hay que escribir un 0 en el cociente. Si lo olvidas, el resultado queda mucho más pequeño.",
+    fun: "¿Sabías que el método de división que usamos hoy se llama 'división larga' y se enseña en las escuelas desde hace unos 500 años?",
+    check: [
+      ["¿Cuánto es 96 ÷ 12?", "8", ["9", "7"]],
+      ["¿Cuánto es 156 ÷ 12?", "13", ["12", "14"]],
+      ["185 ÷ 23 da cociente 8 y residuo…", "1", ["3", "0"]]
+    ]
+  },
+  "m5e": {
+    hook: "Compras 3 cajas de 12 galletas y regalas 5. ¿Cuántas te quedan? Hay que hacer más de una operación.",
+    steps: [
+      { title: "Entiende la historia", text: "Lee todo el problema y cuéntalo con tus palabras. Identifica qué datos tienes y qué te preguntan al final.", example: "Datos: 3 cajas, 12 galletas cada una, regalo 5 · Pregunta: ¿cuántas quedan?" },
+      { title: "Divide en pasos", text: "Pregúntate qué necesitas saber primero para poder responder la pregunta final. Cada paso es una pregunta pequeña.", example: "Paso 1: ¿cuántas galletas compré? · Paso 2: ¿cuántas me quedan?" },
+      { title: "Resuelve paso a paso", text: "Haz una operación por paso y usa el resultado de un paso en el siguiente.", example: "3 × 12 = 36 → 36 − 5 = 31" },
+      { title: "Otro ejemplo", text: "Compro 2 cuadernos de $850 y un lápiz de $300, y pago con $3000. Primero el costo de los cuadernos, luego el total y al final el vuelto.", example: "2 × 850 = 1700 → 1700 + 300 = 2000 → 3000 − 2000 = $1000" },
+      { title: "Revisa la respuesta", text: "Lee otra vez la pregunta y verifica que respondiste lo que te pidieron. Pregúntate si el resultado es razonable.", example: "Me quedan 31 galletas: es menos que 36, ¡tiene sentido!" }
+    ],
+    remember: ["Divide el problema en pasos pequeños.", "Usa cada resultado en el paso siguiente.", "Revisa que respondiste la pregunta."],
+    mistake: "Muchos niños se detienen en el primer paso (36 galletas) y lo dan como respuesta. Vuelve a leer la pregunta final antes de terminar.",
+    fun: "¿Sabías que los programadores de videojuegos resuelven problemas igual: dividen un problema grande en muchos pasos pequeños?",
+    check: [
+      ["3 cajas de 12 galletas y regalo 5. ¿Cuántas quedan?", "31", ["36", "41"]],
+      ["2 cuadernos de $850 y un lápiz de $300. ¿Total?", "$2000", ["$1150", "$1700"]],
+      ["Pagas $3000 por una compra de $2000. ¿Vuelto?", "$1000", ["$5000", "$2000"]]
+    ]
+  },
+  "xmat5a": {
+    hook: "¿Por qué con 12 fichas puedes formar varios rectángulos distintos, pero con 13 solo una fila? ¡Porque 13 es primo!",
+    steps: [
+      { title: "Números primos", text: "Un número primo tiene exactamente dos divisores: el 1 y él mismo. No se puede dividir exactamente por ningún otro número.", example: "13 es primo: solo 1 y 13 lo dividen" },
+      { title: "Números compuestos", text: "Un número compuesto tiene más de dos divisores. Se puede escribir como multiplicación de números más pequeños.", example: "21 = 3 × 7 es compuesto · 12 = 3 × 4 es compuesto" },
+      { title: "El 1 y el 2", text: "El 1 no es primo ni compuesto, porque tiene un solo divisor. El 2 es el único número primo par.", example: "Divisores de 1: solo 1 · Divisores de 2: 1 y 2" },
+      { title: "Cómo saber si es primo", text: "Prueba dividir entre 2, 3, 5, 7… Si alguno divide exactamente, es compuesto. Si ninguno, es primo.", example: "29: no se divide por 2, 3 ni 5 → es primo" },
+      { title: "Los primeros primos", text: "Conviene recordar los primos menores que 30. Te ayudan a simplificar fracciones y buscar divisores.", example: "2, 3, 5, 7, 11, 13, 17, 19, 23, 29" }
+    ],
+    remember: ["Primo: solo se divide por 1 y por sí mismo.", "Compuesto: tiene más divisores.", "El 1 no es primo y el 2 es el único primo par."],
+    mistake: "Muchos creen que todos los impares son primos. ¡No! 9 = 3 × 3, 15 = 3 × 5 y 21 = 3 × 7 son impares y compuestos.",
+    fun: "¿Sabías que hay infinitos números primos? Euclides lo demostró hace más de 2000 años.",
+    check: [
+      ["¿Cuál es primo?", "13", ["21", "15"]],
+      ["¿Cuál es compuesto?", "21", ["7", "29"]],
+      ["¿Cuál es el único primo par?", "2", ["4", "0"]]
+    ]
+  },
+  "xmat5b": {
+    hook: "Un bus pasa cada 4 minutos y otro cada 6. Si salen juntos, ¿cuándo vuelven a coincidir? ¡El MCM lo responde!",
+    steps: [
+      { title: "Múltiplos comunes", text: "Escribe los múltiplos de cada número y busca los que se repiten. Esos son los múltiplos comunes.", example: "Múltiplos de 4: 4, 8, 12, 16, 20, 24… · de 6: 6, 12, 18, 24…" },
+      { title: "El MCM", text: "El mínimo común múltiplo es el más pequeño de los múltiplos comunes (sin contar el 0).", example: "MCM(4, 6) = 12 → los buses coinciden a los 12 minutos" },
+      { title: "Divisores comunes", text: "Ahora escribe los divisores de cada número y busca los que comparten.", example: "Divisores de 12: 1, 2, 3, 4, 6, 12 · de 18: 1, 2, 3, 6, 9, 18" },
+      { title: "El MCD", text: "El máximo común divisor es el más grande de los divisores comunes.", example: "MCD(12, 18) = 6" },
+      { title: "¿Cuál uso?", text: "Usa el MCM cuando algo se repite y quieres saber cuándo coincide. Usa el MCD cuando quieres repartir en grupos iguales lo más grandes posible.", example: "8 rojas y 12 azules en bolsas iguales → MCD(8, 12) = 4 bolsas" }
+    ],
+    remember: ["MCM: el menor múltiplo compartido.", "MCD: el mayor divisor compartido.", "MCM para coincidir; MCD para repartir."],
+    mistake: "Es fácil confundirlos. Piensa: el MCM es igual o mayor que los números; el MCD es igual o menor que los números.",
+    fun: "¿Sabías que las cigarras de algunas especies salen cada 13 o 17 años, números primos, quizás para coincidir lo menos posible con sus depredadores?",
+    check: [
+      ["¿Cuál es el MCM de 4 y 6?", "12", ["24", "2"]],
+      ["¿Cuál es el MCD de 12 y 18?", "6", ["3", "36"]],
+      ["¿Cuál es el MCM de 3 y 5?", "15", ["8", "1"]]
+    ]
+  },
+  "xmat5c": {
+    hook: "En tu curso hay 24 estudiantes y 1/3 juega fútbol. ¿Cuántos juegan? ¡Calculemos fracciones de un número!",
+    steps: [
+      { title: "Divide entre el denominador", text: "Para hallar una fracción de un número, primero divide el número entre el denominador. Así sabes cuánto vale una parte.", example: "3/4 de 20 → 20 ÷ 4 = 5 (cada cuarto vale 5)" },
+      { title: "Multiplica por el numerador", text: "Luego multiplica ese resultado por el numerador, porque tomas esa cantidad de partes.", example: "5 × 3 = 15 → 3/4 de 20 = 15" },
+      { title: "Un problema", text: "Si 1/3 de 24 estudiantes juega fútbol, divide 24 entre 3. Como el numerador es 1, ya tienes la respuesta.", example: "24 ÷ 3 = 8 estudiantes ⚽" },
+      { title: "¿Y el resto?", text: "Para saber cuántos NO juegan, resta del total o calcula la fracción que falta para completar el entero.", example: "24 − 8 = 16 · o bien 2/3 de 24 = 16" },
+      { title: "Otro ejemplo", text: "Un libro tiene 30 páginas y ya leíste 2/5. Divide 30 entre 5 y multiplica por 2.", example: "30 ÷ 5 = 6 → 6 × 2 = 12 páginas" }
+    ],
+    remember: ["Divide entre el denominador.", "Multiplica por el numerador.", "Lo que falta = total − la parte."],
+    mistake: "Algunos dividen entre el numerador y multiplican por el denominador. ¡Al revés no funciona! 3/4 de 20 no es 20 ÷ 3 × 4.",
+    fun: "¿Sabías que en las recetas de cocina usamos fracciones de cantidades todo el tiempo, como 3/4 de taza de harina?",
+    check: [
+      ["¿Cuánto es 3/4 de 20?", "15", ["5", "12"]],
+      ["¿Cuánto es 2/5 de 30?", "12", ["6", "15"]],
+      ["1/3 de 24 estudiantes juega fútbol. ¿Cuántos NO juegan?", "16", ["8", "21"]]
+    ]
+  },
+  "xmat5d": {
+    hook: "Sacaste 6, 8 y 10 en tres pruebas. ¿Cuál es tu nota 'típica'? El promedio, la moda y la mediana te lo dicen.",
+    steps: [
+      { title: "El promedio", text: "Para calcular el promedio, suma todos los datos y divide el resultado entre la cantidad de datos.", example: "6, 8, 10 → 6 + 8 + 10 = 24 → 24 ÷ 3 = 8" },
+      { title: "La moda", text: "La moda es el dato que más se repite. Puede haber una, varias o ninguna moda.", example: "3, 9, 4, 9, 5 → la moda es 9" },
+      { title: "La mediana", text: "Para la mediana, ordena los datos de menor a mayor y busca el que queda justo en el medio.", example: "3, 9, 4, 9, 5 → 3, 4, 5, 9, 9 → mediana 5" },
+      { title: "Comparando las tres", text: "Con los mismos datos, las tres medidas pueden ser distintas. Cada una describe los datos de una manera diferente.", example: "3, 9, 4, 9, 5 → promedio 30 ÷ 5 = 6 · moda 9 · mediana 5" },
+      { title: "Gráficos", text: "Los gráficos de barras ayudan a ver la moda: es la barra más alta. Los gráficos de líneas muestran cómo cambia algo en el tiempo.", example: "📊 La barra más alta = el dato más frecuente" }
+    ],
+    remember: ["Promedio: suma y divide entre cuántos son.", "Moda: el que más se repite.", "Mediana: el del medio, con los datos ordenados."],
+    mistake: "Para la mediana hay que ordenar primero los datos. En 3, 9, 4, 9, 5 el del medio sin ordenar es 4, pero la mediana real es 5.",
+    fun: "¿Sabías que la palabra 'moda' en estadística viene de la misma idea que la moda de la ropa: lo que más se ve?",
+    check: [
+      ["Promedio de 6, 8 y 10:", "8", ["24", "6"]],
+      ["Moda de 3, 9, 4, 9, 5:", "9", ["5", "6"]],
+      ["Mediana de 3, 9, 4, 9, 5:", "5", ["4", "9"]]
+    ]
+  },
+  "xmat5e": {
+    hook: "¿Cuántos cubitos de 1 cm caben en una caja de zapatos? Eso es su volumen.",
+    steps: [
+      { title: "¿Qué es el volumen?", text: "El volumen es el espacio que ocupa un cuerpo. Lo medimos contando cuántos cubos pequeños e iguales caben dentro.", example: "Un cubito de 1 cm de lado = 1 cm³" },
+      { title: "El prisma rectangular", text: "Una caja es un prisma rectangular. Su volumen se calcula multiplicando largo × ancho × alto.", example: "Caja 5 × 4 × 2 = 40 cm³" },
+      { title: "Por capas", text: "Piensa en capas: largo × ancho te dice cuántos cubitos hay en el fondo; luego multiplicas por cuántas capas (el alto).", example: "Fondo 5 × 4 = 20 cubitos · 2 capas → 40 cm³" },
+      { title: "El cubo", text: "En un cubo, largo, ancho y alto son iguales, así que multiplicas la arista tres veces.", example: "Arista 3 cm → 3 × 3 × 3 = 27 cm³" },
+      { title: "Volumen y litros", text: "1 dm³ (un cubo de 10 cm de lado) es igual a 1 litro, y 1 dm³ = 1000 cm³. Así sabemos cuánta agua cabe en un recipiente.", example: "Pecera 50 × 20 × 30 cm = 30 000 cm³ = 30 L 🐠" }
+    ],
+    remember: ["Volumen = largo × ancho × alto.", "Se mide en unidades cúbicas (cm³, m³).", "1 dm³ = 1 L = 1000 cm³."],
+    mistake: "No confundas el área (dos medidas, cm²) con el volumen (tres medidas, cm³). Si te olvidas del alto, calculas solo el fondo.",
+    fun: "¿Sabías que Arquímedes descubrió cómo medir el volumen de objetos irregulares metiéndolos en agua? Cuenta la leyenda que gritó '¡Eureka!'.",
+    check: [
+      ["Volumen de una caja de 5 × 4 × 2 cm:", "40 cm³", ["11 cm³", "20 cm³"]],
+      ["Volumen de un cubo de arista 3 cm:", "27 cm³", ["9 cm³", "18 cm³"]],
+      ["1 dm³ equivale a…", "1 litro", ["1 mililitro", "10 litros"]]
+    ]
+  },

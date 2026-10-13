@@ -733,3 +733,213 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Qué son las palabras clave?", "Las palabras más importantes del texto", ["Las palabras más largas", "Las palabras en otro idioma"]]
     ]
   },
+  /* ===== 4.º ===== */
+  "c4a": {
+    hook: "Mientras lees esto, tu corazón late, tus pulmones respiran y tu cerebro piensa… ¡todo al mismo tiempo! ¿Cómo se organizan?",
+    steps: [
+      { title: "Sistema circulatorio", text: "El corazón, los vasos sanguíneos y la sangre forman el sistema circulatorio. Lleva oxígeno y nutrientes a todo el cuerpo y recoge los desechos.", example: "❤️ corazón · 🩸 arterias y venas" },
+      { title: "Sistema respiratorio", text: "La nariz, la tráquea y los pulmones forman el sistema respiratorio. Toma oxígeno del aire y expulsa dióxido de carbono.", example: "👃 nariz → tráquea → 🫁 pulmones" },
+      { title: "Sistema digestivo", text: "La boca, el esófago, el estómago y los intestinos forman el sistema digestivo. Transforma los alimentos en nutrientes que pasan a la sangre.", example: "👄 boca → estómago → intestinos" },
+      { title: "Nervioso y excretor", text: "El sistema nervioso (cerebro, médula y nervios) controla todo el cuerpo. El sistema excretor (riñones y vejiga) limpia la sangre y produce la orina.", example: "🧠 cerebro · 🫘 riñones" },
+      { title: "Trabajan en equipo", text: "Corre un minuto y observa: respiras más rápido (respiratorio), tu corazón late más fuerte (circulatorio) y tu cerebro coordina todo (nervioso).", example: "🏃 respirar + latir + coordinar" }
+    ],
+    remember: ["El circulatorio transporta la sangre.", "El respiratorio toma oxígeno; el digestivo procesa los alimentos.", "El nervioso controla y el excretor limpia la sangre."],
+    mistake: "Algunos creen que cada sistema trabaja solo. En realidad dependen unos de otros: el oxígeno de los pulmones necesita la sangre para llegar a cada célula.",
+    fun: "¿Sabías que si pusieras en fila todos los vasos sanguíneos de un adulto, darían varias vueltas a la Tierra?",
+    check: [
+      ["¿Qué sistema lleva la sangre por el cuerpo?", "El circulatorio", ["El digestivo", "El excretor"]],
+      ["¿Qué órganos limpian la sangre y producen la orina?", "Los riñones", ["Los pulmones", "El esófago"]],
+      ["¿Qué sistema controla todo el cuerpo?", "El nervioso", ["El respiratorio", "El digestivo"]]
+    ]
+  },
+  "c4b": {
+    hook: "Un charco, un bosque y un arrecife de coral tienen algo en común: ¡en todos hay seres vivos que dependen unos de otros!",
+    steps: [
+      { title: "¿Qué es un ecosistema?", text: "Un ecosistema es un lugar donde los seres vivos se relacionan entre sí y con el ambiente que los rodea. Puede ser tan grande como una selva o tan pequeño como un charco.", example: "🌳 bosque · 🐠 arrecife · 💧 charco" },
+      { title: "Factores bióticos", text: "Los factores bióticos son todos los seres vivos del ecosistema: plantas, animales, hongos y microorganismos.", example: "🐞 mariquita · 🌿 helecho · 🍄 hongo" },
+      { title: "Factores abióticos", text: "Los factores abióticos son lo que no está vivo: el agua, el suelo, la luz, el aire y la temperatura. Determinan qué seres vivos pueden vivir allí.", example: "💧 agua · ☀️ luz · 🌡️ temperatura" },
+      { title: "Relaciones", text: "Los seres vivos se relacionan: algunos se comen a otros (depredación), otros se ayudan (como la abeja que poliniza la flor) y otros compiten por alimento.", example: "🐝 + 🌸 se ayudan" },
+      { title: "Un ecosistema en un frasco", text: "Pon piedritas, tierra, musgo y una plantita en un frasco grande de boca ancha, rocía un poco de agua y déjalo cerca de la luz, sin sol directo. Observa cómo el agua circula dentro.", example: "🫙 terrario" }
+    ],
+    remember: ["Un ecosistema une seres vivos y ambiente.", "Bióticos: seres vivos. Abióticos: agua, suelo, luz, aire.", "Los seres vivos dependen unos de otros."],
+    mistake: "Algunos creen que los factores abióticos no importan porque no están vivos. Sin agua, luz o el clima adecuado, los seres vivos no podrían vivir allí.",
+    fun: "¿Sabías que los páramos de los Andes funcionan como esponjas que almacenan agua y abastecen a ciudades como Bogotá y Quito?",
+    check: [
+      ["¿Cuál es un factor abiótico?", "El agua", ["Una mariquita", "Un helecho"]],
+      ["¿Cuál es un factor biótico?", "Un hongo", ["La luz", "La temperatura"]]
+    ]
+  },
+  "c4c": {
+    hook: "¿Qué pasaría si un día se acabara toda la gasolina del mundo? Por eso es importante conocer las energías que no se agotan.",
+    steps: [
+      { title: "¿Qué es la energía?", text: "La energía es lo que permite que las cosas se muevan, se calienten o se iluminen. Usamos energía para cocinar, viajar y encender aparatos.", example: "💡 luz · 🚗 movimiento · 🔥 calor" },
+      { title: "Energías renovables", text: "Las energías renovables vienen de fuentes que no se agotan o se renuevan rápido, como el Sol, el viento y el agua de los ríos.", example: "☀️ solar · 🌬️ eólica · 💧 hidráulica" },
+      { title: "Energías no renovables", text: "Las no renovables vienen de fuentes que se agotan, como el petróleo, el carbón y el gas natural. Tardaron millones de años en formarse.", example: "🛢️ petróleo · ⚫ carbón" },
+      { title: "¿Por qué cuidarla?", text: "Quemar petróleo y carbón contamina el aire. Usar energías renovables y ahorrar energía ayuda a cuidar el planeta.", example: "💡 apaga la luz al salir" }
+    ],
+    remember: ["Las renovables no se agotan: solar, eólica, hidráulica.", "Las no renovables se agotan: petróleo, carbón, gas.", "Ahorrar energía ayuda al planeta."],
+    mistake: "Algunos creen que la electricidad siempre es limpia. Depende de cómo se produce: si sale de quemar carbón o petróleo, contamina.",
+    fun: "¿Sabías que en el desierto de Atacama, en Chile, hay grandes plantas solares porque allí llega muchísima luz del Sol?",
+    check: [
+      ["¿Cuál es una energía renovable?", "La solar", ["El petróleo", "El carbón"]],
+      ["¿Por qué el petróleo es no renovable?", "Porque se agota", ["Porque viene del Sol", "Porque es invisible"]]
+    ]
+  },
+  "c4d": {
+    hook: "Si mezclas agua con sal, ya no ves la sal. Si mezclas agua con piedritas, sí las ves. ¿Cómo podríamos separarlas de nuevo?",
+    steps: [
+      { title: "Mezclas homogéneas", text: "En una mezcla homogénea no se distinguen los componentes: todo se ve igual. El agua con sal y el aire son mezclas homogéneas.", example: "🧂 agua + sal · 🍋 limonada colada" },
+      { title: "Mezclas heterogéneas", text: "En una mezcla heterogénea se ven los componentes por separado. El agua con arena o con aceite y la ensalada son heterogéneas.", example: "🏖️ agua + arena · 🫒 agua + aceite" },
+      { title: "Separar con filtro o tamiz", text: "La filtración separa un sólido de un líquido con un filtro, como el café. El tamizado separa sólidos de distinto tamaño con un colador.", example: "☕ filtro de café · 🥣 colador" },
+      { title: "Separar por evaporación o imán", text: "La evaporación separa un sólido disuelto: al calentar, el agua se va y queda la sal. Con un imán se separan objetos de hierro.", example: "🧂 salinas · 🧲 limaduras de hierro" },
+      { title: "Experimento de la sal", text: "Disuelve una cucharada de sal en un plato con poca agua y déjalo al sol varios días. Cuando el agua se evapore, verás cristales de sal.", example: "🍽️ + ☀️ = cristales" }
+    ],
+    remember: ["Homogénea: no se ven las partes.", "Heterogénea: se ven las partes.", "Las mezclas se separan por filtración, tamizado, evaporación o imantación."],
+    mistake: "Algunos creen que una mezcla homogénea no se puede separar. Sí se puede: el agua con sal se separa por evaporación.",
+    fun: "¿Sabías que en las Salinas de Maras, en Perú, se obtiene sal evaporando agua salada en cientos de pozos desde hace siglos?",
+    check: [
+      ["¿Qué tipo de mezcla es agua con sal?", "Homogénea", ["Heterogénea", "No es mezcla"]],
+      ["¿Cómo separas arena del agua?", "Con filtración", ["Con un imán", "Agitando más"]],
+      ["¿Qué método separa la sal disuelta en agua?", "Evaporación", ["Tamizado", "Imantación"]]
+    ]
+  },
+  "xcie4a": {
+    hook: "¿Por qué el cactus tiene espinas en lugar de hojas anchas? ¡Cada ser vivo tiene trucos para sobrevivir donde vive!",
+    steps: [
+      { title: "¿Qué es una adaptación?", text: "Una adaptación es una característica del cuerpo o del comportamiento que ayuda a un ser vivo a sobrevivir en su ambiente. Se desarrollan a lo largo de muchísimas generaciones.", example: "🌵 espinas · 🦎 camuflaje" },
+      { title: "Adaptaciones al calor y la sequía", text: "En el desierto, el cactus guarda agua en su tallo y tiene espinas que pierden menos agua que las hojas. El camello guarda grasa en su joroba como reserva de energía.", example: "🌵 cactus · 🐪 camello" },
+      { title: "Adaptaciones al frío", text: "En lugares fríos, muchos animales tienen grasa gruesa y pelo o plumas densos. La vicuña de los Andes tiene una lana muy fina y abrigadora.", example: "🦙 vicuña · 🐧 pingüino" },
+      { title: "Camuflaje y colores", text: "El camuflaje ayuda a esconderse: el insecto palo parece una rama. Otros animales, como la rana dardo venenosa, tienen colores brillantes que advierten que son peligrosos.", example: "🪵 insecto palo · 🐸 rana dardo" },
+      { title: "Comportamientos", text: "Algunas adaptaciones son conductas: migrar a lugares cálidos, dormir de día y salir de noche, o vivir en grupo para protegerse.", example: "🦋 mariposa monarca migra · 🦉 búho nocturno" }
+    ],
+    remember: ["Las adaptaciones ayudan a sobrevivir en un ambiente.", "Pueden ser del cuerpo o del comportamiento.", "Se forman a lo largo de muchas generaciones."],
+    mistake: "Muchos creen que un animal se adapta porque lo desea, en pocos días. Las adaptaciones aparecen a lo largo de muchísimas generaciones.",
+    fun: "¿Sabías que el camello no guarda agua en la joroba? Guarda grasa, que le sirve como reserva de energía cuando hay poca comida.",
+    check: [
+      ["¿Qué guarda el camello en su joroba?", "Grasa", ["Agua", "Arena"]],
+      ["¿Qué adaptación tiene el insecto palo?", "Camuflaje", ["Migración", "Colores de advertencia"]],
+      ["Migrar a lugares cálidos es una adaptación…", "De comportamiento", ["De las raíces", "De las rocas"]]
+    ]
+  },
+  "xcie4b": {
+    hook: "Un búho come ratones, pero también pájaros. Y los pájaros comen orugas y semillas… ¡las cadenas se enredan como una red!",
+    steps: [
+      { title: "De cadena a red", text: "En la naturaleza un animal come varias cosas y puede ser comido por varios. Al unir muchas cadenas alimenticias se forma una red alimentaria.", example: "🌱 → 🐭 → 🦉 y 🌱 → 🐛 → 🐦 → 🦉" },
+      { title: "La energía viene del Sol", text: "Toda la energía de la red empieza en el Sol. Los productores (plantas y algas) la captan con la fotosíntesis.", example: "☀️ → 🌱" },
+      { title: "Niveles de consumidores", text: "Los consumidores primarios comen plantas. Los secundarios comen a los primarios, y los terciarios comen a los secundarios. En cada paso se pierde parte de la energía.", example: "🐛 primario · 🐦 secundario · 🦉 terciario" },
+      { title: "Los descomponedores", text: "Bacterias, hongos y lombrices descomponen los restos de todos los seres vivos y devuelven nutrientes al suelo para que los usen los productores.", example: "🍄 hongo · 🦠 bacterias · 🪱 lombriz" },
+      { title: "Si falta uno…", text: "Si desaparece una especie, toda la red se afecta. Por ejemplo, si se cazan todos los búhos, los ratones pueden aumentar mucho y acabar con los cultivos.", example: "🦉❌ → 🐭🐭🐭 → 🌽 dañado" }
+    ],
+    remember: ["Varias cadenas unidas forman una red alimentaria.", "La energía viene del Sol y pasa de productores a consumidores.", "Los descomponedores devuelven nutrientes al suelo."],
+    mistake: "Algunos creen que la energía pasa completa de un ser vivo a otro. En cada paso se pierde gran parte como calor, por eso hay menos depredadores que presas.",
+    fun: "¿Sabías que en el océano los productores principales son algas microscópicas llamadas fitoplancton, que alimentan desde pequeños crustáceos hasta ballenas?",
+    check: [
+      ["¿De dónde viene la energía de una red alimentaria?", "Del Sol", ["De las piedras", "De los depredadores"]],
+      ["Un animal que come plantas es un consumidor…", "Primario", ["Terciario", "Productor"]],
+      ["¿Qué hacen los descomponedores?", "Devuelven nutrientes al suelo", ["Fabrican luz", "Cazan a los búhos"]]
+    ]
+  },
+  "xcie4c": {
+    hook: "Imagina que eres un bocado de arepa. ¿Qué viaje harías dentro del cuerpo? ¡Vamos a seguir los recorridos!",
+    steps: [
+      { title: "El viaje de la comida", text: "La comida entra por la boca, donde se mastica y se mezcla con saliva. Baja por el esófago al estómago, que la deshace con jugos gástricos.", example: "👄 boca → esófago → estómago" },
+      { title: "Los intestinos", text: "En el intestino delgado los nutrientes pasan a la sangre. En el intestino grueso se absorbe el agua y se forman las heces, que salen por el ano.", example: "Intestino delgado → intestino grueso → ano" },
+      { title: "El viaje del aire", text: "El aire entra por la nariz, baja por la faringe, la laringe y la tráquea, y llega a los bronquios y a los pulmones. Allí el oxígeno pasa a la sangre.", example: "👃 nariz → tráquea → bronquios → 🫁 pulmones" },
+      { title: "El viaje de la sangre", text: "El corazón bombea la sangre por las arterias hacia todo el cuerpo. La sangre entrega oxígeno y nutrientes y vuelve al corazón por las venas.", example: "❤️ → arterias → cuerpo → venas → ❤️" },
+      { title: "Mide tu respiración", text: "Cuenta cuántas veces respiras en un minuto estando sentado. Luego salta un minuto y vuelve a contar. ¿Por qué aumenta?", example: "🫁 en reposo vs. después de saltar" }
+    ],
+    remember: ["Comida: boca → esófago → estómago → intestinos.", "Aire: nariz → tráquea → bronquios → pulmones.", "Sangre: corazón → arterias → cuerpo → venas → corazón."],
+    mistake: "Algunos creen que la comida se absorbe en el estómago. La mayoría de los nutrientes pasan a la sangre en el intestino delgado.",
+    fun: "¿Sabías que el intestino delgado de un adulto mide varios metros, mucho más que su estatura?",
+    check: [
+      ["¿Qué órgano va después del esófago?", "El estómago", ["La tráquea", "Los pulmones"]],
+      ["¿Por dónde vuelve la sangre al corazón?", "Por las venas", ["Por el esófago", "Por la tráquea"]],
+      ["¿Dónde pasan la mayoría de los nutrientes a la sangre?", "En el intestino delgado", ["En la boca", "En la nariz"]]
+    ]
+  },
+  "xcie4d": {
+    hook: "Cuando presionas el interruptor, la luz se enciende al instante. ¿Qué camino recorre la electricidad?",
+    steps: [
+      { title: "¿Qué es un circuito?", text: "Un circuito eléctrico es un camino cerrado por donde circula la corriente eléctrica. Si el camino se rompe, la corriente se detiene.", example: "🔋 → 🔌 → 💡 → 🔋" },
+      { title: "La fuente y los cables", text: "La fuente, como una pila, da la energía. Los cables, hechos de metal como el cobre, conducen la corriente de un lugar a otro.", example: "🔋 pila · 🟠 cable de cobre" },
+      { title: "El receptor", text: "El receptor es el aparato que usa la energía y la transforma: el bombillo la convierte en luz, el timbre en sonido y el motor en movimiento.", example: "💡 luz · 🔔 sonido · ⚙️ movimiento" },
+      { title: "El interruptor", text: "El interruptor abre o cierra el circuito. Cerrado, la corriente pasa y el bombillo enciende. Abierto, la corriente no pasa y se apaga.", example: "🎚️ cerrado = 💡 encendido" },
+      { title: "Seguridad", text: "Experimenta solo con pilas pequeñas y con un adulto. Nunca toques enchufes ni cables de la casa: su electricidad es muy peligrosa.", example: "⚠️ pilas sí · enchufes no" }
+    ],
+    remember: ["Un circuito tiene fuente, cables, receptor e interruptor.", "Si el circuito está cerrado, la corriente pasa.", "Si se abre, la corriente se detiene."],
+    mistake: "Algunos creen que basta con un solo cable de la pila al bombillo. Se necesita un camino completo de ida y vuelta para que la corriente circule.",
+    fun: "¿Sabías que las anguilas eléctricas del Amazonas pueden producir descargas eléctricas para defenderse y cazar?",
+    check: [
+      ["¿Qué parte del circuito da la energía?", "La pila", ["El bombillo", "El interruptor"]],
+      ["Si el circuito está abierto, ¿qué pasa?", "La corriente no pasa", ["El bombillo brilla más", "La pila se recarga"]]
+    ]
+  },
+  "xcie4e": {
+    hook: "Si dejas una cuchara de metal en la sopa caliente, al rato el mango quema. ¿Cómo llegó el calor hasta allí?",
+    steps: [
+      { title: "El calor se mueve", text: "El calor es energía que pasa siempre de lo más caliente a lo más frío, hasta que los dos tienen la misma temperatura.", example: "☕ el café se enfría en la mesa" },
+      { title: "Conducción", text: "La conducción ocurre por contacto directo, sobre todo en los sólidos. Los metales conducen muy bien el calor.", example: "🥄 cuchara en la sopa · 🍳 sartén en la estufa" },
+      { title: "Convección", text: "La convección ocurre en líquidos y gases. La parte caliente sube y la fría baja, formando corrientes que reparten el calor.", example: "🍲 agua que hierve · 🎈 globo de aire caliente" },
+      { title: "Radiación", text: "La radiación transmite el calor sin contacto y sin necesidad de aire, como el calor del Sol que llega a través del espacio.", example: "☀️ Sol · 🔥 fogata" },
+      { title: "Prueba de cucharas", text: "Con un adulto, pon una cuchara de metal y una de madera en un vaso con agua caliente. Después de un minuto, toca con cuidado los mangos: ¿cuál está más caliente?", example: "🥄 metal: caliente · 🪵 madera: tibia" }
+    ],
+    remember: ["El calor pasa de lo caliente a lo frío.", "Conducción: por contacto. Convección: en líquidos y gases. Radiación: sin contacto.", "Los metales conducen bien el calor."],
+    mistake: "Muchos creen que el frío pasa de un objeto a otro. Lo que pasa es el calor: tu mano se enfría con el hielo porque le cede calor.",
+    fun: "¿Sabías que la luz y el calor del Sol tardan unos 8 minutos en llegar a la Tierra?",
+    check: [
+      ["¿Cómo llega el calor del Sol a la Tierra?", "Por radiación", ["Por conducción", "Por convección"]],
+      ["¿Cómo se calienta el mango de una cuchara en la sopa?", "Por conducción", ["Por radiación", "No se calienta"]],
+      ["¿Hacia dónde pasa el calor?", "De lo caliente a lo frío", ["De lo frío a lo caliente", "Hacia arriba siempre"]]
+    ]
+  },
+  "xcie4f": {
+    hook: "¡Ahora te toca a ti ser científico! Mira cada situación y descubre por qué camino viaja el calor.",
+    steps: [
+      { title: "Pista 1: ¿hay contacto?", text: "Si el calor pasa porque dos objetos se tocan, es conducción. Ocurre sobre todo en sólidos, como metales.", example: "🍳 la sartén calienta el huevo · 🧊 el hielo enfría tu mano" },
+      { title: "Pista 2: ¿se mueve un fluido?", text: "Si un líquido o un gas caliente sube y el frío baja, es convección. Pasa en el agua de una olla, en el aire de un cuarto y en los vientos.", example: "🎈 globo aerostático · 🌬️ brisa marina" },
+      { title: "Pista 3: ¿llega a distancia?", text: "Si sientes el calor sin tocar la fuente y sin que el aire lo traiga, es radiación. Así calientan el Sol, una fogata o una estufa eléctrica.", example: "☀️ sol en la cara · 🔥 manos cerca de la fogata" },
+      { title: "Casos mezclados", text: "A veces ocurren varias a la vez. Al cocinar en una olla, la estufa calienta la olla por conducción, y el agua se reparte el calor por convección.", example: "🍲 conducción + convección" }
+    ],
+    remember: ["Contacto = conducción.", "Fluido que se mueve = convección.", "Calor a distancia = radiación."],
+    mistake: "Algunos creen que el calor de una fogata llega solo por el aire caliente. La mayor parte del calor que sientes de frente llega por radiación.",
+    fun: "¿Sabías que los termos tienen doble pared con vacío en medio? Así reducen la conducción y la convección y mantienen la bebida caliente o fría.",
+    check: [
+      ["Planchar la ropa calienta la tela por…", "Conducción", ["Radiación", "Convección"]],
+      ["El aire caliente que sube en un globo aerostático es…", "Convección", ["Conducción", "Radiación"]],
+      ["Sentir el calor del Sol en la piel es…", "Radiación", ["Conducción", "Convección"]]
+    ]
+  },
+  "xcie4g": {
+    hook: "La luz de tu casa puede venir de un río, del viento o del Sol… o de quemar petróleo. ¿Cuál es mejor para el planeta?",
+    steps: [
+      { title: "Energía solar", text: "Los paneles solares transforman la luz del Sol en electricidad. También hay calentadores solares que calientan agua.", example: "☀️ paneles en techos y desiertos" },
+      { title: "Energía eólica", text: "Los aerogeneradores son molinos gigantes: el viento mueve sus aspas y un generador produce electricidad.", example: "🌬️ parques eólicos en La Guajira y Oaxaca" },
+      { title: "Energía hidráulica", text: "En una represa, el agua cae con fuerza y mueve turbinas que producen electricidad. Es muy usada en América Latina.", example: "💧 represa de Itaipú (Brasil–Paraguay)" },
+      { title: "Combustibles fósiles", text: "El petróleo, el carbón y el gas natural se formaron con restos de seres vivos durante millones de años. Se agotan y, al quemarse, contaminan y calientan el planeta.", example: "🛢️ petróleo · ⚫ carbón · 🔥 gas" },
+      { title: "Haz un molinete", text: "Recorta un cuadrado de papel, corta desde las esquinas hacia el centro, dobla cada punta al centro y fíjalas a un lápiz con una chinche. Sopla: ¡el viento produce movimiento!", example: "🎐 molinete de papel" }
+    ],
+    remember: ["Renovables: solar, eólica, hidráulica.", "Los combustibles fósiles se agotan y contaminan.", "Las renovables ayudan a cuidar el planeta."],
+    mistake: "Algunos creen que las energías renovables no tienen ningún impacto. Contaminan mucho menos, pero una represa, por ejemplo, inunda terrenos y cambia el río.",
+    fun: "¿Sabías que la represa de Itaipú, entre Brasil y Paraguay, es una de las centrales hidroeléctricas que más electricidad producen en el mundo?",
+    check: [
+      ["¿Qué energía usa la fuerza del viento?", "Eólica", ["Hidráulica", "Solar"]],
+      ["¿Cuál es un combustible fósil?", "El carbón", ["El viento", "La luz del Sol"]],
+      ["¿Qué energía produce una represa?", "Hidráulica", ["Eólica", "Nuclear"]]
+    ]
+  },
+  "xcie4h": {
+    hook: "Un texto científico es como un mapa del tesoro: si sabes leerlo, encuentras datos, causas y consecuencias.",
+    steps: [
+      { title: "Idea principal", text: "Cada párrafo tiene una idea principal. Muchas veces está en la primera oración. Subráyala para no perderla.", example: "📝 Los manglares protegen las costas." },
+      { title: "Causa y consecuencia", text: "La causa es lo que hace que algo pase; la consecuencia es lo que pasa. Busca palabras como porque, por eso, debido a, como resultado.", example: "Se talaron los manglares (causa) → la costa se erosionó (consecuencia)" },
+      { title: "Datos y cifras", text: "Los textos de ciencia dan datos precisos: números, lugares y nombres. Fíjate bien en ellos porque suelen ser la respuesta a las preguntas.", example: "📊 El corazón late unas 70 veces por minuto en reposo en un adulto." },
+      { title: "Organiza lo que lees", text: "Haz un esquema o un mapa conceptual con las ideas principales. Por ejemplo, para el cuerpo humano: sistema, órganos y función.", example: "🫁 Respiratorio → pulmones → tomar oxígeno" }
+    ],
+    remember: ["Busca la idea principal de cada párrafo.", "Identifica causas y consecuencias.", "Fíjate en los datos y organízalos en un esquema."],
+    mistake: "Algunos creen que si algo pasa después de otra cosa, la primera es la causa. Hay que leer con cuidado: el texto debe explicar por qué una cosa produce la otra.",
+    fun: "¿Sabías que los manglares, comunes en las costas de América Latina, protegen las playas de las olas y son guarderías para muchos peces?",
+    check: [
+      ["¿Qué palabra suele indicar una consecuencia?", "Por eso", ["Además", "Había una vez"]],
+      ["¿Dónde suele estar la idea principal de un párrafo?", "En la primera oración", ["En el título del libro", "En el número de la página"]]
+    ]
+  },

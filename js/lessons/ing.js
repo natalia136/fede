@@ -10,7 +10,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
       { title: "¡A jugar!", text: "Un adulto dice un color en inglés y tú corres a tocar algo de ese color. ¡Así aprendes jugando y sin darte cuenta!", example: "Touch something red! → Tocas una manzana 🍎" }
     ],
     remember: ["red = rojo, blue = azul, yellow = amarillo", "green = verde, white = blanco, black = negro", "Repite los colores en voz alta para recordarlos"],
-    mistake: "Muchos niños dicen 'blu' para blue y 'bláck' bien, pero confunden green (verde) con gris. ¡Gris es grey! Green es verde, como el pasto.",
+    mistake: "Muchos niños confunden green (verde) con gris porque empiezan parecido. ¡Gris es grey! Green es verde, como el pasto.",
     fun: "¿Sabías que la palabra orange es el nombre de la fruta y también del color? ¡La naranja le dio su nombre al color!",
     check: [
       ["¿Cómo se dice 'rojo' en inglés?", "red", ["blue", "green"]],
@@ -394,7 +394,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     steps: [
       { title: "La regla de oro: -s", text: "Casi siempre, para decir más de uno, agregamos -s al final de la palabra. Es igual que en español.", example: "cat → cats · dog → dogs · book → books" },
       { title: "Palabras que llevan -es", text: "Si la palabra termina en s, x, ch o sh, agregamos -es. Así se puede pronunciar mejor.", example: "box → boxes · bus → buses · watch → watches · dish → dishes" },
-      { title: "Palabras que cambian a -ies", text: "Si termina en consonante + y, cambiamos la y por -ies.", example: "baby → babies · strawberry → strawberries · city → cities" },
+      { title: "Palabras que cambian a -ies", text: "Si termina en consonante + y, quitamos la y y agregamos -ies. Si termina en vocal + y, solo se agrega -s: boy → boys.", example: "baby → babies · strawberry → strawberries · city → cities" },
       { title: "Los plurales irregulares", text: "Algunas palabras cambian por completo y hay que aprenderlas de memoria. ¡Son pocas pero se usan mucho!", example: "child → children · man → men · woman → women · foot → feet · tooth → teeth · mouse → mice" },
       { title: "Con números", text: "Cuando hay un número mayor que uno, la palabra va en plural: one apple, pero two apples.", example: "I have got three cats. 🐱🐱🐱" }
     ],
@@ -647,7 +647,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     steps: [
       { title: "In: dentro", text: "In ('in') significa dentro de o en. Se usa cuando algo está adentro de otra cosa.", example: "The pencil is in the box. 📦 (El lápiz está en la caja.)" },
       { title: "On: encima", text: "On ('on') significa sobre o encima de, tocando la superficie.", example: "The book is on the table. 📕 (El libro está sobre la mesa.)" },
-      { title: "Under: debajo", text: "Under ('ánder') significa debajo de.", example: "The cat is under the table. 🐱 (El gato está debajo de la mesa.)" },
+      { title: "Under: debajo", text: "Under ('ánder') significa debajo de. Se usa cuando algo está más abajo que otra cosa, tapado por ella.", example: "The cat is under the table. 🐱 (El gato está debajo de la mesa.)" },
       { title: "Next to y between", text: "Next to ('nékst tu') es al lado de. Between ('bituín') es entre dos cosas.", example: "The lamp is next to the bed. · The ball is between the chairs." },
       { title: "Behind e in front of", text: "Behind ('bijáind') es detrás de e in front of ('in front ov') es delante de.", example: "The dog is behind the door. · The car is in front of the house." }
     ],
@@ -702,7 +702,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     steps: [
       { title: "De 100% a 0%", text: "Always (siempre, 100%), usually (normalmente), often (a menudo), sometimes (a veces), rarely (casi nunca), never (nunca, 0%).", example: "always ▓▓▓▓▓ · sometimes ▓▓░░░ · never ░░░░░" },
       { title: "Antes del verbo", text: "El adverbio de frecuencia va antes del verbo de acción, entre la persona y el verbo.", example: "I always brush my teeth. · She often plays tennis." },
-      { title: "Después de to be", text: "Pero si el verbo es am, is o are, el adverbio va después.", example: "She is never late. · I am usually happy. 😊" },
+      { title: "Después de to be", text: "Pero si el verbo es am, is o are (to be), el adverbio de frecuencia va después del verbo, no antes.", example: "She is never late. · I am usually happy. 😊" },
       { title: "Preguntar: How often?", text: "Para preguntar cada cuánto se usa How often…? Se puede responder con un adverbio o con every day, once a week…", example: "How often do you play soccer? → I play every Saturday." },
       { title: "Never ya es negativo", text: "Never ya significa 'no' por sí solo, así que no se usa con don't.", example: "I never eat fish. 🐟 (Nunca como pescado.)" }
     ],
@@ -719,10 +719,10 @@ Object.assign(window.CURRICULUM_LESSONS, {
     hook: "¿Qué? ¿Dónde? ¿Cuándo? ¿Quién? Las mejores preguntas empiezan con una palabra especial. ¡En inglés casi todas empiezan con W!",
     steps: [
       { title: "What y which", text: "What ('uát') pregunta qué o cuál. Which ('uích') pregunta cuál entre pocas opciones.", example: "What is your name? · Which color do you like, red or blue?" },
-      { title: "Where y when", text: "Where ('uér') pregunta dónde. When ('uén') pregunta cuándo.", example: "Where do you live? 🏠 · When is your birthday? 🎂" },
+      { title: "Where y when", text: "Where ('uér') pregunta dónde, para lugares. When ('uén') pregunta cuándo, para fechas y momentos.", example: "Where do you live? 🏠 · When is your birthday? 🎂" },
       { title: "Who y why", text: "Who ('ju') pregunta quién. Why ('uái') pregunta por qué; se responde con because (porque).", example: "Who is she? · Why are you sad? → Because I lost my toy." },
       { title: "How", text: "How ('jáu') pregunta cómo. Con otras palabras forma más preguntas: how old (qué edad), how many (cuántos), how much (cuánto).", example: "How are you? · How old are you? · How many brothers have you got?" },
-      { title: "El orden de la pregunta", text: "Primero va la palabra de pregunta y luego el verbo: Where is…? o Where do you…? ¡Y al final, signo de interrogación solo al final!", example: "Where is my backpack? · What do you eat for lunch?" }
+      { title: "El orden de la pregunta", text: "Primero va la palabra de pregunta y luego el verbo: Where is…? o Where do you…? Y recuerda: el signo de interrogación va solo al final.", example: "Where is my backpack? · What do you eat for lunch?" }
     ],
     remember: ["what = qué, where = dónde, when = cuándo", "who = quién, why = por qué, how = cómo, which = cuál", "Why? se responde con because"],
     mistake: "En español abrimos con ¿, pero en inglés solo se pone ? al final. También confunden where (dónde) con were (eran): ¡where lleva h!",
@@ -769,3 +769,332 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Cuál oración está bien?", "We usually walk to school.", ["We walk usually to school.", "Usually we walk school to."]]
     ]
   },
+  "i5a": {
+    hook: "Todos los días te levantas, desayunas y vas a la escuela. Para hablar de rutinas y hábitos usamos el presente simple.",
+    steps: [
+      { title: "¿Para qué sirve?", text: "El presente simple se usa para rutinas (cosas que haces seguido), gustos y verdades que siempre son ciertas.", example: "I go to school every day. · Water boils at 100 °C." },
+      { title: "La regla de la -s", text: "Con I, you, we y they el verbo va igual. Con he, she e it el verbo lleva -s al final. ¡Es la regla más importante!", example: "I play → she plays · They eat → he eats" },
+      { title: "Cuándo es -es o -ies", text: "Si el verbo termina en s, sh, ch, x u o, agregamos -es. Si termina en consonante + y, cambia a -ies. Have cambia a has.", example: "watch → watches · go → goes · study → studies · have → has" },
+      { title: "Negativo: don't y doesn't", text: "Para negar usa don't (I, you, we, they) o doesn't (he, she, it) + verbo sin -s. La -s se 'muda' a doesn't.", example: "I don't like fish. · She doesn't play tennis." },
+      { title: "Preguntas: do y does", text: "Para preguntar pon Do o Does al inicio. El verbo vuelve a su forma base, sin -s.", example: "Do you speak English? → Yes, I do. · Does he live here? → No, he doesn't." },
+      { title: "Palabras pista", text: "Every day, every week, on Mondays y los adverbios always, usually, sometimes y never indican presente simple.", example: "My dad usually cooks on Sundays. 🍳" }
+    ],
+    remember: ["he / she / it → verbo + s: she plays", "Negativo: don't / doesn't + verbo base", "Preguntas: Do / Does + persona + verbo base"],
+    mistake: "El error más común es olvidar la -s: 'She play'. Y el segundo es ponerla dos veces: 'She doesn't plays'. Lo correcto: She plays / She doesn't play.",
+    fun: "¿Sabías que el inglés solo cambia el verbo en el presente con he, she e it? En español cambia con cada persona: juego, juegas, juega…",
+    check: [
+      ["Completa: My brother ___ soccer every Saturday.", "plays", ["play", "playing"]],
+      ["¿Cuál oración está bien?", "She doesn't like milk.", ["She don't like milk.", "She doesn't likes milk."]],
+      ["Completa: ___ your mom work in a hospital?", "Does", ["Do", "Is"]]
+    ]
+  },
+  "i5b": {
+    hook: "¿Qué quieres ser cuando seas grande? ¿Doctora, bombero, astronauta? ¡Vamos a conocer las profesiones en inglés!",
+    steps: [
+      { title: "Cuidan la salud", text: "Doctor es doctor ('dóctor'), enfermero o enfermera es nurse ('ners'), dentista es dentist y veterinario es vet.", example: "🧑‍⚕️ doctor · nurse · 🦷 dentist · vet" },
+      { title: "Nos protegen", text: "Bombero es firefighter ('fáierfaiter') y policía es police officer ('polís ófiser').", example: "🧑‍🚒 firefighter · 👮 police officer" },
+      { title: "Crean y construyen", text: "Cocinero es cook o chef, granjero es farmer, artista es artist y constructor es builder.", example: "👨‍🍳 chef · 🧑‍🌾 farmer · 🧑‍🎨 artist · 👷 builder" },
+      { title: "Más profesiones", text: "Maestro es teacher, piloto es pilot ('páilot'), científico es scientist ('sáientist') y astronauta es astronaut.", example: "🧑‍🏫 teacher · 🧑‍✈️ pilot · 🧑‍🔬 scientist · 🧑‍🚀 astronaut" },
+      { title: "Hablar de profesiones", text: "Se usa a o an antes de la profesión. Para preguntar: What does she do? (¿A qué se dedica?) o What do you want to be?", example: "My aunt is a nurse. · I want to be an astronaut. 🚀" }
+    ],
+    remember: ["doctor, nurse, firefighter, police officer", "En inglés se pone a/an: She is a teacher", "What do you want to be? = ¿Qué quieres ser?"],
+    mistake: "En español decimos 'Mi mamá es doctora', sin 'una'. En inglés siempre va a o an: My mom is a doctor. Usa an antes de vocal: an artist.",
+    fun: "¿Sabías que muchas profesiones en inglés no cambian entre hombre y mujer? Doctor, teacher y pilot sirven para los dos.",
+    check: [
+      ["¿Cómo se dice 'bombero' en inglés?", "firefighter", ["farmer", "builder"]],
+      ["¿Cuál oración está bien?", "My dad is a pilot.", ["My dad is pilot.", "My dad a pilot is."]],
+      ["Completa: She is ___ artist.", "an", ["a", "the a"]]
+    ]
+  },
+  "i5c": {
+    hook: "Si algo no es grande, es pequeño. Si no está caliente, está frío. Muchas palabras tienen su opuesto.",
+    steps: [
+      { title: "Tamaño", text: "Big ('big') es grande y small ('smol') es pequeño. Tall ('tol') es alto y short ('short') es bajo o corto. Long es largo.", example: "big ↔ small · tall ↔ short · long ↔ short" },
+      { title: "Temperatura", text: "Hot ('jot') es caliente y cold ('cóuld') es frío. Warm es tibio y cool es fresco.", example: "🔥 hot ↔ ❄️ cold" },
+      { title: "Velocidad y edad", text: "Fast ('fast') es rápido y slow ('slóu') es lento. Old ('óuld') es viejo y young ('iang') es joven; new es nuevo.", example: "🐆 fast ↔ 🐢 slow · old ↔ young · old ↔ new" },
+      { title: "Cómo se siente o se ve", text: "Happy ↔ sad (feliz ↔ triste), clean ↔ dirty (limpio ↔ sucio), full ↔ empty (lleno ↔ vacío), heavy ↔ light (pesado ↔ ligero).", example: "The glass is full. ↔ The glass is empty." },
+      { title: "En oraciones", text: "El adjetivo va después de is/are o antes de la cosa. Nunca lleva -s en plural.", example: "The elephant is big. · I have got two small dogs." }
+    ],
+    remember: ["big ↔ small, hot ↔ cold, fast ↔ slow", "old tiene dos opuestos: young y new", "Los adjetivos no llevan -s: two big cats"],
+    mistake: "Muchos niños dicen 'bigs dogs' como en español 'perros grandes'. En inglés el adjetivo no cambia: big dogs.",
+    fun: "¿Sabías que short es el opuesto de tall (persona baja) y también de long (cosa corta)? ¡Una palabra con dos opuestos!",
+    check: [
+      ["¿Cuál es el opuesto de fast?", "slow", ["small", "short"]],
+      ["¿Cuál es el opuesto de full?", "empty", ["heavy", "clean"]],
+      ["¿Cuál oración está bien?", "They are tall boys.", ["They are talls boys.", "They are boys talls."]]
+    ]
+  },
+  "xing5a": {
+    hook: "Ayer fuiste a la escuela, comiste y viste a tus amigos. Pero en inglés no se dice 'goed' ni 'eated'. ¡Vamos a ver por qué!",
+    steps: [
+      { title: "Regulares e irregulares", text: "La mayoría de los verbos forman el pasado con -ed (play → played). Pero los irregulares cambian de otra forma y hay que memorizarlos.", example: "play → played (regular) · go → went (irregular)" },
+      { title: "Los más usados", text: "Estos irregulares aparecen todo el tiempo: go → went, see → saw, eat → ate, have → had, do → did, make → made.", example: "I went to the zoo and saw a lion. 🦁" },
+      { title: "Más irregulares", text: "Otros importantes: come → came, get → got, take → took, give → gave, drink → drank, swim → swam, run → ran, write → wrote.", example: "We swam in the river and ran on the beach." },
+      { title: "Los que no cambian", text: "Algunos verbos son iguales en presente y pasado: put → put, cut → cut, hit → hit. ¡Read se escribe igual pero en pasado se dice 'red'!", example: "Yesterday I read a book. (Se dice 'red'.)" },
+      { title: "Igual para todos", text: "En pasado el verbo es igual para todas las personas: I went, she went, they went. ¡No hay -s en pasado!", example: "She ate pizza. · They ate pizza. 🍕" },
+      { title: "Truco para aprenderlos", text: "Agrúpalos por sonido: drink-drank, swim-swam, sing-sang, begin-began. Practica diciendo los tres: go, went, gone.", example: "sing → sang · ring → rang · drink → drank" }
+    ],
+    remember: ["go → went, see → saw, eat → ate", "have → had, do → did, make → made", "El pasado es igual para todas las personas"],
+    mistake: "Muchos niños aplican -ed a todo: 'goed', 'eated', 'seed'. Los irregulares no llevan -ed: went, ate, saw.",
+    fun: "¿Sabías que went era el pasado de otro verbo antiguo, wend (ir)? El inglés lo 'tomó prestado' para go hace cientos de años.",
+    check: [
+      ["¿Cuál es el pasado de go?", "went", ["goed", "gone"]],
+      ["¿Cuál es el pasado de eat?", "ate", ["eated", "eat"]],
+      ["Completa: Yesterday she ___ a dolphin.", "saw", ["seed", "sees"]]
+    ]
+  },
+  "xing5b": {
+    hook: "¿Hay leche en el refri? ¿Cuántas manzanas quedan? Para hablar de cantidades usamos some, any, much y many.",
+    steps: [
+      { title: "Contables e incontables", text: "Contables son las cosas que puedes contar una por una (apples, books). Incontables son las que no: water, rice, milk, sugar, money.", example: "three apples ✔ · three waters ✘" },
+      { title: "Some en afirmativas", text: "Some ('sam') significa algunos o algo de. Se usa en oraciones afirmativas, con contables y con incontables.", example: "There are some apples. · I want some milk. 🥛" },
+      { title: "Any en preguntas y negativas", text: "Any ('éni') se usa en preguntas y en oraciones negativas. En negativo significa 'nada de' o 'ningún'.", example: "Is there any milk? · There aren't any cookies." },
+      { title: "Many con contables", text: "Many ('méni') significa muchos y va con cosas contables en plural. Para preguntar cantidad: How many…?", example: "How many apples are there? · I haven't got many toys." },
+      { title: "Much con incontables", text: "Much ('mach') significa mucho y va con incontables. Para preguntar cantidad: How much…?", example: "How much water do you drink? · There isn't much rice." },
+      { title: "Ofrecer y pedir", text: "Cuando ofreces o pides algo amablemente, se usa some aunque sea pregunta.", example: "Would you like some juice? · Can I have some bread, please?" }
+    ],
+    remember: ["some = afirmativas / any = preguntas y negativas", "many + contables: How many apples?", "much + incontables: How much milk?"],
+    mistake: "Muchos niños dicen 'How many water?'. Water no se cuenta, así que se dice How much water? Y money también es incontable: How much money?",
+    fun: "¿Sabías que en inglés hair (pelo) es incontable? Se dice I have long hair, no 'long hairs'. ¡Nadie cuenta sus pelos!",
+    check: [
+      ["Completa: Is there ___ milk?", "any", ["some", "many"]],
+      ["Completa: How ___ apples are there?", "many", ["much", "any"]],
+      ["Completa: How ___ water do you drink?", "much", ["many", "some"]]
+    ]
+  },
+  "xing5c": {
+    hook: "¿Qué vas a hacer este fin de semana? Para hablar de planes usamos going to.",
+    steps: [
+      { title: "¿Para qué sirve?", text: "Going to se usa para planes que ya decidiste y para predicciones cuando ves pruebas de que algo va a pasar.", example: "I'm going to visit my grandma. (plan) · Look at the clouds! It's going to rain. (predicción)" },
+      { title: "La fórmula", text: "Se forma con am / is / are + going to + verbo en forma base. El verbo nunca cambia.", example: "She is going to play. · We are going to travel. ✈️" },
+      { title: "Formas cortas", text: "Al hablar se usan las formas cortas: I'm going to, he's going to, they're going to.", example: "They're going to watch a movie tonight. 🎬" },
+      { title: "Negativo", text: "Para negar se agrega not: I'm not going to, he isn't going to, we aren't going to.", example: "I'm not going to eat that! · She isn't going to come." },
+      { title: "Preguntas", text: "Pon am / is / are primero. Muy útil: What are you going to do? (¿Qué vas a hacer?)", example: "Are you going to play? → Yes, I am. · What are you going to do tomorrow?" },
+      { title: "Palabras de futuro", text: "Tomorrow (mañana), next week (la próxima semana), this weekend (este fin de semana), tonight (esta noche).", example: "Next summer we're going to go to the beach. 🏖️" }
+    ],
+    remember: ["am / is / are + going to + verbo", "Para planes y predicciones con pruebas", "Negativo: isn't / aren't going to"],
+    mistake: "Muchos niños olvidan am/is/are y dicen 'I going to play'. ¡Faltan piezas! Lo correcto es I'm going to play.",
+    fun: "¿Sabías que en inglés hablado going to se dice muchas veces 'gonna'? Es informal: está bien al hablar, pero no en la tarea.",
+    check: [
+      ["Completa: She ___ going to visit her aunt.", "is", ["are", "am"]],
+      ["¿Cuál oración está bien?", "We are going to play soccer.", ["We going to play soccer.", "We are going to plays soccer."]],
+      ["Ves nubes negras. ¿Qué dices?", "It's going to rain.", ["It rained yesterday.", "It rains on Mondays."]]
+    ]
+  },
+  "xing5d": {
+    hook: "Si estás cansado, alguien te dice 'deberías dormir'. Si hay una regla, 'tienes que cumplirla'. En inglés hay palabras para cada caso.",
+    steps: [
+      { title: "Should: consejo", text: "Should ('shud') sirve para dar consejos. Significa 'deberías'. Va seguido del verbo en forma base.", example: "You should sleep more. 😴 (Deberías dormir más.)" },
+      { title: "Shouldn't: no es buena idea", text: "Shouldn't es el negativo: 'no deberías'. Es un consejo, no una prohibición.", example: "You shouldn't eat so much candy. 🍬" },
+      { title: "Must: obligación", text: "Must ('mast') expresa una obligación fuerte o una regla: 'tienes que'. Es más fuerte que should.", example: "You must wear a seatbelt. · Students must do their homework." },
+      { title: "Mustn't: prohibido", text: "Mustn't ('másent') significa que algo está prohibido. ¡No confundir con 'no es necesario'!", example: "You mustn't run here. 🚫 · You mustn't touch the paintings." },
+      { title: "Igual para todos", text: "Should y must no cambian con he o she, y el verbo que sigue no lleva -s ni to.", example: "He should study. · She must go now." }
+    ],
+    remember: ["should = deberías (consejo)", "must = tienes que (obligación)", "mustn't = prohibido"],
+    mistake: "Muchos niños dicen 'You must to go' o 'He shoulds study'. Después de should o must va el verbo solo, sin to y sin -s: You must go. He should study.",
+    fun: "¿Sabías que en el pasado should era el pasado de shall? Hoy casi nadie lo usa así, pero quedó como palabra de consejo.",
+    check: [
+      ["Tu amigo tiene dolor de muelas. ¿Qué le aconsejas?", "You should go to the dentist.", ["You mustn't go to the dentist.", "You should to go to the dentist."]],
+      ["¿Qué significa You mustn't run here?", "Está prohibido correr aquí", ["No es necesario correr aquí", "Deberías correr aquí"]],
+      ["¿Cuál oración está bien?", "She must wear a uniform.", ["She musts wear a uniform.", "She must to wear a uniform."]]
+    ]
+  },
+  "xing5e": {
+    hook: "Leer en inglés es como ser detective: buscas pistas en el texto para responder preguntas. ¿Listo para tu primera misión?",
+    steps: [
+      { title: "Lee todo primero", text: "Lee el texto completo una vez sin detenerte, aunque no entiendas todas las palabras. Así sabes de qué trata.", example: "Lucy has a white cat. Its name is Snow. Snow likes milk and sleeps on the sofa." },
+      { title: "Lee la pregunta", text: "Fíjate en la palabra de pregunta: what (qué), who (quién), where (dónde), when (cuándo), how many (cuántos). Te dice qué tipo de respuesta buscas.", example: "Where does Snow sleep? → busca un lugar" },
+      { title: "Busca la pista", text: "Vuelve al texto y busca las palabras de la pregunta. La respuesta casi siempre está cerca de ellas.", example: "'…sleeps on the sofa.' → On the sofa." },
+      { title: "Usa las palabras que conoces", text: "Si no conoces una palabra, mira las demás y los dibujos para adivinar su significado. ¡No tienes que entender todo!", example: "'Snow likes milk' → like = gustar, milk = leche" },
+      { title: "Responde corto", text: "Responde con pocas palabras o con una oración corta tomada del texto. Revisa que tu respuesta conteste lo que preguntaron.", example: "What color is the cat? → White. · What's its name? → Snow." }
+    ],
+    remember: ["Lee todo el texto una vez antes de responder", "La palabra de pregunta te dice qué buscar", "Busca las palabras de la pregunta en el texto"],
+    mistake: "Muchos niños responden con lo que imaginan y no con lo que dice el texto. La respuesta siempre debe salir del texto, no de tu cabeza.",
+    fun: "¿Sabías que los buenos lectores en inglés no traducen palabra por palabra? Entienden la idea general, ¡como tú en una película!",
+    check: [
+      ["Texto: 'Tom has two dogs and a bird.' ¿Cuántos perros tiene Tom?", "Two", ["One", "Three"]],
+      ["Texto: 'Maria lives in Lima. She likes music.' Where does Maria live?", "In Lima", ["Music", "In Mexico"]],
+      ["Si la pregunta empieza con who, ¿qué buscas?", "Una persona", ["Un lugar", "Un número"]]
+    ]
+  },
+  "xing5f": {
+    hook: "Going to, should, must y el pasado irregular son como piezas de LEGO. ¡Vamos a construir oraciones completas!",
+    steps: [
+      { title: "Oraciones con going to", text: "El orden es: quién + am/is/are + going to + verbo + lo demás. La palabra de tiempo va al final.", example: "I + am + going + to + visit + my + grandma → I am going to visit my grandma." },
+      { title: "Oraciones con should", text: "El orden es: quién + should + verbo + lo demás. Should nunca cambia.", example: "You + should + drink + more + water → You should drink more water. 💧" },
+      { title: "Oraciones con must y mustn't", text: "El orden es: quién + must/mustn't + verbo + lo demás. Sirve para reglas.", example: "We + mustn't + run + in + the + hall → We mustn't run in the hall." },
+      { title: "Oraciones en pasado", text: "El orden es: quién + verbo en pasado + lo demás + cuándo. Recuerda los irregulares: went, saw, ate, had.", example: "Last + week + we + went + to + the + zoo → Last week we went to the zoo. 🦁" },
+      { title: "Revisa tu oración", text: "Revisa: ¿empieza con mayúscula?, ¿el verbo después de should/must está sin to?, ¿el pasado irregular es correcto?", example: "✔ She should study. · ✔ They ate pizza yesterday." }
+    ],
+    remember: ["am/is/are + going to + verbo", "should / must + verbo sin to", "Pasado irregular: went, saw, ate, had"],
+    mistake: "Un error común es mezclar formas: 'I am go to visit' o 'She should to study'. Revisa que cada pieza esté completa y en su lugar.",
+    fun: "¿Sabías que las palabras de tiempo como yesterday o tomorrow pueden ir al inicio o al final de la oración, y las dos formas están bien?",
+    check: [
+      ["Ordena: going / are / we / to / swim", "We are going to swim.", ["We going are to swim.", "Are we going swim to."]],
+      ["¿Cuál oración está bien?", "You should eat vegetables.", ["You should to eat vegetables.", "You shoulds eat vegetables."]],
+      ["¿Cuál oración está bien?", "Yesterday I saw a rainbow.", ["Yesterday I seed a rainbow.", "Yesterday I see a rainbow."]]
+    ]
+  },
+  "i6a": {
+    hook: "¿Qué hiciste el fin de semana pasado? Para contar lo que ya pasó usamos el pasado simple.",
+    steps: [
+      { title: "¿Para qué sirve?", text: "El pasado simple cuenta acciones que empezaron y terminaron en el pasado. Suele ir con yesterday, last week, ago o in 2020.", example: "I played soccer yesterday. · We visited Mexico two years ago." },
+      { title: "Verbos regulares: -ed", text: "Los verbos regulares agregan -ed. Si terminan en e, solo -d. Si terminan en consonante + y, cambian a -ied. Si son cortos (consonante + vocal + consonante), doblan la última letra.", example: "play → played · dance → danced · study → studied · stop → stopped" },
+      { title: "Cómo suena -ed", text: "La terminación -ed suena de tres formas: 't' (walked = 'uókt'), 'd' (played = 'pléid') e 'id' después de t o d (wanted = 'uántid').", example: "walked 'uókt' · played 'pléid' · wanted 'uántid'" },
+      { title: "Verbos irregulares", text: "Los irregulares tienen su propia forma y se memorizan. Algunos muy usados: go → went, have → had, see → saw, buy → bought, think → thought, find → found.", example: "Last summer I went to the beach and bought ice cream. 🍦" },
+      { title: "Igual para todas las personas", text: "En pasado el verbo es igual para todos, también con he, she e it. To be es la excepción: was (I, he, she, it) y were (you, we, they).", example: "She played. · They played. · I was tired. · We were happy." }
+    ],
+    remember: ["Regulares: verbo + -ed (played, studied, stopped)", "Irregulares: se memorizan (went, saw, bought)", "To be: was / were"],
+    mistake: "Muchos niños escriben 'studyed' o 'stoped'. Recuerda: consonante + y → -ied (studied) y verbos cortos doblan la consonante (stopped).",
+    fun: "¿Sabías que el inglés tiene unos 200 verbos irregulares, pero los 50 más usados aparecen en casi todas las conversaciones?",
+    check: [
+      ["¿Cuál es el pasado de study?", "studied", ["studyed", "studed"]],
+      ["¿Cuál es el pasado de buy?", "bought", ["buyed", "brought"]],
+      ["Completa: They ___ at the park yesterday.", "were", ["was", "are"]]
+    ]
+  },
+  "i6b": {
+    hook: "¿Quién es más alto, tú o tu mejor amigo? ¿Qué es más rápido, un tren o una bici? Para comparar usamos los comparativos.",
+    steps: [
+      { title: "Adjetivos cortos: -er + than", text: "Con adjetivos de una sílaba agregamos -er y después la palabra than ('dan'), que significa 'que'.", example: "An elephant is bigger than a cat. · A train is faster than a bike." },
+      { title: "Cambios de ortografía", text: "Si termina en e, solo -r (nice → nicer). Si termina en consonante + y, cambia a -ier (happy → happier). Si es corto con vocal + consonante, dobla la letra (big → bigger).", example: "large → larger · easy → easier · hot → hotter" },
+      { title: "Adjetivos largos: more", text: "Con adjetivos de dos sílabas o más (que no terminan en y) usamos more ('mor') antes del adjetivo, sin -er.", example: "A lion is more dangerous than a rabbit. · This book is more interesting than that one." },
+      { title: "Los irregulares", text: "Algunos cambian por completo: good → better (mejor), bad → worse (peor), far → farther (más lejos).", example: "Pizza is better than broccoli! 🍕 · My cold is worse today." },
+      { title: "Iguales: as… as", text: "Para decir que dos cosas son iguales se usa as + adjetivo + as (tan… como).", example: "My brother is as tall as my dad. · It isn't as cold as yesterday." }
+    ],
+    remember: ["Cortos: adjetivo + -er + than (taller than)", "Largos: more + adjetivo + than (more beautiful than)", "good → better, bad → worse"],
+    mistake: "Muchos niños mezclan las dos formas: 'more bigger' o 'more better'. Usa solo una: bigger, better. Y recuerda que es than, no 'that'.",
+    fun: "¿Sabías que la ballena azul es más pesada que 30 elefantes juntos? The blue whale is heavier than 30 elephants!",
+    check: [
+      ["Completa: A cheetah is ___ than a dog.", "faster", ["more fast", "fastest"]],
+      ["¿Cuál es el comparativo de good?", "better", ["gooder", "more good"]],
+      ["Completa: Science is ___ interesting than TV.", "more", ["most", "much"]]
+    ]
+  },
+  "i6c": {
+    hook: "Ya sabes el pasado y los comparativos. ¡Ahora vamos a unirlos para contar historias completas!",
+    steps: [
+      { title: "Empieza con el tiempo", text: "Puedes empezar con una palabra de tiempo para situar tu historia: Yesterday, Last weekend, Two days ago, In 2023.", example: "Yesterday I played with my friends." },
+      { title: "Pasado + dónde + con quién", text: "Agrega información en este orden: quién + verbo en pasado + qué + dónde + con quién.", example: "Last Saturday we watched a movie at the cinema with my cousins. 🎬" },
+      { title: "Une ideas con conectores", text: "And (y), but (pero), because (porque), so (así que) y then (luego) unen ideas en una oración más larga.", example: "I was tired, so I went to bed early. · It rained, but we played outside." },
+      { title: "Compara dentro de la historia", text: "Puedes usar comparativos para describir lo que viviste. Como es pasado, usa was o were en lugar de is o are.", example: "The new park was bigger than the old one. · The test was easier than I thought." },
+      { title: "Revisa tu historia", text: "Revisa: ¿todos los verbos están en pasado?, ¿usaste than al comparar?, ¿hay mayúscula y punto en cada oración?", example: "✔ Yesterday my sister ran faster than me, but I won the game." }
+    ],
+    remember: ["Palabra de tiempo + quién + verbo en pasado + resto", "Conectores: and, but, because, so, then", "Comparativos con than"],
+    mistake: "Muchos niños empiezan en pasado y luego cambian al presente: 'Yesterday I go to the park and play'. Si la historia es pasada, todos los verbos van en pasado: went, played.",
+    fun: "¿Sabías que en inglés los cuentos casi siempre empiezan con 'Once upon a time…' (Había una vez…) y siguen todos en pasado?",
+    check: [
+      ["¿Cuál oración está bien?", "Yesterday I went to the park.", ["Yesterday I go to the park.", "Yesterday I goed to the park."]],
+      ["¿Qué conector significa 'así que'?", "so", ["but", "because"]],
+      ["¿Cuál oración está bien?", "The movie was longer than the book.", ["The movie was more long than the book.", "The movie was longer that the book."]]
+    ]
+  },
+  "xing6a": {
+    hook: "¿Cuál es el animal más rápido? ¿Y la montaña más alta del mundo? Para decir 'el más' usamos los superlativos.",
+    steps: [
+      { title: "Adjetivos cortos: the + -est", text: "Con adjetivos de una sílaba se pone the antes y se agrega -est al final.", example: "The cheetah is the fastest animal. 🐆 · Everest is the highest mountain." },
+      { title: "Cambios de ortografía", text: "Son los mismos cambios que en los comparativos: nice → the nicest, happy → the happiest, big → the biggest.", example: "Today is the happiest day of my life! · Jupiter is the biggest planet." },
+      { title: "Adjetivos largos: the most", text: "Con adjetivos largos de dos o más sílabas se usa the most + adjetivo.", example: "This is the most beautiful beach. · Math is the most difficult subject for me." },
+      { title: "Los irregulares", text: "Good → the best (el mejor), bad → the worst (el peor), far → the farthest (el más lejano).", example: "You are the best friend! · That was the worst day ever." },
+      { title: "Comparar paso a paso", text: "Fíjate cómo cambia el adjetivo: tall, taller, the tallest. Good, better, the best. Así puedes comparar dos cosas o a todo un grupo.", example: "Ana is tall. Leo is taller. Sam is the tallest in the class." }
+    ],
+    remember: ["Cortos: the + adjetivo + -est (the tallest)", "Largos: the most + adjetivo (the most famous)", "good → the best, bad → the worst"],
+    mistake: "Los errores más comunes son olvidar the ('Cheetah is fastest animal') o mezclar 'the most fastest'. Usa the y solo una forma: the fastest.",
+    fun: "¿Sabías que el guepardo (cheetah) puede correr a unos 110 km/h? ¡Es el animal terrestre más rápido del mundo!",
+    check: [
+      ["Completa: The blue whale is ___ animal in the world.", "the biggest", ["the most big", "biggest"]],
+      ["¿Cuál es el superlativo de good?", "the best", ["the goodest", "the better"]],
+      ["Completa: It's the ___ interesting book.", "most", ["more", "much"]]
+    ]
+  },
+  "xing6b": {
+    hook: "¿Lloverá mañana? ¿Serás astronauta? Cuando hablamos del futuro sin un plan fijo, usamos will.",
+    steps: [
+      { title: "La fórmula", text: "Will ('uil') + verbo en forma base. Es igual para todas las personas y el verbo nunca cambia. La forma corta es 'll.", example: "I will help you. · She'll be a doctor. · They'll win." },
+      { title: "Predicciones", text: "Usamos will para adivinar lo que pasará, sobre todo con I think (creo que), maybe (tal vez) o probably (probablemente).", example: "I think it will rain tomorrow. 🌧️ · Robots will do housework in the future." },
+      { title: "Promesas y ofrecimientos", text: "Will sirve para prometer algo o para ofrecer ayuda. Casi siempre se usa la forma corta: I'll.", example: "I'll call you later. · I promise I'll clean my room. · I'll carry your bag." },
+      { title: "Decisiones del momento", text: "Si decides algo justo al hablar, sin plan previo, usa will. Si ya lo habías planeado, usa going to.", example: "It's cold. I'll close the window. 🪟" },
+      { title: "Negativo y preguntas", text: "El negativo es won't ('uóunt'), forma corta de will not. Para preguntar, will va primero.", example: "I won't forget. · Will you come to my party? → Yes, I will. 🎉" }
+    ],
+    remember: ["will + verbo base, igual para todos", "Predicciones, promesas y decisiones del momento", "Negativo: won't · Pregunta: Will you…?"],
+    mistake: "Muchos niños dicen 'I will to go' o 'She will goes'. Después de will el verbo va solo y sin -s: I will go. She will go.",
+    fun: "¿Sabías que will como sustantivo significa 'voluntad' y también 'testamento'? Por eso decir I will es como decir 'es mi voluntad'.",
+    check: [
+      ["¿Cuál oración está bien?", "She will travel to Japan.", ["She will travels to Japan.", "She will to travel to Japan."]],
+      ["¿Cuál es el negativo de will?", "won't", ["willn't", "don't will"]],
+      ["Tienes sed y ves agua. ¿Qué dices?", "I'll get a glass of water.", ["I got a glass of water yesterday.", "I'm getting water every day."]]
+    ]
+  },
+  "xing6c": {
+    hook: "¿Hiciste la tarea? ¿Viste la película? Para preguntar y negar en pasado, el inglés usa una palabra mágica: did.",
+    steps: [
+      { title: "Preguntas con did", text: "Para preguntar en pasado se usa Did + persona + verbo en forma base. El verbo no va en pasado porque did ya lo marca.", example: "Did you play soccer yesterday? · Did she see the movie?" },
+      { title: "Respuestas cortas", text: "Se responde con Yes, I did o No, I didn't. No se repite el verbo principal.", example: "Did you finish your homework? → Yes, I did. ✅" },
+      { title: "Negativo con didn't", text: "Para negar en pasado se usa didn't (did not) + verbo en forma base. Sirve para todas las personas.", example: "I didn't go to school. · He didn't eat his vegetables. 🥦" },
+      { title: "Preguntas con W", text: "Con palabras de pregunta el orden es: W + did + persona + verbo base.", example: "Where did you go? → I went to the beach. · What did you eat?" },
+      { title: "El caso de was y were", text: "Con el verbo to be no se usa did: se pregunta con Was / Were y se niega con wasn't / weren't.", example: "Were you tired? → Yes, I was. · She wasn't at home." }
+    ],
+    remember: ["Pregunta: Did + persona + verbo base", "Negativo: didn't + verbo base", "Con to be: Was / Were, wasn't / weren't"],
+    mistake: "El error más común es poner el verbo en pasado dos veces: 'Did you went?' o 'I didn't saw'. Después de did o didn't el verbo va en forma base: Did you go? I didn't see.",
+    fun: "¿Sabías que did es el pasado de do? Por eso se usa igual que do en presente: Do you play? → Did you play?",
+    check: [
+      ["¿Cuál pregunta está bien?", "Did you go to the party?", ["Did you went to the party?", "Do you went to the party?"]],
+      ["¿Cuál oración está bien?", "She didn't eat the cake.", ["She didn't ate the cake.", "She don't ate the cake."]],
+      ["¿Cómo respondes 'sí' a Did you see the game?", "Yes, I did.", ["Yes, I saw.", "Yes, I was."]]
+    ]
+  },
+  "xing6d": {
+    hook: "Los textos largos tienen mucha información, pero no toda es importante. Un buen lector sabe encontrar justo lo que necesita.",
+    steps: [
+      { title: "Mira el título y la idea general", text: "Antes de leer, mira el título y las imágenes. Luego lee rápido todo el texto para saber de qué trata. Esto se llama skimming.", example: "Título: 'Max's lost keys' → trata de unas llaves perdidas." },
+      { title: "Busca datos concretos", text: "Para una pregunta concreta, recorre el texto buscando una palabra clave, un nombre o un número. Esto se llama scanning.", example: "'Max found his keys under the sofa.' → Where were the keys? Under the sofa." },
+      { title: "Fíjate en el tiempo verbal", text: "Si el texto está en pasado, las respuestas también. Palabras como first, then, after that y finally te dicen el orden de los hechos.", example: "First Max looked in his bag. Then he checked the kitchen. Finally he found them." },
+      { title: "Lee entre líneas", text: "A veces la respuesta no está escrita tal cual y hay que deducirla con las pistas del texto.", example: "'Max smiled and jumped.' → How did Max feel? Happy." },
+      { title: "Comprueba tu respuesta", text: "Antes de elegir, vuelve al texto y confirma que la respuesta está ahí o que las pistas la apoyan. Descarta las opciones que el texto no menciona.", example: "¿Dice el texto 'kitchen' como lugar de las llaves? No → descártalo." }
+    ],
+    remember: ["Skimming: leer rápido para la idea general", "Scanning: buscar un dato concreto", "first, then, finally marcan el orden"],
+    mistake: "Muchos niños eligen una opción porque la palabra aparece en el texto, aunque no responde la pregunta. Lee bien la oración completa donde está la palabra.",
+    fun: "¿Sabías que un lector experto puede hacer skimming de una página en menos de un minuto y saber de qué trata?",
+    check: [
+      ["Texto: 'First Max looked in his bag. Then he checked the kitchen. Finally he found the keys under the sofa.' Where were the keys?", "Under the sofa", ["In the kitchen", "In his bag"]],
+      ["¿Cómo se llama leer rápido para la idea general?", "skimming", ["scanning", "spelling"]],
+      ["Texto: 'Ana cried when she lost her dog.' How did Ana feel?", "Sad", ["Happy", "Bored"]]
+    ]
+  },
+  "xing6e": {
+    hook: "¿Se dice in Monday u on Monday? ¿At June o in June? Estas tres palabritas confunden a todos, ¡pero tienen reglas claras!",
+    steps: [
+      { title: "In: periodos largos", text: "In se usa con meses, años, estaciones, siglos y partes del día (in the morning, in the afternoon, in the evening).", example: "in June · in 2015 · in summer · in the morning" },
+      { title: "On: días y fechas", text: "On se usa con días de la semana, fechas y días especiales, como tu cumpleaños o Navidad.", example: "on Monday · on May 5th · on my birthday · on Christmas Day" },
+      { title: "At: horas exactas", text: "At se usa con horas y momentos exactos. También con night, noon y el fin de semana (en inglés británico: at the weekend).", example: "at 8 o'clock · at noon · at night · at lunchtime" },
+      { title: "La pirámide", text: "Piensa en una pirámide invertida: arriba, lo más grande (in: años, meses); en medio, los días (on); abajo, lo más pequeño y exacto (at: horas).", example: "IN 2025 → IN March → ON Friday → AT 3:00" },
+      { title: "Sin preposición", text: "Con this, next, last, every, yesterday y tomorrow no se pone in, on ni at.", example: "I'll see you next Monday. · We met last year. · I play every Sunday." }
+    ],
+    remember: ["in = meses, años, estaciones", "on = días y fechas", "at = horas exactas"],
+    mistake: "Muchos niños dicen 'in Monday' porque en español decimos 'el lunes'. Con días siempre es on: on Monday. Y no digas 'on next Monday': solo next Monday.",
+    fun: "¿Sabías que se dice in the morning pero at night? ¡Night es la excepción que todos los estudiantes de inglés tienen que memorizar!",
+    check: [
+      ["Completa: My birthday is ___ July.", "in", ["on", "at"]],
+      ["Completa: We have English ___ Tuesday.", "on", ["in", "at"]],
+      ["Completa: The movie starts ___ 7 o'clock.", "at", ["in", "on"]]
+    ]
+  },
+  "xing6f": {
+    hook: "Will, superlativos, did y preposiciones de tiempo: ¡ya tienes todas las herramientas para construir oraciones de nivel avanzado!",
+    steps: [
+      { title: "Oraciones con superlativos", text: "El orden es: sujeto + is/are + the + adjetivo-est (o the most + adjetivo) + sustantivo + lo demás.", example: "The + cheetah + is + the + fastest + animal → The cheetah is the fastest animal." },
+      { title: "Oraciones con will", text: "El orden es: sujeto + will / won't + verbo base + lo demás. La palabra de tiempo puede ir al inicio o al final.", example: "I + think + it + will + rain + tomorrow → I think it will rain tomorrow." },
+      { title: "Preguntas y negativas con did", text: "Pregunta: (W) + did + sujeto + verbo base. Negativo: sujeto + didn't + verbo base.", example: "Where + did + you + go + on + Saturday? → Where did you go on Saturday?" },
+      { title: "Agrega in, on, at", text: "Las expresiones de tiempo con in, on o at suelen ir al final de la oración.", example: "We will travel to Cusco in December. · The party is at six o'clock." },
+      { title: "Combina todo", text: "Una oración avanzada puede tener varias piezas. Revisa cada una: verbo base después de will y did, the con superlativos, y la preposición correcta.", example: "Last year I didn't go to the beach, but in July I will visit the biggest lake in the country." }
+    ],
+    remember: ["the + -est / the most para superlativos", "will y did + verbo base", "in (meses), on (días), at (horas)"],
+    mistake: "Al combinar muchas piezas, los niños se olvidan de una: 'Did you went on Monday?' o 'It is most big city'. Revisa: Did you go…? / It is the biggest city.",
+    fun: "¿Sabías que las oraciones en inglés casi siempre siguen el orden sujeto + verbo + objeto? Si dudas, vuelve a ese esqueleto.",
+    check: [
+      ["Ordena: the / is / tallest / she / girl", "She is the tallest girl.", ["She is tallest the girl.", "The tallest she is girl."]],
+      ["¿Cuál oración está bien?", "Did you visit your grandma on Sunday?", ["Did you visited your grandma on Sunday?", "Did you visit your grandma in Sunday?"]],
+      ["¿Cuál oración está bien?", "I will call you at five o'clock.", ["I will calls you at five o'clock.", "I will call you on five o'clock."]]
+    ]
+  }
+});

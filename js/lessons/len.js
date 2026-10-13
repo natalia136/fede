@@ -694,7 +694,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
       { title: "Cómo encontrarla", text: "Di la palabra como si llamaras a alguien desde lejos. La sílaba que alargas es la tónica. También puedes contar sílabas desde el final.", example: "¡ca-miooón! → la tónica es «mión»" },
       { title: "Agudas", text: "Las palabras agudas tienen la fuerza en la última sílaba.", example: "ca-MIÓN · re-LOJ · so-FÁ · pa-RED" },
       { title: "Llanas o graves", text: "Las palabras llanas (también llamadas graves) tienen la fuerza en la penúltima sílaba. Son las más comunes en español.", example: "ÁR-bol · ME-sa · LÁ-piz · ZA-pa-to" },
-      { title: "Esdrújulas", text: "Las esdrújulas tienen la fuerza en la antepenúltima sílaba (la tercera desde el final). ¡Todas llevan tilde, sin excepción!", example: "MÚ-si-ca · PÁ-ja-ro · lám-PA-ra → lÁm-pa-ra · RÁ-pi-do" }
+      { title: "Esdrújulas", text: "Las esdrújulas tienen la fuerza en la antepenúltima sílaba (la tercera desde el final). ¡Todas llevan tilde, sin excepción!", example: "MÚ-si-ca · PÁ-ja-ro · LÁM-pa-ra · RÁ-pi-do" }
     ],
     remember: ["La sílaba tónica es la que suena más fuerte.", "Agudas: última · Llanas: penúltima · Esdrújulas: antepenúltima.", "Las esdrújulas siempre llevan tilde."],
     mistake: "Confundir la fuerza de voz con la tilde. Todas las palabras tienen sílaba tónica, pero no todas llevan tilde: «reloj» es aguda y no lleva tilde.",
@@ -856,6 +856,222 @@ Object.assign(window.CURRICULUM_LESSONS, {
     check: [
       ["«Marta abrió el paraguas al salir.» ¿Qué podemos inferir?", "estaba lloviendo", ["hacía mucho calor", "era de noche"]],
       ["¿Qué necesitas para hacer una inferencia?", "pistas del texto y lo que ya sabes", ["solo el título", "inventar una respuesta"]]
+    ]
+  },
+});
+
+/* ===== 5.º primaria ===== */
+Object.assign(window.CURRICULUM_LESSONS, {
+  "l5a": {
+    hook: "Los verbos son como máquinas del tiempo: con solo cambiar su final, viajas al ayer o al mañana. ⏰",
+    steps: [
+      { title: "Los tres tiempos", text: "El tiempo verbal indica cuándo ocurre la acción respecto al momento en que hablamos: antes (pasado), ahora (presente) o después (futuro).", example: "comí · como · comeré" },
+      { title: "Persona y número", text: "Además del tiempo, el verbo cambia según quién realiza la acción: yo, tú, él/ella, nosotros, ustedes, ellos.", example: "yo canto · tú cantas · nosotros cantamos · ellos cantan" },
+      { title: "Pasado: dos formas", text: "En pasado hay dos formas muy usadas. El pretérito perfecto simple cuenta acciones terminadas; el pretérito imperfecto cuenta acciones habituales o descripciones del pasado.", example: "Ayer jugué. (terminada) · De niño jugaba todos los días. (habitual)" },
+      { title: "Tiempos compuestos", text: "Los tiempos compuestos se forman con el verbo «haber» más un participio (-ado, -ido).", example: "he comido · había salido · habré terminado" },
+      { title: "Coherencia en el texto", text: "Al escribir una historia, mantén el mismo tiempo verbal. Si empiezas en pasado, sigue en pasado salvo que haya un motivo.", example: "Llegó a casa, abrió la puerta y encontró una sorpresa." }
+    ],
+    remember: ["Pasado, presente y futuro indican cuándo ocurre la acción.", "El verbo también cambia según la persona.", "Mantén el mismo tiempo verbal en tu texto."],
+    mistake: "Mezclar tiempos sin motivo: «Ayer fui al parque y juego con mi perro». Lo correcto es «Ayer fui al parque y jugué con mi perro».",
+    fun: "¿Sabías que el verbo «ir» es tan irregular que sus formas parecen de verbos distintos? Voy, fui, iba, iré… ¡Viene de mezclar varios verbos latinos!",
+    check: [
+      ["¿En qué tiempo está «había salido»?", "pasado", ["presente", "futuro"]],
+      ["¿Qué forma es correcta? «Mañana nosotros ___ temprano.»", "saldremos", ["salimos ayer", "salíamos"]],
+      ["¿Con qué verbo se forman los tiempos compuestos?", "haber", ["ser", "tener"]]
+    ]
+  },
+  "l5b": {
+    hook: "«Tus ojos son estrellas.» ¿De verdad alguien tiene estrellas en la cara? ✨",
+    steps: [
+      { title: "Lenguaje literario", text: "Las figuras literarias son formas especiales de usar las palabras para que un texto sea más bello, expresivo o sorprendente.", example: "«El sol es una moneda de oro.»" },
+      { title: "Comparación o símil", text: "Compara dos cosas usando una palabra de enlace: como, cual, parece, igual que.", example: "Tus ojos brillan como estrellas." },
+      { title: "Metáfora", text: "Identifica una cosa con otra sin usar «como». Es una comparación más directa y sorprendente.", example: "Tus ojos son estrellas. · Su cabello es oro." },
+      { title: "Hipérbole", text: "Exagera mucho la realidad para dar más fuerza a lo que se dice.", example: "Te lo he dicho un millón de veces. · Tengo tanta hambre que me comería un elefante." },
+      { title: "Personificación", text: "Da cualidades o acciones humanas a animales, objetos o ideas.", example: "La luna nos sonríe. · El viento susurraba." }
+    ],
+    remember: ["Comparación: usa «como».", "Metáfora: identifica sin «como».", "Hipérbole exagera; personificación da rasgos humanos."],
+    mistake: "Confundir comparación y metáfora. Fíjate si aparece «como»: «es como una estrella» es comparación; «es una estrella» es metáfora.",
+    fun: "¿Sabías que usamos metáforas todos los días sin darnos cuenta? «La pata de la mesa» o «el corazón de la ciudad» son metáforas.",
+    check: [
+      ["«El viento cantaba entre los árboles» es una…", "personificación", ["hipérbole", "comparación"]],
+      ["«Corre como el viento» es una…", "comparación", ["metáfora", "personificación"]],
+      ["«Te esperé mil años» es una…", "hipérbole", ["metáfora", "comparación"]]
+    ]
+  },
+  "l5c": {
+    hook: "Cada texto se escribió por algún motivo. ¿Qué quería lograr su autor contigo? 🤔",
+    steps: [
+      { title: "El tema", text: "El tema es de qué trata el texto, dicho en pocas palabras. Suele adivinarse por el título y las palabras que se repiten.", example: "Tema: el reciclaje" },
+      { title: "La idea principal", text: "La idea principal es lo más importante que el autor dice sobre el tema. Si la quitas, el texto pierde su sentido.", example: "Reciclar ayuda a reducir la basura del planeta." },
+      { title: "Ideas secundarias", text: "Las ideas secundarias explican, dan ejemplos o datos que apoyan la idea principal.", example: "El plástico tarda cientos de años en degradarse." },
+      { title: "La intención del autor", text: "Pregúntate qué quiere lograr el autor: ¿informar?, ¿convencer?, ¿entretener?, ¿enseñar a hacer algo?", example: "Un anuncio quiere convencerte de comprar algo." },
+      { title: "Lee con ojo crítico", text: "Un lector crítico no cree todo. Se pregunta: ¿quién lo escribió?, ¿qué pruebas da?, ¿estoy de acuerdo?", example: "«El mejor juguete del mundo» → ¿quién lo dice? ¿El que lo vende?" }
+    ],
+    remember: ["Tema: de qué trata · Idea principal: lo más importante.", "Las ideas secundarias apoyan a la principal.", "Piensa en la intención del autor: informar, convencer, entretener."],
+    mistake: "Confundir el tema con la idea principal. «Los perros» es un tema; «Los perros necesitan ejercicio diario» es una idea principal.",
+    fun: "¿Sabías que los anuncios usan colores, música y famosos para convencerte? Un lector crítico se da cuenta de esas estrategias.",
+    check: [
+      ["¿Qué intención tiene un anuncio publicitario?", "convencer", ["entretener con un cuento", "dar instrucciones de un juego"]],
+      ["¿Qué son las ideas que dan ejemplos y datos de la idea principal?", "ideas secundarias", ["temas", "títulos"]]
+    ]
+  },
+  "l5d": {
+    hook: "«El perro corrió.» Bien… pero ¿dónde?, ¿cuándo?, ¿por qué? ¡Hagamos oraciones más completas! 🐕",
+    steps: [
+      { title: "La base: quién y qué hizo", text: "Toda oración completa tiene un sujeto (quién) y un predicado con un verbo (qué hizo). Es la base para agregar información.", example: "Mi hermano pintó un cuadro." },
+      { title: "¿Dónde y cuándo?", text: "Podemos añadir el lugar y el tiempo. Estas partes suelen poder moverse dentro de la oración.", example: "Ayer, mi hermano pintó un cuadro en la escuela." },
+      { title: "¿Cómo y para qué?", text: "También podemos decir de qué manera o con qué finalidad se hizo la acción.", example: "Mi hermano pintó con cuidado un cuadro para mi abuela." },
+      { title: "Ordenar sin perder el sentido", text: "Para ordenar una oración larga, busca primero el verbo, luego el sujeto, y después ubica las demás partes donde suenen naturales.", example: "Verbo: pintó · Sujeto: mi hermano · Resto: un cuadro, ayer, en la escuela" },
+      { title: "Comas y orden", text: "Cuando el tiempo o el lugar van al principio y son largos, se suele poner una coma después.", example: "El sábado por la mañana, fuimos al mercado." }
+    ],
+    remember: ["Base: sujeto + verbo.", "Agrega: dónde, cuándo, cómo, para qué.", "Busca el verbo primero para ordenar."],
+    mistake: "Separar con coma el sujeto y el verbo: «Mi hermano, pintó un cuadro». Entre el sujeto y el verbo no va coma.",
+    fun: "¿Sabías que en español podemos cambiar mucho el orden de las palabras y la oración sigue teniendo sentido? En otros idiomas, como el inglés, el orden es mucho más rígido.",
+    check: [
+      ["¿Qué oración está mejor ordenada?", "Ayer, los niños jugaron en el parque.", ["Jugaron parque ayer los en niños el.", "Los niños, jugaron ayer en el parque."]],
+      ["¿Qué parte buscamos primero al ordenar una oración?", "el verbo", ["la coma", "el adjetivo"]]
+    ]
+  },
+  "xlen5a": {
+    hook: "«María vio a María en el espejo y María saludó a María»… ¡Qué lío! ¿Cómo lo arreglamos? 🪞",
+    steps: [
+      { title: "¿Qué es un pronombre?", text: "Los pronombres son palabras que reemplazan al sustantivo para no repetirlo. Señalan a personas o cosas sin nombrarlas.", example: "María y Lucía cantan → Ellas cantan" },
+      { title: "Personales", text: "Indican las personas gramaticales: yo, tú, usted, él, ella, nosotros, nosotras, ustedes, ellos, ellas.", example: "Yo leo. · Ustedes juegan." },
+      { title: "Posesivos", text: "Indican a quién pertenece algo: mío, tuyo, suyo, nuestro y sus femeninos y plurales.", example: "Ese lápiz es mío. · La casa es nuestra." },
+      { title: "Demostrativos", text: "Señalan la distancia: este (cerca), ese (un poco lejos), aquel (lejos).", example: "Quiero este, no aquel." },
+      { title: "Interrogativos y exclamativos", text: "Sirven para preguntar o exclamar y llevan tilde: qué, quién, cuál, cuánto.", example: "¿Quién llamó? · ¡Qué sorpresa!" }
+    ],
+    remember: ["El pronombre reemplaza al sustantivo.", "Hay personales, posesivos, demostrativos e interrogativos.", "Los interrogativos llevan tilde."],
+    mistake: "Confundir «tú» (pronombre, con tilde) con «tu» (posesivo, sin tilde). «Tú tienes tu libro»: el primero es pronombre, el segundo acompaña a «libro».",
+    fun: "¿Sabías que en gran parte de Argentina, Uruguay y Centroamérica se usa «vos» en lugar de «tú»? «Vos sabés» es tan correcto como «tú sabes».",
+    check: [
+      ["En «Ella canta», ¿qué tipo de pronombre es «ella»?", "personal", ["posesivo", "demostrativo"]],
+      ["¿Qué pronombre es posesivo?", "mío", ["aquel", "quién"]],
+      ["¿Cuál está bien escrita?", "Tú tienes tu mochila.", ["Tu tienes tú mochila.", "Tú tienes tú mochila."]]
+    ]
+  },
+  "xlen5b": {
+    hook: "Corre… pero ¿cómo?, ¿dónde?, ¿cuándo? Los adverbios responden a esas preguntas. 🏃",
+    steps: [
+      { title: "¿Qué es un adverbio?", text: "El adverbio es una palabra que no cambia de forma (no tiene género ni número) y modifica al verbo, al adjetivo o a otro adverbio.", example: "Corre rápido. · Muy alto. · Bastante bien." },
+      { title: "Lugar y tiempo", text: "Los de lugar responden a ¿dónde? y los de tiempo responden a ¿cuándo?", example: "aquí, allí, cerca, lejos · ayer, hoy, mañana, siempre, nunca" },
+      { title: "Modo y cantidad", text: "Los de modo responden a ¿cómo? y los de cantidad a ¿cuánto?", example: "bien, mal, así, lentamente · mucho, poco, muy, bastante" },
+      { title: "Afirmación, negación y duda", text: "Algunos adverbios afirman, niegan o expresan duda.", example: "sí, también, claro · no, tampoco, jamás · quizá, tal vez, acaso" },
+      { title: "Adverbios en -mente", text: "Muchos adverbios de modo se forman con un adjetivo femenino + -mente. Si el adjetivo lleva tilde, la conserva.", example: "lenta → lentamente · rápida → rápidamente · fácil → fácilmente" }
+    ],
+    remember: ["El adverbio no cambia de género ni número.", "Modifica al verbo, al adjetivo o a otro adverbio.", "Indica lugar, tiempo, modo, cantidad, afirmación, negación o duda."],
+    mistake: "Quitarle la tilde al adjetivo al agregar -mente: «rapidamente». Si el adjetivo tiene tilde, se conserva: «rápidamente», «fácilmente».",
+    fun: "¿Sabías que «-mente» viene del latín y significaba «con la mente» o «de manera»? «Tranquilamente» era «con mente tranquila».",
+    check: [
+      ["¿Qué tipo de adverbio es «ayer»?", "de tiempo", ["de lugar", "de modo"]],
+      ["¿Qué tipo de adverbio es «quizá»?", "de duda", ["de afirmación", "de cantidad"]],
+      ["¿Cuál está bien escrito?", "rápidamente", ["rapidamente", "rápidaménte"]]
+    ]
+  },
+  "xlen5c": {
+    hook: "Hay palabras muy pequeñas que hacen un trabajo enorme: unir. ¿Sabes cuáles son? 🔗",
+    steps: [
+      { title: "Las preposiciones", text: "Las preposiciones relacionan palabras dentro de la oración. Son invariables: no cambian de forma.", example: "Voy a la escuela con mi hermano." },
+      { title: "La lista", text: "Las preposiciones son: a, ante, bajo, con, contra, de, desde, durante, en, entre, hacia, hasta, mediante, para, por, según, sin, sobre, tras.", example: "café con leche · libro de cuentos · regalo para ti" },
+      { title: "Las conjunciones", text: "Las conjunciones unen palabras u oraciones. Las más usadas son: y, e, ni, o, u, pero, sino, porque, aunque.", example: "Juan y María · ¿Té o café?" },
+      { title: "Qué expresan", text: "Cada conjunción tiene un sentido: «y» suma, «o» da opciones, «pero» opone, «porque» explica la causa.", example: "Quería salir, pero llovía. · No salí porque llovía." },
+      { title: "Y → e, o → u", text: "«Y» cambia a «e» antes de palabras que empiezan con el sonido i. «O» cambia a «u» antes de palabras que empiezan con el sonido o.", example: "padre e hijo · siete u ocho" }
+    ],
+    remember: ["Preposiciones: relacionan palabras (a, con, de, para…).", "Conjunciones: unen palabras u oraciones (y, o, pero, porque…).", "Y → e antes de i; o → u antes de o."],
+    mistake: "Escribir «Ana y Isabel» o «siete o ocho». Lo correcto es «Ana e Isabel» y «siete u ocho».",
+    fun: "¿Sabías que «so» también fue una preposición? Hoy solo sobrevive en frases como «so pena de», que significa «bajo pena de».",
+    check: [
+      ["¿Cuál es una preposición?", "desde", ["pero", "porque"]],
+      ["¿Qué conjunción expresa oposición?", "pero", ["y", "o"]],
+      ["¿Cuál está bien escrita?", "padre e hijo", ["padre y hijo e", "padre i hijo"]]
+    ]
+  },
+  "xlen5d": {
+    hook: "Las palabras son como un equipo de fútbol: cada una juega en su posición. ¿Las conoces a todas? ⚽",
+    steps: [
+      { title: "Las que cambian de forma", text: "Sustantivos, adjetivos, artículos, pronombres y verbos son variables: cambian de género, número, persona o tiempo.", example: "niño → niñas · alto → altas · como → comimos" },
+      { title: "Las que no cambian", text: "Adverbios, preposiciones y conjunciones son invariables: siempre se escriben igual.", example: "ayer · con · pero" },
+      { title: "El pronombre y el adverbio", text: "El pronombre reemplaza al sustantivo (ellos). El adverbio modifica al verbo, adjetivo u otro adverbio (ayer, muy).", example: "Ellos (pronombre) llegaron ayer (adverbio)." },
+      { title: "Preposición y conjunción", text: "La preposición relaciona palabras (con, de, para). La conjunción une palabras u oraciones (y, pero, porque).", example: "Fui con (prep.) Ana, pero (conj.) no entramos." },
+      { title: "Analiza una oración", text: "Toma una oración y clasifica cada palabra preguntándote qué trabajo hace. ¡Es como un rompecabezas!", example: "Mi(det.) gato(sust.) duerme(verbo) mucho(adv.) en(prep.) el(art.) sofá(sust.)" }
+    ],
+    remember: ["Variables: sustantivo, adjetivo, artículo, pronombre, verbo.", "Invariables: adverbio, preposición, conjunción.", "Clasifica cada palabra por el trabajo que hace."],
+    mistake: "Una misma palabra puede cambiar de clase según la oración. «Bajo» es adjetivo en «un niño bajo», verbo en «yo bajo» y preposición en «bajo la mesa».",
+    fun: "¿Sabías que las interjecciones (¡ay!, ¡uf!, ¡bravo!) también son una clase de palabra? Expresan emociones por sí solas.",
+    check: [
+      ["¿Qué clase de palabra es «pero»?", "conjunción", ["preposición", "adverbio"]],
+      ["¿Qué clase de palabra es «ellos»?", "pronombre", ["artículo", "verbo"]],
+      ["¿Cuál es una clase de palabra invariable?", "la preposición", ["el sustantivo", "el verbo"]]
+    ]
+  },
+  "xlen5e": {
+    hook: "Un cuento, un poema y una obra de teatro… ¿qué los hace tan distintos? 🎭",
+    steps: [
+      { title: "Género narrativo", text: "Cuenta una historia con un narrador, personajes, lugar y tiempo. Suele escribirse en prosa (en párrafos).", example: "cuento, novela, leyenda, fábula, mito" },
+      { title: "Género lírico", text: "Expresa sentimientos, emociones e ideas del autor. Suele escribirse en verso, con ritmo y a veces con rima.", example: "poema, oda, copla, canción" },
+      { title: "Género dramático", text: "Está escrito para ser representado en un escenario. Los personajes hablan en diálogos y hay acotaciones que indican gestos o movimientos.", example: "comedia, tragedia, drama" },
+      { title: "Prosa y verso", text: "La prosa ocupa todo el renglón y se organiza en párrafos. El verso es cada línea de un poema; varios versos forman una estrofa.", example: "Verso: «Caminante, no hay camino»" },
+      { title: "Cómo reconocerlos", text: "Pregúntate: ¿cuenta una historia? (narrativo), ¿expresa sentimientos en verso? (lírico), ¿tiene diálogos para actuar? (dramático).", example: "Texto con «JUAN: —¡Hola!» y acotaciones → dramático" }
+    ],
+    remember: ["Narrativo: cuenta historias.", "Lírico: expresa sentimientos, en verso.", "Dramático: se representa en teatro."],
+    mistake: "Creer que todo lo que tiene diálogos es dramático. Los cuentos también tienen diálogos; lo dramático se escribe para ser actuado, con nombres de personajes y acotaciones.",
+    fun: "¿Sabías que el teatro nació en la antigua Grecia hace unos 2500 años? Los actores usaban máscaras para mostrar si el personaje estaba feliz o triste. 🎭",
+    check: [
+      ["¿A qué género pertenece un poema?", "lírico", ["narrativo", "dramático"]],
+      ["¿A qué género pertenece una comedia?", "dramático", ["lírico", "narrativo"]],
+      ["¿A qué género pertenece un cuento?", "narrativo", ["dramático", "lírico"]]
+    ]
+  },
+  "xlen5f": {
+    hook: "«La ballena es un mamífero» y «El verano es la mejor estación»… ¿cuál se puede comprobar? 🐋☀️",
+    steps: [
+      { title: "¿Qué es un hecho?", text: "Un hecho es algo que se puede comprobar con datos, observación o fuentes confiables. Es verdadero para todos.", example: "La ballena es un mamífero. · El agua hierve a 100 °C a nivel del mar." },
+      { title: "¿Qué es una opinión?", text: "Una opinión expresa lo que alguien piensa, siente o cree. Puede variar de una persona a otra.", example: "El verano es la mejor estación. · Las matemáticas son divertidas." },
+      { title: "Palabras pista de opinión", text: "Las opiniones suelen llevar expresiones como: creo, pienso, me parece, en mi opinión, el mejor, el peor, bonito, aburrido.", example: "Creo que este libro es aburrido." },
+      { title: "Prueba la comprobación", text: "Pregúntate: ¿puedo comprobarlo buscando información o midiendo? Si sí, es un hecho. Si depende de gustos, es opinión.", example: "«Lima es la capital de Perú» → se comprueba en un mapa → hecho" },
+      { title: "En los textos", text: "Muchos textos mezclan hechos y opiniones. Saber separarlos te ayuda a no dejarte convencer sin pruebas.", example: "«Este celular tiene 128 GB (hecho) y es el más genial (opinión).»" }
+    ],
+    remember: ["Hecho: se puede comprobar.", "Opinión: lo que alguien piensa o siente.", "Palabras como «creo» o «el mejor» indican opinión."],
+    mistake: "Pensar que una opinión es un hecho porque mucha gente la comparte. Aunque a todos tus amigos les guste el helado, «el helado es delicioso» sigue siendo una opinión.",
+    fun: "¿Sabías que los periodistas profesionales separan las noticias (hechos) de las columnas de opinión? En los periódicos suelen estar en secciones distintas.",
+    check: [
+      ["¿Cuál es un hecho?", "La Tierra gira alrededor del Sol.", ["El rojo es el color más bonito.", "Los gatos son mejores que los perros."]],
+      ["¿Qué expresión indica una opinión?", "en mi opinión", ["según el censo", "mide 3 metros"]]
+    ]
+  },
+  "xlen5g": {
+    hook: "B y V suenan igual… entonces, ¿cómo sabemos cuál escribir? ¡Hay reglas que te salvan! 🅱️",
+    steps: [
+      { title: "B en el pasado -aba", text: "Las terminaciones -aba, -abas, -ábamos, -aban del pretérito imperfecto de los verbos en -ar se escriben con b.", example: "cantaba · jugábamos · saltaban" },
+      { title: "B en -ble y -bilidad", text: "Se escriben con b las palabras terminadas en -ble y -bilidad. (Excepción: movilidad y civilidad).", example: "amable · posible · habilidad · responsabilidad" },
+      { title: "B en bibl-, bus- y antes de l o r", text: "Llevan b las palabras que empiezan por bibl- y bus-, y siempre que la b va antes de l o r (bl, br).", example: "biblioteca · buscar · blanco · brazo · hombre" },
+      { title: "V después de n", text: "Después de n se escribe v. Recuerda también: antes de b y p va m.", example: "invierno · enviar · convivir · invitar" },
+      { title: "V en -ívoro y adjetivos", text: "Llevan v las palabras terminadas en -ívoro, -ívora (excepto víbora) y los adjetivos terminados en -avo, -ave, -evo, -eve, -ivo, -iva.", example: "carnívoro · herbívora · octavo · suave · nuevo · breve · activo" }
+    ],
+    remember: ["B: -aba, -ble, -bilidad, bibl-, bus-, bl, br.", "V: después de n, -ívoro, adjetivos en -avo, -evo, -ivo.", "Si dudas, consulta el diccionario."],
+    mistake: "Escribir «cantava» o «amavle». El pasado -aba y la terminación -ble siempre van con b: «cantaba», «amable».",
+    fun: "¿Sabías que «víbora» es la excepción de las palabras en -ívora? Termina igual que «carnívora», pero ¡se escribe con b!",
+    check: [
+      ["¿Cuál está bien escrita?", "jugaba", ["jugava", "jugavba"]],
+      ["¿Cuál está bien escrita?", "invierno", ["inbierno", "imvierno"]],
+      ["¿Cuál está bien escrita?", "amable", ["amavle", "amabe"]]
+    ]
+  },
+  "xlen5h": {
+    hook: "¿Sabías que dentro de la Tierra hay roca tan caliente que está derretida? Los textos informativos nos cuentan estas cosas. 🌋",
+    steps: [
+      { title: "Propósito: informar", text: "Los textos informativos explican un tema con datos reales y comprobables. Su propósito es que aprendas algo nuevo.", example: "Un artículo sobre los volcanes" },
+      { title: "Estructura", text: "Suelen tener título, introducción (presenta el tema), desarrollo (explica con datos) y conclusión (resume o cierra).", example: "Título: «Los volcanes» → Intro → Desarrollo → Conclusión" },
+      { title: "Idea principal de cada párrafo", text: "Cada párrafo suele tener una idea principal. Muchas veces está en la primera oración.", example: "«Los volcanes pueden ser activos, dormidos o extintos.» → idea principal" },
+      { title: "Datos importantes", text: "Fíjate en cifras, definiciones, causas y consecuencias. Subráyalos para recordarlos.", example: "La lava es roca fundida que puede superar los 1000 °C." },
+      { title: "Recursos de apoyo", text: "Los textos informativos usan subtítulos, imágenes, esquemas, mapas y gráficos. ¡Léelos también, porque dan información!", example: "Un esquema con las partes del volcán: cráter, chimenea, cámara magmática" }
+    ],
+    remember: ["El texto informativo enseña con datos reales.", "Busca el tema, la idea principal y los datos importantes.", "Lee también imágenes y gráficos."],
+    mistake: "Subrayar todo el texto. Si subrayas todo, no destacas nada. Subraya solo las ideas principales y los datos clave.",
+    fun: "¿Sabías que el volcán activo más alto del mundo es el Ojos del Salado, entre Chile y Argentina? ¡Mide más de 6800 metros!",
+    check: [
+      ["¿Cuál es el propósito de un texto informativo?", "informar con datos reales", ["contar una historia inventada", "expresar sentimientos en verso"]],
+      ["¿Dónde suele estar la idea principal de un párrafo?", "en la primera oración", ["en la última palabra", "en el número de página"]]
     ]
   },
 });

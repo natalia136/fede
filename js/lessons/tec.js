@@ -754,3 +754,191 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Qué es un prototipo?", "Un primer modelo para probar la idea", ["El producto final perfecto", "Un tipo de herramienta"]]
     ]
   },
+  /* ===== 5.º ===== */
+  "t5a": {
+    hook: "En la calle respetas las señales y a las personas. ¿Y en internet? Allí también eres ciudadano. 🌐",
+    steps: [
+      { title: "Ciudadano digital", text: "Ser ciudadano digital significa usar la tecnología con respeto, responsabilidad y seguridad, como lo harías en tu barrio o colegio.", example: "Respeto en el chat = respeto en el salón" },
+      { title: "Respeto", text: "Escribe como hablarías cara a cara. No insultes, no te burles y no compartas fotos de otros sin su permiso.", example: "✅ «Buen trabajo» · ❌ burlas" },
+      { title: "Cuida tus datos", text: "Protege tu información personal y tus contraseñas. Revisa la privacidad de tus cuentas con un adulto.", example: "🔒 perfil privado · contraseña fuerte" },
+      { title: "Verifica fuentes", text: "Antes de compartir una noticia, revisa quién la publicó y si otras fuentes confiables dicen lo mismo.", example: "⏸️ pausa → 🔎 fuente → compartir solo si es cierto" },
+      { title: "Respeta el trabajo de otros", text: "Si usas una imagen o un texto de otra persona, di de dónde lo sacaste. Copiar sin citar es plagio.", example: "Imagen tomada de: Museo de Historia Natural" }
+    ],
+    remember: ["Usa la tecnología con respeto y responsabilidad.", "Cuida tus datos y los de los demás.", "Verifica antes de compartir y cita tus fuentes."],
+    mistake: "Pensar que en internet las reglas son distintas porque nadie te ve. Detrás de cada pantalla hay personas reales.",
+    fun: "¿Sabías que en muchos países se celebra el Día de Internet Segura cada febrero, con actividades en colegios para aprender ciudadanía digital?",
+    check: [
+      ["¿Qué hace un buen ciudadano digital?", "Verifica antes de compartir", ["Comparte todo sin leer", "Publica fotos de otros sin permiso"]],
+      ["Usar un texto ajeno sin decir de dónde salió es…", "Plagio", ["Citar", "Investigar"]]
+    ]
+  },
+  "t5b": {
+    hook: "Tu consola es una caja de plástico y chips. ¿Por qué entonces puede ser un juego de fútbol o de carreras? 🎮",
+    steps: [
+      { title: "Hardware", text: "El hardware es la parte física del computador: todo lo que puedes tocar, como el teclado, la pantalla, el procesador y la memoria.", example: "⌨️ teclado · 🖥️ monitor · 💾 disco" },
+      { title: "Software", text: "El software son los programas: instrucciones que le dicen al hardware qué hacer. No se pueden tocar.", example: "🎮 videojuego · 📝 procesador de texto · 🌐 navegador" },
+      { title: "El sistema operativo", text: "Es el software principal: organiza el hardware y deja que otros programas funcionen. Ejemplos: Windows, macOS, Android, iOS y Linux.", example: "📱 Android · 💻 Windows" },
+      { title: "Aplicaciones", text: "Son programas para tareas específicas: dibujar, escribir, escuchar música o jugar. Se instalan sobre el sistema operativo.", example: "App de dibujo · calculadora" },
+      { title: "Se necesitan mutuamente", text: "Sin software, el hardware no sabe qué hacer; sin hardware, el software no tiene dónde funcionar. Trabajan en equipo.", example: "Consola (hardware) + juego (software) = diversión" }
+    ],
+    remember: ["El hardware se puede tocar.", "El software son los programas.", "El sistema operativo organiza todo."],
+    mistake: "Decir que el disco del juego es software. El disco es hardware; el juego guardado dentro es el software.",
+    fun: "¿Sabías que Ada Lovelace escribió en 1843 lo que se considera el primer programa de computador, para una máquina que nunca llegó a construirse?",
+    check: [
+      ["¿Cuál es hardware?", "El teclado", ["Un videojuego", "El navegador"]],
+      ["¿Qué es Android?", "Un sistema operativo", ["Un tipo de cable", "Una pantalla"]]
+    ]
+  },
+  "t5c": {
+    hook: "Los videojuegos que te gustan están hechos con unas pocas ideas que se combinan. ¿Las conoces? 🧠",
+    steps: [
+      { title: "Secuencias", text: "Un programa es una secuencia de instrucciones que el computador ejecuta en orden, de arriba hacia abajo.", example: "1. decir «Hola» 2. avanzar 10 3. saltar" },
+      { title: "Bucles", text: "Un bucle repite instrucciones. Puede repetir un número fijo de veces o para siempre mientras el juego está activo.", example: "REPETIR 10 [ avanzar 5 ] · POR SIEMPRE [ mover ]" },
+      { title: "Condicionales", text: "Un condicional decide qué hacer: SI se cumple una condición, ENTONCES hace algo; SI NO, hace otra cosa.", example: "SI toca la moneda ENTONCES sumar 1" },
+      { title: "Variables", text: "Una variable es una caja con nombre donde el programa guarda un dato que puede cambiar, como los puntos o las vidas.", example: "puntos = 0 → puntos = puntos + 1" },
+      { title: "Todo junto", text: "Un juego combina las cuatro ideas: repite, revisa condiciones y actualiza variables una y otra vez.", example: "POR SIEMPRE [ SI toca ⭐ ENTONCES puntos + 1 ]" }
+    ],
+    remember: ["Secuencia: instrucciones en orden.", "Bucle repite; condicional decide.", "Variable guarda datos que cambian."],
+    mistake: "Poner el condicional fuera del bucle. Si solo se revisa una vez al inicio, el juego no detecta cuando tocas la moneda después.",
+    fun: "¿Sabías que Scratch, el lenguaje de bloques para aprender a programar, fue creado en el MIT y lanzado en 2007?",
+    check: [
+      ["¿Qué guarda los puntos de un juego?", "Una variable", ["Un bucle", "Una pantalla"]],
+      ["«SI… ENTONCES…» es un…", "Condicional", ["Bucle", "Hardware"]]
+    ]
+  },
+  "xtec5a": {
+    hook: "¿Cómo sabe un juego que debe empezar cuando haces clic en la bandera verde? ¿Y cómo recuerda tus puntos? 🚩",
+    steps: [
+      { title: "Eventos", text: "Un evento es algo que pasa y que pone en marcha un grupo de instrucciones: un clic, apretar una tecla o que un personaje toque a otro.", example: "Al hacer clic en 🚩 · Al presionar la tecla espacio" },
+      { title: "Variables", text: "Una variable es como una caja con nombre que guarda un dato. Su valor puede cambiar mientras el programa corre.", example: "📦 puntos · 📦 vidas · 📦 tiempo" },
+      { title: "Iniciar las variables", text: "Al comenzar el juego hay que dar un valor inicial a las variables, para que no arrastren datos de la partida anterior.", example: "Al hacer clic 🚩 → puntos = 0 · vidas = 3" },
+      { title: "Cambiar las variables", text: "Durante el juego las variables cambian: subes puntos al ganar y restas vidas al chocar.", example: "Al tocar ⭐ → puntos + 1 · Al tocar 👾 → vidas − 1" },
+      { title: "Usar las variables para decidir", text: "Puedes revisar una variable en un condicional para cambiar lo que pasa en el juego.", example: "SI vidas = 0 ENTONCES mostrar «Fin del juego»" }
+    ],
+    remember: ["Los eventos inician acciones.", "Las variables guardan datos que cambian.", "Las variables se inician al empezar el juego."],
+    mistake: "Olvidar poner puntos = 0 al iniciar. Entonces el juego empieza con los puntos de la partida anterior.",
+    fun: "¿Sabías que en Scratch la bandera verde 🚩 es el evento más usado para empezar los programas?",
+    check: [
+      ["¿Qué es un clic en la bandera verde?", "Un evento", ["Una variable", "Un error"]],
+      ["Al empezar el juego, ¿qué valor das a los puntos?", "0", ["100", "El de la partida anterior"]]
+    ]
+  },
+  "xtec5b": {
+    hook: "Un mensaje cruel puede doler tanto como un empujón. ¿Qué puedes hacer si ves o sufres ciberacoso? 💬",
+    steps: [
+      { title: "Detrás de la pantalla hay personas", text: "Las palabras escritas también afectan. Antes de enviar, imagina cómo se sentiría la otra persona al leerlo.", example: "¿Se lo diría en la cara? Si no, no lo envío" },
+      { title: "¿Qué es el ciberacoso?", text: "Es cuando alguien molesta, humilla, amenaza o excluye a otra persona de forma repetida usando celulares, juegos o redes.", example: "Burlas en el grupo · fotos editadas para humillar" },
+      { title: "Si te pasa a ti", text: "No respondas con insultos. Guarda pruebas (capturas de pantalla), bloquea a la persona y cuéntale a un adulto de confianza.", example: "📸 guardar pruebas · 🚫 bloquear · 🗣️ contar" },
+      { title: "Si lo ves", text: "No compartas ni le des «me gusta». Apoya a quien lo sufre con un mensaje amable y avisa a un adulto. Así dejas de ser espectador.", example: "«Estoy contigo» 💙" },
+      { title: "Empatía todos los días", text: "Incluye a otros en los juegos, usa palabras amables y pide disculpas si te equivocaste.", example: "✅ invitar · ✅ felicitar · ✅ disculparse" }
+    ],
+    remember: ["Detrás de cada pantalla hay una persona.", "Ante el ciberacoso: guardar pruebas, bloquear y contar a un adulto.", "Quien lo ve también puede ayudar."],
+    mistake: "Responder a un acosador con más insultos. Eso empeora las cosas; es mejor guardar pruebas, bloquear y pedir ayuda.",
+    fun: "¿Sabías que en muchos países existen líneas telefónicas gratuitas para que niños y niñas pidan ayuda ante el acoso? Un adulto de confianza puede ayudarte a encontrarlas.",
+    check: [
+      ["Si alguien te acosa en línea, ¿qué haces primero?", "Guardar pruebas, bloquear y contar a un adulto", ["Insultarlo de vuelta", "Borrar todo y no contar"]],
+      ["Ves una burla contra un compañero. ¿Qué ayuda?", "No compartirla y apoyarlo", ["Darle «me gusta»", "Reenviarla al grupo"]]
+    ]
+  },
+  "xtec5c": {
+    hook: "Envías una foto a tu abuela que vive en otra ciudad y la recibe en segundos. ¿Qué camino recorrió? 📱➡️📱",
+    steps: [
+      { title: "La información se divide en paquetes", text: "Cuando envías algo, el dispositivo lo parte en muchos trozos pequeños llamados paquetes. Cada paquete lleva la dirección de destino.", example: "📷 foto → 📦📦📦📦" },
+      { title: "Direcciones IP", text: "Cada dispositivo conectado tiene una dirección, llamada dirección IP, para que los paquetes sepan a dónde ir.", example: "Como la dirección de una casa 🏠" },
+      { title: "Routers: los carteros", text: "Los routers reciben los paquetes y los envían por el mejor camino disponible. Cada paquete puede ir por un camino distinto.", example: "📶 router de casa → routers de la ciudad" },
+      { title: "Cables, fibra óptica y antenas", text: "Los paquetes viajan por cables, ondas de wifi, antenas de celular y fibra óptica, que transporta la información como pulsos de luz. Hay cables de fibra bajo el mar entre continentes.", example: "🌊 cables submarinos" },
+      { title: "Servidores y llegada", text: "Los servidores son computadores potentes que guardan y entregan información. Al llegar, los paquetes se reúnen en orden y la foto aparece completa.", example: "📱 → 📦📦📦 → 📶 → 🗄️ → 📱" }
+    ],
+    remember: ["La información viaja dividida en paquetes.", "Los routers dirigen los paquetes.", "Al final los paquetes se juntan en orden."],
+    mistake: "Pensar que internet viaja por satélites casi siempre. La mayor parte del tráfico entre continentes va por cables submarinos de fibra óptica.",
+    fun: "¿Sabías que hay cientos de cables submarinos de fibra óptica en el fondo del mar conectando a los continentes?",
+    check: [
+      ["¿Cómo se llaman los trozos en que se divide la información?", "Paquetes", ["Píxeles", "Carpetas"]],
+      ["¿Qué aparato dirige los paquetes por la red?", "El router", ["El teclado", "El parlante"]]
+    ]
+  },
+  "xtec5d": {
+    hook: "Una aspiradora robot no choca con el sofá. ¿Cómo «ve» el mueble y decide girar? 🤖",
+    steps: [
+      { title: "Percibir con sensores", text: "Los sensores son los «sentidos» del robot: miden algo del entorno, como la distancia, la luz, el tacto o la temperatura.", example: "📡 sensor de distancia · 💡 sensor de luz" },
+      { title: "Procesar con un controlador", text: "El controlador es el «cerebro»: un pequeño computador que recibe los datos de los sensores y sigue un programa para decidir.", example: "SI distancia < 10 cm ENTONCES girar" },
+      { title: "Actuar con motores", text: "Los actuadores, como los motores, hacen que el robot se mueva, gire, levante algo o encienda una luz.", example: "⚙️ motor de las ruedas" },
+      { title: "El ciclo se repite", text: "El robot repite muchas veces por segundo: percibir, decidir y actuar. Así reacciona a los cambios.", example: "Sensor → decide → motor → sensor…" },
+      { title: "Robots a tu alrededor", text: "Hay robots en fábricas, hospitales, el espacio y las casas. Todos usan sensores, controlador y actuadores.", example: "🏭 brazo robótico · 🚀 rover en Marte" }
+    ],
+    remember: ["Los sensores perciben.", "El controlador procesa y decide.", "Los motores actúan."],
+    mistake: "Pensar que el robot «ve» como nosotros. Solo mide datos con sus sensores y sigue las reglas de su programa.",
+    fun: "¿Sabías que el rover Perseverance, que llegó a Marte en 2021, tiene más de 20 cámaras?",
+    check: [
+      ["¿Qué parte del robot percibe el entorno?", "Los sensores", ["Los motores", "La batería"]],
+      ["¿Qué hace el controlador?", "Procesa los datos y decide", ["Mueve las ruedas", "Mide la luz"]]
+    ]
+  },
+  "xtec5e": {
+    hook: "¿Dónde termina el celular viejo de tu familia? Si va a la basura común, puede contaminar la tierra y el agua. 🔋",
+    steps: [
+      { title: "¿Qué es la basura electrónica?", text: "Son los aparatos eléctricos y electrónicos que ya no se usan: celulares, pilas, cargadores, computadores, audífonos y juguetes con baterías.", example: "📱 celular viejo · 🔌 cargador roto" },
+      { title: "¿Por qué contamina?", text: "Muchos contienen metales como plomo, mercurio o cadmio que, si se botan con la basura común, pueden llegar al suelo y al agua.", example: "🔋 pila en la tierra → contamina" },
+      { title: "También tiene tesoros", text: "Los aparatos tienen metales valiosos como oro, plata y cobre que se pueden recuperar y volver a usar.", example: "Circuitos con oro y cobre" },
+      { title: "Puntos de recolección", text: "La basura electrónica se lleva a puntos especiales de recolección o a campañas de reciclaje, nunca a la caneca común.", example: "🔋 pilas → punto especial · 🍌 cáscara → orgánico" },
+      { title: "Reducir y reparar", text: "Lo mejor es cuidar los aparatos para que duren, repararlos y donarlos si aún funcionan.", example: "🔧 reparar · 🎁 donar" }
+    ],
+    remember: ["La basura electrónica contiene materiales contaminantes.", "Va a puntos de recolección especiales.", "Reparar y donar alarga la vida de los aparatos."],
+    mistake: "Botar las pilas usadas en la caneca de la casa. Deben ir a un punto de recolección especial.",
+    fun: "¿Sabías que se recicla solo una pequeña parte de la basura electrónica del mundo? Según la ONU, en 2022 fue menos de una cuarta parte.",
+    check: [
+      ["¿Dónde van las pilas usadas?", "A un punto de recolección especial", ["A la caneca de orgánicos", "Al río"]],
+      ["¿Qué metal valioso se puede recuperar de los aparatos?", "Oro", ["Arena", "Madera"]]
+    ]
+  },
+  "xtec5f": {
+    hook: "Hablas al micrófono y tu amigo te oye por los parlantes. ¿Por dónde entra y por dónde sale la información? 🎤🔊",
+    steps: [
+      { title: "Dispositivos de entrada", text: "Envían información AL computador. Con ellos le damos datos u órdenes.", example: "⌨️ teclado · 🖱️ ratón · 🎤 micrófono · 📷 cámara · escáner" },
+      { title: "Dispositivos de salida", text: "Sacan información DEL computador para que la veamos, oigamos o tengamos en papel.", example: "🖥️ pantalla · 🔊 parlantes · 🖨️ impresora · 🎧 audífonos" },
+      { title: "Entrada y salida a la vez", text: "Algunos dispositivos hacen las dos cosas: la pantalla táctil recibe tus toques y muestra imágenes.", example: "📱 pantalla táctil · 🎧 audífonos con micrófono" },
+      { title: "El camino de la información", text: "Entrada → procesamiento → salida. El procesador trabaja con lo que entra y produce lo que sale.", example: "🎤 voz → procesador → 🔊 sonido" },
+      { title: "Cómo clasificarlos", text: "Pregúntate: ¿la información va hacia el computador (entrada) o sale de él hacia mí (salida)?", example: "Impresora: sale en papel → salida" }
+    ],
+    remember: ["Entrada: la información va al computador.", "Salida: la información sale del computador.", "Algunos dispositivos son de entrada y salida."],
+    mistake: "Pensar que la impresora es de entrada porque le metes papel. Lo que importa es la información: sale del computador, así que es de salida.",
+    fun: "¿Sabías que el primer ratón de computador, presentado por Douglas Engelbart en 1968, era una cajita de madera con ruedas?",
+    check: [
+      ["¿Cuál es un dispositivo de entrada?", "El micrófono", ["Los parlantes", "La impresora"]],
+      ["¿Cuál es un dispositivo de salida?", "La pantalla", ["El teclado", "El escáner"]]
+    ]
+  },
+  "xtec5g": {
+    hook: "Quieres programar un juego donde atrapas estrellas. ¿Por dónde empiezas? 🌟",
+    steps: [
+      { title: "1. Evento de inicio", text: "Todo programa necesita algo que lo ponga en marcha. En los bloques suele ser «al hacer clic en la bandera verde».", example: "🚩 Al hacer clic en la bandera" },
+      { title: "2. Preparar las variables", text: "Da valores iniciales: puntos en 0, vidas en 3 y el personaje en su posición de salida.", example: "puntos = 0 · vidas = 3 · ir a x: 0, y: 0" },
+      { title: "3. Repetir", text: "Usa un bucle «por siempre» para que el juego revise todo una y otra vez mientras juegas.", example: "POR SIEMPRE [ … ]" },
+      { title: "4. Decidir", text: "Dentro del bucle pon condicionales: si tocas una estrella, sumas un punto; si tocas un enemigo, pierdes una vida.", example: "SI toca ⭐ ENTONCES puntos + 1" },
+      { title: "5. Probar y depurar", text: "Ejecuta el programa, juega y revisa si todo funciona. Si algo falla, busca el bloque que lo causa y corrígelo.", example: "Los puntos suben de 10 en 10 → corregir a + 1" }
+    ],
+    remember: ["Un programa empieza con un evento.", "Primero se preparan las variables.", "Luego se repite y se decide; al final se prueba."],
+    mistake: "Poner puntos = 0 dentro del bucle «por siempre». Así los puntos vuelven a cero todo el tiempo; debe ir antes del bucle.",
+    fun: "¿Sabías que muchos videojuegos revisan lo que pasa unas 60 veces por segundo? Cada repetición se llama fotograma o frame.",
+    check: [
+      ["¿Qué va primero en el programa?", "El evento de inicio", ["El condicional", "Probar"]],
+      ["¿Dónde se pone «puntos = 0»?", "Antes del bucle", ["Dentro del bucle por siempre", "En ningún lado"]]
+    ]
+  },
+  "xtec5h": {
+    hook: "Hoy lees como un detective: buscarás pistas en el texto sobre cómo viaja un mensaje y cómo convivir en los chats. 🕵️",
+    steps: [
+      { title: "Antes de leer", text: "Lee el título y las imágenes y predice de qué trata. Pregúntate qué sabes ya sobre paquetes, routers y chats.", example: "Título: «El viaje de un mensaje»" },
+      { title: "Durante la lectura", text: "Subraya las palabras técnicas (paquete, router, servidor) y las acciones de los personajes en el chat.", example: "📦 paquete · 📶 router · 💬 chat de clase" },
+      { title: "Ordena la secuencia", text: "Reconstruye en orden el viaje de la información: se divide en paquetes, viaja por routers, pasa por servidores y llega.", example: "Enviar → paquetes → routers → servidor → recibir" },
+      { title: "Analiza la convivencia", text: "Identifica qué comportamientos en el chat fueron respetuosos y cuáles no, y qué consecuencias tuvieron.", example: "Un mensaje burlón hizo sentir mal a Lucía" },
+      { title: "Responde con evidencia", text: "Al contestar las preguntas, apóyate en una frase del texto. Así tu respuesta es más sólida.", example: "«Según el texto, los paquetes viajan por distintos caminos»" }
+    ],
+    remember: ["Predice, lee y subraya las palabras clave.", "Ordena la secuencia del viaje de la información.", "Responde con evidencias del texto."],
+    mistake: "Responder solo con lo que recuerdas sin revisar el texto. Las pistas están en la lectura: búscalas.",
+    fun: "¿Sabías que el primer mensaje enviado por ARPANET, la red que dio origen a internet, en 1969, fue «LO»? El sistema falló antes de completar la palabra «LOGIN».",
+    check: [
+      ["¿Qué haces para responder con más seguridad?", "Buscar una frase del texto que lo pruebe", ["Adivinar", "Copiar la pregunta"]],
+      ["¿Qué orden sigue el mensaje?", "Paquetes → routers → servidor → destino", ["Servidor → teclado → routers", "Destino → paquetes → inicio"]]
+    ]
+  },
