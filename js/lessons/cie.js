@@ -1140,3 +1140,238 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Qué mide el anemómetro?", "La velocidad del viento", ["La temperatura", "La presión"]]
     ]
   },
+  /* ===== 6.º ===== */
+  "c6a": {
+    hook: "Un hongo no es una planta, aunque crezca en el suelo. ¿Por qué? Porque los científicos clasifican a los seres vivos en reinos.",
+    steps: [
+      { title: "¿Por qué clasificar?", text: "Hay millones de especies. Para estudiarlas, los científicos las agrupan según sus características: tipo de células, número de células y forma de nutrición.", example: "🔬 células · 🍽️ nutrición" },
+      { title: "Reino Monera y Protista", text: "Monera incluye las bacterias: unicelulares y sin núcleo definido (procariotas). Protista reúne organismos con núcleo, casi siempre unicelulares, como las amebas y muchas algas.", example: "🦠 bacteria · 🔬 ameba · 🟢 alga" },
+      { title: "Reino Fungi (hongos)", text: "Los hongos tienen células con núcleo y pared celular, pero no hacen fotosíntesis: se alimentan absorbiendo materia de otros seres, muchas veces descomponiéndola.", example: "🍄 champiñón · 🍞 moho del pan · levadura" },
+      { title: "Reino Plantae (vegetal)", text: "Las plantas son pluricelulares y fabrican su alimento por fotosíntesis gracias a la clorofila. Incluye musgos, helechos, pinos y plantas con flor.", example: "🌿 helecho · 🌳 ceiba · 🌵 cactus" },
+      { title: "Reino Animalia (animal)", text: "Los animales son pluricelulares y se alimentan de otros seres vivos. La mayoría puede desplazarse. Incluye vertebrados e invertebrados.", example: "🐆 jaguar · 🐝 abeja · 🐙 pulpo" }
+    ],
+    remember: ["Los cinco reinos: monera, protista, hongos, vegetal y animal.", "Monera: bacterias sin núcleo definido.", "Los hongos no hacen fotosíntesis: absorben su alimento."],
+    mistake: "Muchos creen que los hongos son plantas. No tienen clorofila ni hacen fotosíntesis; de hecho, están más emparentados con los animales que con las plantas.",
+    fun: "¿Sabías que uno de los seres vivos más grandes del mundo es un hongo subterráneo en Oregón (EE. UU.) que se extiende por varios kilómetros cuadrados?",
+    check: [
+      ["¿A qué reino pertenecen las bacterias?", "Monera", ["Fungi", "Plantae"]],
+      ["¿Qué NO hacen los hongos?", "Fotosíntesis", ["Reproducirse", "Absorber alimento"]],
+      ["¿Qué reino fabrica su alimento con clorofila?", "Plantae", ["Animalia", "Fungi"]]
+    ]
+  },
+  "c6b": {
+    hook: "¿Cómo llega el polen de una flor a otra si las plantas no pueden caminar? ¡Tienen ayudantes muy especiales!",
+    steps: [
+      { title: "Partes de la flor", text: "La flor es el órgano reproductor de muchas plantas. Los estambres producen el polen (parte masculina) y el pistilo contiene los óvulos en el ovario (parte femenina).", example: "🌸 estambres · pistilo · ovario" },
+      { title: "Polinización", text: "La polinización es el paso del polen de los estambres al pistilo. Lo transportan el viento, el agua o animales como abejas, mariposas, colibríes y murciélagos.", example: "🐝 abeja · 🐦 colibrí · 🦇 murciélago" },
+      { title: "Fecundación, fruto y semilla", text: "El polen llega al óvulo y lo fecunda. El óvulo se convierte en semilla y el ovario crece y forma el fruto, que protege y ayuda a dispersar las semillas.", example: "🌸 → 🥑 aguacate con semilla" },
+      { title: "Dispersión y germinación", text: "Las semillas se dispersan con el viento, el agua o los animales que comen frutos. Si encuentran agua, aire y temperatura adecuada, germinan.", example: "🌬️ diente de león · 🐦 aves que comen frutos" },
+      { title: "Reproducción asexual", text: "Muchas plantas también se reproducen sin semillas: por estolones (fresa), tubérculos (papa), bulbos (cebolla) o esquejes. Las plantas hijas son iguales a la madre.", example: "🍓 estolones · 🥔 tubérculos · 🧅 bulbos" }
+    ],
+    remember: ["La flor tiene estambres (polen) y pistilo (óvulos).", "Polinización → fecundación → fruto y semilla.", "También hay reproducción asexual: estolones, tubérculos, bulbos."],
+    mistake: "Algunos creen que todas las plantas tienen flores. Los helechos y los musgos se reproducen por esporas y no tienen flores ni semillas.",
+    fun: "¿Sabías que muchos murciélagos de América polinizan el agave con el que se elabora el tequila?",
+    check: [
+      ["¿Qué parte de la flor produce el polen?", "Los estambres", ["El ovario", "La raíz"]],
+      ["¿En qué se convierte el ovario después de la fecundación?", "En el fruto", ["En la raíz", "En la hoja"]],
+      ["¿Cómo se reproduce la papa de forma asexual?", "Por tubérculos", ["Por esporas", "Por huevos"]]
+    ]
+  },
+  "c6c": {
+    hook: "El hoyo más profundo que han cavado los humanos no llega ni al 1 % del camino al centro de la Tierra. ¿Qué hay allá abajo?",
+    steps: [
+      { title: "La corteza", text: "La corteza es la capa externa, sólida y delgada, donde vivimos. Bajo los océanos es más delgada y bajo los continentes, más gruesa.", example: "🌍 como la piel del durazno" },
+      { title: "El manto", text: "El manto es la capa más gruesa. Está formado por rocas muy calientes que, en algunas zonas, se mueven lentamente como una pasta muy espesa.", example: "🍑 como la pulpa del durazno" },
+      { title: "El núcleo", text: "El núcleo, en el centro, está formado sobre todo por hierro y níquel. El núcleo externo es líquido y el interno es sólido por la enorme presión.", example: "🔴 como la semilla del durazno" },
+      { title: "Atmósfera e hidrosfera", text: "La atmósfera es la capa de gases que rodea la Tierra y nos da el aire. La hidrosfera es toda el agua: océanos, ríos, lagos, glaciares y agua subterránea.", example: "🌬️ atmósfera · 🌊 hidrosfera" },
+      { title: "Modelo de plastilina", text: "Haz una bolita roja (núcleo), cúbrela con una capa naranja gruesa (manto) y luego una capa fina café (corteza). Córtala por la mitad con un hilo y observa las capas.", example: "🔴 → 🟠 → 🟤" }
+    ],
+    remember: ["La Tierra tiene corteza, manto y núcleo.", "El núcleo es de hierro y níquel.", "La atmósfera es el aire y la hidrosfera es toda el agua."],
+    mistake: "Muchos creen que el manto es un mar de lava líquida. En realidad es casi todo roca sólida, muy caliente, que fluye muy lentamente.",
+    fun: "¿Sabías que la temperatura del núcleo de la Tierra es comparable a la de la superficie del Sol, unos 5 000 °C o más?",
+    check: [
+      ["¿Cuál es la capa donde vivimos?", "La corteza", ["El manto", "El núcleo"]],
+      ["¿De qué está hecho principalmente el núcleo?", "Hierro y níquel", ["Agua y sal", "Arena y arcilla"]],
+      ["¿Cómo se llama toda el agua del planeta?", "Hidrosfera", ["Atmósfera", "Corteza"]]
+    ]
+  },
+  "xcie6a": {
+    hook: "En México lo llaman zopilote, en Colombia gallinazo y en Argentina jote. ¿Cómo hacen los científicos para entenderse?",
+    steps: [
+      { title: "Categorías de clasificación", text: "Los científicos ordenan a los seres vivos en categorías, de la más amplia a la más específica: reino, filo, clase, orden, familia, género y especie.", example: "Reino → filo → clase → orden → familia → género → especie" },
+      { title: "De lo general a lo particular", text: "En el reino hay muchísimos seres distintos; en la especie solo hay organismos tan parecidos que pueden reproducirse entre sí y tener descendencia fértil.", example: "🐾 Animalia: millones · 🐺 Canis lupus: una especie" },
+      { title: "El nombre científico", text: "Cada especie tiene un nombre científico de dos palabras en latín: el género (con mayúscula) y la especie (con minúscula). Se escribe en cursiva.", example: "🧍 Homo sapiens · 🐆 Panthera onca" },
+      { title: "Un ejemplo completo", text: "El jaguar: reino Animalia, filo Chordata, clase Mammalia, orden Carnivora, familia Felidae, género Panthera, especie Panthera onca.", example: "🐆 jaguar = Panthera onca" },
+      { title: "¿Por qué sirve?", text: "El nombre científico es el mismo en todo el mundo. Así se evita la confusión de los nombres comunes, que cambian de un país a otro.", example: "🦅 zopilote = gallinazo = jote = Coragyps atratus" }
+    ],
+    remember: ["Categorías: reino, filo, clase, orden, familia, género y especie.", "El nombre científico tiene dos palabras: género y especie.", "Es igual en todo el mundo."],
+    mistake: "Algunos escriben el nombre científico con ambas palabras en mayúscula. La forma correcta es: género con mayúscula y especie con minúscula, como Homo sapiens.",
+    fun: "¿Sabías que el sistema de nombres de dos palabras lo popularizó el naturalista sueco Carlos Linneo en el siglo XVIII?",
+    check: [
+      ["¿Cuál es la categoría más específica?", "Especie", ["Reino", "Clase"]],
+      ["¿Cómo se escribe correctamente el nombre científico humano?", "Homo sapiens", ["Homo Sapiens", "homo sapiens"]],
+      ["¿Cuántas palabras tiene un nombre científico de especie?", "Dos", ["Una", "Cinco"]]
+    ]
+  },
+  "xcie6b": {
+    hook: "Entre los 8 y los 14 años, aproximadamente, el cuerpo empieza a cambiar. ¿Por qué ocurre y qué es normal?",
+    steps: [
+      { title: "¿Qué es la pubertad?", text: "La pubertad es la etapa en que el cuerpo pasa de niño a adulto y se vuelve capaz de reproducirse. La inician unas sustancias químicas llamadas hormonas.", example: "🧪 hormonas = mensajeros químicos" },
+      { title: "Cambios comunes", text: "Hay un estirón de crecimiento, aparece vello en axilas y zona genital, aumenta el sudor y puede salir acné. Por eso la higiene diaria se vuelve más importante.", example: "📏 estirón · 🧴 más sudor" },
+      { title: "Cambios en chicas y chicos", text: "En las chicas crecen las mamas, se ensanchan las caderas y empieza la menstruación. En los chicos crecen los testículos y el pene, la voz se vuelve más grave y aparece el vello facial.", example: "🗣️ cambio de voz · 📅 menstruación" },
+      { title: "La reproducción humana", text: "Los ovarios producen óvulos y los testículos espermatozoides. Cuando un espermatozoide fecunda un óvulo, se forma un embrión que se desarrolla en el útero durante unos nueve meses.", example: "🥚 óvulo + espermatozoide → embrión" },
+      { title: "Emociones y ritmo propio", text: "Las hormonas también cambian las emociones: es normal sentir cambios de ánimo. Cada persona tiene su propio ritmo; hablar con un adulto de confianza ayuda mucho.", example: "💬 hablar con familia, docentes o personal de salud" }
+    ],
+    remember: ["La pubertad la inician las hormonas.", "Cada persona tiene su propio ritmo y todos los cambios son normales.", "La higiene y la comunicación con adultos de confianza son clave."],
+    mistake: "Muchos creen que hay una edad exacta para cada cambio. Cada cuerpo tiene su propio reloj: empezar antes o después que tus amigos es completamente normal.",
+    fun: "¿Sabías que durante el estirón de la pubertad algunos adolescentes llegan a crecer unos 8 a 10 centímetros en un solo año?",
+    check: [
+      ["¿Qué inicia los cambios de la pubertad?", "Las hormonas", ["Los dientes", "Las vacunas"]],
+      ["¿Qué es normal en la pubertad?", "Que cada persona tenga su propio ritmo", ["Que todos cambien el mismo día", "Que no haya ningún cambio emocional"]],
+      ["¿Dónde se desarrolla el embrión?", "En el útero", ["En el estómago", "En los pulmones"]]
+    ]
+  },
+  "xcie6c": {
+    hook: "¿Por qué tienes los ojos de tu mamá y la sonrisa de tu papá? ¡La respuesta está escrita en tus células!",
+    steps: [
+      { title: "El ADN", text: "Dentro del núcleo de cada célula está el ADN, una molécula larguísima con forma de escalera retorcida (doble hélice). Contiene las instrucciones para formar y hacer funcionar tu cuerpo.", example: "🧬 doble hélice" },
+      { title: "Genes y cromosomas", text: "Un gen es un fragmento de ADN con la instrucción para un rasgo. El ADN se organiza en cromosomas: los seres humanos tenemos 46, es decir, 23 pares.", example: "🧬 46 cromosomas = 23 pares" },
+      { title: "Mitad y mitad", text: "Recibes la mitad de tus cromosomas del óvulo de tu madre y la otra mitad del espermatozoide de tu padre. Por eso tienes rasgos de ambos.", example: "👩 23 + 👨 23 = 46" },
+      { title: "Dominantes y recesivos", text: "Para muchos rasgos tienes dos versiones del gen. Un gen dominante se manifiesta aunque haya solo una copia; uno recesivo solo se manifiesta si hay dos copias.", example: "Ojos: muchas veces el oscuro domina sobre el claro" },
+      { title: "Herencia y ambiente", text: "No todo depende de los genes. La alimentación, el ejercicio y el ambiente también influyen, por ejemplo, en tu estatura o tu salud.", example: "🧬 genes + 🍎 ambiente" }
+    ],
+    remember: ["Los genes están en el ADN y determinan rasgos.", "Recibes la mitad de tus genes de cada progenitor.", "Hay genes dominantes y recesivos."],
+    mistake: "Muchos creen que un hijo es una mezcla exacta de los rasgos de sus padres. Por los genes recesivos, dos padres de ojos oscuros pueden tener un hijo de ojos claros.",
+    fun: "¿Sabías que si estiraras el ADN de una sola de tus células mediría unos 2 metros?",
+    check: [
+      ["¿Dónde están los genes?", "En el ADN", ["En la piel solamente", "En la sangre del corazón"]],
+      ["¿Cuántos cromosomas tiene una célula humana normalmente?", "46", ["23", "100"]],
+      ["Un gen recesivo se manifiesta cuando…", "Hay dos copias", ["Hay solo una copia", "Nunca"]]
+    ]
+  },
+  "xcie6d": {
+    hook: "Todo lo que te rodea, desde el aire hasta tu cuaderno, está hecho de piezas tan pequeñas que millones caben en un punto. ¡Son los átomos!",
+    steps: [
+      { title: "El átomo", text: "El átomo es la partícula más pequeña de un elemento que conserva sus propiedades. Tiene un núcleo con protones (carga positiva) y neutrones (sin carga), y alrededor se mueven los electrones (carga negativa).", example: "⚛️ protones + neutrones · electrones alrededor" },
+      { title: "Los elementos", text: "Un elemento es una sustancia formada por un solo tipo de átomo. Se representa con un símbolo químico de una o dos letras y se ordena en la tabla periódica.", example: "Fe hierro · O oxígeno · Au oro · C carbono" },
+      { title: "El número atómico", text: "Lo que distingue a cada elemento es su número de protones, llamado número atómico. El hidrógeno tiene 1 protón y el carbono tiene 6.", example: "H = 1 · C = 6 · O = 8" },
+      { title: "Los compuestos", text: "Un compuesto es una sustancia formada por átomos de elementos distintos unidos químicamente, en proporciones fijas. Sus propiedades son diferentes a las de sus elementos.", example: "H₂O agua · CO₂ dióxido de carbono · NaCl sal" },
+      { title: "Modelo con plastilina", text: "Haz bolitas de dos colores: rojas para oxígeno y blancas para hidrógeno. Une una roja con dos blancas usando palillos: ¡construiste una molécula de agua, H₂O!", example: "⚪🔴⚪ = H₂O" }
+    ],
+    remember: ["Los átomos tienen protones, neutrones y electrones.", "Un elemento tiene un solo tipo de átomo.", "Un compuesto une átomos de elementos distintos."],
+    mistake: "Algunos creen que en el agua hay oxígeno para respirar como el del aire. En el agua el oxígeno está unido al hidrógeno formando un compuesto con propiedades muy distintas.",
+    fun: "¿Sabías que casi toda la masa de un átomo está en su núcleo, aunque el núcleo es muchísimo más pequeño que el átomo completo?",
+    check: [
+      ["¿Qué partícula tiene carga negativa?", "El electrón", ["El protón", "El neutrón"]],
+      ["¿Qué es el agua (H₂O)?", "Un compuesto", ["Un elemento", "Un átomo"]],
+      ["¿Qué distingue a un elemento de otro?", "Su número de protones", ["Su color", "Su tamaño en la tabla"]]
+    ]
+  },
+  "xcie6e": {
+    hook: "Au, NaCl, O₂, CO₂… parecen códigos secretos. ¡Aprende a descifrarlos y sabrás si es un elemento o un compuesto!",
+    steps: [
+      { title: "Los símbolos químicos", text: "Cada elemento tiene un símbolo: una letra mayúscula, a veces seguida de una minúscula. Cada mayúscula marca el inicio de un elemento distinto.", example: "C carbono · Ca calcio · Cl cloro" },
+      { title: "Un solo símbolo: elemento", text: "Si la fórmula tiene un solo símbolo químico, es un elemento, aunque lleve un número pequeño. O₂ es oxígeno: dos átomos del mismo elemento.", example: "Au oro · Fe hierro · O₂ oxígeno" },
+      { title: "Varios símbolos: compuesto", text: "Si la fórmula combina símbolos de elementos diferentes, es un compuesto.", example: "NaCl sal · H₂O agua · CO₂ dióxido de carbono" },
+      { title: "Los subíndices", text: "El número pequeño (subíndice) indica cuántos átomos de ese elemento hay. En H₂O hay 2 de hidrógeno y 1 de oxígeno.", example: "H₂O = 2 H + 1 O" },
+      { title: "Cuidado con Co y CO", text: "Co (con o minúscula) es el elemento cobalto. CO (dos mayúsculas) es el compuesto monóxido de carbono: carbono y oxígeno.", example: "Co elemento · CO compuesto" }
+    ],
+    remember: ["Un solo símbolo químico = elemento.", "Símbolos de elementos distintos = compuesto.", "Cada mayúscula inicia un elemento nuevo."],
+    mistake: "Muchos creen que O₂ es un compuesto porque tiene dos átomos. Tiene un solo tipo de átomo (oxígeno), así que es un elemento.",
+    fun: "¿Sabías que el símbolo del oro, Au, viene de su nombre en latín, aurum, y el del hierro, Fe, de ferrum?",
+    check: [
+      ["¿Qué es NaCl?", "Un compuesto", ["Un elemento", "Un electrón"]],
+      ["¿Qué es O₂?", "Un elemento", ["Un compuesto", "Una mezcla de agua"]],
+      ["¿Cuántos átomos de hidrógeno hay en H₂O?", "2", ["1", "3"]]
+    ]
+  },
+  "xcie6f": {
+    hook: "Si derrites chocolate, sigue siendo chocolate. Pero si quemas una hoja de papel, ¿puedes volver a tener la hoja?",
+    steps: [
+      { title: "Cambio físico", text: "En un cambio físico la sustancia sigue siendo la misma; solo cambia su forma, tamaño o estado. Muchos cambios físicos son reversibles.", example: "🧊 hielo que se derrite · ✂️ papel cortado · 🧂 sal disuelta" },
+      { title: "Cambio químico", text: "En un cambio químico, o reacción química, las sustancias se transforman en otras nuevas con propiedades distintas. Casi siempre es irreversible.", example: "🪵 madera que arde · 🔩 clavo oxidado · 🍳 huevo cocido" },
+      { title: "Señales de un cambio químico", text: "Puedes sospechar un cambio químico si hay cambio de color, burbujas de gas, olor nuevo, luz o calor, o se forma un sólido nuevo.", example: "🫧 burbujas · 🎨 color nuevo · 🔥 luz y calor" },
+      { title: "Experimento del volcán", text: "Pon bicarbonato de sodio en un vaso y agrega vinagre. Las burbujas indican que se formó un gas nuevo (dióxido de carbono): es un cambio químico.", example: "🧂 bicarbonato + 🫙 vinagre = 🫧 CO₂" },
+      { title: "Cambios químicos en la vida", text: "La digestión, la fotosíntesis, la oxidación del hierro y la cocción del pan son cambios químicos que ocurren todo el tiempo.", example: "🍞 pan horneado · 🍎 manzana que se oscurece" }
+    ],
+    remember: ["Cambio físico: la sustancia sigue siendo la misma.", "Cambio químico: se forma una sustancia nueva.", "Burbujas, color nuevo, olor o calor indican cambio químico."],
+    mistake: "Muchos creen que disolver azúcar en agua es un cambio químico porque el azúcar deja de verse. Es físico: el azúcar sigue allí y se recupera evaporando el agua.",
+    fun: "¿Sabías que la Estatua de la Libertad es verde porque su cobre reaccionó con el aire durante años? Al principio era de color cobrizo brillante.",
+    check: [
+      ["¿Qué tipo de cambio es derretir hielo?", "Físico", ["Químico", "Nuclear"]],
+      ["¿Qué tipo de cambio es quemar madera?", "Químico", ["Físico", "Ninguno"]],
+      ["¿Qué señal indica un cambio químico?", "Aparecen burbujas de un gas nuevo", ["El objeto se corta en dos", "El hielo se vuelve agua"]]
+    ]
+  },
+  "xcie6g": {
+    hook: "¿Por qué en Chile, México o Ecuador tiembla tanto y hay tantos volcanes? La respuesta está en el suelo que se mueve bajo tus pies.",
+    steps: [
+      { title: "Las placas tectónicas", text: "La corteza terrestre está dividida en grandes piezas llamadas placas tectónicas. Flotan sobre el manto y se mueven unos pocos centímetros al año, más o menos lo que crecen tus uñas.", example: "🧩 la corteza es como un rompecabezas" },
+      { title: "Cuando chocan", text: "Cuando dos placas chocan, una puede hundirse bajo la otra (subducción) o ambas se pliegan y forman montañas. La placa de Nazca se hunde bajo la Sudamericana y así se formaron los Andes.", example: "🏔️ cordillera de los Andes" },
+      { title: "Cuando se separan o rozan", text: "Cuando las placas se separan, sube magma y se forma corteza nueva, como en el fondo del océano Atlántico. Cuando se rozan de lado, acumulan tensión.", example: "🌊 dorsal del Atlántico" },
+      { title: "Sismos y volcanes", text: "Un sismo ocurre cuando las placas liberan de golpe la tensión acumulada. Los volcanes se forman donde el magma encuentra salida a la superficie, sobre todo en los bordes de placas.", example: "🌋 Popocatépetl (México) · Cotopaxi (Ecuador)" },
+      { title: "Cinturón de Fuego y prevención", text: "Gran parte de la costa del Pacífico de América está en el Cinturón de Fuego del Pacífico, con muchos sismos y volcanes. Por eso es importante tener un plan familiar y conocer las rutas de evacuación.", example: "🎒 mochila de emergencia · 🚪 punto de encuentro" }
+    ],
+    remember: ["La corteza está dividida en placas que se mueven.", "Donde chocan o se separan se forman montañas, volcanes y sismos.", "Los Andes se formaron por la placa de Nazca bajo la Sudamericana."],
+    mistake: "Muchos creen que los sismos se pueden predecir con exactitud. Hoy no se puede saber el día y la hora exactos; por eso la prevención es tan importante.",
+    fun: "¿Sabías que el sismo más fuerte registrado en la historia ocurrió en Valdivia, Chile, en 1960, con magnitud 9,5?",
+    check: [
+      ["¿Cómo se llaman las piezas en que está dividida la corteza?", "Placas tectónicas", ["Núcleos", "Capas de humus"]],
+      ["¿Qué placa se hunde bajo la Sudamericana formando los Andes?", "La placa de Nazca", ["La placa del Pacífico Norte", "La placa Antártica de hielo"]],
+      ["¿Qué ocurre cuando las placas liberan de golpe la tensión?", "Un sismo", ["Un eclipse", "Una marea"]]
+    ]
+  },
+  "xcie6h": {
+    hook: "En las últimas décadas, muchos glaciares de los Andes se han reducido mucho. ¿Qué le está pasando a nuestro planeta?",
+    steps: [
+      { title: "El efecto invernadero", text: "Algunos gases de la atmósfera, como el dióxido de carbono (CO₂) y el metano, atrapan parte del calor del Sol. Es un efecto natural que permite que la Tierra no sea helada.", example: "🌍 + 🧣 manta de gases" },
+      { title: "Demasiados gases", text: "Al quemar petróleo, carbón y gas, y al talar bosques, aumentan los gases de efecto invernadero. La manta se vuelve más gruesa y el planeta se calienta: es el calentamiento global.", example: "🏭 CO₂ ↑ → 🌡️ temperatura ↑" },
+      { title: "Consecuencias", text: "El cambio climático derrite glaciares, eleva el nivel del mar, produce sequías e inundaciones más intensas y afecta a animales y cultivos.", example: "🧊 deshielo · 🌊 nivel del mar ↑ · 🐻‍❄️ hábitats en riesgo" },
+      { title: "¿Qué podemos hacer?", text: "Ahorrar energía, usar transporte público, bicicleta o caminar, sembrar y cuidar árboles, reducir la basura y preferir energías renovables.", example: "🚲 bici · 🌳 árboles · 💡 apagar luces" },
+      { title: "Mide el efecto", text: "Pon dos termómetros al sol, uno dentro de un frasco de vidrio cerrado y otro afuera. Después de 20 minutos compara: el del frasco marca más, porque el calor queda atrapado, parecido a un invernadero.", example: "🫙 dentro: más caliente" }
+    ],
+    remember: ["El efecto invernadero es natural, pero lo estamos aumentando.", "Quemar combustibles fósiles y talar bosques calienta el planeta.", "Ahorrar energía y sembrar árboles ayudan."],
+    mistake: "Algunos confunden tiempo y clima: un día frío no significa que no haya calentamiento global. El cambio climático se mide con promedios de muchos años en todo el planeta.",
+    fun: "¿Sabías que la Amazonia guarda enormes cantidades de carbono en sus árboles, por eso protegerla ayuda a frenar el cambio climático?",
+    check: [
+      ["¿Qué gas aumenta al quemar combustibles fósiles?", "Dióxido de carbono", ["Oxígeno puro", "Helio"]],
+      ["¿Cuál es una consecuencia del calentamiento global?", "El deshielo de glaciares", ["Más volcanes nuevos", "Que la Luna se acerque"]],
+      ["¿Qué acción ayuda a frenar el cambio climático?", "Sembrar árboles", ["Talar bosques", "Dejar luces encendidas"]]
+    ]
+  },
+  "xcie6i": {
+    hook: "¿Por qué el pan se llena de moho más rápido en algunos lugares de la casa? ¡Puedes averiguarlo como un verdadero científico!",
+    steps: [
+      { title: "Observación y pregunta", text: "Todo comienza observando algo con atención y haciendo una pregunta que se pueda investigar.", example: "🍞 ¿La humedad hace que el pan se enmohezca más rápido?" },
+      { title: "Hipótesis", text: "Una hipótesis es una posible respuesta a la pregunta que se puede comprobar. Se suele escribir como: si… entonces…", example: "Si el pan está en un lugar húmedo, entonces le saldrá moho antes." },
+      { title: "Experimento y variables", text: "En el experimento cambias solo una cosa (variable independiente) y mides el resultado (variable dependiente). Todo lo demás se mantiene igual para que la prueba sea justa.", example: "🍞 una bolsa con gotas de agua y otra seca, ambas iguales en todo lo demás" },
+      { title: "Análisis y conclusión", text: "Registras los datos en tablas o gráficos, los analizas y concluyes si la hipótesis se confirmó o no. Si no se confirma, también aprendes algo.", example: "📊 Día 4: pan húmedo con moho, pan seco sin moho" },
+      { title: "Comunicar", text: "Los científicos comparten sus resultados para que otros puedan revisarlos y repetir el experimento. Así la ciencia avanza.", example: "📢 feria de ciencias · informe" }
+    ],
+    remember: ["Pasos: observación, pregunta, hipótesis, experimento, análisis, conclusión.", "Una hipótesis debe poder comprobarse.", "En un experimento justo se cambia una sola variable."],
+    mistake: "Muchos creen que si la hipótesis no se confirma, el experimento fracasó. Un resultado que la contradice también es valioso y ayuda a mejorar las ideas.",
+    fun: "¿Sabías que el científico Louis Pasteur usó experimentos con matraces de cuello de cisne para demostrar que los microbios no aparecen de la nada?",
+    check: [
+      ["¿Qué es una hipótesis?", "Una posible respuesta que se puede comprobar", ["El resultado final", "Una tabla de datos"]],
+      ["¿Qué paso va después de la hipótesis?", "El experimento", ["La observación", "La pregunta"]],
+      ["En un experimento justo, ¿cuántas variables se cambian a la vez?", "Una", ["Todas", "Ninguna"]]
+    ]
+  },
+  "xcie6j": {
+    hook: "Un buen lector de ciencia no solo lee palabras: busca qué pasó, por qué pasó y qué se concluyó. ¡Practiquemos!",
+    steps: [
+      { title: "Antes de leer", text: "Lee el título, los subtítulos y mira los gráficos o mapas. Pregúntate qué sabes del tema y qué te gustaría descubrir.", example: "📖 El terremoto de Valdivia de 1960" },
+      { title: "Busca cifras y nombres", text: "Los textos científicos usan datos precisos: fechas, magnitudes, porcentajes y nombres técnicos. Márcalos porque suelen ser la evidencia de lo que se afirma.", example: "📊 magnitud 9,5 · placa de Nazca" },
+      { title: "Causa y consecuencia", text: "Identifica qué provocó el fenómeno y qué efectos tuvo. Busca conectores como debido a, por lo tanto, en consecuencia.", example: "Choque de placas (causa) → sismo y tsunami (consecuencias)" },
+      { title: "Evidencia y conclusión", text: "Distingue los datos (lo que se observó o midió) de las conclusiones (lo que se deduce de esos datos). Una buena conclusión siempre se apoya en evidencia.", example: "🧬 Dato: hijos con ojos claros · Conclusión: ambos padres tenían el gen recesivo" },
+      { title: "Resume en tres preguntas", text: "Al terminar, responde: ¿qué pasó?, ¿por qué pasó?, ¿qué se concluyó? Si puedes responder las tres, entendiste el texto.", example: "✍️ qué · por qué · conclusión" }
+    ],
+    remember: ["Fíjate en cifras y nombres técnicos.", "Identifica causas y consecuencias.", "Distingue datos de conclusiones."],
+    mistake: "Algunos creen que todo lo que dice un texto es una conclusión. Primero vienen los datos; la conclusión es lo que se deduce de ellos.",
+    fun: "¿Sabías que el terremoto de Valdivia de 1960 generó un tsunami que cruzó el océano Pacífico y llegó hasta Hawái y Japón?",
+    check: [
+      ["¿Qué palabras suelen indicar una consecuencia?", "Por lo tanto", ["Había una vez", "Por ejemplo"]],
+      ["¿En qué se apoya una buena conclusión?", "En la evidencia", ["En la opinión sin datos", "En el título solamente"]]
+    ]
+  }
+});
