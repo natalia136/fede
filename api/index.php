@@ -5,7 +5,11 @@
    Configuración opcional en api/config.php (ver api/config.sample.php). */
 declare(strict_types=1);
 
-$config = is_file(__DIR__ . '/config.php') ? (require __DIR__ . '/config.php') : [];
+// Si config.php tiene un error de escritura, la app sigue funcionando y /api/health dice en qué línea está.
+$CONFIG_ERROR = null;
+try { $config = is_file(__DIR__ . '/config.php') ? (require __DIR__ . '/config.php') : []; }
+catch (\Throwable $e) { $config = []; $CONFIG_ERROR = 'api/config.php, línea ' . $e->getLine() . ': ' . $e->getMessage(); }
+if (!is_array($config)) { $config = []; $CONFIG_ERROR = 'api/config.php debe empezar con <?php y terminar con ]; (return [ ... ];)'; }
 $DATA_DIR = rtrim($config['data_dir'] ?? (__DIR__ . '/../data'), '/');
 $DB_FILE = $DATA_DIR . '/db.json';
 $AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-haiku-5-5', 'effort' => 'low', 'max_tokens' => 16000, 'daily_limit_per_user' => 40, 'tasks' => ['course' => true, 'practice' => true, 'explain' => true]], $config['ai'] ?? []);
@@ -96,7 +100,7 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $ip = $_SERVER['REMOTE_ADDR'] ?? '';
 $EMAIL = '/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/';
 
-if ($method === 'GET' && ($parts[0] ?? '') === 'health') send(200, ['ok' => true, 'ai' => $AI_KEY !== '', 'aiTasks' => $AI_TASKS, 'voice' => $VOICE_ON, 'appName' => $config['app_name'] ?? null]);
+if ($method === 'GET' && ($parts[0] ?? '') === 'health') send(200, ['ok' => true, 'ai' => $AI_KEY !== '', 'aiTasks' => $AI_TASKS, 'voice' => $VOICE_ON, 'configError' => $CONFIG_ERROR, 'appName' => $config['app_name'] ?? null]);
 
 if ($method === 'POST' && ($parts[0] ?? '') === 'register') {
   $b = body(); $email = strtolower(trim((string) ($b['email'] ?? ''))); $name = mb_substr(trim((string) ($b['name'] ?? '')), 0, 40); $pw = (string) ($b['password'] ?? '');

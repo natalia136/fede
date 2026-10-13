@@ -1066,6 +1066,7 @@
   }
   function aiErrorMsg(e) {
     const code = e && e.code;
+    if (code === "no_ai" && API.configError) return "El archivo de configuración tiene un error de escritura, por eso la IA está apagada. " + API.configError + ". Revisa comillas y comas en esa línea.";
     if (code === "no_ai") return "La IA no está activada. Quien administra la app debe poner la clave de la API en el archivo de configuración del servidor (api/config.php). Mientras tanto, prueben los cursos listos.";
     if (code === "limit") return esc(e.message || "Llegaste al límite de usos de IA por hoy.");
     if (code === "not_granted") return "No se dio permiso para usar la IA. Puedes permitirlo desde el menú de permisos del artefacto e intentarlo de nuevo.";
@@ -1350,7 +1351,7 @@
       const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 2500);
       const r = await fetch("api/health", { signal: ctl.signal }); clearTimeout(t);
       const d = r.ok ? await r.json() : null; if (!d || !d.ok) return false;
-      API.on = true; API.ai = !!d.ai; API.voice = !!d.voice; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true;
+      API.on = true; API.ai = !!d.ai; API.voice = !!d.voice; API.configError = d.configError || ""; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true;
     } catch (e) { return false; }
   }
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
