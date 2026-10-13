@@ -12,7 +12,7 @@
   const OOPS = ["¡Casi!", "¡Uy, por poquito!", "¡Sigue intentando!", "¡Así se aprende!"];
 
   const SHOP = [
-    { id: "t-galaxia", cat: "theme", name: "Galaxia", icon: "🌌", price: 0 },
+    { id: "t-galaxia", cat: "theme", name: "Clásico", icon: "🌱", price: 0 },
     { id: "t-oceano", cat: "theme", name: "Océano profundo", icon: "🌊", price: 15 },
     { id: "t-lava", cat: "theme", name: "Volcán de lava", icon: "🌋", price: 25 },
     { id: "t-neon", cat: "theme", name: "Bosque neón", icon: "🍀", price: 25 },
@@ -67,6 +67,8 @@
   let S = DEF();
   try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); S = Object.assign(DEF(), o); if (!S.xp && S.stars) S.xp = S.stars * 10; if (!("coins" in o)) S.coins = S.stars; } } catch (e) { /* sin almacenamiento */ }
 
+  const API = { on: false, ai: false, token: null, user: null, profiles: [], pid: null, timer: null };
+  try { API.token = localStorage.getItem("ae-token"); API.pid = localStorage.getItem("ae-pid"); } catch (e) { /* */ }
   // Nube (dentro de claude.ai): guarda perfil, progreso y cursos por persona.
   const cloud = { db: null, uid: null, chain: Promise.resolve(), timer: null };
   const capCache = {};
@@ -88,6 +90,7 @@
   }
   function save() {
     S.updatedAt = Date.now();
+    if (API.on) { if (API.pid) { clearTimeout(API.timer); API.timer = setTimeout(pushProfile, 700); } return; }
     try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* lleno o bloqueado */ }
     if (cloud.db && cloud.uid) {
       clearTimeout(cloud.timer);
@@ -181,7 +184,7 @@
   }
 
   /* ================= mascota Nova ================= */
-  const NOVA = `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="nv-b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cf3ff"/><stop offset="1" stop-color="#7b5cff"/></linearGradient></defs><line x1="60" y1="12" x2="60" y2="28" stroke="#c9d2ff" stroke-width="4" stroke-linecap="round"/><circle class="glow" cx="60" cy="10" r="7" fill="#ffd23f"/><rect x="6" y="56" width="14" height="26" rx="7" fill="#5f5cff"/><rect x="100" y="56" width="14" height="26" rx="7" fill="#5f5cff"/><rect x="16" y="26" width="88" height="76" rx="32" fill="url(#nv-b)"/><rect x="27" y="42" width="66" height="40" rx="20" fill="#0d1030"/><g class="blink"><rect x="40" y="52" width="12" height="18" rx="6" fill="#7cf3ff"/><rect x="68" y="52" width="12" height="18" rx="6" fill="#7cf3ff"/></g><path d="M52 90 Q60 96 68 90" stroke="#0d1030" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="38" r="4" fill="#fff" opacity=".6"/></svg>`;
+  const NOVA = `<svg viewBox="0 0 120 120" aria-hidden="true"><line x1="60" y1="12" x2="60" y2="28" stroke="#58a700" stroke-width="4" stroke-linecap="round"/><circle class="glow" cx="60" cy="10" r="7" fill="#ffc800"/><rect x="6" y="56" width="14" height="26" rx="7" fill="#58a700"/><rect x="100" y="56" width="14" height="26" rx="7" fill="#58a700"/><rect x="16" y="26" width="88" height="76" rx="32" fill="#58cc02"/><rect x="27" y="42" width="66" height="40" rx="20" fill="#ffffff"/><g class="blink"><rect x="40" y="52" width="12" height="18" rx="6" fill="#3c3c3c"/><rect x="68" y="52" width="12" height="18" rx="6" fill="#3c3c3c"/></g><path d="M52 90 Q60 96 68 90" stroke="#2f6b00" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="38" r="4" fill="#fff" opacity=".6"/></svg>`;
   let sayT;
   function say(text, mood) {
     const b = $(".buddy"); if (!b) return;
@@ -389,9 +392,14 @@
   let play = null; // estado de la partida
   function go(name, p = {}) { stopTimer(); view = { name, p }; if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) { /* */ } render(); window.scrollTo(0, 0); }
   function render() {
-    if (!S.profile && view.name !== "setup") view = { name: "setup", p: { first: true } };
+    if (API.on) {
+      if (!API.user) view = { name: "auth", p: view.name === "auth" ? view.p : {} };
+      else if (!API.pid && !["profiles", "setup", "admin"].includes(view.name)) view = { name: "profiles", p: {} };
+    } else if (!S.profile && view.name !== "setup") view = { name: "setup", p: { first: true } };
+    document.body.classList.toggle("focus", ["play", "result"].includes(view.name) || (view.name === "duel" && !!duel));
+    document.body.classList.toggle("bare", ["auth", "profiles"].includes(view.name) || (!S.profile && view.name === "setup"));
     $("#top").innerHTML = topbar();
-    const V = { shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
+    const V = { auth: vAuth, profiles: vProfiles, admin: vAdmin, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
   }
@@ -405,16 +413,13 @@
   function topbar() {
     const n = view.name, cur = (x) => (x === n || (x === "home" && ["subject", "lesson"].includes(n)) || (x === "courses" && ["course", "maker"].includes(n)) ? 'aria-current="page"' : "");
     const p = S.profile, L = levelInfo(S.xp);
-    return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${NOVA}</span><span>Aventura <b>Escolar</b></span></button>
-      ${p ? `<span class="lvl-chip" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP"><span class="av" style="--p:${L.pct}"><span>${p.avatar}</span></span><span><b>Nv. ${L.lv}</b><small>${L.rank}</small></span></span>
-      <span class="pill star" title="Monedas para la tienda">🪙 ${S.coins}</span><span class="pill" title="Días seguidos estudiando">🔥 ${S.streak.n}</span>` : ""}
-      ${p ? `<nav aria-label="Principal">
-        <button class="navbtn" data-act="go" data-to="home" ${cur("home")}>🗺️ Mapa</button>
-        <button class="navbtn" data-act="go" data-to="courses" ${cur("courses")}>📚 Cursos</button>
-        <button class="navbtn" data-act="go" data-to="plan" ${cur("plan")}>📅 Plan</button>
-        <button class="navbtn" data-act="go" data-to="shop" ${cur("shop")}>🛍️ Tienda</button>
-        <button class="navbtn" data-act="go" data-to="trophies" ${cur("trophies")}>🏆 Logros</button>
-        <button class="navbtn" data-act="settings" aria-label="Ajustes">⚙️</button>
+    const item = (to, icon, label) => `<button class="navbtn" data-act="go" data-to="${to}" ${cur(to)}><span class="ni">${icon}</span><span class="nl">${label}</span></button>`;
+    return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${NOVA}</span><span class="bt">aventura</span></button>
+      ${p ? `<div class="stats-bar"><span class="stat streak" title="Días seguidos estudiando">🔥 <b>${S.streak.n}</b></span><span class="stat coins" title="Monedas para la tienda">🪙 <b>${S.coins}</b></span><span class="stat lvl" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP">⚡ <b>Nv. ${L.lv}</b></span></div>
+      <nav aria-label="Principal">
+        ${item("home", "🏠", "Aprender")}${item("courses", "📚", "Cursos")}${item("duel", "⚡", "Duelo")}${item("plan", "📅", "Plan")}${item("shop", "🛍️", "Tienda")}${item("trophies", "🏆", "Logros")}
+        ${API.on ? '<button class="navbtn" data-act="account"><span class="ni">👤</span><span class="nl">Cuenta</span></button>' : ""}
+        <button class="navbtn" data-act="settings"><span class="ni">⚙️</span><span class="nl">Ajustes</span></button>
       </nav>` : ""}`;
   }
   const starStr = (n) => [1, 2, 3].map((i) => (i <= n ? "⭐" : '<span class="off">⭐</span>')).join("");
@@ -545,7 +550,7 @@
     go("play");
   }
   const qTime = (q) => (q.kind === "order" ? 45 : q.small ? 30 : 20);
-  const nextBtn = () => `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Siguiente ➜" : "Ver resultado 🏁"}</button>`;
+  const nextBtn = () => `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Continuar" : "Ver resultado"}</button>`;
   function vPlay() {
     const g = play, q = g.qs[g.i], turn = g.players.length > 1 ? g.i % 2 : 0, P = S.profile;
     const turnMsg = g.players.length > 1 ? (turn === 0 ? `Turno de ${esc(g.players[0].name)} ${g.players[0].av}. ${esc(P.adult)}: ¡solo pistas!` : `Turno de ${esc(g.players[1].name)} ${g.players[1].av}. Explica en voz alta cómo lo piensas.`) : "";
@@ -553,8 +558,8 @@
     if (q.kind === "choice") {
       const opts = q.keepOrder ? q.keepOrder.filter((o) => q.options.includes(o)) : q.options;
       body = `${q.visual ? `<div class="visual ${q.visualClass || ""}">${q.visual}</div>` : ""}
-        <div class="opts" id="opts">${opts.map((o, i) => `<button class="opt" data-act="answer" data-v="${esc(o)}" style="${q.emojiOpts ? "font-size:2.2rem" : ""}"><span class="k" aria-hidden="true">${i + 1}</span>${esc(o)}</button>`).join("")}</div>
-        <p class="kbd-hint">Atajo: teclas 1–${opts.length} para responder · Enter para seguir</p>`;
+        <div class="opts" id="opts">${opts.map((o, i) => `<button class="opt" data-act="select" data-v="${esc(o)}" style="${q.emojiOpts ? "font-size:2.2rem" : ""}"><span class="k" aria-hidden="true">${i + 1}</span>${esc(o)}</button>`).join("")}</div>
+        <p class="kbd-hint">Teclas 1–${opts.length} para elegir · Enter para comprobar</p>`;
     } else if (q.kind === "order") {
       body = `<div class="slots ${q.vertical ? "vertical" : ""}" id="slots" aria-label="Tu respuesta"></div><div class="pool ${q.vertical ? "vertical" : ""}" id="pool"></div>`;
     } else if (q.kind === "robot") {
@@ -571,9 +576,11 @@
         ${turnMsg ? `<div class="turnmsg">${turnMsg}</div>` : ""}
         <div class="row" style="justify-content:center"><div class="prompt" style="${q.small ? "font-size:clamp(1.05rem,2.6vw,1.35rem)" : ""}">${esc(q.prompt)}</div>${canSpeak && !q.speakAfter ? `<button class="speak" data-act="speakQ" aria-label="Escuchar">🔊</button>` : ""}</div>
         ${body}
-        <div class="feedback" id="fb" role="status"></div>
-        <div id="after" class="row" style="justify-content:center">${q.kind === "choice" && q.options.length > 2 ? '<button class="btn ghost small" data-act="hint">🤝 Pista</button>' : ""}</div>
-      </div></section>`;
+      </div>
+      <div class="checkbar" id="checkbar"><div class="cb-inner">
+        <div class="cb-left"><span class="cb-icon" aria-hidden="true"></span><div><div class="feedback" id="fb" role="status"></div><div id="fbx"></div></div>${q.kind === "choice" && q.options.length > 2 ? '<button class="btn ghost" id="hintbtn" data-act="hint">💡 Pista</button>' : ""}</div>
+        <div id="after">${q.kind === "choice" ? '<button class="btn" id="checkbtn" data-act="check" disabled>Comprobar</button>' : ""}</div>
+      </div></div></section>`;
   }
   function mountPlay() {
     const q = play.qs[play.i];
@@ -597,7 +604,7 @@
     award(false); const fb = $("#fb"); fb.className = "feedback bad";
     if (q.kind === "choice") { $("#opts").classList.add("locked"); document.querySelectorAll("#opts .opt").forEach((b) => b.classList.add(b.dataset.v === q.answer ? "right" : "dim")); fb.textContent = `⏰ ¡Se acabó el tiempo! Era: ${q.answer}`; }
     else { $("#slots").classList.add("no"); $("#after").onclick = null; fb.textContent = `⏰ ¡Se acabó el tiempo! Orden correcto: ${q.items.join(q.vertical ? " → " : " ")}`; }
-    $("#after").innerHTML = (q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : "") + nextBtn();
+    if (q.explain) $("#fbx").innerHTML = `<div class="explain">${esc(q.explain)}</div>`; $("#after").innerHTML = nextBtn(); const h = $("#hintbtn"); if (h) h.remove();
   }
   function floatText(txt, el) {
     const r = (el || $("#qcard") || document.body).getBoundingClientRect();
@@ -607,6 +614,7 @@
   }
   function award(ok, el) {
     stopTimer();
+    const cb = $("#checkbar"); if (cb) cb.classList.add(ok ? "good" : "bad");
     const g = play, turn = g.players.length > 1 ? g.i % 2 : 0;
     const card = $("#qcard"); if (card) { card.classList.remove("flash-good", "flash-bad"); void card.offsetWidth; card.classList.add(ok ? "flash-good" : "flash-bad"); }
     if (ok) {
@@ -621,6 +629,15 @@
     const c = $("#combo"); if (c) { c.textContent = `🔥 x${g.combo}`; c.classList.toggle("hot", g.combo >= 3); }
     const x = $("#xpnow"); if (x) x.textContent = `+${g.xp} XP`;
   }
+  function selectOpt(btn) {
+    if (!play || play.answered || btn.disabled) return;
+    document.querySelectorAll("#opts .opt").forEach((b) => b.classList.toggle("sel", b === btn));
+    play.sel = btn.dataset.v; const c = $("#checkbtn"); if (c) c.disabled = false; sfx.tap();
+  }
+  function checkSel() {
+    if (!play || play.answered || play.sel == null) return;
+    const b = [...document.querySelectorAll("#opts .opt")].find((x) => x.dataset.v === play.sel); if (b) onAnswer(b);
+  }
   function onAnswer(btn) {
     const g = play, q = g.qs[g.i]; if (g.answered) return; g.answered = true;
     const ok = btn.dataset.v === q.answer;
@@ -629,12 +646,12 @@
     if (!ok) btn.classList.add("wrong");
     award(ok, btn);
     const fb = $("#fb"); fb.className = "feedback " + (ok ? "good" : "bad");
-    fb.textContent = ok ? pick(CHEERS) : `${pick(OOPS)} La respuesta es: ${q.answer}`;
+    fb.textContent = ok ? pick(CHEERS) : `Respuesta correcta: ${q.answer}`;
     if (q.speak && (q.speakAfter || !q.speakFirst)) speak(q.speak, q.speakLang || "en-US");
-    $("#after").innerHTML = `${q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : ""}${!ok && aiReady ? '<button class="btn ghost small" data-act="explainAI">🤖 Nova, explícame</button>' : ""}${nextBtn()}`;
-    if (ok && !q.explain && !(g.boss && g.boss.hp <= 0)) setTimeout(() => { if (play === g && g.answered && g.qs[g.i] === q) nextQ(); }, 1200);
+    $("#fbx").innerHTML = `${q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ""}${!ok && aiReady ? '<button class="linkbtn" data-act="explainAI">🤖 Nova, explícame</button>' : ""}`;
+    $("#after").innerHTML = nextBtn(); const h = $("#hintbtn"); if (h) h.remove();
   }
-  function nextQ() { const g = play; if (!g) return; if (g.boss && (g.boss.hp <= 0 || g.boss.hearts <= 0)) return finish(); g.i++; g.answered = false; g.hinted = false; if (g.i >= g.qs.length) return finish(); render(); }
+  function nextQ() { const g = play; if (!g) return; if (g.boss && (g.boss.hp <= 0 || g.boss.hearts <= 0)) return finish(); g.i++; g.sel = null; g.answered = false; g.hinted = false; if (g.i >= g.qs.length) return finish(); render(); }
   function hint() {
     const g = play, q = g.qs[g.i]; if (g.hinted || g.answered) return; g.hinted = true;
     const wrong = [...document.querySelectorAll("#opts .opt")].filter((b) => b.dataset.v !== q.answer && !b.classList.contains("dim"));
@@ -905,8 +922,12 @@
         <div class="row"><button class="btn big" type="submit">✨ Crear curso</button><span class="muted" id="ai-status"></span></div>
       </form></section>`;
   }
-  async function aiAvailable() { if (await cap("sample")) return "claude"; if (S.apiKey) return "key"; return null; }
+  async function aiAvailable() { if (API.on && API.ai) return "server"; if (await cap("sample")) return "claude"; if (S.apiKey) return "key"; return null; }
   async function askAI(prompt) {
+    if (API.on && API.ai) {
+      try { return parseJSON((await callApi("POST", "ai", { prompt })).text || ""); }
+      catch (e) { if (e.code) throw e; throw { code: e.message === "refusal" ? "refusal" : "http", message: e.message }; }
+    }
     const sample = await cap("sample");
     if (sample) return sample.json(prompt, { modelTier: "default" });
     if (!S.apiKey) throw { code: "no_ai" };
@@ -1230,6 +1251,136 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     } catch (e) { btn.textContent = "🤖 No disponible ahora"; }
   }
 
+  /* ================= cuentas (servidor propio: server.js + data/db.json) ================= */
+  function remember(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* */ } }
+  async function callApi(method, url, body) {
+    const r = await fetch("api/" + url, { method, headers: Object.assign({ "content-type": "application/json" }, API.token ? { authorization: "Bearer " + API.token } : {}), body: body ? JSON.stringify(body) : undefined });
+    const data = await r.json().catch(() => ({}));
+    if (r.status === 401 && API.user) { clearSession(); render(); }
+    if (!r.ok) throw Object.assign(new Error(data.error || `Error ${r.status}`), { status: r.status });
+    return data;
+  }
+  async function detectServer() {
+    if (!/^https?:/.test(location.protocol)) return false;
+    try {
+      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 2500);
+      const r = await fetch("api/health", { signal: ctl.signal }); clearTimeout(t);
+      const d = r.ok ? await r.json() : null; if (!d || !d.ok) return false;
+      API.on = true; API.ai = !!d.ai; return true;
+    } catch (e) { return false; }
+  }
+  async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
+  async function loadProfile(pid) {
+    const d = await callApi("GET", "profiles/" + pid);
+    S = Object.assign(DEF(), d.state); API.pid = pid; remember("ae-pid", pid); applySkin();
+  }
+  function pushProfile() {
+    if (!API.on || !API.pid) return;
+    const copy = JSON.parse(JSON.stringify(S)); delete copy.apiKey;
+    callApi("PUT", "profiles/" + API.pid, { state: copy }).catch((e) => { if (e.status !== 401) toast("No se pudo guardar el progreso. Revisa la conexión."); });
+  }
+  function clearSession() { API.token = null; API.user = null; API.pid = null; API.profiles = []; remember("ae-token", null); remember("ae-pid", null); S = DEF(); applySkin(); view = { name: "auth", p: {} }; }
+  async function logout() { clearTimeout(API.timer); pushProfile(); try { await callApi("POST", "logout"); } catch (e) { /* */ } clearSession(); render(); toast("Sesión cerrada"); }
+  async function pickProfile(pid) {
+    try { clearTimeout(API.timer); if (API.pid) pushProfile(); await loadProfile(pid); go("home"); say(`¡Hola, ${S.profile.name}! ¿Qué aprendemos hoy?`, "happy"); }
+    catch (e) { toast(e.message); }
+  }
+  async function delProfile(pid) {
+    try { await callApi("DELETE", "profiles/" + pid); if (API.pid === pid) { API.pid = null; remember("ae-pid", null); S = DEF(); } await loadMe(); toast("Perfil eliminado"); go("profiles"); }
+    catch (e) { toast(e.message); }
+  }
+  async function submitAuth(fd) {
+    const mode = view.p.mode === "register" ? "register" : "login", err = $("#auth-err"), btn = $("#auth-go");
+    const body = { email: String(fd.get("email") || ""), password: String(fd.get("password") || "") };
+    if (mode === "register") { body.name = String(fd.get("name") || ""); if (body.password !== String(fd.get("password2") || "")) { err.textContent = "Las contraseñas no coinciden."; return; } }
+    btn.disabled = true; err.textContent = "";
+    try {
+      const d = await callApi("POST", mode, body);
+      API.token = d.token; remember("ae-token", d.token); await loadMe();
+      if (API.profiles.length === 1) await loadProfile(API.profiles[0].id);
+      go(API.pid ? "home" : "profiles"); toast(mode === "register" ? `¡Bienvenido/a, ${d.user.name}!` : `¡Hola de nuevo, ${d.user.name}!`);
+    } catch (e) { err.textContent = e.message; btn.disabled = false; }
+  }
+  function vAuth(p) {
+    const reg = p.mode === "register";
+    return `<section class="auth">
+      <div class="auth-side"><div class="mascot-big">${NOVA}</div><h1>${reg ? "Crea tu cuenta familiar" : "¡Qué bueno verte!"}</h1><p class="muted">${reg ? "Un adulto crea la cuenta con su email. Luego agregan un perfil para cada niño o niña, cada uno con su propio progreso." : "Inicia sesión para seguir la aventura donde la dejaron."}</p></div>
+      <form class="card auth-card" data-form="auth" novalidate>
+        <div class="tabs" role="tablist"><button type="button" role="tab" class="tab" aria-selected="${!reg}" data-act="authMode" data-v="login">Iniciar sesión</button><button type="button" role="tab" class="tab" aria-selected="${reg}" data-act="authMode" data-v="register">Crear cuenta</button></div>
+        ${reg ? '<div class="field"><label for="a-name">Tu nombre</label><input id="a-name" class="input" name="name" autocomplete="name" maxlength="40" required placeholder="Ej.: Natalia"></div>' : ""}
+        <div class="field"><label for="a-email">Email</label><input id="a-email" class="input" name="email" type="email" autocomplete="email" required placeholder="tu@email.com"></div>
+        <div class="field"><label for="a-pw">Contraseña</label><input id="a-pw" class="input" name="password" type="password" autocomplete="${reg ? "new-password" : "current-password"}" minlength="8" required placeholder="${reg ? "Mínimo 8 caracteres" : ""}"></div>
+        ${reg ? '<div class="field"><label for="a-pw2">Repite la contraseña</label><input id="a-pw2" class="input" name="password2" type="password" autocomplete="new-password" minlength="8" required></div>' : ""}
+        <p class="form-err" id="auth-err" role="alert"></p>
+        <button class="btn big full" id="auth-go" type="submit">${reg ? "Crear cuenta" : "Entrar"}</button>
+        <p class="muted small-note">${reg ? "¿Ya tienen cuenta? " : "¿Primera vez? "}<button type="button" class="linkbtn" data-act="authMode" data-v="${reg ? "login" : "register"}">${reg ? "Inicia sesión" : "Crea una cuenta"}</button></p>
+      </form></section>`;
+  }
+  function vProfiles(p) {
+    const U = API.user || {};
+    return `<section class="stack profiles-page">
+      <div class="center-head"><p class="eyebrow">Cuenta de ${esc(U.name || "")} · ${esc(U.email || "")}</p><h1>¿Quién va a estudiar hoy?</h1></div>
+      <div class="profile-grid">${API.profiles.map((x) => { const pr = x.profile || {}, L = levelInfo(x.xp || 0); return `<div class="profile-tile">
+        <button class="profile-pick" data-act="pickProfile" data-id="${esc(x.id)}"><span class="pp-av">${pr.avatar || "🙂"}</span><b>${esc(pr.name || "Sin nombre")}</b><small>${pr.country ? esc(gradeLabel(pr.country, pr.grade)) : ""}</small><span class="tag">Nivel ${L.lv}</span></button>
+        ${p.confirm === x.id ? `<div class="confirm-row"><span>¿Eliminar a ${esc(pr.name || "este perfil")} y todo su progreso?</span><button class="btn small danger" data-act="delProfileYes" data-id="${esc(x.id)}">Sí, eliminar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>` : `<button class="linkbtn" data-act="delProfile" data-id="${esc(x.id)}">Eliminar</button>`}
+      </div>`; }).join("")}
+        ${API.profiles.length < 8 ? '<button class="profile-pick add" data-act="newProfile"><span class="pp-av">＋</span><b>Agregar perfil</b><small>Para cada niño o niña</small></button>' : ""}</div>
+      <div class="row" style="justify-content:center">${U.role === "admin" ? '<button class="btn ghost" data-act="go" data-to="admin">🛡️ Administrar usuarios</button>' : ""}<button class="btn ghost" data-act="logout">Cerrar sesión</button></div>
+    </section>`;
+  }
+  // panel de administración
+  let adminData = null;
+  function vAdmin(p) {
+    if (!API.user || API.user.role !== "admin") return `<p>Solo un administrador puede ver esta página.</p>`;
+    if (!adminData) { callApi("GET", "admin/users").then((d) => { adminData = d.users; if (view.name === "admin") render(); }).catch((e) => toast(e.message)); return `<section class="card"><p>Cargando usuarios…</p></section>`; }
+    const fmt = (d) => (d ? new Date(d).toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric" }) : "—");
+    return `<section class="stack">
+      <div class="section-head"><h1>🛡️ Usuarios</h1><span class="spacer"></span><span class="pill">${adminData.length} ${adminData.length === 1 ? "cuenta" : "cuentas"}</span><button class="btn ghost small" data-act="go" data-to="${API.pid ? "home" : "profiles"}">Volver</button></div>
+      <div class="table-wrap"><table class="users"><thead><tr><th>Cuenta</th><th>Rol</th><th>Perfiles</th><th>Creada</th><th>Último ingreso</th><th><span class="sr">Acciones</span></th></tr></thead><tbody>
+      ${adminData.map((u) => { const me = u.id === API.user.id; return `<tr>
+        <td><b>${esc(u.name)}</b><br><span class="muted">${esc(u.email)}</span></td>
+        <td><span class="tag ${u.role === "admin" ? "ai" : ""}">${u.role === "admin" ? "Administrador" : "Familia"}</span></td>
+        <td>${u.profiles.length ? u.profiles.map(esc).join(", ") : '<span class="muted">—</span>'}</td>
+        <td>${fmt(u.created)}</td><td>${fmt(u.lastLogin)}</td>
+        <td class="actions">${p.reset === u.id ? `<span class="row"><input class="input" id="reset-pw" type="password" minlength="8" placeholder="Nueva contraseña" style="width:170px"><button class="btn small" data-act="adminAct" data-op="resetGo" data-id="${u.id}">Guardar</button></span>`
+          : p.del === u.id ? `<span class="row"><span>¿Eliminar cuenta y perfiles?</span><button class="btn small danger" data-act="adminAct" data-op="delGo" data-id="${u.id}">Eliminar</button><button class="btn ghost small" data-act="go" data-to="admin">No</button></span>`
+          : `<button class="btn ghost small" data-act="adminAct" data-op="role" data-id="${u.id}" data-role="${u.role === "admin" ? "user" : "admin"}">${u.role === "admin" ? "Quitar admin" : "Hacer admin"}</button>
+             <button class="btn ghost small" data-act="go" data-to="admin" data-id="${u.id}" data-q="reset">Cambiar clave</button>${me ? "" : `<button class="btn ghost small danger-text" data-act="go" data-to="admin" data-id="${u.id}" data-q="del">Eliminar</button>`}`}</td></tr>`; }).join("")}
+      </tbody></table></div>
+      <p class="muted">Los datos se guardan en <code>data/db.json</code>, en la carpeta del proyecto. Las contraseñas se guardan cifradas.</p>
+    </section>`;
+  }
+  async function adminAct(b) {
+    const op = b.dataset.op, uid = b.dataset.id;
+    try {
+      if (op === "role") await callApi("PATCH", "admin/users/" + uid, { role: b.dataset.role });
+      if (op === "resetGo") { const pw = $("#reset-pw").value; await callApi("POST", `admin/users/${uid}/password`, { password: pw }); toast("Contraseña cambiada. Esa cuenta debe volver a iniciar sesión."); }
+      if (op === "delGo") { await callApi("DELETE", "admin/users/" + uid); toast("Cuenta eliminada"); }
+      adminData = null; if (op === "role" && uid === API.user.id) await loadMe(); go("admin");
+    } catch (e) { toast(e.message); }
+  }
+  function accountMenu() {
+    const back = document.createElement("div"); back.className = "modal-back";
+    back.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="acc-t"><h2 id="acc-t">👤 ${esc(API.user.name)}</h2><p class="muted" style="margin:0">${esc(API.user.email)}</p>
+      <button class="btn ghost" data-m="profiles">🔄 Cambiar de perfil</button>
+      ${API.user.role === "admin" ? '<button class="btn ghost" data-m="admin">🛡️ Administrar usuarios</button>' : ""}
+      <details class="pwd"><summary>🔑 Cambiar contraseña</summary><form data-form="pwd" class="stack" style="margin-top:12px"><input class="input" name="current" type="password" autocomplete="current-password" placeholder="Contraseña actual" required><input class="input" name="next" type="password" autocomplete="new-password" minlength="8" placeholder="Nueva contraseña (mín. 8)" required><button class="btn" type="submit">Guardar contraseña</button></form></details>
+      <button class="btn ghost" data-m="logout">Cerrar sesión</button><button class="btn ghost small" data-m="close">Cerrar</button></div>`;
+    document.body.appendChild(back);
+    back.addEventListener("click", (e) => {
+      if (e.target === back) return back.remove();
+      const m = e.target.closest("[data-m]"); if (!m) return;
+      const k = m.dataset.m; back.remove();
+      if (k === "profiles") { pushProfile(); go("profiles"); }
+      if (k === "admin") { adminData = null; go("admin"); }
+      if (k === "logout") logout();
+    });
+  }
+  async function submitPwd(fd) {
+    try { await callApi("POST", "password", { current: String(fd.get("current")), next: String(fd.get("next")) }); toast("Contraseña actualizada 🔑"); const m = $(".modal-back"); if (m) m.remove(); }
+    catch (e) { toast(e.message); }
+  }
+
   /* ================= eventos ================= */
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-act]"); if (!b) return;
@@ -1239,13 +1390,19 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
         if (b.dataset.to === "maker" && maker.status !== "loading") maker = { status: "idle", course: null, error: "", form: null };
         if (b.dataset.to === "duel") duel = null;
         if (b.dataset.to === "plan" && b.dataset.edit) { planDraft = S.plan ? JSON.parse(JSON.stringify(S.plan.settings)) : null; }
+        if (b.dataset.to === "admin") return go("admin", { reset: b.dataset.q === "reset" ? b.dataset.id : null, del: b.dataset.q === "del" ? b.dataset.id : null });
         return go(b.dataset.to, { id: b.dataset.id, q: b.dataset.q, edit: b.dataset.edit });
       }
       case "draft": draft[b.dataset.k] = b.dataset.k === "grade" ? +b.dataset.v : b.dataset.v; if (b.dataset.k === "country" && draft.grade > 6) draft.grade = 3; sfx.tap(); return render();
       case "saveProfile": {
         const first = !S.profile; S.profile = Object.assign({}, draft); S.profile.name = S.profile.name.trim() || "Fede"; S.profile.adult = S.profile.adult.trim() || "Mamá";
         if (!first && S.plan && S.plan.grade !== S.profile.grade) { /* el plan se mantiene; se puede rehacer */ }
-        draft = null; save(); go("home"); confetti(80); say(`¡Hola, ${S.profile.name}! Elige un mundo para empezar.`, "happy"); return;
+        draft = null;
+        if (API.on && !API.pid) {
+          callApi("POST", "profiles", { state: S }).then(async (r) => { API.pid = r.id; remember("ae-pid", r.id); await loadMe(); go("home"); confetti(80); }).catch((e) => toast(e.message));
+          return;
+        }
+        save(); go("home"); confetti(80); say(`¡Hola, ${S.profile.name}! Elige un mundo para empezar.`, "happy"); return;
       }
       case "open": return go("lesson", { ref, plan: b.dataset.plan != null ? +b.dataset.plan : null });
       case "back": { if (ref.type === "topic") { const x = TOPIC_INDEX[ref.id]; return go("subject", { id: x.s, grade: x.g }); } return go("course", { id: ref.cid }); }
@@ -1255,6 +1412,8 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       case "quick": return startPlay(dailySuggestions()[0], null, "solo");
       case "readLesson": { const u = unit(ref); return speak(`${u.title}. ${u.lesson || ""} ${u.example || ""}`, "es-ES"); }
       case "answer": return onAnswer(b);
+      case "select": return selectOpt(b);
+      case "check": return checkSel();
       case "hint": return hint();
       case "next": return nextQ();
       case "quit": stopTimer(); play = null; return go("home");
@@ -1276,6 +1435,14 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       case "makerReset": maker.status = "idle"; maker.course = null; return render();
       case "morePractice": return morePractice(b.dataset.id, +b.dataset.li);
       case "settings": return settings();
+      case "account": return accountMenu();
+      case "authMode": return go("auth", { mode: b.dataset.v });
+      case "pickProfile": return pickProfile(b.dataset.id);
+      case "newProfile": S = DEF(); API.pid = null; draft = null; return go("setup", { first: true });
+      case "delProfile": return go("profiles", { confirm: b.dataset.id });
+      case "delProfileYes": return delProfile(b.dataset.id);
+      case "logout": return logout();
+      case "adminAct": return adminAct(b);
       case "boss": return startBoss(b.dataset.s, +b.dataset.g);
       case "chest": return openChest();
       case "buy": return buyItem(b.dataset.id);
@@ -1292,6 +1459,8 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     const f = e.target.closest("[data-form]"); if (!f) return; e.preventDefault();
     const fd = new FormData(f);
     if (f.dataset.form === "ask") { const q = String(fd.get("q") || "").trim(); if (q) go("courses", { q }); }
+    if (f.dataset.form === "auth") return submitAuth(fd);
+    if (f.dataset.form === "pwd") return submitPwd(fd);
     if (f.dataset.form === "maker") { maker.form = { topic: String(fd.get("topic") || "").trim(), subject: String(fd.get("subject")), grade: +fd.get("grade"), lessons: +fd.get("lessons"), notes: String(fd.get("notes") || "").trim() }; runMaker(); }
   });
   document.addEventListener("click", (e) => { if (e.target.closest(".buddy svg")) say(pick(["¡Tú puedes! 💪", "¿Jugamos un reto en familia?", "Aprender es una aventura 🚀", "¡Me encanta estudiar contigo!", "Tip: lean la pregunta en voz alta 📢"]), "happy"); });
@@ -1305,7 +1474,8 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     }
     if (view.name !== "play" || !play || e.target.closest("input, textarea, select")) return;
     const q = play.qs[play.i];
-    if (q.kind === "choice" && !play.answered && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll("#opts .opt")[+e.key - 1]; if (b && !b.disabled) { e.preventDefault(); onAnswer(b); } }
+    if (q.kind === "choice" && !play.answered && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll("#opts .opt")[+e.key - 1]; if (b && !b.disabled) { e.preventDefault(); selectOpt(b); } }
+    else if (e.key === "Enter" && q.kind === "choice" && !play.answered && play.sel != null) { e.preventDefault(); checkSel(); }
     else if ((e.key === "Enter" || e.key === "ArrowRight") && play.answered) { const n = $('[data-act="next"]'); if (n) { e.preventDefault(); nextQ(); } }
   });
   const fine = window.matchMedia && matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches;
@@ -1336,12 +1506,20 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
   }
 
   /* ================= arranque ================= */
-  document.body.insertAdjacentHTML("afterbegin", '<canvas id="bg" aria-hidden="true"></canvas>');
-  background();
   document.body.insertAdjacentHTML("beforeend", `<div class="buddy" aria-live="polite"><div class="say"></div>${NOVA}</div><canvas id="confetti"></canvas>`);
-  applySkin();
-  render();
-  aiAvailable().then((v) => { aiReady = !!v; });
-  if (S.profile) setTimeout(() => say(`¡Hola de nuevo, ${S.profile.name}! ${S.streak.n > 1 ? `Llevas ${S.streak.n} días seguidos 🔥` : "¿Qué aprendemos hoy?"}`), 600);
-  initCloud();
+  (async function boot() {
+    if (await detectServer()) {
+      S = DEF(); const pid = API.pid; API.pid = null;
+      if (API.token) {
+        try { await loadMe(); if (pid && API.profiles.some((x) => x.id === pid)) await loadProfile(pid); }
+        catch (e) { API.token = null; API.user = null; remember("ae-token", null); }
+      }
+      view = { name: API.user ? (API.pid ? "home" : "profiles") : "auth", p: {} };
+    }
+    applySkin();
+    render();
+    aiAvailable().then((v) => { aiReady = !!v; });
+    if (S.profile) setTimeout(() => say(`¡Hola de nuevo, ${S.profile.name}! ${S.streak.n > 1 ? `Llevas ${S.streak.n} días seguidos 🔥` : "¿Qué aprendemos hoy?"}`), 600);
+    if (!API.on) initCloud();
+  })();
 })();
