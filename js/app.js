@@ -11,6 +11,35 @@
   const CHEERS = ["¡Excelente!", "¡Genial!", "¡Lo lograste!", "¡Súper!", "¡Bravo!", "¡Increíble!", "¡Eres un crack!", "¡Muy bien!"];
   const OOPS = ["¡Casi!", "¡Uy, por poquito!", "¡Sigue intentando!", "¡Así se aprende!"];
 
+  const SHOP = [
+    { id: "t-galaxia", cat: "theme", name: "Galaxia", icon: "🌌", price: 0 },
+    { id: "t-oceano", cat: "theme", name: "Océano profundo", icon: "🌊", price: 15 },
+    { id: "t-lava", cat: "theme", name: "Volcán de lava", icon: "🌋", price: 25 },
+    { id: "t-neon", cat: "theme", name: "Bosque neón", icon: "🍀", price: 25 },
+    { id: "t-dulce", cat: "theme", name: "Planeta caramelo", icon: "🍭", price: 30 },
+    { id: "f-fuego", cat: "frame", name: "Marco de fuego", icon: "🔥", price: 10 },
+    { id: "f-hielo", cat: "frame", name: "Marco de hielo", icon: "❄️", price: 10 },
+    { id: "f-oro", cat: "frame", name: "Marco de oro", icon: "👑", price: 30 },
+    { id: "f-arcoiris", cat: "frame", name: "Marco arcoíris", icon: "🌈", price: 40 },
+    { id: "p-dragon", cat: "pet", name: "Dragoncito", icon: "🐲", price: 20 },
+    { id: "p-buho", cat: "pet", name: "Búho sabio", icon: "🦉", price: 15 },
+    { id: "p-pulpo", cat: "pet", name: "Pulpo genio", icon: "🐙", price: 15 },
+    { id: "p-unicornio", cat: "pet", name: "Unicornio", icon: "🦄", price: 25 },
+    { id: "p-tortuga", cat: "pet", name: "Tortuga ninja", icon: "🐢", price: 15 },
+    { id: "p-alien", cat: "pet", name: "Alien amigo", icon: "👽", price: 35 },
+    { id: "ti-mente", cat: "title", name: "Mente Brillante", icon: "💡", price: 15 },
+    { id: "ti-galactico", cat: "title", name: "Cerebro Galáctico", icon: "🧠", price: 25 },
+    { id: "ti-combo", cat: "title", name: "Máquina de Combos", icon: "⚡", price: 30 },
+    { id: "ti-leyenda", cat: "title", name: "Leyenda del Saber", icon: "🏆", price: 60 },
+    { id: "ti-cazador", cat: "title", name: "Cazador de Jefes", icon: "⚔️", price: null, unlock: "Derrota a un jefe" }
+  ];
+  const SHOP_CATS = { theme: "🎨 Temas", frame: "🖼️ Marcos", pet: "🐾 Mascotas", title: "🏷️ Títulos" };
+  const SKIN_BLOBS = { "t-galaxia": ["#8f63ff", "#3ee6ff", "#ff5fd2", "#ff8a3d"], "t-oceano": ["#2f8cff", "#4df0ff", "#22c1a0", "#5f5cff"], "t-lava": ["#ff3d6e", "#ff6a3d", "#ffb347", "#b0213f"], "t-neon": ["#22c55e", "#b6ff3b", "#00c389", "#3ee6ff"], "t-dulce": ["#ff6fcf", "#ff9de2", "#ffd23f", "#b77bff"] };
+  const BOSSES = {
+    mat: ["Numerón, el dragón de los números", "🐉"], ing: ["Lord Vocabulus", "🧛"], len: ["La Bruja Ortografía", "🧙‍♀️"],
+    cie: ["Doctor Mutante", "🧟"], soc: ["El Pirata Despistado", "🏴‍☠️"], tec: ["Virus Glitch", "👾"]
+  };
+
   /* ================= utilidades ================= */
   const $ = (s, el = document) => el.querySelector(s);
   const R = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
@@ -34,9 +63,9 @@
 
   /* ================= estado y guardado ================= */
   const KEY = "aventura-escolar-v1";
-  const DEF = () => ({ profile: null, progress: {}, courses: [], stars: 0, stickers: [], plan: null, sound: true, streak: { n: 0, last: null }, apiKey: "", history: [], xp: 0, bestCombo: 0, updatedAt: 0 });
+  const DEF = () => ({ profile: null, progress: {}, courses: [], stars: 0, stickers: [], plan: null, sound: true, streak: { n: 0, last: null }, apiKey: "", history: [], xp: 0, bestCombo: 0, coins: 0, owned: [], equip: { theme: "t-galaxia", frame: "", pet: "", title: "" }, chest: null, bosses: {}, updatedAt: 0 });
   let S = DEF();
-  try { const raw = localStorage.getItem(KEY); if (raw) { S = Object.assign(DEF(), JSON.parse(raw)); if (!S.xp && S.stars) S.xp = S.stars * 10; } } catch (e) { /* sin almacenamiento */ }
+  try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); S = Object.assign(DEF(), o); if (!S.xp && S.stars) S.xp = S.stars * 10; if (!("coins" in o)) S.coins = S.stars; } } catch (e) { /* sin almacenamiento */ }
 
   // Nube (dentro de claude.ai): guarda perfil, progreso y cursos por persona.
   const cloud = { db: null, uid: null, chain: Promise.resolve(), timer: null };
@@ -362,7 +391,7 @@
   function render() {
     if (!S.profile && view.name !== "setup") view = { name: "setup", p: { first: true } };
     $("#top").innerHTML = topbar();
-    const V = { setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
+    const V = { shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
   }
@@ -378,11 +407,12 @@
     const p = S.profile, L = levelInfo(S.xp);
     return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${NOVA}</span><span>Aventura <b>Escolar</b></span></button>
       ${p ? `<span class="lvl-chip" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP"><span class="av" style="--p:${L.pct}"><span>${p.avatar}</span></span><span><b>Nv. ${L.lv}</b><small>${L.rank}</small></span></span>
-      <span class="pill star" title="Estrellas">⭐ ${S.stars}</span><span class="pill" title="Días seguidos estudiando">🔥 ${S.streak.n}</span>` : ""}
+      <span class="pill star" title="Monedas para la tienda">🪙 ${S.coins}</span><span class="pill" title="Días seguidos estudiando">🔥 ${S.streak.n}</span>` : ""}
       ${p ? `<nav aria-label="Principal">
         <button class="navbtn" data-act="go" data-to="home" ${cur("home")}>🗺️ Mapa</button>
         <button class="navbtn" data-act="go" data-to="courses" ${cur("courses")}>📚 Cursos</button>
         <button class="navbtn" data-act="go" data-to="plan" ${cur("plan")}>📅 Plan</button>
+        <button class="navbtn" data-act="go" data-to="shop" ${cur("shop")}>🛍️ Tienda</button>
         <button class="navbtn" data-act="go" data-to="trophies" ${cur("trophies")}>🏆 Logros</button>
         <button class="navbtn" data-act="settings" aria-label="Ajustes">⚙️</button>
       </nav>` : ""}`;
@@ -439,11 +469,11 @@
     if (!mission) mission = dailySuggestions().map((ref) => ({ ref }));
     const mine = S.courses.slice(-3).reverse();
     return `<section class="stack">
-      <div class="player-card"><div class="big-av">${P.avatar}</div>
+      <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${P.avatar}</div>${petHTML()}</div>
         <div><p class="eyebrow">${c.name} · ${esc(gradeLabel(P.country, P.grade))}</p><h1>¡Hola, ${esc(P.name || "campeón")}!</h1>
-          <p class="meta">${L.rank} · estudias con ${esc(P.adult || "tu acompañante")} ${P.adultAvatar}</p>
+          <p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span> ` : ""}${L.rank} · estudias con ${esc(P.adult || "tu acompañante")} ${P.adultAvatar}</p>
           <div class="lvlbar"><div class="top"><b>Nivel ${L.lv}</b><span>${L.cur} / ${L.need} XP</span></div><div class="xpbar"><i style="width:${L.pct}%"></i></div></div></div>
-        <div class="side"><button class="btn big" data-act="quick">⚡ Jugar ahora</button><button class="btn ghost" data-act="together">🤝 Reto en familia</button></div></div>
+        <div class="side"><button class="btn big" data-act="quick">🎮 Jugar ahora</button><div class="row"><button class="btn cyan" data-act="go" data-to="duel">⚡ Duelo relámpago</button><button class="btn ghost" data-act="together">🤝 En familia</button></div>${S.chest !== todayStr() ? '<button class="btn ghost chest-btn" data-act="chest">🎁 ¡Cofre diario listo!</button>' : ""}</div></div>
       <div class="section-head"><h2>🏁 Retos del día</h2></div>
       <div class="quests">${quests().map((q) => `<div class="quest ${q.cur >= q.max ? "complete" : ""}"><span class="ring" style="--p:${Math.round((q.cur / q.max) * 100)}"><span>${q.cur >= q.max ? "✅" : q.icon}</span></span><span><b>${q.title}</b><small>${q.cur}/${q.max}</small></span></div>`).join("")}</div>
       <form class="ask" data-form="ask"><h2>✨ ¿Qué quieres aprender hoy?</h2>
@@ -475,6 +505,7 @@
       <div class="row"><button class="btn ghost small" data-act="go" data-to="home">← Mapa</button><span class="spacer"></span>
         <label class="muted" for="sel-grade">Ver otro grado:</label><select id="sel-grade" class="input" style="width:auto" data-act-change="gradeView" data-s="${s}">${c.grades.map((x, i) => `<option value="${i}" ${i === g ? "selected" : ""}>${esc(gradeLabel(S.profile.country, i))}</option>`).join("")}</select></div>
       <div class="path">${list.map((t, i) => { const pr = prog(t.id); return `<div class="stop"><button class="node ${pr ? "done" : ""} ${i === nextIdx ? "next" : ""}" style="${sv(s)}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id })}' aria-label="Tema ${i + 1}: ${esc(t.title)}">${pr ? "✓" : i + 1}</button><div class="info"><b>${esc(t.title)}</b><span class="stars">${starStr(pr ? pr.stars : 0)}</span>${pr ? `<div class="muted" style="font-size:.85rem">Mejor resultado: ${pr.best}%</div>` : ""}</div></div>`; }).join("")}</div>
+      ${bossCard(s, g)}
       <p class="muted">Temas guiados por: ${esc(c.framework)}.</p>
     </section>`;
   }
@@ -532,8 +563,9 @@
     const canSpeak = q.speak || q.readText;
     return `<section class="play">
       <div class="hud"><button class="btn ghost small" data-act="quit" aria-label="Salir">✕</button><div class="progress" aria-label="Pregunta ${g.i + 1} de ${g.qs.length}"><i style="width:${(g.i / g.qs.length) * 100}%"></i></div><span class="pill">${g.i + 1}/${g.qs.length}</span>
-        <span class="combo ${g.combo >= 3 ? "hot" : ""}" id="combo" title="Respuestas seguidas">🔥 x${g.combo}</span><span class="pill xp-pill" id="xpnow">+${g.xp} XP</span>
+        <span class="combo ${g.combo >= 3 ? "hot" : ""}" id="combo" title="Respuestas seguidas">🔥 x${g.combo}</span><span class="pill xp-pill" id="xpnow">+${g.xp} XP</span>${S.equip.pet ? `<span class="hud-pet" id="hudpet" aria-hidden="true">${itemIcon(S.equip.pet)}</span>` : ""}
         ${g.timed && q.kind !== "robot" ? `<span class="timer" id="timer" style="--p:100" role="timer" aria-label="Tiempo restante"><span>${qTime(q)}</span></span>` : ""}</div>
+      ${g.boss ? arenaHTML() : ""}
       ${g.players.length > 1 ? `<div class="players">${g.players.map((pl, i) => `<span class="player ${i === turn ? "turn" : ""}"><span class="av">${pl.av}</span>${esc(pl.name)} · ${pl.pts}</span>`).join("")}</div>` : ""}
       <div class="qcard" id="qcard">
         ${turnMsg ? `<div class="turnmsg">${turnMsg}</div>` : ""}
@@ -584,6 +616,8 @@
       say(g.combo >= 3 ? `¡Combo x${g.combo}! Sigue así 🔥` : pick(CHEERS), "happy");
       if (g.combo >= 3) burst(el);
     } else { g.combo = 0; sfx.wrong(); say(pick(OOPS) + " ¡Vamos con la próxima!", "sad"); }
+    if (g.boss) bossHit(ok, el);
+    const pet = $("#hudpet"); if (pet && ok) { pet.classList.remove("cheer"); void pet.offsetWidth; pet.classList.add("cheer"); }
     const c = $("#combo"); if (c) { c.textContent = `🔥 x${g.combo}`; c.classList.toggle("hot", g.combo >= 3); }
     const x = $("#xpnow"); if (x) x.textContent = `+${g.xp} XP`;
   }
@@ -597,10 +631,10 @@
     const fb = $("#fb"); fb.className = "feedback " + (ok ? "good" : "bad");
     fb.textContent = ok ? pick(CHEERS) : `${pick(OOPS)} La respuesta es: ${q.answer}`;
     if (q.speak && (q.speakAfter || !q.speakFirst)) speak(q.speak, q.speakLang || "en-US");
-    $("#after").innerHTML = `${q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : ""}${nextBtn()}`;
-    if (ok && !q.explain) setTimeout(() => { if (play === g && g.answered && g.qs[g.i] === q) nextQ(); }, 1200);
+    $("#after").innerHTML = `${q.explain ? `<div class="explain">💡 ${esc(q.explain)}</div>` : ""}${!ok && aiReady ? '<button class="btn ghost small" data-act="explainAI">🤖 Nova, explícame</button>' : ""}${nextBtn()}`;
+    if (ok && !q.explain && !(g.boss && g.boss.hp <= 0)) setTimeout(() => { if (play === g && g.answered && g.qs[g.i] === q) nextQ(); }, 1200);
   }
-  function nextQ() { const g = play; if (!g) return; g.i++; g.answered = false; g.hinted = false; if (g.i >= g.qs.length) return finish(); render(); }
+  function nextQ() { const g = play; if (!g) return; if (g.boss && (g.boss.hp <= 0 || g.boss.hearts <= 0)) return finish(); g.i++; g.answered = false; g.hinted = false; if (g.i >= g.qs.length) return finish(); render(); }
   function hint() {
     const g = play, q = g.qs[g.i]; if (g.hinted || g.answered) return; g.hinted = true;
     const wrong = [...document.querySelectorAll("#opts .opt")].filter((b) => b.dataset.v !== q.answer && !b.classList.contains("dim"));
@@ -692,11 +726,12 @@
     draw();
   }
   function finish() {
+    if (play.boss) return finishBoss();
     const g = play, total = g.qs.length, pct = Math.round((g.correct / total) * 100);
     const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
     const k = g.u.key, old = S.progress[k] || { stars: 0, best: 0, plays: 0 };
     S.progress[k] = { stars: Math.max(old.stars, stars), best: Math.max(old.best, pct), plays: old.plays + 1, last: todayStr(), lastPct: pct };
-    S.stars += stars;
+    S.stars += stars; S.coins += stars;
     let sticker = null;
     if (stars >= 2) { const free = STICKERS.filter((x) => !S.stickers.includes(x)); if (free.length) { sticker = pick(free); S.stickers.push(sticker); } }
     const t = todayStr();
@@ -725,6 +760,7 @@
   }
   function vResult() {
     const g = play; if (!g || !g.result) return vHome();
+    if (g.boss) return vBossResult();
     const { pct, stars, sticker } = g.result, nx = nextRef(g.ref);
     const winner = g.players.length > 1 ? (g.players[0].pts === g.players[1].pts ? "¡Empate! Ganó el trabajo en equipo 🤝" : `¡Ganó ${esc(g.players[0].pts > g.players[1].pts ? g.players[0].name : g.players[1].name)}! 🏆`) : "";
     return `<section class="result card">
@@ -960,7 +996,7 @@ Reglas:
     const weak = Object.entries(S.progress).filter(([, v]) => v.stars < 2).map(([k]) => k).slice(0, 6);
     return `<section class="stack">
       <div class="section-head"><h1>🏆 Logros de ${esc(P.name)}</h1></div>
-      <div class="player-card"><div class="big-av">${P.avatar}</div><div><p class="eyebrow">Rango</p><h2>${levelInfo(S.xp).rank} · Nivel ${levelInfo(S.xp).lv}</h2><div class="lvlbar" style="margin-top:10px"><div class="top"><b>${S.xp} XP en total</b><span>${levelInfo(S.xp).cur} / ${levelInfo(S.xp).need} para subir</span></div><div class="xpbar"><i style="width:${levelInfo(S.xp).pct}%"></i></div></div></div></div>
+      <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${P.avatar}</div>${petHTML()}</div><div><p class="eyebrow">Rango</p><h2>${levelInfo(S.xp).rank} · Nivel ${levelInfo(S.xp).lv}</h2><div class="lvlbar" style="margin-top:10px"><div class="top"><b>${S.xp} XP en total</b><span>${levelInfo(S.xp).cur} / ${levelInfo(S.xp).need} para subir</span></div><div class="xpbar"><i style="width:${levelInfo(S.xp).pct}%"></i></div></div></div></div>
       <div class="row"><span class="pill">🔥 Mejor combo x${S.bestCombo || 0}</span><span class="pill star">⭐ ${S.stars} estrellas</span><span class="pill">🔥 ${S.streak.n} ${S.streak.n === 1 ? "día" : "días"} seguidos</span><span class="pill">🎴 ${S.stickers.length}/${STICKERS.length} láminas</span><span class="pill">📚 ${S.courses.length} cursos</span></div>
       <div class="card stack"><h2>Avance por materia · ${esc(gradeLabel(P.country, g))}</h2>
         ${SUBJ_KEYS.map((s) => `<div class="row"><span style="width:2rem;font-size:1.4rem">${SUBJECTS[s].icon}</span><b style="font-family:var(--f-display);min-width:150px">${esc(subjName(s))}</b><div class="bar" style="flex:1;min-width:120px"><i style="width:${subjPct(s)}%;background:${SUBJECTS[s].color}"></i></div><span class="muted" style="min-width:3.5ch;text-align:right">${subjPct(s)}%</span></div>`).join("")}
@@ -992,12 +1028,206 @@ Reglas:
       if (k === "close") close();
       if (k === "profile") { close(); draft = null; go("setup", {}); }
       if (k === "sound") { S.sound = !S.sound; save(); m.textContent = S.sound ? "🔊 Sonido activado" : "🔇 Sonido apagado"; }
-      if (k === "saveKey") { S.apiKey = $("#api-key", back).value.trim(); save(); toast("Ajustes guardados"); close(); }
+      if (k === "saveKey") { S.apiKey = $("#api-key", back).value.trim(); save(); aiAvailable().then((v) => { aiReady = !!v; }); toast("Ajustes guardados"); close(); }
       if (k === "reset") $("#confirm", back).innerHTML = `<div class="notice err row"><span style="flex:1">¿Seguro? Se borran estrellas, progreso, plan y cursos guardados.</span><button class="btn small" data-m="resetYes" style="--b:var(--bad)">Sí, borrar</button></div>`;
       if (k === "resetYes") { const p = S.profile, key = S.apiKey; S = DEF(); S.profile = p; S.apiKey = key; save(); close(); toast("Progreso borrado"); go("home"); }
     });
     back.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
     $("button", back).focus();
+  }
+
+  /* ================= tienda, cofre, jefes, duelo, IA ================= */
+  let aiReady = false;
+  const item = (id) => SHOP.find((x) => x.id === id);
+  const itemName = (id) => (item(id) || {}).name || "";
+  const itemIcon = (id) => (item(id) || {}).icon || "";
+  const owns = (id) => id === "t-galaxia" || S.owned.includes(id);
+  const petHTML = () => (S.equip.pet ? `<span class="pet" aria-hidden="true">${itemIcon(S.equip.pet)}</span>` : "");
+  function applySkin() { document.documentElement.dataset.skin = (S.equip.theme || "t-galaxia").slice(2); }
+  function vShop() {
+    const P = S.profile;
+    return `<section class="stack">
+      <div class="section-head"><h1>🛍️ Tienda</h1><span class="spacer"></span><span class="pill star" style="font-size:1rem">🪙 ${S.coins} monedas</span></div>
+      <div class="player-card shop-preview"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${P.avatar}</div>${petHTML()}</div><div><p class="eyebrow">Así te ves</p><h2>${esc(P.name)}</h2><p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span>` : "Sin título todavía"}</p></div></div>
+      <p class="muted" style="margin:0">Ganas 🪙 con cada estrella, con el cofre diario y venciendo jefes. Toca un objeto que ya tienes para equiparlo o quitártelo.</p>
+      ${Object.entries(SHOP_CATS).map(([cat, label]) => `<h2>${label}</h2><div class="shop">${SHOP.filter((x) => x.cat === cat).map((x) => {
+        const have = owns(x.id), on = S.equip[cat] === x.id || (cat === "theme" && !S.equip.theme && x.id === "t-galaxia");
+        const state = on ? "✅ Equipado" : have ? "Equipar" : x.price == null ? `🔒 ${x.unlock}` : `🪙 ${x.price}`;
+        return `<button class="shop-item ${on ? "on" : ""} ${!have && (x.price == null || x.price > S.coins) ? "locked" : ""}" data-act="buy" data-id="${x.id}" ${!have && x.price == null ? "disabled" : ""}><span class="si-icon" data-skin-preview="${cat === "theme" ? x.id.slice(2) : ""}">${x.icon}</span><b>${x.name}</b><span class="si-price">${state}</span></button>`; }).join("")}</div>`).join("")}
+    </section>`;
+  }
+  function buyItem(id) {
+    const x = item(id); if (!x) return;
+    if (owns(id)) { S.equip[x.cat] = S.equip[x.cat] === id && x.cat !== "theme" ? "" : id; sfx.tap(); }
+    else if (x.price != null && S.coins >= x.price) { S.coins -= x.price; S.owned.push(id); S.equip[x.cat] = id; sfx.win(); confetti(90); toast(`¡Conseguiste ${x.name}! ${x.icon}`); say(`¡Te queda genial ${x.icon}!`, "happy"); }
+    else { sfx.wrong(); toast(`Te faltan ${x.price - S.coins} monedas 🪙`); return; }
+    applySkin(); save(); render();
+  }
+  function openChest() {
+    if (S.chest === todayStr()) return;
+    const back = document.createElement("div"); back.className = "modal-back";
+    back.innerHTML = `<div class="modal chest-modal" role="dialog" aria-modal="true" aria-label="Cofre diario"><div class="chest" id="chest">🎁</div><h2 id="chest-t">¡Tu cofre diario!</h2><p class="muted" id="chest-m" style="margin:0">Tócalo para abrirlo</p><button class="btn big" id="chest-go">Abrir cofre</button></div>`;
+    document.body.appendChild(back);
+    const open = () => {
+      if (S.chest === todayStr()) return back.remove();
+      const coins = R(3, 9), xp = R(20, 45); S.chest = todayStr(); S.coins += coins; S.xp += xp; save();
+      const ch = $("#chest", back); ch.classList.add("open"); ch.textContent = "✨";
+      sfx.win(); confetti(140);
+      setTimeout(() => { ch.textContent = "💰"; $("#chest-t", back).textContent = `+${coins} 🪙 y +${xp} XP`; $("#chest-m", back).textContent = "¡Vuelve mañana por otro cofre!"; $("#chest-go", back).textContent = "¡Genial!"; }, 450);
+      $("#chest-go", back).onclick = () => { back.remove(); render(); };
+    };
+    $("#chest", back).onclick = open; $("#chest-go", back).onclick = open;
+  }
+  // --- jefes
+  function bossCard(s, g) {
+    const [name, em] = BOSSES[s], won = S.bosses[`${s}:${g}`];
+    return `<div class="boss-card" style="${sv(s)}"><span class="boss-em">${em}</span><div><p class="eyebrow">⚔️ Jefe final del mundo</p><h2>${name}</h2><p class="muted" style="margin:4px 0 0">${won ? "¡Ya lo venciste! Vuelve a retarlo para ganar más XP." : "Mezcla todos los temas del grado. Tienes 3 corazones: ¡derrótalo antes de que se acaben!"}</p></div><button class="btn big" data-act="boss" data-s="${s}" data-g="${g}">${won ? "🔁 Revancha" : "⚔️ ¡Pelear!"}</button></div>`;
+  }
+  function startBoss(s, g) {
+    const topics = TOPICS[s][g].filter((t) => t.gen !== "robot"), qs = [];
+    for (let k = 0, guard = 0; qs.length < 14 && guard < 80; guard++, k++) {
+      const t = topics[k % topics.length], u = unit({ type: "topic", id: t.id }), cand = buildQuestions(u).filter((q) => q.kind !== "robot");
+      if (cand.length) qs.push(pick(cand));
+    }
+    const ref = { type: "topic", id: topics[0].id };
+    startPlay(ref, null, playMode === "reloj" ? "reloj" : "solo", shuffle(qs));
+    const [name, em] = BOSSES[s];
+    play.boss = { s, g, name, em, hp: 100, max: 100, hearts: 3, maxHearts: 3 };
+    render(); say(`¡Cuidado con ${name}! ${em}`, "happy");
+  }
+  function arenaHTML() {
+    const b = play.boss, P = S.profile;
+    return `<div class="arena" id="arena" style="${sv(b.s)}">
+      <div class="fighter you"><span class="f-em">${P.avatar}${S.equip.pet ? `<small>${itemIcon(S.equip.pet)}</small>` : ""}</span><b>${esc(P.name)}</b><span class="hearts" id="hearts">${"❤️".repeat(b.hearts)}${"🖤".repeat(b.maxHearts - b.hearts)}</span></div>
+      <span class="vs">VS</span>
+      <div class="fighter boss" id="boss"><span class="f-em">${b.em}</span><b>${b.name}</b><span class="hpbar"><i id="bosshp" style="width:${(b.hp / b.max) * 100}%"></i></span></div></div>`;
+  }
+  function bossHit(ok) {
+    const b = play.boss, g = play;
+    if (ok) {
+      const dmg = 12 + (g.combo >= 3 ? 6 : 0) + (g.timed ? Math.ceil(g.tLeft / 4) : 0); b.hp = Math.max(0, b.hp - dmg);
+      const you = $("#arena .you .f-em"), boss = $("#boss");
+      if (you && boss) {
+        const a = you.getBoundingClientRect(), z = boss.getBoundingClientRect(), pr = document.createElement("div");
+        pr.className = "proj"; pr.textContent = g.combo >= 3 ? "☄️" : "⚡"; pr.style.left = `${a.left + a.width / 2}px`; pr.style.top = `${a.top + a.height / 2}px`;
+        pr.style.setProperty("--dx", `${z.left + z.width / 2 - (a.left + a.width / 2)}px`); pr.style.setProperty("--dy", `${z.top + 30 - (a.top + a.height / 2)}px`);
+        document.body.appendChild(pr); setTimeout(() => pr.remove(), 600);
+        setTimeout(() => { boss.classList.remove("hit"); void boss.offsetWidth; boss.classList.add("hit"); const hp = $("#bosshp"); if (hp) hp.style.width = `${(b.hp / b.max) * 100}%`; floatText(`-${dmg} ❤️‍🔥`, boss); tone([180, 120], 0.15, "square", 0.08); }, 420);
+      }
+      if (b.hp <= 0) { setTimeout(() => { $("#boss") && $("#boss").classList.add("ko"); say(`¡Derrotaste a ${b.name}! 🏆`, "happy"); confetti(160); const fb = $("#fb"); if (fb) { fb.className = "feedback good"; fb.textContent = "¡K.O.! ¡Ganaste la batalla!"; } $("#after").innerHTML = '<button class="btn big" data-act="next">🏆 Ver victoria</button>'; }, 700); }
+    } else {
+      b.hearts = Math.max(0, b.hearts - 1);
+      const ar = $("#arena"); if (ar) { ar.classList.remove("hurt"); void ar.offsetWidth; ar.classList.add("hurt"); }
+      const h = $("#hearts"); if (h) h.textContent = "❤️".repeat(b.hearts) + "🖤".repeat(b.maxHearts - b.hearts);
+      if (b.hearts <= 0) setTimeout(() => { $("#after").innerHTML = '<button class="btn big" data-act="next">Ver resultado</button>'; say(`${b.name} ganó esta vez. ¡La revancha será tuya!`, "sad"); }, 300);
+    }
+  }
+  function finishBoss() {
+    const g = play, b = g.boss, win = b.hp <= 0, key = `${b.s}:${b.g}`, first = win && !S.bosses[key];
+    const before = levelInfo(S.xp), xpGain = g.xp + (win ? (first ? 150 : 60) : 0), coins = win ? (first ? 20 : 8) : 2;
+    S.xp += xpGain; S.coins += coins; S.bestCombo = Math.max(S.bestCombo || 0, g.bestCombo);
+    let unlocked = null;
+    if (win) { S.bosses[key] = true; if (!S.owned.includes("ti-cazador")) { S.owned.push("ti-cazador"); unlocked = "ti-cazador"; } }
+    const t = todayStr();
+    if (S.streak.last !== t) { const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
+    S.history.push({ k: "boss:" + key, d: t, pct: Math.round((g.correct / Math.max(1, g.i + 1)) * 100), title: `Jefe: ${b.name}`, subj: b.s });
+    save();
+    g.result = { win, xpGain, coins, unlocked, before, after: levelInfo(S.xp), bonus: 0 };
+    go("result"); animateResult(g.result); sfx.win(); if (win) confetti(200);
+  }
+  function vBossResult() {
+    const g = play, b = g.boss, r = g.result;
+    return `<section class="result card boss-result">
+      <p class="eyebrow">⚔️ Batalla contra ${esc(b.name)}</p>
+      <div class="boss-final ${r.win ? "ko" : ""}">${b.em}</div>
+      <h1>${r.win ? "¡VICTORIA!" : "¡Casi lo logras!"}</h1>
+      <p class="muted" style="margin:0">${r.win ? `Derrotaste al jefe con ${b.hearts} ${b.hearts === 1 ? "corazón" : "corazones"} de sobra.` : `Le quitaste ${100 - b.hp} puntos de vida. ¡Repasa los temas y vuelve por la revancha!`}</p>
+      <div class="xp-total" id="xpcount">+0 XP</div>
+      <div class="stat-row"><span class="pill star">+${r.coins} 🪙</span><span class="pill">🔥 Mejor combo x${g.bestCombo}</span></div>
+      <div class="lvlbar"><div class="top"><b id="lvlname">Nivel ${r.before.lv}</b><span></span></div><div class="xpbar"><i id="lvlfill" style="width:${r.before.pct}%"></i></div></div>
+      ${r.after.lv > r.before.lv ? `<div class="levelup">⬆️ ¡Subiste a nivel ${r.after.lv}!</div>` : ""}
+      ${r.unlocked ? `<div class="notice">🏷️ ¡Desbloqueaste el título <b>${itemName(r.unlocked)}</b>! Equípalo en la tienda.</div>` : ""}
+      <div class="row" style="justify-content:center"><button class="btn" data-act="boss" data-s="${b.s}" data-g="${b.g}">${r.win ? "🔁 Pelear otra vez" : "⚔️ Revancha"}</button><button class="btn ghost" data-act="go" data-to="subject" data-id="${b.s}">Volver al mundo</button></div>
+    </section>`;
+  }
+  // --- duelo relámpago
+  let duel = null;
+  function duelQuestions() {
+    const g = S.profile.grade, out = [];
+    for (let guard = 0; out.length < 20 && guard < 120; guard++) {
+      const s = pick(SUBJ_KEYS), t = pick(TOPICS[s][g]); if (["robot", "order", "orderSteps", "read"].includes(t.gen)) continue;
+      const q = buildQuestions(unit({ type: "topic", id: t.id })).find((x) => x.kind === "choice" && x.options.length > 2);
+      if (q) out.push(Object.assign(q, { subj: s }));
+    }
+    return out;
+  }
+  function startDuel() {
+    const P = S.profile;
+    duel = { qs: duelQuestions(), i: 0, scores: [0, 0], goal: 5, phase: "count", who: -1, tried: [], names: [P.name || "Yo", P.adult || "Adulto"], avs: [P.avatar, P.adultAvatar] };
+    go("duel"); countdown();
+  }
+  function countdown() {
+    const d = duel; let n = 3; d.phase = "count";
+    const tick = () => { if (duel !== d) return; const el = $("#dcount"); if (el) { el.textContent = n > 0 ? n : "¡YA!"; el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop"); }
+      tone([n > 0 ? 440 : 880], 0.12); if (n-- > 0) setTimeout(tick, 650); else setTimeout(() => { if (duel !== d) return; d.phase = "buzz"; render(); }, 450); };
+    setTimeout(tick, 200);
+  }
+  function vDuel() {
+    const P = S.profile;
+    if (!duel) return `<section class="stack duel-intro">
+      <div class="duel-hero"><div class="duel-vs"><span>${P.avatar}</span><b>VS</b><span>${P.adultAvatar}</span></div><h1>⚡ Duelo relámpago</h1>
+        <p class="muted">${esc(P.name || "Jugador 1")} contra ${esc(P.adult || "Jugador 2")} en el mismo dispositivo. Sale una pregunta: quien presione primero su botón, responde. Si falla, el otro tiene su oportunidad. ¡Gana quien llegue a 5 puntos!</p>
+        <div class="row" style="justify-content:center"><span class="pill">⌨️ ${esc(P.name || "Jugador 1")}: tecla A</span><span class="pill">⌨️ ${esc(P.adult || "Jugador 2")}: tecla L</span></div>
+        <button class="btn big" data-act="duelStart">⚡ ¡Empezar duelo!</button></div></section>`;
+    const d = duel, q = d.qs[d.i];
+    if (d.phase === "end") {
+      const w = d.scores[0] === d.scores[1] ? -1 : d.scores[0] > d.scores[1] ? 0 : 1;
+      return `<section class="result card"><div class="duel-vs"><span>${d.avs[0]}</span><b>${d.scores[0]} – ${d.scores[1]}</b><span>${d.avs[1]}</span></div>
+        <h1>${w < 0 ? "¡Empate épico!" : `¡${esc(d.names[w])} gana el duelo! 🏆`}</h1><p class="muted" style="margin:0">+30 XP y +5 🪙 por jugar en familia</p>
+        <div class="row" style="justify-content:center"><button class="btn" data-act="duelStart">🔁 Revancha</button><button class="btn ghost" data-act="duelQuit">Salir</button></div></section>`;
+    }
+    const pad = (p) => `<button class="buzzer p${p + 1} ${d.who === p ? "active" : ""} ${d.tried.includes(p) ? "out" : ""}" data-act="buzz" data-p="${p}" ${d.phase !== "buzz" || d.tried.includes(p) ? 'aria-disabled="true"' : ""}><span class="bz-av">${d.avs[p]}</span><b>${esc(d.names[p])}</b><span class="bz-score">${d.scores[p]}<small>/${d.goal}</small></span><span class="bz-key">${p === 0 ? "Tecla A" : "Tecla L"}</span></button>`;
+    const center = d.phase === "count" ? `<div class="qcard duel-q"><div class="dcount" id="dcount">3</div><p class="muted" style="text-align:center;margin:0">¡Prepárense!</p></div>`
+      : `<div class="qcard duel-q" id="qcard"><p class="eyebrow" style="text-align:center">${SUBJECTS[q.subj].icon} ${esc(subjName(q.subj))} · Pregunta ${d.i + 1}</p><div class="prompt" style="${q.small ? "font-size:clamp(1rem,2.4vw,1.3rem)" : ""}">${esc(q.prompt)}</div>${q.visual ? `<div class="visual ${q.visualClass || ""}">${q.visual}</div>` : ""}
+        <div class="opts ${d.phase === "answer" ? "" : "locked"}" id="dopts">${(q.keepOrder ? q.keepOrder.filter((o) => q.options.includes(o)) : q.options).map((o, i) => `<button class="opt ${d.phase === "reveal" && o === q.answer ? "right" : ""} ${d.wrong && d.wrong.includes(o) ? "wrong" : ""}" data-act="duelAnswer" data-v="${esc(o)}" ${d.wrong && d.wrong.includes(o) ? "disabled" : ""}><span class="k">${i + 1}</span>${esc(o)}</button>`).join("")}</div>
+        <div class="feedback ${d.phase === "reveal" ? (d.lastOk ? "good" : "bad") : ""}" id="dfb">${d.phase === "buzz" ? "¡Presiona tu botón!" : d.phase === "answer" ? `Responde, ${esc(d.names[d.who])} ${d.avs[d.who]}` : esc(d.msg || "")}</div></div>`;
+    return `<section class="duel"><div class="hud"><button class="btn ghost small" data-act="duelQuit" aria-label="Salir">✕</button><span class="spacer"></span><span class="pill">⚡ Primero en llegar a ${d.goal}</span></div>
+      <div class="duel-grid">${pad(0)}${center}${pad(1)}</div></section>`;
+  }
+  function buzz(p) {
+    const d = duel; if (!d || d.phase !== "buzz" || d.tried.includes(p)) return;
+    d.who = p; d.phase = "answer"; tone([660, 990], 0.1, "square", 0.06); render();
+  }
+  function duelAnswer(btn) {
+    const d = duel; if (!d || d.phase !== "answer") return;
+    const q = d.qs[d.i], ok = btn.dataset.v === q.answer;
+    if (ok) { d.scores[d.who]++; d.lastOk = true; d.msg = `¡Punto para ${d.names[d.who]}! ${pick(CHEERS)}`; d.phase = "reveal"; sfx.right(); render(); burst($(`.buzzer.p${d.who + 1}`)); }
+    else {
+      d.wrong = (d.wrong || []).concat(btn.dataset.v); d.tried.push(d.who); sfx.wrong();
+      const other = 1 - d.who;
+      if (!d.tried.includes(other)) { d.who = -1; d.phase = "buzz"; render(); const fb = $("#dfb"); if (fb) fb.textContent = `¡Falló! ${d.names[other]}, ¡presiona para robar el punto!`; return; }
+      d.lastOk = false; d.msg = `Nadie acertó. Era: ${q.answer}`; d.phase = "reveal"; render();
+    }
+    setTimeout(() => {
+      if (duel !== d) return;
+      if (d.scores.some((x) => x >= d.goal) || d.i + 1 >= d.qs.length) { d.phase = "end"; S.xp += 30; S.coins += 5; save(); sfx.win(); confetti(180); render(); return; }
+      d.i++; d.who = -1; d.tried = []; d.wrong = []; d.phase = "buzz"; render();
+    }, 1700);
+  }
+  // --- explicación con IA
+  async function explainAI(btn) {
+    const q = play && play.qs[play.i]; if (!q) return;
+    btn.disabled = true; btn.textContent = "🤖 Pensando…";
+    const prompt = `Eres Nova, un tutor amable para un niño o niña de ${gradeLabel(S.profile.country, S.profile.grade)} en ${COUNTRIES[S.profile.country].name}. Respondió mal esta pregunta.
+Pregunta: ${q.prompt}
+Opciones: ${q.options.join(" | ")}
+Respuesta correcta: ${q.answer}
+Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta correcta es esa, con un truco para recordarlo. Háblale de tú. Responde SOLO con JSON: {"explicacion":"..."}`;
+    try {
+      const r = await askAI(prompt); const txt = (r && (r.explicacion || r.explanation)) || "";
+      const box = document.createElement("div"); box.className = "explain ai-explain"; box.textContent = "🤖 " + (txt || "No pude explicarlo esta vez. Pregúntale a tu acompañante 😊");
+      btn.replaceWith(box); speak(txt, "es-ES");
+    } catch (e) { btn.textContent = "🤖 No disponible ahora"; }
   }
 
   /* ================= eventos ================= */
@@ -1007,6 +1237,7 @@ Reglas:
     switch (a) {
       case "go": {
         if (b.dataset.to === "maker" && maker.status !== "loading") maker = { status: "idle", course: null, error: "", form: null };
+        if (b.dataset.to === "duel") duel = null;
         if (b.dataset.to === "plan" && b.dataset.edit) { planDraft = S.plan ? JSON.parse(JSON.stringify(S.plan.settings)) : null; }
         return go(b.dataset.to, { id: b.dataset.id, q: b.dataset.q, edit: b.dataset.edit });
       }
@@ -1045,6 +1276,14 @@ Reglas:
       case "makerReset": maker.status = "idle"; maker.course = null; return render();
       case "morePractice": return morePractice(b.dataset.id, +b.dataset.li);
       case "settings": return settings();
+      case "boss": return startBoss(b.dataset.s, +b.dataset.g);
+      case "chest": return openChest();
+      case "buy": return buyItem(b.dataset.id);
+      case "explainAI": return explainAI(b);
+      case "buzz": return buzz(+b.dataset.p);
+      case "duelAnswer": return duelAnswer(b);
+      case "duelStart": return startDuel();
+      case "duelQuit": duel = null; return go("home");
     }
   });
   document.addEventListener("input", (e) => { const k = e.target.dataset && e.target.dataset.bind; if (k && draft) draft[k] = e.target.value; });
@@ -1058,6 +1297,12 @@ Reglas:
   document.addEventListener("click", (e) => { if (e.target.closest(".buddy svg")) say(pick(["¡Tú puedes! 💪", "¿Jugamos un reto en familia?", "Aprender es una aventura 🚀", "¡Me encanta estudiar contigo!", "Tip: lean la pregunta en voz alta 📢"]), "happy"); });
 
   document.addEventListener("keydown", (e) => {
+    if (view.name === "duel" && duel && !e.target.closest("input, textarea, select")) {
+      const k = e.key.toLowerCase();
+      if (k === "a") { e.preventDefault(); buzz(0); } else if (k === "l") { e.preventDefault(); buzz(1); }
+      else if (/^[1-4]$/.test(k) && duel.phase === "answer") { const b = document.querySelectorAll("#dopts .opt")[+k - 1]; if (b && !b.disabled) duelAnswer(b); }
+      return;
+    }
     if (view.name !== "play" || !play || e.target.closest("input, textarea, select")) return;
     const q = play.qs[play.i];
     if (q.kind === "choice" && !play.answered && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll("#opts .opt")[+e.key - 1]; if (b && !b.disabled) { e.preventDefault(); onAnswer(b); } }
@@ -1078,12 +1323,13 @@ Reglas:
     const ctx = cv.getContext("2d"); let W, H;
     const size = () => { W = cv.width = innerWidth; H = cv.height = innerHeight; };
     size(); addEventListener("resize", size);
-    const blobs = ["#8f63ff", "#3ee6ff", "#ff5fd2", "#ff8a3d"].map((c, i) => ({ c, x: Math.random(), y: Math.random(), r: 0.35 + i * 0.05, sx: (Math.random() - 0.5) * 0.0004, sy: (Math.random() - 0.5) * 0.0004 }));
+    const blobs = ["#8f63ff", "#3ee6ff", "#ff5fd2", "#ff8a3d"].map((c, i) => ({ i, c, x: Math.random(), y: Math.random(), r: 0.35 + i * 0.05, sx: (Math.random() - 0.5) * 0.0004, sy: (Math.random() - 0.5) * 0.0004 }));
     const stars = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + 0.3, p: Math.random() * 6 }));
     let t = 0;
     (function loop() {
       t += 1; ctx.clearRect(0, 0, W, H);
-      blobs.forEach((b) => { b.x += b.sx; b.y += b.sy; if (b.x < -0.1 || b.x > 1.1) b.sx *= -1; if (b.y < -0.1 || b.y > 1.1) b.sy *= -1; const g = ctx.createRadialGradient(b.x * W, b.y * H, 0, b.x * W, b.y * H, b.r * Math.max(W, H)); g.addColorStop(0, b.c + "55"); g.addColorStop(1, b.c + "00"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); });
+      const pal = SKIN_BLOBS[S.equip.theme] || SKIN_BLOBS["t-galaxia"];
+      blobs.forEach((b) => { b.c = pal[b.i]; b.x += b.sx; b.y += b.sy; if (b.x < -0.1 || b.x > 1.1) b.sx *= -1; if (b.y < -0.1 || b.y > 1.1) b.sy *= -1; const g = ctx.createRadialGradient(b.x * W, b.y * H, 0, b.x * W, b.y * H, b.r * Math.max(W, H)); g.addColorStop(0, b.c + "55"); g.addColorStop(1, b.c + "00"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); });
       ctx.fillStyle = "#ffffff"; stars.forEach((s) => { ctx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(s.p + t / 60)); ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill(); }); ctx.globalAlpha = 1;
       if (!document.hidden) requestAnimationFrame(loop); else setTimeout(() => requestAnimationFrame(loop), 500);
     })();
@@ -1093,7 +1339,9 @@ Reglas:
   document.body.insertAdjacentHTML("afterbegin", '<canvas id="bg" aria-hidden="true"></canvas>');
   background();
   document.body.insertAdjacentHTML("beforeend", `<div class="buddy" aria-live="polite"><div class="say"></div>${NOVA}</div><canvas id="confetti"></canvas>`);
+  applySkin();
   render();
+  aiAvailable().then((v) => { aiReady = !!v; });
   if (S.profile) setTimeout(() => say(`¡Hola de nuevo, ${S.profile.name}! ${S.streak.n > 1 ? `Llevas ${S.streak.n} días seguidos 🔥` : "¿Qué aprendemos hoy?"}`), 600);
   initCloud();
 })();
