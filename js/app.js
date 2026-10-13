@@ -456,7 +456,7 @@
         </div>
         <div class="two">
           <div class="field"><label>Personaje</label><div class="avatars">${String(draft.avatar).startsWith("c:") ? `<button class="avatar-opt" data-act="draft" data-k="avatar" data-v="${draft.avatar}" aria-pressed="true" aria-label="Mi avatar">${av(draft.avatar)}</button>` : ""}${AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="avatar" data-v="${a}" aria-pressed="${ART.avatarId(draft.avatar) === a}" aria-label="Personaje">${av(a)}</button>`).join("")}<button class="avatar-opt create" data-act="go" data-to="avatar" data-q="setup" aria-label="Crear mi avatar">${I("sparkle")}<small>Crear</small></button></div></div>
-          <div class="field"><label>Personaje del adulto</label><div class="avatars">${ADULT_AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="adultAvatar" data-v="${a}" aria-pressed="${ART.avatarId(draft.adultAvatar) === a}" aria-label="Personaje del adulto">${av(a)}</button>`).join("")}</div></div>
+          <div class="field"><label>Personaje del adulto</label><div class="avatars">${String(draft.adultAvatar).startsWith("c:") ? `<button class="avatar-opt" data-act="draft" data-k="adultAvatar" data-v="${draft.adultAvatar}" aria-pressed="true" aria-label="Avatar del adulto">${av(draft.adultAvatar)}</button>` : ""}${ADULT_AVATARS.map((a) => `<button class="avatar-opt" data-act="draft" data-k="adultAvatar" data-v="${a}" aria-pressed="${ART.avatarId(draft.adultAvatar) === a}" aria-label="Personaje del adulto">${av(a)}</button>`).join("")}<button class="avatar-opt create" data-act="go" data-to="avatar" data-q="setup-adult" aria-label="Crear avatar del adulto">${I("sparkle")}<small>Crear</small></button></div></div>
         </div>
       </div>
       <div class="card stack"><h2>1. ¿En qué país estudian?</h2>
@@ -1093,7 +1093,7 @@ Reglas:
     const P = S.profile;
     return `<section class="stack">
       <div class="section-head"><h1>${I("shop")} Tienda</h1><span class="spacer"></span><span class="pill star" style="font-size:1rem">🪙 ${S.coins} monedas</span></div>
-      <div class="player-card shop-preview"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${av(P.avatar)}</div>${petHTML()}</div><div><p class="eyebrow">Así te ves</p><h2>${esc(P.name)}</h2><button class="btn small" style="margin-top:8px" data-act="go" data-to="avatar" data-q="profile">${I("sparkle")} Crear mi avatar</button><p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span>` : "Sin título todavía"}</p></div></div>
+      <div class="player-card shop-preview"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${av(P.avatar)}</div>${petHTML()}</div><div><p class="eyebrow">Así te ves</p><h2>${esc(P.name)}</h2><div class="row" style="margin-top:8px;gap:8px"><button class="btn small" data-act="go" data-to="avatar" data-q="profile">${I("sparkle")} Crear mi avatar</button><button class="btn ghost small" data-act="go" data-to="avatar" data-q="profile-adult">${av(P.adultAvatar)} Avatar de ${esc(P.adult || "mamá")}</button></div><p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span>` : "Sin título todavía"}</p></div></div>
       <p class="muted" style="margin:0">Ganas 🪙 con cada estrella, con el cofre diario y venciendo jefes. Toca un objeto que ya tienes para equiparlo o quitártelo.</p>
       ${Object.entries(SHOP_CATS).map(([cat, label]) => `<h2>${label}</h2><div class="shop">${SHOP.filter((x) => x.cat === cat).map((x) => {
         const have = owns(x.id), on = S.equip[cat] === x.id || (cat === "theme" && !S.equip.theme && x.id === "t-galaxia");
@@ -1423,8 +1423,8 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
   let avd = null; // { o: partes, from: "setup" | "profile" }
   const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo", extra: "Detalles", print: "Dibujo de la camiseta" };
   function vAvatar(p) {
-    const from = p.q === "setup" || !S.profile ? "setup" : "profile";
-    if (!avd || avd.from !== from) { const cur = from === "setup" ? (draft && draft.avatar) : S.profile.avatar; avd = { from, o: ART.parseC(String(cur || "").startsWith("c:") ? cur : ART.randomC()) }; }
+    const q = p.q || "profile", from = q.startsWith("setup") || !S.profile ? "setup" : "profile", target = q.endsWith("adult") ? "adultAvatar" : "avatar";
+    if (!avd || avd.from !== from || avd.target !== target) { const src = from === "setup" ? draft || {} : S.profile, cur = src[target]; avd = { from, target, o: ART.parseC(String(cur || "").startsWith("c:") ? cur : ART.randomC()) }; }
     const o = avd.o, code = ART.encodeC(o);
     const row = (k) => {
       const opts = ART.PARTS[k], swatch = typeof opts[0] === "string" && opts[0].startsWith("#");
@@ -1436,7 +1436,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       }).join("")}</div></div>`;
     };
     return `<section class="avatar-maker">
-      <div class="av-preview card"><div class="av-big">${av(code)}</div><h2>${esc((from === "setup" ? draft && draft.name : S.profile.name) || "Mi avatar")}</h2>
+      <div class="av-preview card"><div class="av-big">${av(code)}</div><p class="eyebrow">${target === "adultAvatar" ? "Avatar del adulto" : "Mi avatar"}</p><h2>${esc((from === "setup" ? draft && (target === "adultAvatar" ? draft.adult : draft.name) : S.profile[target === "adultAvatar" ? "adult" : "name"]) || "Mi avatar")}</h2>
         <div class="row" style="justify-content:center"><button class="btn ghost" data-act="avRandom">${I("sparkle")} Sorpresa</button><button class="btn" data-act="avSave">Usar este avatar</button></div>
         <button class="linkbtn" data-act="avCancel">Cancelar</button></div>
       <div class="av-parts">${["skin", "hair", "hairColor", "eyes", "mouth", "extra", "acc", "shirt", "print", "bg"].map(row).join("")}</div>
@@ -1501,9 +1501,9 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       case "avRandom": avd.o = ART.parseC(ART.randomC()); sfx.right(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
       case "avCancel": { const f = avd && avd.from; avd = null; return go(f === "setup" ? "setup" : "shop", f === "setup" ? { first: !S.profile } : {}); }
       case "avSave": {
-        const code = ART.encodeC(avd.o), f = avd.from; avd = null;
-        if (f === "setup") { draft.avatar = code; return go("setup", { first: !S.profile }); }
-        S.profile.avatar = code; save(); confetti(90); toast("¡Avatar nuevo!"); return go("shop");
+        const code = ART.encodeC(avd.o), f = avd.from, t = avd.target; avd = null;
+        if (f === "setup") { draft[t] = code; return go("setup", { first: !S.profile }); }
+        S.profile[t] = code; save(); confetti(90); toast("¡Avatar nuevo!"); return go("shop");
       }
       case "account": return accountMenu();
       case "authMode": return go("auth", { mode: b.dataset.v });
