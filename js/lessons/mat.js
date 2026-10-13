@@ -22,7 +22,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
     hook: "Si tú tienes 4 galletas y tu amigo tiene 2, ¿quién tiene más? ¡Vamos a descubrirlo!",
     steps: [
       { title: "Mira los dos grupos", text: "Comparar es mirar dos grupos de cosas y ver cuál tiene más y cuál tiene menos.", example: "🐟🐟🐟🐟 y 🐟🐟" },
-      { title: "Haz parejas", text: "Pon una cosa de un grupo junto a una cosa del otro. El grupo al que le sobran cosas tiene más.", example: "🐟🐟🐟🐟 / 🐟🐟 → sobran 2 peces arriba" },
+      { title: "Haz parejas", text: "Pon una cosa de un grupo junto a una cosa del otro. El grupo al que le sobran cosas tiene más.", example: "🐟🐟🐟🐟 y 🐟🐟 → al grupo de 4 le sobran 2 peces" },
       { title: "Cuenta cada grupo", text: "También puedes contar los dos grupos. El número más grande es el grupo que tiene más.", example: "4 peces y 2 peces → 4 es más que 2" },
       { title: "Iguales", text: "Si al hacer parejas no sobra ninguna cosa, los dos grupos tienen lo mismo. Son iguales.", example: "🌼🌼🌼 y 🌼🌼🌼 → ¡iguales!" }
     ],
@@ -344,7 +344,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
   "m2a": {
     hook: "¿Qué pasa cuando sumas 7 + 5 en las unidades y te da 12? ¡No cabe en una sola casilla! Aprende a 'llevar'.",
     steps: [
-      { title: "Ordena en columnas", text: "Escribe un número debajo del otro: unidades bajo unidades y decenas bajo decenas. Así no se mezclan.", example: "  27\n+ 15" },
+      { title: "Ordena en columnas", text: "Escribe un número debajo del otro: unidades bajo unidades y decenas bajo decenas. Así no se mezclan.", example: "27 arriba y 15 abajo: el 7 sobre el 5, el 2 sobre el 1" },
       { title: "Suma las unidades", text: "Empieza siempre por la derecha, sumando las unidades. Si el resultado es 9 o menos, escríbelo y sigue.", example: "7 + 5 = 12" },
       { title: "Llevar una decena", text: "Si las unidades suman 10 o más, escribe solo la cifra de las unidades y lleva 1 decena arriba de la columna de las decenas.", example: "12 → escribo 2 y llevo 1" },
       { title: "Suma las decenas", text: "Ahora suma las decenas sin olvidar la que llevaste. El resultado completo aparece abajo.", example: "1 + 2 + 1 = 4 → 27 + 15 = 42" },
@@ -362,7 +362,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
   "m2b": {
     hook: "¿Cómo le quitas 7 a 2? ¡No se puede… a menos que le pidas ayuda a las decenas!",
     steps: [
-      { title: "Ordena en columnas", text: "Escribe el número mayor arriba y el menor abajo, con las unidades bien alineadas bajo las unidades.", example: "  52\n− 17" },
+      { title: "Ordena en columnas", text: "Escribe el número mayor arriba y el menor abajo, con las unidades bien alineadas bajo las unidades.", example: "52 arriba y 17 abajo: el 2 sobre el 7, el 5 sobre el 1" },
       { title: "¿Alcanza?", text: "Mira las unidades: si arriba hay menos que abajo, no puedes restar todavía. En 52 − 17, 2 es menor que 7.", example: "2 − 7 → ¡no alcanza!" },
       { title: "Pide prestado", text: "Toma 1 decena del número de arriba y conviértela en 10 unidades. El 5 baja a 4 y el 2 se convierte en 12.", example: "5 decenas → 4 decenas · 2 unidades → 12 unidades" },
       { title: "Resta las columnas", text: "Ahora resta las unidades y luego las decenas. Recuerda usar el número de decenas que quedó.", example: "12 − 7 = 5 · 4 − 1 = 3 → 52 − 17 = 35" },
@@ -383,7 +383,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
       { title: "Grupos iguales", text: "Multiplicar sirve cuando tenemos varios grupos con la misma cantidad de cosas en cada uno.", example: "🍪🍪 🍪🍪 🍪🍪 → 3 grupos de 2" },
       { title: "Es una suma repetida", text: "Multiplicar es sumar el mismo número varias veces. 3 grupos de 2 es 2 + 2 + 2.", example: "2 + 2 + 2 = 6" },
       { title: "El signo ×", text: "Escribimos con el signo ×, que se lee 'por'. El primer número dice cuántos grupos hay y el segundo, cuántos hay en cada grupo.", example: "3 × 2 = 6 (tres por dos es seis)" },
-      { title: "Filas y columnas", text: "Podemos dibujar las cosas en filas iguales. Contamos filas por cuántos hay en cada fila.", example: "⭐⭐⭐⭐⭐\n⭐⭐⭐⭐⭐\n⭐⭐⭐⭐⭐\n⭐⭐⭐⭐⭐ → 4 × 5 = 20" }
+      { title: "Filas y columnas", text: "Podemos dibujar las cosas en filas iguales. Contamos filas por cuántos hay en cada fila.", example: "⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐⭐ / ⭐⭐⭐⭐⭐ → 4 × 5 = 20" }
     ],
     remember: ["Multiplicar es sumar grupos iguales.", "3 × 2 es 3 grupos de 2.", "El signo × se lee 'por'."],
     mistake: "No confundas 3 × 2 con 3 + 2. 3 + 2 = 5, pero 3 × 2 = 6, porque son tres grupos de dos.",
@@ -576,7 +576,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
       { title: "Lee y entiende", text: "Lee el problema con calma, dos veces si hace falta. Cuéntalo con tus palabras: ¿qué está pasando?", example: "'4 bolsas, cada una con 6 dulces. ¿Cuántos dulces hay?'" },
       { title: "Busca los datos", text: "Subraya los números importantes y la pregunta. La pregunta te dice qué tienes que encontrar.", example: "Datos: 4 bolsas, 6 dulces · Pregunta: ¿cuántos en total?" },
       { title: "Elige la operación", text: "Junto → sumo. Quito → resto. Grupos iguales que se repiten → multiplico. Reparto en partes iguales → divido.", example: "Se repite 6 cuatro veces → multiplico" },
-      { title: "Calcula", text: "Escribe la operación y resuélvela con cuidado.", example: "4 × 6 = 24" },
+      { title: "Calcula", text: "Escribe la operación con los números del problema y resuélvela con mucho cuidado.", example: "4 × 6 = 24" },
       { title: "Responde y revisa", text: "Escribe la respuesta con una frase completa y piensa si tiene sentido.", example: "Hay 24 dulces en total 🍬 (tiene sentido: más que 6)" }
     ],
     remember: ["Lee, busca datos y la pregunta.", "Junto, quito, repito o reparto.", "Responde con una frase y revisa."],
@@ -871,7 +871,7 @@ Object.assign(window.CURRICULUM_LESSONS, {
   "m5a": {
     hook: "Compraste un jugo de $2,50 y un pan de $1,25. ¿Cuánto gastaste? Para sumar decimales hay un secreto: ¡la coma!",
     steps: [
-      { title: "Alinea las comas", text: "Para sumar o restar decimales, escribe los números uno debajo del otro de modo que las comas queden en la misma columna. Así sumas décimos con décimos y centésimos con centésimos.", example: "  2,50\n+ 1,25" },
+      { title: "Alinea las comas", text: "Para sumar o restar decimales, escribe los números uno debajo del otro de modo que las comas queden en la misma columna. Así sumas décimos con décimos y centésimos con centésimos.", example: "2,50 arriba y 1,25 abajo, coma bajo coma" },
       { title: "Completa con ceros", text: "Si un número tiene menos cifras decimales, agrégale ceros a la derecha. No cambia su valor y te ayuda a no equivocarte.", example: "2,5 = 2,50" },
       { title: "Suma como siempre", text: "Suma de derecha a izquierda, llevando cuando haga falta, y baja la coma en el mismo lugar en el resultado.", example: "2,50 + 1,25 = 3,75" },
       { title: "Restar decimales", text: "En la resta haces lo mismo: alinear comas, completar con ceros y restar pidiendo prestado si es necesario.", example: "5 − 2,75 → 5,00 − 2,75 = 2,25" },
@@ -1048,3 +1048,184 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["1 dm³ equivale a…", "1 litro", ["1 mililitro", "10 litros"]]
     ]
   },
+  "m6a": {
+    hook: "Una polera cuesta $2000 y tiene 20 % de descuento. ¿Cuánto pagas? Los porcentajes están en todas las tiendas.",
+    steps: [
+      { title: "Parte de 100", text: "Un porcentaje indica cuántas partes de cada 100 tomamos. El símbolo % se lee 'por ciento'.", example: "25 % = 25 de cada 100 = 25/100" },
+      { title: "Porcentajes fáciles", text: "Algunos porcentajes son fracciones conocidas: 50 % es la mitad, 25 % la cuarta parte, 10 % la décima parte y 100 % es el total.", example: "50 % de 60 = 30 · 25 % de 80 = 80 ÷ 4 = 20" },
+      { title: "El método general", text: "Para calcular un porcentaje de un número, multiplica el número por el porcentaje y divide entre 100.", example: "25 % de 80 = 80 × 25 ÷ 100 = 2000 ÷ 100 = 20" },
+      { title: "El truco del 10 %", text: "El 10 % se obtiene dividiendo entre 10. A partir de él puedes calcular 20 %, 30 %, 5 %…", example: "10 % de 350 = 35 → 20 % = 70 · 5 % = 17,5" },
+      { title: "Descuentos", text: "Para un descuento, calcula el porcentaje del precio y réstalo del precio original.", example: "20 % de $2000 = $400 → pago $2000 − $400 = $1600" }
+    ],
+    remember: ["Porcentaje = partes de cada 100.", "50 % es la mitad y 25 % la cuarta parte.", "Número × porcentaje ÷ 100."],
+    mistake: "Un descuento del 20 % no significa pagar $20 menos. Hay que calcular el 20 % del precio: en $2000 son $400.",
+    fun: "¿Sabías que el símbolo % nació de abreviar la expresión italiana 'per cento', que significa 'por cada cien'?",
+    check: [
+      ["¿Cuánto es el 25 % de 80?", "20", ["25", "40"]],
+      ["¿Cuánto es el 10 % de 350?", "35", ["3,5", "340"]],
+      ["Una polera de $2000 con 20 % de descuento cuesta…", "$1600", ["$1980", "$400"]]
+    ]
+  },
+  "m6b": {
+    hook: "En la cordillera el termómetro marca 3 grados bajo cero. ¿Cómo se escribe ese número? ¡Con un signo menos!",
+    steps: [
+      { title: "Debajo de cero", text: "Los números negativos son menores que cero y se escriben con el signo −. Aparecen en temperaturas, pisos bajo tierra o deudas.", example: "3 grados bajo cero = −3 °C · subterráneo 2 = piso −2" },
+      { title: "La recta numérica", text: "En la recta numérica, los negativos están a la izquierda del 0 y los positivos a la derecha. Cuanto más a la izquierda, menor es el número.", example: "… −3, −2, −1, 0, 1, 2, 3 …" },
+      { title: "Comparar", text: "Entre dos negativos, es mayor el que está más cerca del cero. Por eso −2 es mayor que −5.", example: "−5 < −2 · −1 > −10" },
+      { title: "Sumar moviéndose", text: "Para sumar, ubícate en el primer número y avanza a la derecha si sumas un positivo. Para restar, avanza a la izquierda.", example: "−3 + 5 → desde −3 avanzo 5 a la derecha → 2" },
+      { title: "Un problema", text: "Si la temperatura es 4 °C y baja 7 grados, retrocedes 7 lugares desde el 4 en la recta numérica.", example: "4 − 7 = −3 °C 🥶" }
+    ],
+    remember: ["Los negativos están a la izquierda del 0.", "El más cercano al 0 es el mayor entre negativos.", "Sumar es ir a la derecha; restar, a la izquierda."],
+    mistake: "Muchos piensan que −10 es mayor que −2 porque 10 es más grande que 2. ¡Al revés! Hace más frío a −10 °C que a −2 °C, así que −10 < −2.",
+    fun: "¿Sabías que en la Antártida se han medido temperaturas de casi −90 °C, las más bajas de la Tierra?",
+    check: [
+      ["¿Cuánto es −3 + 5?", "2", ["−8", "8"]],
+      ["¿Qué número es mayor?", "−2", ["−5", "−10"]],
+      ["Hace 4 °C y baja 7 grados. ¿Qué temperatura hay?", "−3 °C", ["3 °C", "11 °C"]]
+    ]
+  },
+  "m6c": {
+    hook: "¿Cuánto es 3 + 4 × 2? Algunos dicen 14 y otros 11. Solo una respuesta es correcta, ¡y hay una regla para saberlo!",
+    steps: [
+      { title: "Por qué hay reglas", text: "Si cada persona hiciera las operaciones en distinto orden, obtendríamos resultados distintos. Por eso todos seguimos el mismo orden.", example: "3 + 4 × 2: si sumo primero da 14, si multiplico primero da 11" },
+      { title: "1.º Paréntesis", text: "Lo que está entre paréntesis se resuelve antes que todo lo demás.", example: "(3 + 4) × 2 = 7 × 2 = 14" },
+      { title: "2.º Multiplicar y dividir", text: "Después se hacen multiplicaciones y divisiones, en el orden en que aparecen de izquierda a derecha.", example: "3 + 4 × 2 = 3 + 8 = 11 · 18 ÷ 3 × 2 = 6 × 2 = 12" },
+      { title: "3.º Sumar y restar", text: "Al final se hacen sumas y restas, también de izquierda a derecha.", example: "20 − 12 ÷ 4 = 20 − 3 = 17" },
+      { title: "Todo junto", text: "Resuelve un paso a la vez y copia el resto de la expresión sin cambiarla en cada línea.", example: "2 × (5 + 1) − 4 = 2 × 6 − 4 = 12 − 4 = 8" }
+    ],
+    remember: ["Primero paréntesis.", "Luego multiplicaciones y divisiones.", "Al final sumas y restas, de izquierda a derecha."],
+    mistake: "El error más común es resolver todo de izquierda a derecha sin mirar los signos. En 3 + 4 × 2, multiplica antes de sumar: el resultado es 11.",
+    fun: "¿Sabías que algunas calculadoras sencillas no respetan la jerarquía y darían 14 para 3 + 4 × 2? ¡Por eso hay que saber la regla!",
+    check: [
+      ["¿Cuánto es 3 + 4 × 2?", "11", ["14", "10"]],
+      ["¿Cuánto es (3 + 4) × 2?", "14", ["11", "9"]],
+      ["¿Cuánto es 20 − 12 ÷ 4?", "17", ["2", "8"]]
+    ]
+  },
+  "m6d": {
+    hook: "¿Es más fácil imaginar 6/8 de una pizza o 3/4? Valen lo mismo, ¡pero 3/4 es más simple!",
+    steps: [
+      { title: "¿Qué es simplificar?", text: "Simplificar es escribir una fracción con números más pequeños sin cambiar su valor. Obtienes una fracción equivalente.", example: "6/8 = 3/4" },
+      { title: "Divide arriba y abajo", text: "Busca un número que divida exactamente al numerador y al denominador, y divide ambos por él.", example: "6/8 → ambos se dividen por 2 → 3/4" },
+      { title: "Repite si se puede", text: "Si después de simplificar todavía hay un divisor común, sigue simplificando.", example: "12/18 → ÷2 → 6/9 → ÷3 → 2/3" },
+      { title: "El atajo del MCD", text: "Si divides por el máximo común divisor de los dos números, llegas en un solo paso a la fracción más simple.", example: "MCD(12, 18) = 6 → 12/18 = 2/3" },
+      { title: "Fracción irreducible", text: "Cuando numerador y denominador no tienen ningún divisor común aparte del 1, la fracción ya no se puede simplificar: es irreducible.", example: "3/4, 2/3 y 7/9 son irreducibles" }
+    ],
+    remember: ["Divide numerador y denominador por el mismo número.", "Sigue hasta que no se pueda más.", "Dividir por el MCD lo hace en un paso."],
+    mistake: "No se vale dividir solo el numerador o solo el denominador: 6/8 no es 3/8. Debes dividir los dos por el mismo número.",
+    fun: "¿Sabías que los matemáticos prefieren dar los resultados como fracciones irreducibles porque así es más fácil compararlas?",
+    check: [
+      ["Simplifica 6/8.", "3/4", ["3/8", "6/4"]],
+      ["Simplifica 12/18.", "2/3", ["6/9", "4/6"]],
+      ["Simplifica 15/25.", "3/5", ["5/3", "1/5"]]
+    ]
+  },
+  "xmat6a": {
+    hook: "Si 3 cuadernos cuestan $900, ¿cuánto cuestan 5? Y si 4 pintores tardan 6 días, ¿cuánto tardan 8? ¡Las proporciones lo resuelven!",
+    steps: [
+      { title: "¿Qué es una razón?", text: "Una razón compara dos cantidades dividiéndolas. Se escribe como fracción o con dos puntos y se lee 'es a'.", example: "2 niños por cada 3 niñas → 2 : 3 o 2/3" },
+      { title: "Proporción directa", text: "Dos cantidades son directamente proporcionales si, cuando una se duplica, la otra también se duplica. Si una se divide, la otra también.", example: "1 cuaderno $300 · 2 cuadernos $600 · 3 cuadernos $900" },
+      { title: "Reducir a la unidad", text: "Un buen método es calcular primero cuánto vale 1 y luego multiplicar por lo que te piden.", example: "3 cuadernos $900 → 1 cuesta $300 → 5 cuestan $1500" },
+      { title: "Proporción inversa", text: "En una proporción inversa, cuando una cantidad se duplica la otra se reduce a la mitad. Su multiplicación siempre da lo mismo.", example: "4 pintores en 6 días → 8 pintores en 3 días (4 × 6 = 8 × 3 = 24)" },
+      { title: "¿Directa o inversa?", text: "Pregúntate: si una cantidad aumenta, ¿la otra aumenta o disminuye? Si aumenta, es directa; si disminuye, es inversa.", example: "Más cuadernos → más dinero (directa) · Más pintores → menos días (inversa)" }
+    ],
+    remember: ["Una razón compara dos cantidades.", "Directa: las dos suben o bajan juntas.", "Inversa: si una sube, la otra baja."],
+    mistake: "No todas las relaciones son directas. Si más personas hacen un trabajo, tardan menos, no más. Piensa antes de multiplicar.",
+    fun: "¿Sabías que los mapas usan razones llamadas escalas? En una escala 1 : 100 000, 1 cm del mapa equivale a 1 km real.",
+    check: [
+      ["3 cuadernos cuestan $900. ¿Cuánto cuestan 5?", "$1500", ["$1200", "$4500"]],
+      ["4 pintores tardan 6 días. ¿Cuánto tardan 8 pintores?", "3 días", ["12 días", "6 días"]],
+      ["Más pintores, menos días es una proporción…", "Inversa", ["Directa", "Igual"]]
+    ]
+  },
+  "xmat6b": {
+    hook: "Al lanzar un dado, ¿qué es más probable: sacar un 4 o sacar un número par? ¡La probabilidad lo mide!",
+    steps: [
+      { title: "Casos posibles", text: "Los casos posibles son todos los resultados que pueden ocurrir en un experimento. En un dado hay 6.", example: "Dado 🎲: 1, 2, 3, 4, 5, 6 → 6 casos posibles" },
+      { title: "Casos favorables", text: "Los casos favorables son los resultados que cumplen lo que buscamos.", example: "Sacar un número par: 2, 4, 6 → 3 casos favorables" },
+      { title: "La fórmula", text: "La probabilidad es casos favorables dividido entre casos posibles. Se puede escribir como fracción, decimal o porcentaje.", example: "Sacar un 4: 1/6 · Sacar par: 3/6 = 1/2 = 0,5 = 50 %" },
+      { title: "De 0 a 1", text: "Una probabilidad de 0 significa que es imposible y una de 1, que es seguro. Todo lo demás está entre 0 y 1.", example: "Sacar un 7 con un dado: 0/6 = 0 · Sacar menos de 7: 6/6 = 1" },
+      { title: "Con una bolsa", text: "En una bolsa hay 3 bolitas rojas y 2 azules. Hay 5 casos posibles y 3 son rojos.", example: "P(roja) = 3/5 · P(azul) = 2/5" }
+    ],
+    remember: ["Probabilidad = favorables ÷ posibles.", "0 es imposible y 1 es seguro.", "Puede escribirse como fracción, decimal o %."],
+    mistake: "Que algo tenga probabilidad 1/6 no significa que ocurrirá justo una vez cada 6 lanzamientos. Solo indica qué tan probable es en cada lanzamiento.",
+    fun: "¿Sabías que la teoría de la probabilidad nació de las cartas que se escribieron Pascal y Fermat sobre juegos de azar en el año 1654?",
+    check: [
+      ["Probabilidad de sacar un 4 con un dado:", "1/6", ["4/6", "1/4"]],
+      ["Probabilidad de sacar par con un dado:", "1/2", ["1/6", "2/6"]],
+      ["3 bolitas rojas y 2 azules. P(roja):", "3/5", ["2/5", "3/2"]]
+    ]
+  },
+  "xmat6c": {
+    hook: "¿Cuánto mide el borde de una pizza? Para calcularlo necesitas un número muy especial: π (pi).",
+    steps: [
+      { title: "Radio y diámetro", text: "El radio (r) va del centro del círculo hasta el borde. El diámetro (d) cruza el círculo pasando por el centro y mide el doble del radio.", example: "r = 5 cm → d = 2 × 5 = 10 cm" },
+      { title: "El número π", text: "Si divides el largo del borde de cualquier círculo entre su diámetro, siempre obtienes el mismo número: π, que vale aproximadamente 3,14.", example: "π ≈ 3,14" },
+      { title: "Longitud de la circunferencia", text: "Para calcular cuánto mide el borde, multiplica π por el diámetro.", example: "d = 10 cm → 3,14 × 10 = 31,4 cm" },
+      { title: "Área del círculo", text: "Para el área, multiplica π por el radio al cuadrado, es decir, por r × r.", example: "r = 10 cm → 3,14 × 10 × 10 = 3,14 × 100 = 314 cm²" },
+      { title: "Otro ejemplo", text: "Con un radio de 5 cm, primero calcula r² = 25, y luego multiplica por 3,14.", example: "Área = 3,14 × 25 = 78,5 cm²" }
+    ],
+    remember: ["d = 2 × r.", "Circunferencia = π × d.", "Área = π × r², con π ≈ 3,14."],
+    mistake: "En el área se usa el radio, no el diámetro. Si usas d = 20 en vez de r = 10, el área te saldrá 4 veces más grande.",
+    fun: "¿Sabías que π tiene infinitas cifras decimales sin repetirse? Las computadoras han calculado billones de ellas: 3,14159265…",
+    check: [
+      ["Si el radio es 5 cm, el diámetro es…", "10 cm", ["2,5 cm", "25 cm"]],
+      ["Longitud de una circunferencia de diámetro 10 cm:", "31,4 cm", ["314 cm", "13,14 cm"]],
+      ["Área de un círculo de radio 10 cm:", "314 cm²", ["31,4 cm²", "62,8 cm²"]]
+    ]
+  },
+  "xmat6d": {
+    hook: "Si un rumor lo cuentan 2 personas, y cada una se lo cuenta a 2 más, y así… ¡crece muy rápido! Las potencias explican por qué.",
+    steps: [
+      { title: "Base y exponente", text: "Una potencia es una multiplicación repetida del mismo número. La base es el número que se multiplica y el exponente dice cuántas veces.", example: "2³ → base 2, exponente 3 → 2 × 2 × 2 = 8" },
+      { title: "Calcular potencias", text: "Multiplica la base por sí misma tantas veces como indica el exponente. ¡No multipliques la base por el exponente!", example: "5² = 5 × 5 = 25 · 3⁴ = 3 × 3 × 3 × 3 = 81" },
+      { title: "Cuadrados y cubos", text: "Elevar al exponente 2 se llama 'al cuadrado' y al exponente 3, 'al cubo', porque así se calcula el área de un cuadrado y el volumen de un cubo.", example: "4² = 16 (cuatro al cuadrado) · 10³ = 1000 (diez al cubo)" },
+      { title: "La raíz cuadrada", text: "La raíz cuadrada es la operación contraria a elevar al cuadrado. Pregúntate: ¿qué número multiplicado por sí mismo da este?", example: "√49 = 7 porque 7 × 7 = 49 · √81 = 9" },
+      { title: "Cuadrados perfectos", text: "Los números que tienen raíz cuadrada exacta se llaman cuadrados perfectos. Conviene memorizar los primeros.", example: "1, 4, 9, 16, 25, 36, 49, 64, 81, 100" }
+    ],
+    remember: ["La potencia es multiplicación repetida.", "El exponente dice cuántas veces se multiplica la base.", "La raíz cuadrada deshace el cuadrado."],
+    mistake: "El error más común es multiplicar base por exponente: 2³ no es 6, sino 2 × 2 × 2 = 8.",
+    fun: "¿Sabías que si doblas una hoja por la mitad 10 veces, tendría 2¹⁰ = 1024 capas? ¡Por eso es casi imposible doblarla tantas veces!",
+    check: [
+      ["¿Cuánto es 2³?", "8", ["6", "9"]],
+      ["¿Cuánto es √49?", "7", ["24,5", "9"]],
+      ["¿Cuánto es 5²?", "25", ["10", "7"]]
+    ]
+  },
+  "xmat6e": {
+    hook: "Pienso un número, lo multiplico por 2, le sumo 3 y me da 11. ¿Qué número pensé? ¡Las ecuaciones resuelven este misterio!",
+    steps: [
+      { title: "¿Qué es una ecuación?", text: "Una ecuación es una igualdad en la que falta un número, que llamamos incógnita y escribimos con una letra, como x.", example: "x + 7 = 15 → ¿qué número más 7 da 15?" },
+      { title: "Como una balanza", text: "Una ecuación es como una balanza en equilibrio: si haces algo en un lado, debes hacer lo mismo en el otro para que siga equilibrada.", example: "x + 7 = 15 → resto 7 a ambos lados → x = 8" },
+      { title: "Operación contraria", text: "Para dejar sola la x, usa la operación contraria: la suma se deshace con resta y la multiplicación con división.", example: "3x = 21 → divido ambos lados entre 3 → x = 7" },
+      { title: "Ecuaciones de dos pasos", text: "Si hay dos operaciones, deshaz primero la suma o resta y después la multiplicación o división.", example: "2x + 3 = 11 → 2x = 8 → x = 4" },
+      { title: "Comprueba", text: "Reemplaza la x por tu resultado en la ecuación original. Si los dos lados dan lo mismo, ¡acertaste!", example: "2 × 4 + 3 = 8 + 3 = 11 ✔" }
+    ],
+    remember: ["La x es el número desconocido.", "Lo que haces en un lado, hazlo en el otro.", "Usa la operación contraria y comprueba."],
+    mistake: "Muchos cambian un número de lado sin cambiar la operación: en x + 7 = 15 escriben x = 15 + 7. Lo correcto es restar: x = 15 − 7 = 8.",
+    fun: "¿Sabías que la palabra 'álgebra' viene del árabe 'al-jabr', del libro del matemático Al-Juarismi, escrito hace más de 1000 años?",
+    check: [
+      ["Resuelve 2x + 3 = 11.", "x = 4", ["x = 7", "x = 8"]],
+      ["Resuelve x + 7 = 15.", "x = 8", ["x = 22", "x = 7"]],
+      ["Resuelve 3x = 21.", "x = 7", ["x = 18", "x = 63"]]
+    ]
+  },
+  "xmat6f": {
+    hook: "Los problemas largos asustan un poco, pero si los resuelves por pasos, ¡cada uno es fácil!",
+    steps: [
+      { title: "Comprende el problema", text: "Lee el problema completo, identifica los datos y la pregunta final. Si ayuda, haz un dibujo o un esquema.", example: "4 amigos compran 3 pizzas de $6000 y pagan entre todos por igual. ¿Cuánto paga cada uno?" },
+      { title: "Planifica", text: "Decide qué necesitas calcular primero y en qué orden. Escribe los pasos antes de hacer las cuentas.", example: "1.º costo total de las pizzas · 2.º repartir entre 4" },
+      { title: "Ejecuta paso a paso", text: "Haz cada operación por separado. Cada paso usa el resultado del anterior.", example: "3 × 6000 = 18 000 → 18 000 ÷ 4 = $4500 por persona" },
+      { title: "Con expresiones", text: "Un cálculo de varios pasos puede escribirse en una sola expresión con paréntesis. Se resuelve respetando el orden de las operaciones.", example: "(6 + 4) × 3 − 5 → 10 → 30 → 25" },
+      { title: "Comprueba", text: "Revisa haciendo la operación inversa o estimando. Pregúntate si el resultado responde la pregunta y tiene sentido.", example: "4 × 4500 = 18 000 ✔ y cada uno paga menos que una pizza ✔" }
+    ],
+    remember: ["Comprende, planifica, ejecuta y comprueba.", "Cada paso usa el resultado anterior.", "Revisa con la operación inversa."],
+    mistake: "Apurarse y hacer las cuentas sin un plan lleva a usar los datos en el orden equivocado. Escribe primero tus pasos.",
+    fun: "¿Sabías que los cohetes espaciales se lanzan siguiendo listas de cientos de pasos en orden? ¡Saltarse uno podría ser un desastre!",
+    check: [
+      ["¿Cuánto es (6 + 4) × 3 − 5?", "25", ["37", "15"]],
+      ["3 pizzas de $6000 entre 4 amigos. ¿Cuánto paga cada uno?", "$4500", ["$18 000", "$6000"]],
+      ["¿Cuál es el último paso al resolver un problema?", "Comprobar el resultado", ["Leer los datos", "Hacer un dibujo"]]
+    ]
+  }
+});
