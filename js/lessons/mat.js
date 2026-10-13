@@ -516,3 +516,355 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Cuántas ruedas tienen 5 triciclos?", "15", ["8", "20"]]
     ]
   },
+  "m3a": {
+    hook: "¿Sabes cuánto es 6 × 7 sin contar con los dedos? Con las tablas, ¡lo sabrás en un segundo!",
+    steps: [
+      { title: "Para qué sirven las tablas", text: "Las tablas de multiplicar son resultados que aprendemos de memoria para no tener que sumar grupos cada vez.", example: "6 × 7 = 7 + 7 + 7 + 7 + 7 + 7 = 42" },
+      { title: "El orden no importa", text: "Si cambias el orden de los números, el resultado es el mismo. Así, si sabes 3 × 7, también sabes 7 × 3.", example: "3 × 7 = 21 y 7 × 3 = 21" },
+      { title: "Tablas fáciles", text: "Por 1 el número queda igual. Por 10 se le agrega un 0. Por 5 los resultados terminan en 0 o en 5.", example: "8 × 1 = 8 · 8 × 10 = 80 · 8 × 5 = 40" },
+      { title: "Usa lo que sabes", text: "Si olvidas un resultado, parte de uno que conozcas y suma o resta un grupo más.", example: "8 × 7: sé 8 × 5 = 40, más 8 × 2 = 16 → 56" },
+      { title: "El truco del 9", text: "En la tabla del 9, las cifras del resultado suman 9, y la cifra de las decenas es uno menos que el número por el que multiplicas.", example: "9 × 6 = 54 (5 + 4 = 9) · 9 × 8 = 72" }
+    ],
+    remember: ["Las tablas se aprenden de memoria.", "El orden no cambia el resultado.", "Puedes partir de una tabla que sabes."],
+    mistake: "Muchos confunden 6 × 8 = 48 con 7 × 7 = 49 o 6 × 7 = 42. Practica un poquito cada día las tablas difíciles: 6, 7 y 8.",
+    fun: "¿Sabías que con las tablas que conoces puedes saber cuántos días hay en 7 semanas? 7 × 7 = 49 días.",
+    check: [
+      ["¿Cuánto es 6 × 7?", "42", ["48", "36"]],
+      ["Si 3 × 7 = 21, ¿cuánto es 7 × 3?", "21", ["10", "37"]],
+      ["¿Cuánto es 9 × 8?", "72", ["81", "64"]]
+    ]
+  },
+  "m3b": {
+    hook: "Tienes 12 caramelos para 3 amigos. ¿Cuántos le tocan a cada uno si todos reciben igual?",
+    steps: [
+      { title: "Dividir es repartir", text: "Dividir es repartir una cantidad en grupos iguales. Usamos el signo ÷, que se lee 'dividido entre'.", example: "12 ÷ 3 → reparto 12 en 3 grupos" },
+      { title: "Reparte de uno en uno", text: "Puedes dar un caramelo a cada amigo, luego otro, y así hasta que no queden. Cuenta cuántos tiene cada uno.", example: "🍬🍬🍬🍬 | 🍬🍬🍬🍬 | 🍬🍬🍬🍬 → 4 cada uno" },
+      { title: "Piensa en la tabla", text: "Dividir es lo contrario de multiplicar. Pregúntate: ¿qué número por 3 da 12?", example: "3 × 4 = 12, entonces 12 ÷ 3 = 4" },
+      { title: "Comprueba", text: "Multiplica tu resultado por el número entre el que dividiste. Si da el número inicial, está correcto.", example: "35 ÷ 5 = 7, porque 5 × 7 = 35 ✔" },
+      { title: "Un problema", text: "En una caja hay 20 lápices para 4 mesas. Repartimos en partes iguales: 20 ÷ 4. Como 4 × 5 = 20, a cada mesa le tocan 5.", example: "20 ÷ 4 = 5 lápices ✏️" }
+    ],
+    remember: ["Dividir es repartir en partes iguales.", "Es lo contrario de multiplicar.", "Comprueba con una multiplicación."],
+    mistake: "No es lo mismo 12 ÷ 3 que 3 ÷ 12. El número que se reparte va primero.",
+    fun: "¿Sabías que no se puede dividir entre 0? Si no hay grupos, ¡no hay a quién repartirle!",
+    check: [
+      ["¿Cuánto es 12 ÷ 3?", "4", ["9", "36"]],
+      ["¿Cuánto es 20 ÷ 4?", "5", ["16", "6"]],
+      ["¿Cómo compruebas 35 ÷ 5 = 7?", "5 × 7 = 35", ["35 + 5 = 40", "7 − 5 = 2"]]
+    ]
+  },
+  "m3c": {
+    hook: "Cortas una pizza en 4 trozos iguales y te comes 1. ¿Cómo se escribe la parte que comiste?",
+    steps: [
+      { title: "Partes iguales", text: "Una fracción representa una parte de algo que dividimos en partes iguales. Si las partes no son iguales, no es una fracción.", example: "🍕 en 4 partes iguales" },
+      { title: "El denominador", text: "El número de abajo se llama denominador. Dice en cuántas partes iguales dividimos el entero.", example: "1/4 → el 4 dice que hay 4 partes" },
+      { title: "El numerador", text: "El número de arriba se llama numerador. Dice cuántas partes tomamos.", example: "Comí 1 trozo → 1/4 · Comí 3 trozos → 3/4" },
+      { title: "Cómo se leen", text: "1/2 es un medio, 1/3 un tercio, 1/4 un cuarto, 1/5 un quinto. Desde el 11 decimos onceavos, doceavos…", example: "2/3 = dos tercios · 3/4 = tres cuartos" },
+      { title: "Comparar", text: "Si dos fracciones tienen el mismo denominador, es mayor la que tiene el numerador más grande, porque tomas más partes.", example: "3/5 > 2/5" }
+    ],
+    remember: ["Las partes deben ser iguales.", "Denominador: en cuántas partes divido.", "Numerador: cuántas partes tomo."],
+    mistake: "Algunos creen que 1/8 es más que 1/4 porque 8 es mayor. ¡Al revés! Si cortas en 8 trozos, cada trozo es más pequeño. 1/4 > 1/8.",
+    fun: "¿Sabías que en la música también hay fracciones? Hay notas que duran 1/2, 1/4 y 1/8 de tiempo.",
+    check: [
+      ["Una pizza en 4 trozos, comes 1. ¿Qué fracción comiste?", "1/4", ["4/1", "1/3"]],
+      ["En 3/5, ¿qué número es el denominador?", "5", ["3", "8"]],
+      ["¿Qué es mayor?", "1/4", ["1/8", "Son iguales"]]
+    ]
+  },
+  "m3d": {
+    hook: "Tienes 4 bolsas con 6 dulces cada una. ¿Sumas, restas, multiplicas o divides? ¡Aprende a decidir!",
+    steps: [
+      { title: "Lee y entiende", text: "Lee el problema con calma, dos veces si hace falta. Cuéntalo con tus palabras: ¿qué está pasando?", example: "'4 bolsas, cada una con 6 dulces. ¿Cuántos dulces hay?'" },
+      { title: "Busca los datos", text: "Subraya los números importantes y la pregunta. La pregunta te dice qué tienes que encontrar.", example: "Datos: 4 bolsas, 6 dulces · Pregunta: ¿cuántos en total?" },
+      { title: "Elige la operación", text: "Junto → sumo. Quito → resto. Grupos iguales que se repiten → multiplico. Reparto en partes iguales → divido.", example: "Se repite 6 cuatro veces → multiplico" },
+      { title: "Calcula", text: "Escribe la operación y resuélvela con cuidado.", example: "4 × 6 = 24" },
+      { title: "Responde y revisa", text: "Escribe la respuesta con una frase completa y piensa si tiene sentido.", example: "Hay 24 dulces en total 🍬 (tiene sentido: más que 6)" }
+    ],
+    remember: ["Lee, busca datos y la pregunta.", "Junto, quito, repito o reparto.", "Responde con una frase y revisa."],
+    mistake: "No elijas la operación por las palabras sueltas, sino por lo que pasa. Imagina la situación o haz un dibujo.",
+    fun: "¿Sabías que el famoso matemático George Pólya escribió un libro entero sobre cómo resolver problemas? ¡Sus pasos se parecen mucho a estos!",
+    check: [
+      ["4 bolsas con 6 dulces. ¿Cuántos dulces?", "24", ["10", "2"]],
+      ["24 dulces repartidos entre 3 niños. ¿Cuántos a cada uno?", "8", ["21", "27"]],
+      ["Si hay que repartir en partes iguales, se…", "Divide", ["Suma", "Multiplica"]]
+    ]
+  },
+  "xmat3a": {
+    hook: "¿Qué pesa más, un kilo de algodón o un kilo de piedras? ¡Pesan lo mismo! Aprendamos a medir masa y capacidad.",
+    steps: [
+      { title: "La masa", text: "La masa nos dice cuánto 'pesa' algo. Se mide en kilogramos (kg) para cosas pesadas y en gramos (g) para cosas livianas.", example: "Una sandía: 3 kg · Una galleta: 10 g" },
+      { title: "1 kg = 1000 g", text: "Un kilogramo es igual a 1000 gramos. Medio kilo es la mitad: 500 g, y un cuarto de kilo es 250 g.", example: "Medio kilo = 500 g · 2 kg = 2000 g" },
+      { title: "La capacidad", text: "La capacidad es cuánto líquido cabe en un recipiente. Se mide en litros (L) y mililitros (mL).", example: "Una botella grande: 2 L · Una cucharadita: 5 mL" },
+      { title: "1 L = 1000 mL", text: "Un litro es igual a 1000 mililitros. Medio litro son 500 mL y un cuarto de litro, 250 mL.", example: "Un cuarto de litro = 250 mL · 4 vasos de 250 mL = 1 L" }
+    ],
+    remember: ["La masa se mide en kg y g.", "La capacidad se mide en L y mL.", "1 kg = 1000 g y 1 L = 1000 mL."],
+    mistake: "No mezcles las unidades: el litro es para líquidos que caben en un recipiente y el kilogramo es para lo que pesa algo.",
+    fun: "¿Sabías que un litro de agua tiene una masa de casi exactamente 1 kilogramo?",
+    check: [
+      ["¿Cuántos gramos tiene 1 kg?", "1000", ["100", "10"]],
+      ["Medio litro son…", "500 mL", ["50 mL", "250 mL"]],
+      ["¿Con qué medimos cuánta agua cabe en una botella?", "Litros", ["Kilogramos", "Metros"]]
+    ]
+  },
+  "xmat3b": {
+    hook: "Si empiezas la tarea a las 7:15 y terminas a las 7:45, ¿cuánto tiempo estudiaste?",
+    steps: [
+      { title: "Minutos y horas", text: "Una hora tiene 60 minutos. En el reloj, la aguja larga avanza 5 minutos de un número al siguiente.", example: "Aguja larga en el 3 → 15 minutos · en el 9 → 45 minutos" },
+      { title: "Cuarto y media", text: "Un cuarto de hora son 15 minutos y media hora son 30 minutos. Tres cuartos de hora son 45 minutos.", example: "7:15 = siete y cuarto · 7:30 = siete y media" },
+      { title: "Calcular cuánto dura", text: "Para saber cuánto dura algo, resta la hora de inicio de la hora de término, o cuenta los minutos desde el inicio.", example: "De 7:15 a 7:45 → 45 − 15 = 30 minutos" },
+      { title: "Pasar a la hora siguiente", text: "Si al sumar minutos pasas de 60, avanza una hora y sigue contando desde 0.", example: "8:40 + 30 minutos → 8:60 = 9:00, más 10 → 9:10" },
+      { title: "El día y las fechas", text: "Un día tiene 24 horas. Las fechas se escriben con día, mes y año.", example: "13 de octubre de 2026 = 13/10/2026" }
+    ],
+    remember: ["1 hora = 60 minutos.", "1 día = 24 horas.", "Cuarto = 15 min, media = 30 min."],
+    mistake: "Los minutos no funcionan como las decenas: después de 59 no viene 60 en la misma hora, sino que empieza una hora nueva.",
+    fun: "¿Sabías que dividimos la hora en 60 minutos por una costumbre de los antiguos babilonios, que contaban de 60 en 60?",
+    check: [
+      ["De 7:15 a 7:45, ¿cuántos minutos pasan?", "30", ["45", "15"]],
+      ["¿Cuántas horas tiene un día?", "24", ["12", "60"]],
+      ["Son las 8:40. ¿Qué hora será en 30 minutos?", "9:10", ["8:70", "9:00"]]
+    ]
+  },
+  "xmat3c": {
+    hook: "En la tienda no necesitas saber el precio exacto para saber si te alcanza: ¡basta con estimar!",
+    steps: [
+      { title: "¿Qué es redondear?", text: "Redondear es cambiar un número por el número 'redondo' (terminado en 0) más cercano. Así es más fácil calcular.", example: "47 está más cerca de 50 que de 40" },
+      { title: "La regla del 5", text: "Para redondear a la decena, mira la cifra de las unidades. Si es 5 o más, subes; si es menor que 5, bajas.", example: "47 → 50 · 43 → 40 · 65 → 70" },
+      { title: "Redondear a la centena", text: "Para redondear a la centena, mira la cifra de las decenas y usa la misma regla del 5.", example: "342 → 300 · 368 → 400" },
+      { title: "Estimar", text: "Estimar es calcular de forma aproximada con números redondeados. El resultado está cerca del exacto.", example: "48 + 31 ≈ 50 + 30 = 80 (el exacto es 79)" }
+    ],
+    remember: ["Mira la cifra de la derecha del lugar que redondeas.", "5 o más, sube; menos de 5, baja.", "Estimar es calcular aproximado."],
+    mistake: "Al redondear 342 a la centena, algunos miran el 2 de las unidades. ¡Debes mirar las decenas, el 4! Por eso queda 300.",
+    fun: "¿Sabías que el signo ≈ significa 'aproximadamente igual'? Lo usan los científicos todo el tiempo.",
+    check: [
+      ["Redondea 47 a la decena.", "50", ["40", "45"]],
+      ["Redondea 368 a la centena.", "400", ["300", "370"]],
+      ["Estima 48 + 31 redondeando.", "80", ["70", "90"]]
+    ]
+  },
+  "xmat3d": {
+    hook: "Mira los rieles del tren y las esquinas de tu cuaderno. ¡Están llenos de rectas y ángulos!",
+    steps: [
+      { title: "Rectas paralelas", text: "Dos rectas son paralelas cuando van siempre a la misma distancia y nunca se cruzan, aunque las alargues mucho.", example: "Los rieles del tren son paralelos 🛤️" },
+      { title: "Rectas perpendiculares", text: "Dos rectas son perpendiculares cuando se cruzan formando cuatro esquinas iguales, como el signo +.", example: "Las esquinas de una hoja ➕" },
+      { title: "El ángulo recto", text: "Un ángulo recto mide 90° y parece la esquina de un cuadrado. Puedes comprobarlo con la esquina de una hoja.", example: "La esquina de una puerta = 90°" },
+      { title: "Agudo y obtuso", text: "Un ángulo agudo es más cerrado que el recto: mide menos de 90°. Un ángulo obtuso es más abierto: mide más de 90°.", example: "Tijeras poco abiertas = agudo · Un abanico muy abierto = obtuso" }
+    ],
+    remember: ["Paralelas: nunca se cruzan.", "Perpendiculares: se cruzan en ángulo recto.", "Agudo < 90° < obtuso."],
+    mistake: "No toda recta que se cruza es perpendicular. Solo lo es si forma ángulos rectos de 90°.",
+    fun: "¿Sabías que el símbolo ° de los grados se usa tanto para los ángulos como para la temperatura?",
+    check: [
+      ["Las rectas que nunca se cruzan son…", "Paralelas", ["Perpendiculares", "Curvas"]],
+      ["Un ángulo recto mide…", "90°", ["45°", "180°"]],
+      ["Un ángulo de 30° es…", "Agudo", ["Obtuso", "Recto"]]
+    ]
+  },
+  "xmat3e": {
+    hook: "¿Cuál es la fruta favorita de tu curso? Para saberlo rápido, organizamos los datos en tablas y gráficos.",
+    steps: [
+      { title: "Recoger datos", text: "Primero preguntamos y anotamos las respuestas. Una forma fácil es hacer una raya por cada respuesta.", example: "Manzana: ||||| · Plátano: ||| · Uva: ||||" },
+      { title: "La tabla", text: "En una tabla escribimos cada opción y al lado cuántas veces aparece. Así los datos quedan ordenados.", example: "Manzana 5 · Plátano 3 · Uva 4" },
+      { title: "El pictograma", text: "En un pictograma usamos dibujos. Fíjate en cuánto vale cada dibujo: a veces un dibujo vale más de 1.", example: "Si cada ⭐ vale 2, ⭐⭐⭐ = 6" },
+      { title: "El gráfico de barras", text: "En un gráfico de barras, cada opción tiene una barra. La barra más alta es la que tiene más y la más baja, la que tiene menos.", example: "La barra de la manzana llega a 5: es la favorita 🍎" }
+    ],
+    remember: ["Las tablas ordenan los datos.", "En el pictograma, mira cuánto vale cada dibujo.", "La barra más alta es la que tiene más."],
+    mistake: "En un pictograma, no cuentes solo los dibujos: multiplica por lo que vale cada uno. 3 estrellas que valen 2 son 6, no 3.",
+    fun: "¿Sabías que los gráficos de barras los inventó William Playfair hace más de 200 años?",
+    check: [
+      ["Si cada ⭐ vale 2, ¿cuánto vale ⭐⭐⭐?", "6", ["3", "5"]],
+      ["En un gráfico de barras, ¿qué barra muestra lo que más hay?", "La más alta", ["La más baja", "La primera"]],
+      ["Manzana 5, plátano 3, uva 4. ¿Cuál tiene menos?", "Plátano", ["Manzana", "Uva"]]
+    ]
+  },
+  "xmat3f": {
+    hook: "Un estadio tiene 4528 asientos. ¿Cómo se lee ese número tan grande? ¡Conozcamos las unidades de mil!",
+    steps: [
+      { title: "La unidad de mil", text: "Cuando juntamos 10 centenas, formamos 1 unidad de mil, que vale 1000.", example: "10 centenas = 1000 = 1 unidad de mil" },
+      { title: "Cuatro cifras", text: "Un número de cuatro cifras tiene unidades de mil (UM), centenas (C), decenas (D) y unidades (U).", example: "4528 → UM 4, C 5, D 2, U 8" },
+      { title: "Valor posicional", text: "El valor de una cifra depende de su posición. El mismo 4 puede valer 4, 40, 400 o 4000.", example: "En 4528, el 4 vale 4000" },
+      { title: "Descomponer y leer", text: "Descomponemos sumando el valor de cada cifra. Se lee empezando por los miles.", example: "4528 = 4000 + 500 + 20 + 8 → cuatro mil quinientos veintiocho" },
+      { title: "Comparar", text: "Compara de izquierda a derecha: primero las unidades de mil, luego las centenas, y así sucesivamente.", example: "3999 < 4001 porque 3 UM < 4 UM" }
+    ],
+    remember: ["1 unidad de mil = 10 centenas = 1000.", "El valor de una cifra depende de su posición.", "Compara empezando por la izquierda."],
+    mistake: "Cuidado con los ceros: 'tres mil cinco' se escribe 3005, no 305. Cada lugar vacío lleva un 0.",
+    fun: "¿Sabías que si cuentas un número por segundo, tardarías casi 3 horas en llegar a 10 000?",
+    check: [
+      ["En 4528, ¿cuánto vale el 4?", "4000", ["4", "400"]],
+      ["¿Cómo se escribe tres mil cinco?", "3005", ["305", "30005"]],
+      ["¿Cuál es mayor?", "4001", ["3999", "Son iguales"]]
+    ]
+  },
+  "m4a": {
+    hook: "Una caja trae 23 lápices. ¿Cuántos lápices hay en 14 cajas? ¡Multiplicar por partes lo hace fácil!",
+    steps: [
+      { title: "Separa en decenas y unidades", text: "Para multiplicar un número grande, sepáralo en decenas y unidades. Es más fácil multiplicar cada parte por separado.", example: "23 = 20 + 3" },
+      { title: "Multiplica cada parte", text: "Multiplica las decenas y las unidades por el otro número, y al final suma los dos resultados.", example: "23 × 4 = 20 × 4 + 3 × 4 = 80 + 12 = 92" },
+      { title: "Ahora por 2 cifras", text: "Si el otro número también tiene dos cifras, sepáralo igual. Primero multiplica por las unidades y luego por las decenas.", example: "23 × 14 = 23 × 4 + 23 × 10" },
+      { title: "Suma los resultados parciales", text: "Calcula cada parte y súmalas. Multiplicar por 10 es fácil: agrega un 0 al final.", example: "23 × 4 = 92 · 23 × 10 = 230 · 92 + 230 = 322" },
+      { title: "En columna", text: "En el cuaderno: escribe 34 × 12. Primera fila 34 × 2 = 68. Segunda fila 34 × 10 = 340 (deja un 0 a la derecha). Suma: 68 + 340 = 408.", example: "34 × 12 = 408" }
+    ],
+    remember: ["Separa en decenas y unidades.", "Multiplica cada parte y suma.", "En la segunda fila deja un 0 porque multiplicas por decenas."],
+    mistake: "El error más común es olvidar el 0 en la segunda fila. Al multiplicar por la cifra de las decenas, estás multiplicando por 10, 20, 30…",
+    fun: "¿Sabías que hay un método antiguo llamado 'multiplicación en celosía' que usaban en la India y Arabia hace siglos?",
+    check: [
+      ["¿Cuánto es 23 × 4?", "92", ["82", "812"]],
+      ["¿Cuánto es 23 × 14?", "322", ["92", "312"]],
+      ["¿Cuánto es 34 × 12?", "408", ["68", "348"]]
+    ]
+  },
+  "m4b": {
+    hook: "Tienes 17 galletas para 5 amigos. ¿Les toca igual a todos? ¿Qué pasa con las que sobran?",
+    steps: [
+      { title: "Repartos no exactos", text: "A veces al repartir en partes iguales sobra algo que no alcanza para dar uno más a cada uno. Eso que sobra se llama residuo.", example: "17 galletas para 5 → 3 a cada uno, sobran 2" },
+      { title: "Las partes de la división", text: "El número que se reparte es el dividendo, el número de partes es el divisor, lo que le toca a cada uno es el cociente y lo que sobra, el residuo.", example: "17 ÷ 5 → dividendo 17, divisor 5, cociente 3, residuo 2" },
+      { title: "Cómo calcular", text: "Busca en la tabla del divisor el número más grande que no se pase del dividendo. Luego resta para hallar el residuo.", example: "Tabla del 5: 15 cabe en 17, 20 no → 3 × 5 = 15 · 17 − 15 = 2" },
+      { title: "El residuo es pequeño", text: "El residuo siempre debe ser menor que el divisor. Si es igual o mayor, todavía alcanza para dar uno más a cada uno.", example: "23 ÷ 4 = 5, residuo 3 (3 es menor que 4 ✔)" },
+      { title: "Comprueba", text: "Multiplica el cociente por el divisor y súmale el residuo. Debe darte el dividendo.", example: "5 × 3 + 2 = 17 ✔" }
+    ],
+    remember: ["Lo que sobra se llama residuo.", "El residuo es menor que el divisor.", "Cociente × divisor + residuo = dividendo."],
+    mistake: "Si el residuo te sale mayor que el divisor, te equivocaste: le puedes dar uno más a cada uno. Revisa el cociente.",
+    fun: "¿Sabías que el residuo te ayuda a saber qué día de la semana será? Dentro de 10 días: 10 ÷ 7 deja residuo 3, ¡así que será 3 días después de hoy!",
+    check: [
+      ["¿Cuál es el residuo de 17 ÷ 5?", "2", ["3", "5"]],
+      ["¿Cuánto es 23 ÷ 4?", "5, residuo 3", ["6, residuo 1", "5, residuo 4"]],
+      ["26 niños en grupos de 4. ¿Cuántos grupos completos hay?", "6", ["7", "5"]]
+    ]
+  },
+  "m4c": {
+    hook: "¿Es lo mismo comerte la mitad de una pizza que 2 de sus 4 trozos? ¡Sí! Esas son fracciones equivalentes.",
+    steps: [
+      { title: "Valen lo mismo", text: "Las fracciones equivalentes se escriben distinto pero representan la misma cantidad del entero.", example: "1/2 = 2/4 = 4/8 🍕" },
+      { title: "Amplificar", text: "Para obtener una fracción equivalente, multiplica el numerador y el denominador por el mismo número.", example: "1/2 → (1 × 2)/(2 × 2) = 2/4" },
+      { title: "Simplificar", text: "También puedes dividir numerador y denominador por el mismo número. La fracción queda más pequeña de escribir, pero vale lo mismo.", example: "4/8 → (4 ÷ 4)/(8 ÷ 4) = 1/2" },
+      { title: "Más ejemplos", text: "Con 2/3 puedes multiplicar por 2 y por 3 y obtener una familia de fracciones equivalentes.", example: "2/3 = 4/6 = 6/9" },
+      { title: "Cómo comprobar", text: "Multiplica en cruz: el numerador de una por el denominador de la otra. Si los dos productos son iguales, son equivalentes.", example: "1/2 y 2/4 → 1 × 4 = 4 y 2 × 2 = 4 ✔" }
+    ],
+    remember: ["Equivalentes valen lo mismo.", "Multiplica o divide arriba y abajo por el mismo número.", "Comprueba multiplicando en cruz."],
+    mistake: "No sirve sumar el mismo número arriba y abajo: 1/2 no es igual a 2/3. Solo se vale multiplicar o dividir.",
+    fun: "¿Sabías que cada fracción tiene infinitas fracciones equivalentes? 1/2 = 2/4 = 3/6 = 50/100 = …",
+    check: [
+      ["¿Qué fracción es equivalente a 1/2?", "2/4", ["2/3", "1/4"]],
+      ["2/3 es equivalente a…", "4/6", ["3/4", "2/6"]],
+      ["Para obtener una fracción equivalente debes…", "Multiplicar arriba y abajo por el mismo número", ["Sumar 1 arriba y abajo", "Cambiar solo el numerador"]]
+    ]
+  },
+  "m4d": {
+    hook: "Quieres poner una cinta alrededor de tu cuaderno. ¿Cuánta cinta necesitas? ¡Debes calcular el perímetro!",
+    steps: [
+      { title: "¿Qué es el perímetro?", text: "El perímetro es la medida del borde o contorno de una figura. Es lo que recorrerías si caminaras por todo su borde.", example: "La cerca alrededor de un jardín 🌻" },
+      { title: "Suma todos los lados", text: "Para calcularlo, suma la medida de todos los lados de la figura, sin olvidar ninguno.", example: "Triángulo de 3, 4 y 5 cm → 3 + 4 + 5 = 12 cm" },
+      { title: "El rectángulo", text: "El rectángulo tiene dos lados largos iguales y dos lados cortos iguales. Suma los cuatro.", example: "Rectángulo 5 y 3 → 5 + 3 + 5 + 3 = 16" },
+      { title: "El cuadrado", text: "El cuadrado tiene 4 lados iguales, así que puedes multiplicar un lado por 4.", example: "Cuadrado de lado 6 cm → 6 × 4 = 24 cm" },
+      { title: "Con unidades", text: "El perímetro es una longitud, así que se escribe con la misma unidad que los lados: cm, m o km.", example: "Una cancha de 20 m y 10 m → 20 + 10 + 20 + 10 = 60 m" }
+    ],
+    remember: ["Perímetro = suma de todos los lados.", "Cuadrado: lado × 4.", "Se mide en cm, m o km."],
+    mistake: "En el rectángulo, muchos suman solo dos lados (5 + 3 = 8). ¡Son cuatro lados! El perímetro es 16.",
+    fun: "¿Sabías que la palabra perímetro viene del griego: 'peri' significa alrededor y 'metro', medida?",
+    check: [
+      ["Perímetro de un rectángulo de 5 y 3:", "16", ["8", "15"]],
+      ["Perímetro de un cuadrado de lado 6 cm:", "24 cm", ["12 cm", "36 cm"]],
+      ["Perímetro de un triángulo de lados 3, 4 y 5:", "12", ["60", "9"]]
+    ]
+  },
+  "m4e": {
+    hook: "Si una pelota cuesta $2,50, ¿qué significa ese ',50'? ¡Son los decimales, partes más pequeñas que la unidad!",
+    steps: [
+      { title: "Partes de la unidad", text: "Los números decimales sirven para expresar partes de un entero. Se escriben con una coma que separa la parte entera de la parte decimal.", example: "2,5 → 2 enteros y 5 décimos" },
+      { title: "Décimos", text: "Si divides un entero en 10 partes iguales, cada parte es un décimo: 0,1. La mitad de un entero son 5 décimos: 0,5.", example: "0,5 = 5/10 = la mitad" },
+      { title: "Centésimos", text: "Si divides el entero en 100 partes, cada una es un centésimo: 0,01. La segunda cifra después de la coma son los centésimos.", example: "0,45 = 45/100 → 4 décimos y 5 centésimos" },
+      { title: "Comparar decimales", text: "Para comparar, iguala la cantidad de cifras decimales agregando ceros a la derecha. Luego compara como números normales.", example: "0,7 y 0,45 → 0,70 y 0,45 → 70 > 45, así que 0,7 > 0,45" }
+    ],
+    remember: ["La coma separa enteros de decimales.", "0,5 es la mitad.", "Agrega ceros a la derecha para comparar."],
+    mistake: "Muchos creen que 0,45 es mayor que 0,7 porque 45 es más que 7. ¡No! 0,7 = 0,70, que es mayor que 0,45.",
+    fun: "¿Sabías que en algunos países usan punto en vez de coma para los decimales? En EE. UU. escriben 2.5 en lugar de 2,5.",
+    check: [
+      ["¿Qué número es la mitad de 1?", "0,5", ["0,05", "5"]],
+      ["¿Cuál es mayor?", "0,7", ["0,45", "Son iguales"]],
+      ["En 0,45, ¿cuántos centésimos hay en total?", "45", ["4", "5"]]
+    ]
+  },
+  "xmat4a": {
+    hook: "¿Podrías repartir 12 dulces en 5 bolsas iguales? ¿Y en 4? ¡Los múltiplos y divisores te lo dicen!",
+    steps: [
+      { title: "Múltiplos", text: "Los múltiplos de un número se obtienen al multiplicarlo por 1, 2, 3, 4… Es como recitar su tabla.", example: "Múltiplos de 3: 3, 6, 9, 12, 15…" },
+      { title: "¿Es múltiplo?", text: "Un número es múltiplo de otro si aparece en su tabla. 12 es múltiplo de 3 porque 3 × 4 = 12.", example: "12 es múltiplo de 3 ✔ · 14 no es múltiplo de 3 ✘" },
+      { title: "Divisores", text: "Un divisor de un número lo divide exactamente, sin que sobre nada. 4 es divisor de 20 porque 20 ÷ 4 = 5 sin residuo.", example: "4 es divisor de 20 ✔" },
+      { title: "Buscar todos los divisores", text: "Busca parejas de números que multiplicados den el número. Todos los números de las parejas son divisores.", example: "12 = 1 × 12 = 2 × 6 = 3 × 4 → divisores: 1, 2, 3, 4, 6, 12" },
+      { title: "La relación", text: "Si a es divisor de b, entonces b es múltiplo de a. Son dos maneras de decir lo mismo.", example: "5 es divisor de 20 ↔ 20 es múltiplo de 5" }
+    ],
+    remember: ["Múltiplos: resultados de la tabla.", "Divisor: divide sin que sobre nada.", "Todo número es múltiplo y divisor de sí mismo."],
+    mistake: "Los múltiplos de un número son infinitos y cada vez más grandes; los divisores son pocos y nunca mayores que el número. No los confundas.",
+    fun: "¿Sabías que el 1 es divisor de todos los números? ¡Y el 0 es múltiplo de todos!",
+    check: [
+      ["¿Cuál es múltiplo de 3?", "12", ["14", "10"]],
+      ["¿Cuál es divisor de 20?", "4", ["3", "40"]],
+      ["¿Cuáles son los divisores de 12?", "1, 2, 3, 4, 6, 12", ["12, 24, 36", "2, 4, 6, 8"]]
+    ]
+  },
+  "xmat4b": {
+    hook: "En los relojes antiguos y en los capítulos de los libros a veces ves letras como XII. ¡Son números romanos!",
+    steps: [
+      { title: "Las siete letras", text: "Los romanos escribían los números con siete letras, cada una con un valor fijo.", example: "I=1 · V=5 · X=10 · L=50 · C=100 · D=500 · M=1000" },
+      { title: "Sumar", text: "Si una letra igual o menor va después de otra mayor, se suman sus valores.", example: "VI = 5 + 1 = 6 · XV = 10 + 5 = 15 · CL = 150" },
+      { title: "Restar", text: "Si una letra menor va antes de una mayor, se resta. Solo se usan así I antes de V o X, X antes de L o C, y C antes de D o M.", example: "IV = 4 · IX = 9 · XL = 40 · XC = 90" },
+      { title: "Repetir hasta 3 veces", text: "I, X, C y M pueden repetirse hasta tres veces seguidas. V, L y D nunca se repiten.", example: "III = 3 · XXX = 30 · pero 4 es IV, no IIII" },
+      { title: "Números largos", text: "Separa el número en miles, centenas, decenas y unidades, y escribe cada parte.", example: "2026 = MM + XX + VI = MMXXVI · XIV = 10 + 4 = 14" }
+    ],
+    remember: ["Menor después de mayor: suma.", "Menor antes de mayor: resta.", "Máximo tres letras iguales seguidas."],
+    mistake: "Es común escribir 9 como VIIII. Lo correcto es IX: un 1 antes del 10 significa 10 − 1.",
+    fun: "¿Sabías que los romanos no tenían un símbolo para el cero?",
+    check: [
+      ["¿Cuánto vale XIV?", "14", ["16", "9"]],
+      ["¿Cómo se escribe 9 en números romanos?", "IX", ["VIIII", "XI"]],
+      ["¿Cuánto vale XL?", "40", ["60", "15"]]
+    ]
+  },
+  "xmat4c": {
+    hook: "¿Cuánto se abre una puerta, un libro o las tijeras? Esa abertura es un ángulo y se mide en grados.",
+    steps: [
+      { title: "¿Qué es un ángulo?", text: "Un ángulo es la abertura entre dos semirrectas que salen del mismo punto, llamado vértice. Se mide en grados (°).", example: "Las agujas del reloj forman un ángulo 🕒" },
+      { title: "El transportador", text: "Para medir un ángulo usamos el transportador. Pon su centro en el vértice y el 0 sobre un lado; lee el número donde pasa el otro lado.", example: "📐 El lado pasa por el 45 → mide 45°" },
+      { title: "Agudo y recto", text: "Un ángulo agudo mide menos de 90°. Un ángulo recto mide exactamente 90°, como la esquina de un cuaderno.", example: "45° agudo · 90° recto" },
+      { title: "Obtuso y llano", text: "Un ángulo obtuso mide más de 90° y menos de 180°. Si mide exactamente 180°, es un ángulo llano: parece una línea recta.", example: "120° obtuso · 180° llano" }
+    ],
+    remember: ["Agudo: menos de 90°.", "Recto: 90°.", "Obtuso: entre 90° y 180°."],
+    mistake: "El tamaño de un ángulo no depende de lo largos que dibujes sus lados, sino de cuánto se abren.",
+    fun: "¿Sabías que una vuelta completa mide 360°? Por eso los patinadores dicen que dieron 'un 360'.",
+    check: [
+      ["Un ángulo de 45° es…", "Agudo", ["Obtuso", "Recto"]],
+      ["Un ángulo de 120° es…", "Obtuso", ["Agudo", "Recto"]],
+      ["¿Cuánto mide un ángulo recto?", "90°", ["180°", "100°"]]
+    ]
+  },
+  "xmat4d": {
+    hook: "Un camino mide 3 km. ¿Cuántos metros son? Saber convertir unidades es como traducir entre idiomas.",
+    steps: [
+      { title: "Las equivalencias", text: "Primero aprende cuánto vale cada unidad en la otra. Estas son las más usadas en longitud y masa.", example: "1 km = 1000 m · 1 m = 100 cm · 1 kg = 1000 g" },
+      { title: "De grande a pequeña: multiplica", text: "Si pasas de una unidad grande a una pequeña, el número se hace más grande. Por eso multiplicas.", example: "3 m = 3 × 100 = 300 cm · 4 km = 4000 m" },
+      { title: "De pequeña a grande: divide", text: "Si pasas de una unidad pequeña a una grande, el número se hace más pequeño. Por eso divides.", example: "2500 g = 2500 ÷ 1000 = 2,5 kg" },
+      { title: "Con decimales", text: "Al dividir por 10, 100 o 1000, la coma se corre a la izquierda tantos lugares como ceros tenga el número.", example: "750 cm ÷ 100 = 7,5 m" }
+    ],
+    remember: ["Grande a pequeña: multiplica.", "Pequeña a grande: divide.", "1 km = 1000 m, 1 m = 100 cm, 1 kg = 1000 g."],
+    mistake: "Si conviertes 3 m a cm y te da 0,03, piensa: ¿puede caber menos de 1 cm en 3 metros? ¡No! Debías multiplicar: 300 cm.",
+    fun: "¿Sabías que el metro se definió al principio como una diezmillonésima parte de la distancia del Polo Norte al ecuador?",
+    check: [
+      ["¿Cuántos centímetros son 3 m?", "300 cm", ["30 cm", "3000 cm"]],
+      ["¿Cuántos kilogramos son 2500 g?", "2,5 kg", ["25 kg", "250 kg"]],
+      ["Para pasar de km a m, debes…", "Multiplicar por 1000", ["Dividir por 1000", "Multiplicar por 100"]]
+    ]
+  },
+  "xmat4e": {
+    hook: "Si doblas por la mitad una mariposa de papel, ¿coinciden las dos alas? ¡Eso es simetría!",
+    steps: [
+      { title: "El eje de simetría", text: "Una figura es simétrica si una línea, llamada eje, la divide en dos mitades iguales, como si una fuera el reflejo de la otra en un espejo.", example: "🦋 una mariposa tiene un eje vertical" },
+      { title: "Cuántos ejes", text: "Algunas figuras tienen varios ejes de simetría y otras ninguno. Prueba doblando la figura de distintas maneras.", example: "El cuadrado tiene 4 ejes · el rectángulo 2 · el círculo infinitos" },
+      { title: "El plano cartesiano", text: "Es una cuadrícula con dos rectas numeradas: el eje x (horizontal) y el eje y (vertical). Se cruzan en el punto (0, 0).", example: "Eje x → · Eje y ↑" },
+      { title: "Leer coordenadas", text: "Un punto se escribe (x, y). El primer número dice cuántos pasos avanzar a la derecha y el segundo, cuántos subir.", example: "(3, 5): 3 a la derecha, 5 arriba" }
+    ],
+    remember: ["El eje de simetría divide en dos mitades iguales.", "(x, y): primero derecha, luego arriba.", "Todo empieza en (0, 0)."],
+    mistake: "No es lo mismo (3, 5) que (5, 3). El orden importa: primero siempre el movimiento horizontal.",
+    fun: "¿Sabías que el plano cartesiano se llama así por René Descartes, un matemático francés?",
+    check: [
+      ["¿Cuántos ejes de simetría tiene un cuadrado?", "4", ["2", "1"]],
+      ["En (3, 5), ¿cuántos pasos subes?", "5", ["3", "8"]],
+      ["¿Cuántos ejes de simetría tiene un rectángulo (no cuadrado)?", "2", ["4", "0"]]
+    ]
+  },

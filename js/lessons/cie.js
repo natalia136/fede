@@ -519,3 +519,217 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿En qué grupo van las cáscaras de fruta?", "Orgánicos", ["Vidrio", "Metal"]]
     ]
   },
+  /* ===== 3.º ===== */
+  "c3a": {
+    hook: "Cuando un halcón atrapa un pájaro, ¿de dónde vino en realidad la energía que lo alimenta? ¡Todo empieza con el Sol!",
+    steps: [
+      { title: "Los productores", text: "Las plantas son productoras: fabrican su alimento con la luz del Sol. Por eso siempre están al comienzo de una cadena alimenticia.", example: "🌱 pasto · 🌽 maíz · 🍃 hojas" },
+      { title: "Los consumidores", text: "Los animales son consumidores: no fabrican su alimento, sino que comen plantas u otros animales para obtener energía.", example: "🐛 oruga come hojas · 🐦 pájaro come orugas" },
+      { title: "La cadena", text: "Una cadena alimenticia muestra quién se come a quién. Las flechas indican hacia dónde pasa la energía.", example: "Pasto → oruga → pájaro → halcón" },
+      { title: "Los descomponedores", text: "Hongos, bacterias y lombrices descomponen los restos de plantas y animales muertos. Así devuelven nutrientes al suelo para las plantas.", example: "🍄 hongo · 🪱 lombriz" },
+      { title: "Arma tu cadena", text: "Escribe en tarjetas: maíz, ratón, serpiente, águila. Ordénalas con flechas y piensa: ¿qué pasaría si desaparecieran los ratones?", example: "🌽 → 🐭 → 🐍 → 🦅" }
+    ],
+    remember: ["Las cadenas empiezan con un productor (una planta).", "Los consumidores comen plantas u otros animales.", "La flecha muestra hacia dónde pasa la energía."],
+    mistake: "Muchos ponen la flecha al revés: del halcón al pájaro. La flecha va desde quien es comido hacia quien come, porque muestra el paso de la energía.",
+    fun: "¿Sabías que el jaguar está en la cima de muchas cadenas alimenticias de la selva y casi no tiene depredadores naturales?",
+    check: [
+      ["¿Con qué empieza siempre una cadena alimenticia?", "Con una planta", ["Con un halcón", "Con una piedra"]],
+      ["¿Qué indica la flecha en una cadena?", "Hacia dónde pasa la energía", ["Quién es más grande", "Quién corre más rápido"]],
+      ["¿Cuál es un descomponedor?", "Un hongo", ["Un halcón", "Un ratón"]]
+    ]
+  },
+  "c3b": {
+    hook: "Mira los dientes de un perro y los de una vaca. ¡Sus dientes nos dicen qué comen!",
+    steps: [
+      { title: "Herbívoros", text: "Los herbívoros comen solo plantas: hojas, pasto, frutos o semillas. Suelen tener dientes planos para moler.", example: "🐄 vaca · 🦥 perezoso · 🐢 tortuga terrestre" },
+      { title: "Carnívoros", text: "Los carnívoros comen otros animales. Muchos tienen colmillos afilados y garras para atrapar a sus presas.", example: "🐆 jaguar · 🦅 águila · 🦈 tiburón" },
+      { title: "Omnívoros", text: "Los omnívoros comen plantas y animales. Su dieta es muy variada. Los seres humanos somos omnívoros.", example: "🐻 oso de anteojos · 🐷 cerdo · 🧍 persona" },
+      { title: "Otras dietas especiales", text: "Algunos animales comen cosas muy específicas: el colibrí toma néctar de las flores y el oso hormiguero come hormigas y termitas.", example: "🐦 colibrí: néctar · 🐜 oso hormiguero: insectos" },
+      { title: "Observa en el jardín", text: "Con un adulto, observa los animales del jardín o del parque durante 10 minutos. Anota qué come cada uno y clasifícalo.", example: "🐦 pájaro come semillas · 🕷️ araña atrapa moscas" }
+    ],
+    remember: ["Los herbívoros comen plantas.", "Los carnívoros comen otros animales.", "Los omnívoros comen de todo."],
+    mistake: "Algunos creen que todos los osos son carnívoros. El oso de anteojos de los Andes come sobre todo plantas, frutos y bromelias.",
+    fun: "¿Sabías que el oso de anteojos es el único oso que vive en Sudamérica?",
+    check: [
+      ["¿Qué come un herbívoro?", "Plantas", ["Carne", "Piedras"]],
+      ["¿Qué tipo de animal es el jaguar?", "Carnívoro", ["Herbívoro", "Omnívoro"]],
+      ["Las personas somos…", "Omnívoras", ["Herbívoras", "Carnívoras"]]
+    ]
+  },
+  "c3c": {
+    hook: "Vivimos en un planeta que viaja por el espacio alrededor de una estrella. ¿Quiénes son nuestros vecinos?",
+    steps: [
+      { title: "El Sol, nuestra estrella", text: "El Sol es una estrella: una enorme bola de gas muy caliente que da luz y calor. Está en el centro del sistema solar.", example: "☀️ el Sol" },
+      { title: "Los ocho planetas", text: "Ocho planetas giran alrededor del Sol: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno. Cada uno sigue su camino llamado órbita.", example: "🪐 Saturno tiene anillos" },
+      { title: "Rocosos y gaseosos", text: "Los cuatro planetas más cercanos al Sol son pequeños y rocosos. Los cuatro más lejanos son gigantes formados sobre todo por gases y hielos.", example: "🪨 Mercurio, Venus, Tierra, Marte · 💨 Júpiter, Saturno, Urano, Neptuno" },
+      { title: "Lunas y más", text: "Muchos planetas tienen lunas que giran a su alrededor. En el sistema solar también hay planetas enanos, asteroides y cometas.", example: "🌙 la Luna gira alrededor de la Tierra" },
+      { title: "Frase para recordar", text: "Para recordar el orden, aprende la primera letra de cada planeta: M, V, T, M, J, S, U, N. Inventa una frase divertida con esas letras.", example: "Mi Vecina Toca Muy Juntos Siete Ukeleles Nuevos" }
+    ],
+    remember: ["El Sol es una estrella en el centro del sistema solar.", "Hay ocho planetas que giran alrededor del Sol.", "La Tierra es el tercer planeta."],
+    mistake: "Muchos creen que Plutón es el noveno planeta. Desde 2006 los astrónomos lo consideran un planeta enano.",
+    fun: "¿Sabías que Júpiter es tan grande que dentro de él cabrían más de mil Tierras?",
+    check: [
+      ["¿Qué hay en el centro del sistema solar?", "El Sol", ["La Tierra", "La Luna"]],
+      ["¿Cuántos planetas hay en el sistema solar?", "Ocho", ["Cinco", "Doce"]],
+      ["¿Qué lugar ocupa la Tierra desde el Sol?", "El tercero", ["El primero", "El quinto"]]
+    ]
+  },
+  "c3d": {
+    hook: "El agua que tomas hoy pudo haber estado en una nube, en el mar o en un glaciar hace mucho tiempo. ¡El agua viaja en círculo!",
+    steps: [
+      { title: "Evaporación", text: "El Sol calienta el agua de mares, ríos y lagos. Parte de esa agua se convierte en vapor, un gas invisible que sube al cielo.", example: "🌊 + ☀️ → vapor" },
+      { title: "Condensación", text: "Arriba hace más frío. El vapor se enfría y se convierte en gotitas muy pequeñas que forman las nubes.", example: "☁️ las nubes son gotitas de agua" },
+      { title: "Precipitación", text: "Cuando las gotitas se juntan y pesan mucho, caen como lluvia. Si hace mucho frío, pueden caer como granizo o nieve.", example: "🌧️ lluvia · 🌨️ nieve · 🧊 granizo" },
+      { title: "Escorrentía e infiltración", text: "El agua que cae corre por ríos hasta el mar o se filtra en el suelo. Luego vuelve a evaporarse y el ciclo comienza otra vez.", example: "🏞️ río → mar → evaporación" },
+      { title: "Lluvia en un frasco", text: "Con un adulto, echa agua caliente en un frasco y tápalo con un plato con hielos. Verás gotas formarse bajo el plato y caer: ¡una mini lluvia!", example: "🫙 agua caliente + 🧊 = gotas" }
+    ],
+    remember: ["Evaporación: el agua se vuelve vapor con el calor.", "Condensación: el vapor se enfría y forma nubes.", "Precipitación: el agua cae como lluvia, granizo o nieve."],
+    mistake: "Algunos creen que las nubes son de humo o de algodón. Las nubes son millones de gotitas de agua o cristalitos de hielo.",
+    fun: "¿Sabías que el Salto Ángel, en Venezuela, es la cascada más alta del mundo, con casi 1 000 metros de caída?",
+    check: [
+      ["¿Cómo se llama el paso en que el agua se convierte en vapor?", "Evaporación", ["Precipitación", "Congelación"]],
+      ["¿De qué están hechas las nubes?", "De gotitas de agua", ["De humo", "De algodón"]],
+      ["¿Qué es la precipitación?", "El agua que cae de las nubes", ["El agua que sube al cielo", "El agua que se congela en el mar"]]
+    ]
+  },
+  "xcie3a": {
+    hook: "Si cavas un hoyo muy profundo en tu jardín, ¿qué encontrarías? ¡El suelo tiene capas como una torta!",
+    steps: [
+      { title: "El humus", text: "La capa de arriba es oscura y se llama humus. Tiene restos de hojas y animales descompuestos y es la más rica para las plantas.", example: "🌱 donde crecen las raíces" },
+      { title: "Las capas de abajo", text: "Más abajo hay arena, arcilla y piedras, con menos restos de seres vivos. Al fondo está la roca madre, que es roca dura.", example: "🟫 humus → 🟨 arena y piedras → ⬛ roca madre" },
+      { title: "Rocas ígneas", text: "Las rocas ígneas se forman cuando la lava o el magma se enfrían y se endurecen. El basalto y el granito son ejemplos.", example: "🌋 basalto de los volcanes" },
+      { title: "Sedimentarias y metamórficas", text: "Las sedimentarias se forman con capas de arena y restos que se aplastan durante mucho tiempo, como la arenisca. Las metamórficas cambian por el calor y la presión, como el mármol.", example: "🏜️ arenisca · 🏛️ mármol" },
+      { title: "Capas en un frasco", text: "Pon tierra del jardín en un frasco con agua, agítalo y déjalo quieto un día. Verás capas: piedritas abajo, arena en medio, arcilla y restos de hojas arriba.", example: "🫙 la tierra se separa en capas" }
+    ],
+    remember: ["El suelo tiene capas: humus, arena y piedras, y roca madre.", "El humus es la capa más rica para las plantas.", "Las rocas pueden ser ígneas, sedimentarias o metamórficas."],
+    mistake: "Algunos creen que el suelo es solo tierra sin vida. El suelo tiene lombrices, hongos, bacterias e insectos que lo mantienen fértil.",
+    fun: "¿Sabías que formar apenas un centímetro de suelo fértil puede tardar cientos de años?",
+    check: [
+      ["¿Cómo se llama la capa de arriba del suelo, rica para las plantas?", "Humus", ["Roca madre", "Basalto"]],
+      ["¿Cómo se forma una roca ígnea?", "Cuando la lava se enfría", ["Con capas de arena aplastadas", "Con hojas secas"]],
+      ["¿Qué tipo de roca es el mármol?", "Metamórfica", ["Ígnea", "Sedimentaria"]]
+    ]
+  },
+  "xcie3b": {
+    hook: "¿Has visto cómo un imán pega cosas a la puerta del refrigerador sin pegamento? ¡Es una fuerza invisible!",
+    steps: [
+      { title: "¿Qué hace un imán?", text: "Un imán atrae objetos de hierro y de otros metales como el acero, sin tocarlos. Esta fuerza invisible se llama magnetismo.", example: "🧲 + 📎 clip = ¡se pega!" },
+      { title: "Los polos", text: "Todo imán tiene dos extremos llamados polos: el polo norte y el polo sur. Allí la fuerza del imán es más fuerte.", example: "🧲 N ··· S" },
+      { title: "Atraer y repeler", text: "Si acercas polos distintos (norte con sur), los imanes se atraen. Si acercas polos iguales (norte con norte), se repelen, es decir, se empujan.", example: "N + S = se atraen · S + S = se repelen" },
+      { title: "La brújula", text: "La aguja de una brújula es un imán pequeño. La Tierra se comporta como un imán gigante, por eso la aguja apunta hacia el norte.", example: "🧭 brújula" },
+      { title: "Fuerza a través de cosas", text: "Pon un clip sobre una hoja de papel y mueve un imán por debajo. ¡El clip se mueve! La fuerza magnética atraviesa el papel.", example: "📄 + 📎 + 🧲 debajo" }
+    ],
+    remember: ["Los imanes atraen el hierro y el acero.", "Tienen polo norte y polo sur.", "Polos distintos se atraen; polos iguales se repelen."],
+    mistake: "Muchos creen que si partes un imán por la mitad tienes un polo norte y un polo sur separados. ¡Cada pedazo se vuelve un imán con sus dos polos!",
+    fun: "¿Sabías que algunas aves migratorias y tortugas marinas usan el campo magnético de la Tierra para orientarse?",
+    check: [
+      ["¿Qué pasa si acercas dos polos norte?", "Se repelen", ["Se atraen", "Se derriten"]],
+      ["¿Cuántos polos tiene un imán?", "Dos", ["Uno", "Cuatro"]],
+      ["¿Qué instrumento usa un imán para orientarse?", "La brújula", ["El termómetro", "La lupa"]]
+    ]
+  },
+  "xcie3c": {
+    hook: "¿Un imán atrae todos los metales? ¡Prepárate para una sorpresa!",
+    steps: [
+      { title: "Sí atrae", text: "Los imanes atraen objetos que tienen hierro, acero, níquel o cobalto. La mayoría de las cosas que se pegan al imán tienen hierro o acero.", example: "📎 clip · 🔩 tornillo de acero · 🪡 aguja" },
+      { title: "No todos los metales", text: "Algunos metales no son atraídos por el imán: el aluminio, el cobre, el oro y la plata.", example: "🥤 lata de aluminio · 💍 anillo de oro" },
+      { title: "Materiales no metálicos", text: "La madera, el plástico, el vidrio, el papel y la tela no son atraídos por los imanes.", example: "🪵 madera · 🧴 plástico · 🫙 vidrio" },
+      { title: "Haz tu predicción", text: "Junta 10 objetos de casa. Antes de probar, anota si crees que el imán los atraerá. Luego prueba y compara: ¿acertaste?", example: "🥄 cuchara · 🔑 llave · 🪙 moneda" },
+      { title: "Separar con imanes", text: "En las plantas de reciclaje usan grandes imanes para separar las latas de acero de las de aluminio. ¡Es una aplicación muy útil!", example: "♻️ acero se pega · aluminio sigue de largo" }
+    ],
+    remember: ["El imán atrae hierro y acero.", "No atrae aluminio, oro, cobre, madera, plástico ni vidrio.", "No todos los metales son magnéticos."],
+    mistake: "El error más común es pensar que el imán atrae todos los metales. Una lata de aluminio, por ejemplo, no se pega a un imán.",
+    fun: "¿Sabías que algunas monedas se pegan a los imanes y otras no? Depende del metal con que estén hechas.",
+    check: [
+      ["¿Qué objeto atrae el imán?", "Un clip de acero", ["Una lata de aluminio", "Un lápiz de madera"]],
+      ["¿Cuál de estos metales NO es atraído por un imán?", "El oro", ["El hierro", "El acero"]]
+    ]
+  },
+  "xcie3d": {
+    hook: "¿Cómo levantarías a un adulto tú solo? ¡Con una palanca, como en el balancín, es posible!",
+    steps: [
+      { title: "¿Qué es una máquina simple?", text: "Una máquina simple es un objeto sencillo que nos ayuda a hacer un trabajo con menos esfuerzo, como levantar, cortar o mover algo.", example: "⚖️ balancín · ♿ rampa" },
+      { title: "Palanca y polea", text: "La palanca es una barra que se apoya en un punto y sirve para levantar cosas pesadas. La polea es una rueda con una cuerda que ayuda a subir objetos.", example: "⚖️ balancín · 🪣 polea de un pozo" },
+      { title: "Plano inclinado y rueda", text: "El plano inclinado es una rampa: subir por ella cuesta menos que subir de golpe. La rueda con su eje hace que mover cosas sea mucho más fácil.", example: "♿ rampa · 🛒 carrito" },
+      { title: "Cuña y tornillo", text: "La cuña es una pieza con punta o filo que sirve para cortar o separar, como el hacha. El tornillo es un plano inclinado enrollado.", example: "🪓 hacha · 🔩 tornillo" },
+      { title: "¡Tu cuerpo también!", text: "Tus brazos funcionan como palancas, con el codo como punto de apoyo, y tus dientes incisivos funcionan como cuñas.", example: "💪 brazo = palanca · 🦷 diente = cuña" }
+    ],
+    remember: ["Las máquinas simples nos ahorran esfuerzo.", "Son seis: palanca, polea, plano inclinado, rueda, cuña y tornillo.", "Nuestro cuerpo también usa máquinas simples."],
+    mistake: "Algunos creen que las máquinas simples necesitan motor o electricidad. No: funcionan solo con la fuerza que tú les das.",
+    fun: "¿Sabías que los incas construyeron enormes muros de piedra usando rampas y palancas, sin máquinas modernas?",
+    check: [
+      ["¿Qué máquina simple es una rampa?", "Plano inclinado", ["Polea", "Tornillo"]],
+      ["¿Qué máquina simple es el hacha?", "Cuña", ["Rueda", "Polea"]],
+      ["¿Para qué sirven las máquinas simples?", "Para hacer trabajo con menos esfuerzo", ["Para producir electricidad", "Para que algo pese más"]]
+    ]
+  },
+  "xcie3e": {
+    hook: "¿Por qué el hielo se derrite en tu mano y el agua de la olla echa vapor? ¡Todo depende de la temperatura!",
+    steps: [
+      { title: "La temperatura", text: "La temperatura nos dice qué tan caliente o frío está algo. Se mide con un termómetro, en grados Celsius (°C).", example: "🌡️ termómetro" },
+      { title: "Congelación: 0 °C", text: "Cuando el agua se enfría hasta 0 °C se congela y se vuelve hielo. Pasa de líquido a sólido.", example: "💧 → 🧊 en el congelador" },
+      { title: "Fusión", text: "Cuando el hielo se calienta por encima de 0 °C se derrite. Pasa de sólido a líquido: eso se llama fusión.", example: "🧊 → 💧 al sol" },
+      { title: "Ebullición: 100 °C", text: "Al nivel del mar, el agua hierve a 100 °C y se convierte en vapor. Pasa de líquido a gas. En lugares muy altos, como La Paz, hierve a menos temperatura.", example: "💧 → ♨️ en la olla" },
+      { title: "Mide temperaturas", text: "Con un adulto y un termómetro de cocina, mide agua con hielo, agua de la llave y agua tibia. Anota los números: ¿cuál está más cerca de 0 °C?", example: "🧊 agua con hielo ≈ 0 °C" }
+    ],
+    remember: ["El agua se congela a 0 °C.", "El agua hierve a 100 °C a nivel del mar.", "El calor cambia el agua de sólido a líquido y de líquido a gas."],
+    mistake: "Algunos creen que el vapor blanco de la olla es el gas. El vapor de agua es invisible; la nubecita blanca son gotitas que ya se enfriaron.",
+    fun: "¿Sabías que el hielo flota porque es menos denso que el agua líquida? Por eso los lagos se congelan desde arriba.",
+    check: [
+      ["¿A qué temperatura se congela el agua?", "0 °C", ["100 °C", "50 °C"]],
+      ["¿A qué temperatura hierve el agua a nivel del mar?", "100 °C", ["0 °C", "10 °C"]],
+      ["¿Cómo se llama el paso de hielo a agua líquida?", "Fusión", ["Ebullición", "Condensación"]]
+    ]
+  },
+  "xcie3f": {
+    hook: "Muerde una manzana y luego mastícala. ¿Usaste los mismos dientes para las dos cosas?",
+    steps: [
+      { title: "Incisivos", text: "Los incisivos son los dientes de adelante. Son planos y afilados, y sirven para cortar los alimentos.", example: "🍎 morder la manzana" },
+      { title: "Caninos", text: "Los caninos, o colmillos, tienen punta. Sirven para desgarrar alimentos duros como la carne.", example: "🍗 desgarrar el pollo" },
+      { title: "Molares", text: "Los molares están al fondo de la boca. Son anchos y sirven para triturar y moler los alimentos antes de tragar.", example: "🥜 triturar maní" },
+      { title: "Los nutrientes", text: "Una dieta variada tiene carbohidratos (energía), proteínas (crecer), grasas (reserva de energía), vitaminas y minerales (protección y huesos fuertes).", example: "🍚 carbohidratos · 🥚 proteínas · 🥑 grasas · 🥕 vitaminas" },
+      { title: "Cuida tus dientes", text: "Cepíllate después de cada comida y al menos dos veces al día. Mírate en un espejo y cuenta tus incisivos, caninos y molares.", example: "🪥 cepillado de 2 minutos" }
+    ],
+    remember: ["Incisivos cortan, caninos desgarran y molares trituran.", "Una dieta variada tiene carbohidratos, proteínas, grasas, vitaminas y minerales.", "Cepillarse evita las caries."],
+    mistake: "Algunos creen que los dientes de leche no importan porque se caen. Cuidarlos es importante: una caries puede afectar al diente permanente que viene debajo.",
+    fun: "¿Sabías que el esmalte de los dientes es la sustancia más dura del cuerpo humano?",
+    check: [
+      ["¿Qué dientes sirven para triturar?", "Los molares", ["Los incisivos", "Los caninos"]],
+      ["¿Para qué sirven los caninos?", "Para desgarrar", ["Para triturar", "Para oler"]],
+      ["¿Qué nutriente te ayuda a crecer y formar músculos?", "Las proteínas", ["El azúcar de los dulces", "El agua con gas"]]
+    ]
+  },
+  "xcie3g": {
+    hook: "Una hormiga, una araña, un caracol y un cangrejo… ¿qué tienen en común? ¡Ninguno tiene huesos en la espalda!",
+    steps: [
+      { title: "¿Qué es un invertebrado?", text: "Los invertebrados son animales sin columna vertebral. ¡Son la gran mayoría de los animales del planeta!", example: "🐜 hormiga · 🪱 lombriz · 🐙 pulpo" },
+      { title: "Insectos", text: "Los insectos tienen 6 patas y el cuerpo dividido en tres partes: cabeza, tórax y abdomen. Muchos tienen alas y antenas.", example: "🐜 hormiga · 🦋 mariposa · 🐝 abeja" },
+      { title: "Arácnidos", text: "Los arácnidos tienen 8 patas y no tienen antenas. Las arañas, los escorpiones y las garrapatas son arácnidos.", example: "🕷️ araña · 🦂 escorpión" },
+      { title: "Moluscos y crustáceos", text: "Los moluscos tienen el cuerpo blando y muchos tienen concha, como el caracol. Los crustáceos tienen un caparazón duro y antenas, como el cangrejo y el camarón.", example: "🐌 caracol · 🐙 pulpo · 🦀 cangrejo · 🦐 camarón" },
+      { title: "Cuenta patas", text: "Con una lupa, observa bichitos del jardín sin tocarlos. Cuenta sus patas: si tiene 6 es insecto; si tiene 8, arácnido.", example: "🔍 6 patas = insecto" }
+    ],
+    remember: ["Los invertebrados no tienen columna vertebral.", "Insectos: 6 patas; arácnidos: 8 patas.", "Moluscos: cuerpo blando; crustáceos: caparazón."],
+    mistake: "Muchos creen que la araña es un insecto. Tiene 8 patas y no tiene antenas: es un arácnido.",
+    fun: "¿Sabías que el pulpo tiene tres corazones y sangre de color azul?",
+    check: [
+      ["¿Cuántas patas tiene un insecto?", "6", ["8", "10"]],
+      ["¿A qué grupo pertenece la araña?", "Arácnidos", ["Insectos", "Crustáceos"]],
+      ["¿Qué grupo tiene caparazón duro, como el cangrejo?", "Crustáceos", ["Moluscos", "Insectos"]]
+    ]
+  },
+  "xcie3h": {
+    hook: "Los científicos leen mucho. ¿Sabías que leer bien un texto de ciencia es como ser detective?",
+    steps: [
+      { title: "Mira el título y las imágenes", text: "Antes de leer, mira el título, las fotos y los dibujos. Pregúntate: ¿de qué tratará? Así tu mente se prepara para aprender.", example: "📖 Título: El colibrí, un ave veloz" },
+      { title: "Busca palabras clave", text: "Las palabras clave son las más importantes del texto, como los nombres de animales, partes o procesos. Subráyalas o anótalas.", example: "🔑 néctar, polinizar, aleteo" },
+      { title: "Busca los datos", text: "Los textos de ciencia tienen datos: números, medidas, lugares. Los datos te ayudan a responder preguntas con precisión.", example: "📊 El colibrí aletea muy rápido, decenas de veces por segundo." },
+      { title: "Resume con tus palabras", text: "Al terminar, cuenta en dos o tres frases lo que aprendiste. Si no puedes, vuelve a leer la parte que no entendiste.", example: "✍️ El colibrí toma néctar y ayuda a las flores." }
+    ],
+    remember: ["Antes de leer, mira el título y las imágenes.", "Busca palabras clave y datos.", "Resume con tus propias palabras."],
+    mistake: "Algunos creen que leer rápido es leer bien. En ciencia es mejor leer con calma y volver a leer lo que no se entiende.",
+    fun: "¿Sabías que los colibríes pueden quedarse suspendidos en el aire frente a una flor, como un helicóptero, y algunos aletean más de 50 veces por segundo?",
+    check: [
+      ["¿Qué debes hacer antes de leer un texto científico?", "Mirar el título y las imágenes", ["Leer solo la última línea", "Cerrar el libro"]],
+      ["¿Qué son las palabras clave?", "Las palabras más importantes del texto", ["Las palabras más largas", "Las palabras en otro idioma"]]
+    ]
+  },

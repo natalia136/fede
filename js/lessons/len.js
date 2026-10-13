@@ -481,3 +481,206 @@ Object.assign(window.CURRICULUM_LESSONS, {
     ]
   },
 });
+
+/* ===== 3.º primaria ===== */
+Object.assign(window.CURRICULUM_LESSONS, {
+  "l3a": {
+    hook: "En «El perro grande corre», cada palabra tiene un trabajo distinto. ¿Sabes cuál hace cada una? 🐕",
+    steps: [
+      { title: "El sustantivo nombra", text: "El sustantivo es la palabra que nombra personas, animales, cosas, lugares o ideas. Puedes ponerle «el» o «la» delante.", example: "perro · maestra · lápiz · parque · alegría" },
+      { title: "El adjetivo describe", text: "El adjetivo dice cómo es el sustantivo: su color, tamaño, forma o carácter. Va junto al sustantivo.", example: "perro grande · casa azul · niña simpática" },
+      { title: "El verbo es la acción", text: "El verbo dice lo que hace alguien o lo que pasa. Cambia según quién lo hace y cuándo: corro, corres, corrió.", example: "corre · salta · duerme · llueve" },
+      { title: "Juntos en la oración", text: "En una oración suelen aparecer los tres. Busca primero la acción (verbo), luego quién la hace (sustantivo) y cómo es (adjetivo).", example: "El perro (sust.) grande (adj.) corre (verbo)." }
+    ],
+    remember: ["Sustantivo: nombra.", "Adjetivo: describe cómo es el sustantivo.", "Verbo: expresa una acción o lo que pasa."],
+    mistake: "Algunos niños creen que toda palabra de color es sustantivo. En «la flor roja», «roja» es adjetivo porque dice cómo es la flor.",
+    fun: "¿Sabías que «correr» puede ser verbo, pero «la carrera» es un sustantivo y «corredor» puede ser sustantivo o adjetivo? ¡Las palabras son familia!",
+    check: [
+      ["En «La niña alegre canta», ¿cuál es el adjetivo?", "alegre", ["niña", "canta"]],
+      ["¿Qué clase de palabra es «salta»?", "verbo", ["sustantivo", "adjetivo"]],
+      ["¿Qué clase de palabra es «parque»?", "sustantivo", ["verbo", "adjetivo"]]
+    ]
+  },
+  "l3b": {
+    hook: "¿«Canpo» o «campo»? Hay una regla que nunca falla. ¡Descúbrela! 🌾",
+    steps: [
+      { title: "La regla de oro: mb y mp", text: "Antes de b y de p siempre se escribe m, nunca n. Esta regla no tiene excepciones.", example: "campo · sombrero · tambor · lámpara · hombre" },
+      { title: "Después de n va v", text: "Al revés, después de n se escribe v, no b. Por eso escribimos «invierno» e «invitar».", example: "invierno · enviar · convivir · invento" },
+      { title: "B y V suenan igual", text: "En español, la b y la v se pronuncian igual. Por eso no podemos saber cuál va solo escuchando.", example: "vaca y barco suenan con el mismo sonido inicial" },
+      { title: "Aprende leyendo", text: "Muchas palabras con b o v se aprenden de memoria al leer mucho. Fíjate en cómo están escritas y, si dudas, consulta el diccionario.", example: "vaca · bote · vela · ballena · uva · nube" }
+    ],
+    remember: ["Antes de b y p siempre va m.", "Después de n va v.", "Leer mucho ayuda a recordar b y v."],
+    mistake: "Un error muy común es escribir «tanbién» o «canpana». Recuerda que antes de b y p siempre va m: «también», «campana».",
+    fun: "¿Sabías que en latín, la lengua de donde viene el español, la b y la v sonaban distinto? Con el tiempo, en español terminaron sonando igual.",
+    check: [
+      ["¿Cómo se escribe correctamente?", "campana", ["canpana", "camvana"]],
+      ["¿Qué letra va antes de la p?", "m", ["n", "b"]],
+      ["¿Cuál está bien escrita?", "invierno", ["imvierno", "inbierno"]]
+    ]
+  },
+  "l3c": {
+    hook: "En inglés solo se pone el signo al final, pero en español los ponemos dos veces. ¿Sabes por qué? ¿!",
+    steps: [
+      { title: "Signos de interrogación", text: "Usamos ¿? para hacer preguntas. En español siempre ponemos el de apertura (¿) al principio y el de cierre (?) al final.", example: "¿Cómo te llamas?" },
+      { title: "Signos de exclamación", text: "Usamos ¡! para expresar emociones fuertes como alegría, sorpresa, enojo o para llamar a alguien.", example: "¡Qué alegría verte! · ¡Cuidado!" },
+      { title: "¿Por qué dos signos?", text: "El signo de apertura avisa desde el principio cómo debes leer la oración: con tono de pregunta o de emoción.", example: "¿Vienes a la fiesta? → ya sé que es pregunta antes de terminar" },
+      { title: "Donde empieza la pregunta", text: "Los signos se ponen justo donde empieza y termina la pregunta o la exclamación, aunque no sea al inicio de la oración.", example: "Oye, ¿quieres jugar?" },
+      { title: "Palabras con tilde", text: "Las palabras que preguntan llevan tilde: qué, quién, cómo, dónde, cuándo, cuánto, cuál.", example: "¿Dónde vives? · ¡Qué bonito!" }
+    ],
+    remember: ["En español usamos signos de apertura y cierre.", "¿? para preguntar; ¡! para emocionarse.", "Qué, quién, cómo, dónde y cuándo llevan tilde al preguntar o exclamar."],
+    mistake: "Muchas personas olvidan el signo de apertura y escriben «Cómo estás?». En español siempre van los dos: «¿Cómo estás?».",
+    fun: "¿Sabías que el español es casi el único idioma del mundo que usa los signos de apertura ¿ y ¡? La Real Academia los recomendó en 1754.",
+    check: [
+      ["¿Cuál está bien escrita?", "¿Cómo estás?", ["Cómo estás?", "¿Cómo estás¿"]],
+      ["¿Qué signos usamos para expresar sorpresa?", "¡!", ["¿?", "( )"]]
+    ]
+  },
+  "l3d": {
+    hook: "¿Sabías que el corazón de una ballena azul es tan grande como un auto pequeño? Los textos informativos están llenos de datos así. 🐋",
+    steps: [
+      { title: "¿Qué es un texto informativo?", text: "Es un texto que nos enseña datos reales sobre un tema: animales, lugares, inventos o el cuerpo humano. No es un cuento inventado.", example: "Una enciclopedia o un artículo sobre los planetas" },
+      { title: "El tema", text: "Lo primero es saber de qué trata. El título y el primer párrafo suelen decirnos el tema.", example: "Título: «Las ballenas» → tema: las ballenas" },
+      { title: "Los datos", text: "En el desarrollo aparecen datos e información importante: números, características, explicaciones.", example: "Las ballenas son mamíferos y respiran aire." },
+      { title: "La conclusión", text: "Al final, el texto suele resumir lo más importante o dejarnos una idea para pensar.", example: "Por eso debemos cuidar los océanos." },
+      { title: "Ayudas visuales", text: "Los textos informativos suelen tener títulos, fotos, mapas o gráficos que ayudan a entender mejor.", example: "Una foto de una ballena con su tamaño señalado" }
+    ],
+    remember: ["El texto informativo enseña datos reales.", "Tiene tema, datos y conclusión.", "Títulos e imágenes ayudan a entender."],
+    mistake: "A veces confundimos un texto informativo con un cuento porque habla de animales. Si los animales hablan o hay magia, es un cuento; si da datos reales, es informativo.",
+    fun: "¿Sabías que la ballena azul es el animal más grande que ha existido, más grande incluso que los dinosaurios más enormes?",
+    check: [
+      ["¿Qué nos dan los textos informativos?", "datos reales", ["historias inventadas", "solo rimas"]],
+      ["¿Dónde suele estar el tema de un texto?", "en el título y el primer párrafo", ["en el número de página", "en la última palabra"]]
+    ]
+  },
+  "xlen3a": {
+    hook: "¿Cómo es tu mascota favorita? ¿Grande, peluda, juguetona? ¡Acabas de usar adjetivos! 🐶",
+    steps: [
+      { title: "¿Qué es el adjetivo?", text: "El adjetivo es la palabra que dice cómo es el sustantivo: su color, tamaño, forma, sabor o forma de ser.", example: "gato negro · sopa caliente · niño amable" },
+      { title: "Concuerda en género", text: "El adjetivo cambia para coincidir con el sustantivo: si el sustantivo es femenino, el adjetivo también.", example: "gato negro · gata negra" },
+      { title: "Concuerda en número", text: "Si el sustantivo está en plural, el adjetivo también va en plural.", example: "flor roja · flores rojas" },
+      { title: "Adjetivos que no cambian", text: "Algunos adjetivos son iguales en masculino y femenino, pero sí cambian en plural.", example: "niño feliz · niña feliz · niños felices" },
+      { title: "Escribe mejor", text: "Los adjetivos hacen tus textos más vivos. Compara: «Vi un perro» con «Vi un perro enorme y peludo».", example: "Una noche oscura y silenciosa…" }
+    ],
+    remember: ["El adjetivo dice cómo es el sustantivo.", "Concuerda en género y número con el sustantivo.", "Algunos adjetivos no cambian de género."],
+    mistake: "Un error común es no hacer la concordancia: «las casas blanco». Revisa que el adjetivo tenga el mismo género y número: «las casas blancas».",
+    fun: "¿Sabías que el orden puede cambiar el sentido? «Un gran hombre» es alguien admirable; «un hombre grande» es alguien de gran tamaño.",
+    check: [
+      ["¿Cuál tiene buena concordancia?", "flores rojas", ["flores rojo", "flores roja"]],
+      ["En «La sopa caliente», ¿cuál es el adjetivo?", "caliente", ["sopa", "la"]]
+    ]
+  },
+  "xlen3b": {
+    hook: "Cantamos, cantaste, cantarán… ¿de qué palabra vienen todas? 🎤",
+    steps: [
+      { title: "El verbo es acción", text: "El verbo expresa acciones (correr, comer), estados (estar, ser) o fenómenos (llover). Es la palabra más importante de la oración.", example: "Yo como. · Tú corres. · Llueve." },
+      { title: "El infinitivo", text: "Es la forma básica del verbo, la que aparece en el diccionario. Siempre termina en -ar, -er o -ir.", example: "cantar · beber · vivir" },
+      { title: "Tres conjugaciones", text: "Los verbos se agrupan según su terminación: 1.ª conjugación en -ar, 2.ª en -er, 3.ª en -ir.", example: "saltar (1.ª) · correr (2.ª) · escribir (3.ª)" },
+      { title: "Encuentra el infinitivo", text: "Para hallar el infinitivo de un verbo conjugado, pregúntate: ¿qué acción es? y nómbrala con -ar, -er o -ir.", example: "cantamos → cantar · bebió → beber · viven → vivir" }
+    ],
+    remember: ["El verbo expresa acciones, estados o fenómenos.", "El infinitivo termina en -ar, -er o -ir.", "Hay tres conjugaciones."],
+    mistake: "Algunos niños creen que «canción» es un verbo porque se parece a «cantar». «Canción» nombra algo: es un sustantivo. El verbo es «cantar».",
+    fun: "¿Sabías que la mayoría de los verbos en español terminan en -ar? Además, casi todos los verbos nuevos se crean así: «chatear», «tuitear».",
+    check: [
+      ["¿Cuál es el infinitivo de «bebió»?", "beber", ["bebida", "bebé"]],
+      ["¿Cuál es un infinitivo de la 3.ª conjugación?", "vivir", ["cantar", "comer"]]
+    ]
+  },
+  "xlen3c": {
+    hook: "Un regalo, un obsequio, un presente… ¿son tres cosas distintas o la misma? 🎁",
+    steps: [
+      { title: "Sinónimos", text: "Los sinónimos son palabras de significado parecido. Se pueden cambiar una por otra sin que la idea cambie mucho.", example: "obsequio = regalo · rápido = veloz" },
+      { title: "Antónimos", text: "Los antónimos son palabras de significado contrario. Sirven para comparar o contrastar ideas.", example: "valiente ≠ cobarde · subir ≠ bajar" },
+      { title: "Antónimos con prefijo", text: "Algunos antónimos se forman agregando una partícula delante: in-, im-, des-.", example: "posible → imposible · hacer → deshacer · útil → inútil" },
+      { title: "Según el contexto", text: "Una palabra puede tener distintos sinónimos según la oración. Elige el que encaje con el sentido.", example: "«Una pila de libros» = montón · «La pila del reloj» = batería" }
+    ],
+    remember: ["Sinónimos: significado parecido.", "Antónimos: significado contrario.", "Elige el sinónimo según el contexto."],
+    mistake: "Creer que todos los sinónimos sirven siempre. «Viejo» y «antiguo» son sinónimos, pero «mi amigo antiguo» no significa lo mismo que «mi amigo viejo».",
+    fun: "¿Sabías que existen diccionarios solo de sinónimos y antónimos? Los escritores los usan para no repetir palabras.",
+    check: [
+      ["¿Cuál es un sinónimo de «obsequio»?", "regalo", ["castigo", "paquete vacío"]],
+      ["¿Cuál es el antónimo de «posible»?", "imposible", ["posiblemente", "probable"]]
+    ]
+  },
+  "xlen3d": {
+    hook: "El panadero hace pan en la panadería… ¿Ves algo que se repite? 🥖",
+    steps: [
+      { title: "La raíz", text: "Las palabras de una familia comparten una parte llamada raíz o lexema. Esa parte lleva el significado principal.", example: "PAN → pan, panadero, panadería" },
+      { title: "Significado relacionado", text: "No basta con que se parezcan: deben estar relacionadas en su significado.", example: "flor, florero, florista, florecer → todas tienen que ver con flores" },
+      { title: "Palabras impostoras", text: "Algunas palabras comparten letras pero no son de la familia porque su significado no tiene relación.", example: "«pantalón» no es de la familia de «pan»" },
+      { title: "Para qué sirve", text: "Las familias nos ayudan a escribir bien: si «hierba» lleva h y b, «herbívoro» también tiene h y b.", example: "mar → marino, marinero, marea" }
+    ],
+    remember: ["Las palabras de una familia comparten la raíz.", "Además, su significado está relacionado.", "Las familias ayudan con la ortografía."],
+    mistake: "Muchos niños meten en la familia palabras que solo se parecen, como «mar» y «mariposa». Pregúntate: ¿tiene que ver con el mar? Si no, no es de la familia.",
+    fun: "¿Sabías que «zapato» tiene una familia enorme? Zapatero, zapatería, zapatilla, zapatito, zapatazo…",
+    check: [
+      ["¿Qué palabra es de la familia de «pan»?", "panadería", ["pantalón", "pantalla"]],
+      ["¿Cómo se llama la parte que comparten las palabras de una familia?", "raíz", ["sufijo", "sílaba final"]]
+    ]
+  },
+  "xlen3e": {
+    hook: "¿Qué pasa si a «hacer» le pones «des» delante? ¡Lo deshaces todo! 🧩",
+    steps: [
+      { title: "Raíz, prefijo y sufijo", text: "Muchas palabras se forman con piezas. La raíz es la parte principal; el prefijo va antes y el sufijo va después.", example: "re + leer · perr + ito" },
+      { title: "Prefijos", text: "El prefijo se pone delante de la raíz y cambia su significado. Des- e in- indican lo contrario; re- indica repetir; pre- indica antes.", example: "deshacer · inútil · releer · prehistoria" },
+      { title: "Sufijos que achican o agrandan", text: "Los sufijos -ito, -ita, -illo achican (diminutivos). Los sufijos -ón, -azo, -ote agrandan (aumentativos).", example: "perrito · casita · perrazo · grandote" },
+      { title: "Sufijos de oficios y lugares", text: "El sufijo -ero o -era indica a menudo un oficio; -ería indica un lugar donde se vende o se hace algo.", example: "zapatero · zapatería · panadero · panadería" }
+    ],
+    remember: ["El prefijo va antes de la raíz.", "El sufijo va después de la raíz.", "Ambos cambian el significado de la palabra."],
+    mistake: "A veces se confunde cuál va antes y cuál después. Truco: «PRE» significa «antes», así que el PREfijo va antes.",
+    fun: "¿Sabías que con una sola raíz puedes hacer muchas palabras? Con «hacer»: deshacer, rehacer, hacedor, quehacer…",
+    check: [
+      ["En «releer», ¿cuál es el prefijo?", "re-", ["-leer", "-er"]],
+      ["¿Qué sufijo forma un diminutivo?", "-ito", ["-azo", "des-"]],
+      ["¿Qué significa el prefijo «des-» en «deshacer»?", "lo contrario", ["repetir", "antes"]]
+    ]
+  },
+  "xlen3f": {
+    hook: "«Vamos a comer, niños» y «Vamos a comer niños»… ¡Una coma puede salvar vidas! 😱",
+    steps: [
+      { title: "El punto seguido", text: "Separa oraciones de un mismo párrafo que hablan del mismo tema. Después seguimos escribiendo en la misma línea, con mayúscula.", example: "Hoy fuimos al zoológico. Vimos una jirafa." },
+      { title: "Punto aparte y punto final", text: "El punto aparte cierra un párrafo; el siguiente empieza en otra línea. El punto final cierra todo el texto.", example: "…vimos una jirafa. (punto aparte) / Después comimos helado. (punto final)" },
+      { title: "La coma en las listas", text: "La coma separa los elementos de una enumeración. Antes de la última palabra, en vez de coma, va «y».", example: "Compré pan, leche y huevos." },
+      { title: "La coma para llamar", text: "Cuando nombramos a quien le hablamos, lo separamos con coma.", example: "Luis, ven aquí. · Gracias, mamá." },
+      { title: "El punto y coma", text: "El punto y coma (;) separa ideas relacionadas. Es una pausa más larga que la coma y más corta que el punto. Se usa mucho antes de «sin embargo».", example: "Llovía; sin embargo, salimos." }
+    ],
+    remember: ["El punto separa oraciones: seguido, aparte y final.", "La coma marca pausas cortas y separa listas.", "El punto y coma separa ideas relacionadas."],
+    mistake: "Un error común es poner coma antes de «y» en una lista simple: «pan, leche, y huevos». Lo correcto es «pan, leche y huevos».",
+    fun: "¿Sabías que el punto y coma lo inventó un impresor italiano, Aldo Manuzio, hace más de 500 años?",
+    check: [
+      ["¿Cuál está bien puntuada?", "Compré pan, leche y huevos.", ["Compré pan leche, y huevos.", "Compré, pan leche y huevos."]],
+      ["¿Qué punto cierra todo el texto?", "el punto final", ["el punto seguido", "el punto aparte"]]
+    ]
+  },
+  "xlen3g": {
+    hook: "En un diccionario hay casi cien mil palabras… ¿cómo encuentras una en segundos? 📖",
+    steps: [
+      { title: "El abecedario", text: "Las palabras del diccionario están ordenadas según el abecedario: a, b, c, d, e, f, g, h, i, j, k, l, m, n, ñ, o, p, q, r, s, t, u, v, w, x, y, z.", example: "abeja va antes que casa" },
+      { title: "Si empiezan igual", text: "Si dos palabras empiezan con la misma letra, miramos la segunda letra. Si también es igual, la tercera, y así.", example: "mano, mesa, mito, mundo (a, e, i, u)" },
+      { title: "Las palabras guía", text: "Arriba de cada página aparecen dos palabras guía: la primera y la última de esa página. Te ayudan a saber si tu palabra está ahí.", example: "Página «gato – gimnasio» → «gente» está ahí" },
+      { title: "Busca la forma básica", text: "Los verbos aparecen en infinitivo y los sustantivos en singular. Los adjetivos aparecen en masculino singular.", example: "«corrieron» → busca «correr» · «flores» → busca «flor»" }
+    ],
+    remember: ["El diccionario sigue el orden alfabético.", "Si la primera letra es igual, mira la segunda.", "Verbos en infinitivo, sustantivos en singular."],
+    mistake: "Muchos niños buscan la palabra tal como está en el texto, por ejemplo «comíamos». Primero piensa en su forma básica: «comer».",
+    fun: "¿Sabías que la ñ es una letra propia del español? En el diccionario va después de la n: «nube», «nuez», «ñandú».",
+    check: [
+      ["¿Qué palabra va primero en el diccionario?", "mano", ["mesa", "mundo"]],
+      ["¿Cómo buscarías «cantaron» en el diccionario?", "cantar", ["cantaron", "canto"]]
+    ]
+  },
+  "xlen3h": {
+    hook: "Una liebre muy rápida perdió una carrera contra una tortuga lenta… ¿Cómo pudo pasar? 🐢🐇",
+    steps: [
+      { title: "¿Qué es una fábula?", text: "Una fábula es un relato corto en el que los personajes suelen ser animales que hablan y actúan como personas.", example: "La liebre y la tortuga" },
+      { title: "La moraleja", text: "Toda fábula termina con una enseñanza llamada moraleja. Nos deja una lección para la vida.", example: "Moraleja: quien hace un favor, recibe otro (El león y el ratón)." },
+      { title: "El texto informativo", text: "El texto informativo explica datos reales y comprobables. No tiene personajes inventados ni moraleja.", example: "Las tortugas pueden vivir más de 100 años." },
+      { title: "¿Cómo distinguirlos?", text: "Pregúntate: ¿es real o inventado?, ¿hay animales que hablan?, ¿termina con una enseñanza? Así sabrás qué tipo de texto es.", example: "Animales que hablan + moraleja = fábula · Datos reales = informativo" }
+    ],
+    remember: ["Las fábulas tienen animales que actúan como personas.", "La fábula termina con una moraleja.", "El texto informativo explica datos reales."],
+    mistake: "Pensar que todo texto con animales es una fábula. Si el texto da datos reales sobre las tortugas, es informativo, no una fábula.",
+    fun: "¿Sabías que Esopo, un griego que vivió hace unos 2600 años, es el autor de fábulas más famoso? «La liebre y la tortuga» se le atribuye a él.",
+    check: [
+      ["¿Cómo se llama la enseñanza de una fábula?", "moraleja", ["título", "dato"]],
+      ["«Las abejas fabrican miel con el néctar de las flores.» ¿Qué tipo de texto es?", "informativo", ["fábula", "poema"]]
+    ]
+  },
+});

@@ -398,23 +398,41 @@
     const ls = courseLessons(c), l = ls[ref.li]; if (!l) return null;
     return { key: `${c.id}:${ref.li}`, title: l.title, subj: c.subject in SUBJECTS ? c.subject : "mat", lesson: l.explanation || l.lesson, example: l.example, tip: l.tip, gen: l.gen, params: l.params, activities: l.activities, where: `${c.emoji || "📘"} ${c.title} · Lección ${ref.li + 1} de ${ls.length}` };
   }
+  // siguiente nivel del MISMO tema (Aprende → Practica → Domina)
+  const nextLevelRef = (ref) => (ref.type === "topic" && (ref.lv || 1) < 3 ? { type: "topic", id: ref.id, lv: (ref.lv || 1) + 1 } : null);
+  // siguiente tema DISTINTO: el que sigue en el mundo y, al terminar el mundo, el primero del grado siguiente
   function nextRef(ref) {
-    if (ref.type === "topic") { const lv = ref.lv || 1; if (lv < 3) return { type: "topic", id: ref.id, lv: lv + 1 }; const x = TOPIC_INDEX[ref.id], list = TOPICS[x.s][x.g], i = list.findIndex((t) => t.id === ref.id); return list[i + 1] ? { type: "topic", id: list[i + 1].id, lv: 1 } : null; }
+    if (ref.type === "topic") {
+      const x = TOPIC_INDEX[ref.id], list = TOPICS[x.s][x.g], i = list.findIndex((t) => t.id === ref.id);
+      if (list[i + 1]) return { type: "topic", id: list[i + 1].id, lv: 1 };
+      const nextGrade = TOPICS[x.s][x.g + 1]; return nextGrade && nextGrade[0] ? { type: "topic", id: nextGrade[0].id, lv: 1 } : null;
+    }
     const c = findCourse(ref.cid); return ref.li + 1 < courseLessons(c).length ? { type: "course", cid: ref.cid, li: ref.li + 1 } : null;
+  }
+  // memoria de preguntas ya vistas por tema, para no repetirlas en la siguiente partida
+  const seenKey = (u) => (u.tid || u.key || "").split("#")[0];
+  const qKey = (q) => q.prompt + "|" + (q.visual || "") + "|" + (q.answer || (q.items || []).join());
+  function rememberQs(u, qs) {
+    S.seen = S.seen || {}; const k = seenKey(u); if (!k) return;
+    S.seen[k] = [...(S.seen[k] || []).filter((x) => !qs.some((q) => qKey(q) === x)), ...qs.map(qKey)].slice(-80);
+    const ks = Object.keys(S.seen); if (ks.length > 300) delete S.seen[ks[0]];
   }
   function buildQuestions(u) {
     if (u.activities && u.activities.length) {
-      return shuffle(u.activities).slice(0, 8).map((a) => {
+      const old = ((S.seen || {})[seenKey(u)]) || [];
+      return shuffle(u.activities).sort((a, b) => (old.some((x) => x.startsWith(a.q + "|")) ? 1 : 0) - (old.some((x) => x.startsWith(b.q + "|")) ? 1 : 0)).slice(0, 8).map((a) => {
         if (a.type === "order" && Array.isArray(a.items) && a.items.length > 1) return { kind: "order", prompt: a.q || "Ordena", items: a.items.map(String), vertical: a.items.some((x) => String(x).length > 14) };
         const wrong = (a.wrong || a.o || []).map(String).filter((w) => w !== String(a.answer)).slice(0, 3);
         return choice(a.q, a.answer, wrong.length ? wrong : ["—"], { visual: a.emoji ? esc(a.emoji) : "", explain: a.explain || "", small: String(a.q).length > 70 });
       });
     }
-    if (u.gen === "read") { const story = pick(READ[u.params.level]); return shuffle(story.qs).map((q) => choice(q[0], q[1], q[2], { visual: `<h4>${esc(story.title)}</h4>${esc(story.text)}`, visualClass: "text", small: true, readText: story.text })); }
+    if (u.gen === "read") { const old = ((S.seen || {})[seenKey(u)]) || [], fresh = READ[u.params.level].filter((st) => !old.some((x) => x.includes(esc(st.title)))), story = pick(fresh.length ? fresh : READ[u.params.level]); return shuffle(story.qs).map((q) => choice(q[0], q[1], q[2], { visual: `<h4>${esc(story.title)}</h4>${esc(story.text)}`, visualClass: "text", small: true, readText: story.text })); }
     const lv = u.lv || 1;
     if (u.gen === "robot") return Array.from({ length: lv + 1 }, () => ({ kind: "robot", level: Math.min(5, (u.params.level || 0) + (lv === 3 ? 1 : 0)) }));
     const ctx = { used: new Set() }, out = [], seen = new Set(), n = /order/.test(u.gen) ? 3 + lv : Math.round(LEVELS[lv].n * (lv === 3 ? 0.7 : 1));
-    for (let i = 0, g = 0; out.length < n && g < 80; g++) { const q = GEN[u.gen](u.params || {}, ctx); const k = q.prompt + (q.visual || "") + (q.answer || q.items.join()); if (seen.has(k)) continue; seen.add(k); out.push(q); i++; }
+    const old = new Set(((S.seen || {})[seenKey(u)]) || []), later = [];
+    for (let g = 0; out.length < n && g < 160; g++) { const q = GEN[u.gen](u.params || {}, ctx); const k = qKey(q); if (seen.has(k)) continue; seen.add(k); if (old.has(k)) later.push(q); else out.push(q); }
+    while (out.length < n && later.length) out.push(later.shift()); // si ya se vieron todas, se repiten las más antiguas
     if (lv === 3 && u.subj && u.g != null && !u.review) {
       // "Domina": mezcla repaso de los temas anteriores del mismo mundo
       const list = TOPICS[u.subj][u.g], idx = list.findIndex((t) => t.id === u.key.split("#")[0]);
@@ -581,7 +599,13 @@
   let lsn = { key: null, step: 0, open: true, ans: {}, opts: {} };
   function vRich(u, L, refJ) {
     if (lsn.key !== u.key) lsn = { key: u.key, step: 0, open: u.lv === 1, ans: {}, opts: {} };
-    if (!lsn.open) return `<button class="btn ghost" data-act="lsnOpen">${I("book")} Repasar la lección completa (${L.steps.length} pasos)</button>`;
+    if (!lsn.open) {
+      // en Practica y Domina mostramos otra parte de la lección para que no sea lo mismo
+      const extra = u.lv === 2
+        ? `<article class="lsn-card"><p class="eyebrow">Nivel 2 · Practica</p><h2>Antes de practicar, recuerda</h2><ul class="lsn-remember">${L.remember.map((r) => `<li>${I("star")}<span>${esc(r)}</span></li>`).join("")}</ul><div class="lsn-box warn"><b>${I("bulb")} ¡Ojo con este error!</b><p>${esc(L.mistake)}</p></div></article>`
+        : `<article class="lsn-card"><p class="eyebrow">Nivel 3 · Domina</p><h2>Reto de campeón</h2><p>Ahora las preguntas son más difíciles y aparecen temas anteriores para repasar. ¡Demuestra todo lo que sabes!</p><div class="lsn-box fun"><b>${I("sparkle")} ¿Sabías que…?</b><p>${esc(L.fun)}</p></div></article>`;
+      return `${extra}<button class="btn ghost" data-act="lsnOpen">${I("book")} Repasar la lección completa (${L.steps.length} pasos)</button>`;
+    }
     const n = L.steps.length, i = lsn.step, done = i >= n;
     const dots = `<div class="lsn-dots">${L.steps.map((_, k) => `<button data-act="lsnGo" data-v="${k}" aria-label="Paso ${k + 1}" class="${k < i ? "done" : k === i ? "on" : ""}"></button>`).join("")}<button data-act="lsnGo" data-v="${n}" aria-label="Repaso final" class="${done ? "on" : ""}"></button></div>`;
     let body;
@@ -628,6 +652,7 @@
     const players = [{ name: P.name || "Yo", av: P.avatar, pts: 0 }]; if (mode === "juntos") players.push({ name: P.adult || "Adulto", av: P.adultAvatar, pts: 0 });
     const qs = qsOverride || buildQuestions(u);
     if (!qs.length) { toast("Esta lección no tiene actividades todavía"); return; }
+    rememberQs(u, qs.filter((q) => q.kind !== "robot"));
     play = { ref, u, planIdx, players, qs, mode, timed: mode === "reloj", i: 0, correct: 0, answered: false, hinted: false, combo: 0, bestCombo: 0, xp: 0, tLeft: 0 };
     go("play");
   }
@@ -860,7 +885,7 @@
   function vResult() {
     const g = play; if (!g || !g.result) return vHome();
     if (g.boss) return vBossResult();
-    const { pct, stars, sticker } = g.result, nx = nextRef(g.ref);
+    const { pct, stars, sticker } = g.result, nx = nextRef(g.ref), nl = nextLevelRef(g.ref), nt = nx && nx.type === "topic" ? TOPIC_INDEX[nx.id] : null;
     const winner = g.players.length > 1 ? (g.players[0].pts === g.players[1].pts ? "¡Empate! Ganó el trabajo en equipo 🤝" : `¡Ganó ${esc(g.players[0].pts > g.players[1].pts ? g.players[0].name : g.players[1].name)}! 🏆`) : "";
     return `<section class="result card">
       <p class="eyebrow">${esc(g.u.title)}</p>
@@ -876,7 +901,8 @@
       ${stars < 2 ? `<div class="parent" style="text-align:left"><b>${av(S.profile.adultAvatar)} Sugerencia:</b> repasen juntos la explicación y vuelvan a intentarlo. Equivocarse es parte de aprender.</div>` : ""}
       <div class="row" style="justify-content:center">
         <button class="btn ghost" data-act="again">🔁 Otra vez</button>
-        ${nx ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify(nx))}'>Siguiente tema ➜</button>` : ""}
+        ${nl ? `<button class="btn ${nx ? "ghost" : ""}" data-act="open" data-ref='${esc(JSON.stringify(nl))}'>${I(LEVELS[nl.lv].icon)} Nivel ${nl.lv}: ${LEVELS[nl.lv].name}</button>` : ""}
+        ${nx ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify(nx))}'>${nt ? `Siguiente tema: ${esc(nt.t.title)}` : "Siguiente lección"} ➜</button>` : ""}
         <button class="btn ghost" data-act="back" data-ref='${esc(JSON.stringify(g.ref))}'>Volver</button>
       </div></section>`;
   }

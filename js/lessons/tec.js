@@ -428,3 +428,329 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["Usar una botella como maceta es…", "Reutilizar", ["Reducir", "Contaminar"]]
     ]
   },
+  /* ===== 3.º ===== */
+  "t3a": {
+    hook: "Alguien que no conoces te escribe en un juego y te pregunta dónde vives. ¿Qué haces? 🔐",
+    steps: [
+      { title: "Tus datos personales", text: "Tus datos personales son la información que dice quién eres y dónde estás: nombre completo, dirección, teléfono, colegio y fotos.", example: "📍 dirección · 📞 teléfono · 🏫 colegio" },
+      { title: "No los compartas", text: "No publiques ni envíes tus datos personales a personas que no conoces en la vida real, aunque parezcan amables.", example: "❌ «¿En qué colegio estudias?» → no respondas" },
+      { title: "Contraseñas secretas", text: "Tu contraseña es como la llave de tu casa: solo la conocen tú y tu familia. No se la des a amigos.", example: "🔐 contraseña segura y secreta" },
+      { title: "Pide ayuda a un adulto", text: "Si algo te da miedo, te incomoda o te parece raro, cierra la página y cuéntale a un adulto de confianza. No es tu culpa.", example: "👩 mamá · 👨‍🏫 profesor" },
+      { title: "Piensa antes de hacer clic", text: "No abras enlaces ni descargues archivos de desconocidos. Pueden tener virus o engaños.", example: "«¡Ganaste un premio! Haz clic» → ❌ es un engaño" }
+    ],
+    remember: ["No compartas tus datos personales.", "Tu contraseña es secreta.", "Si algo te incomoda, cuéntale a un adulto."],
+    mistake: "Creer que alguien es tu amigo solo porque chatean en un juego. En internet no sabes quién está del otro lado.",
+    fun: "¿Sabías que cada año, en febrero, muchos países celebran el Día de Internet Segura?",
+    check: [
+      ["Un desconocido te pide tu dirección. ¿Qué haces?", "No la doy y le cuento a un adulto", ["Se la doy", "Le mando una foto de mi casa"]],
+      ["¿Con quién compartes tu contraseña?", "Solo con mi familia", ["Con todos mis amigos", "Con quien la pida en el chat"]]
+    ]
+  },
+  "t3b": {
+    hook: "¿Cómo le explicarías a un robot que se lave las manos? ¡Tendrías que darle cada paso! 🤖🧼",
+    steps: [
+      { title: "¿Qué es un algoritmo?", text: "Un algoritmo es una lista de pasos ordenados para resolver un problema o hacer una tarea. Tiene un inicio y un final.", example: "Receta de cocina = algoritmo" },
+      { title: "Pasos claros", text: "Cada paso debe ser claro y preciso, para que cualquiera lo pueda seguir sin adivinar.", example: "❌ «Lávate» · ✅ «Abre la llave del agua»" },
+      { title: "El orden importa", text: "Si cambias el orden de los pasos, el resultado cambia o sale mal.", example: "Abrir, mojar, jabón, enjuagar, cerrar, secar" },
+      { title: "Escribe tu algoritmo", text: "Escribe los pasos numerados. Ejemplo para un sándwich: 1. Tomar dos panes. 2. Poner queso en uno. 3. Tapar con el otro pan. 4. Servir.", example: "1 → 2 → 3 → 4 🥪" },
+      { title: "Los computadores siguen algoritmos", text: "Los programas de computador son algoritmos escritos en un lenguaje que la máquina entiende.", example: "Un videojuego sigue miles de pasos" }
+    ],
+    remember: ["Un algoritmo es una lista de pasos en orden.", "Cada paso debe ser claro.", "Los programas son algoritmos para computadores."],
+    mistake: "Escribir pasos muy generales como «haz el sándwich». Un algoritmo debe detallar cada acción.",
+    fun: "¿Sabías que la palabra algoritmo viene del nombre de Al-Juarismi, un matemático persa que vivió hace unos 1200 años?",
+    check: [
+      ["¿Qué es un algoritmo?", "Una lista de pasos en orden", ["Un tipo de robot", "Un dibujo"]],
+      ["¿Qué pasa si cambias el orden de los pasos?", "El resultado puede salir mal", ["Siempre sale igual", "Sale mejor"]]
+    ]
+  },
+  "t3c": {
+    hook: "La misión del robot tiene rocas, agua y una llave que recoger. ¿Cómo planeas un programa tan largo? 🗝️",
+    steps: [
+      { title: "Planea", text: "Mira el tablero completo, marca los obstáculos y decide el orden de las metas: primero la llave, después la puerta.", example: "🤖 → 🗝️ → 🚪" },
+      { title: "Divide la misión", text: "Parte el programa largo en tramos cortos. Es más fácil pensar en «llegar a la llave» y luego «llegar a la puerta».", example: "Tramo 1: → → ↓ · Tramo 2: → ↓ ↓" },
+      { title: "Ejecuta", text: "Corre el programa y observa con atención cada movimiento del robot.", example: "▶️ ejecutar y mirar" },
+      { title: "Depura", text: "Si el robot falla, encuentra el paso exacto donde se equivocó y corrígelo. A eso se le llama depurar.", example: "Choca en el paso 5 → cambio la flecha 5" }
+    ],
+    remember: ["Planea, ejecuta y corrige.", "Divide los programas largos en partes.", "Depurar es encontrar y corregir errores."],
+    mistake: "Borrar todo el programa cuando falla. Normalmente solo hay que corregir un paso: busca exactamente dónde falló.",
+    fun: "¿Sabías que en 1947 se encontró una polilla atrapada en un computador llamado Harvard Mark II? La pegaron en el cuaderno como el primer «bug» (bicho) encontrado.",
+    check: [
+      ["¿Qué significa depurar?", "Encontrar y corregir errores", ["Borrar todo", "Apagar el robot"]],
+      ["¿Qué ayuda con un programa muy largo?", "Dividirlo en partes", ["Hacerlo sin mirar", "Ponerle más rocas"]]
+    ]
+  },
+  "xtec3a": {
+    hook: "Seguiste una receta y el pastel salió salado. ¿Dónde estuvo el error? 🎂",
+    steps: [
+      { title: "Algoritmo = pasos ordenados", text: "Un algoritmo es una lista de pasos ordenados para lograr algo. Una receta es un algoritmo de cocina.", example: "1. Mezclar 2. Hornear 3. Decorar" },
+      { title: "Los errores se llaman bugs", text: "Cuando un algoritmo o un programa no hace lo que esperamos, tiene un error. En programación se le dice bug (bicho, en inglés).", example: "Puse sal en vez de azúcar = bug" },
+      { title: "Tipos de errores", text: "Un paso puede estar en el orden equivocado, faltar o estar mal escrito.", example: "Hornear antes de mezclar = orden equivocado" },
+      { title: "Depurar paso a paso", text: "Para depurar, revisa el algoritmo paso por paso, compara lo que pasó con lo que debía pasar y encuentra dónde cambia.", example: "Paso 1 ✅ Paso 2 ✅ Paso 3 ❌ → aquí está el error" },
+      { title: "Corrige y prueba de nuevo", text: "Cambia el paso que falla y vuelve a probar. Si funciona, ¡lo depuraste! Si no, repite.", example: "Cambio sal por azúcar → 🎂 rico" }
+    ],
+    remember: ["Un algoritmo es una lista de pasos ordenados.", "Un bug es un error.", "Depurar es encontrar y corregir el error."],
+    mistake: "Pensar que equivocarse es malo. Todos los programadores encuentran errores; lo importante es saber buscarlos y corregirlos.",
+    fun: "¿Sabías que Grace Hopper, una pionera de la programación, ayudó a popularizar la palabra «bug» para los errores de los computadores?",
+    check: [
+      ["¿Cómo se le dice a un error en un programa?", "Bug", ["Mouse", "Wifi"]],
+      ["¿Qué es depurar?", "Buscar y corregir errores", ["Escribir más rápido", "Borrar el computador"]]
+    ]
+  },
+  "xtec3b": {
+    hook: "¿Copias un texto con el ratón, menú y clics? ¡Hay un truco con dos teclas que lo hace en un segundo! ⚡",
+    steps: [
+      { title: "¿Qué es un atajo?", text: "Un atajo de teclado es una combinación de teclas que hace una acción rápida. Mantienes apretada una tecla y aprietas otra.", example: "Ctrl + C" },
+      { title: "Copiar y pegar", text: "Primero seleccionas el texto. Con Ctrl + C lo copias y con Ctrl + V lo pegas donde quieras.", example: "Ctrl + C copiar · Ctrl + V pegar" },
+      { title: "Cortar y deshacer", text: "Ctrl + X corta: quita el texto para pegarlo en otro lugar. Ctrl + Z deshace el último cambio si te equivocaste.", example: "Ctrl + X cortar · Ctrl + Z deshacer" },
+      { title: "Guardar y seleccionar todo", text: "Ctrl + S guarda tu trabajo y Ctrl + A selecciona todo el texto de la página.", example: "Ctrl + S guardar · Ctrl + A todo" },
+      { title: "En otros equipos", text: "En los computadores Mac se usa la tecla Comando (⌘) en lugar de Ctrl. Las letras son las mismas.", example: "⌘ + C copiar en Mac" }
+    ],
+    remember: ["Un atajo combina teclas para trabajar rápido.", "Ctrl + C copia, Ctrl + V pega, Ctrl + Z deshace.", "En Mac se usa ⌘ en vez de Ctrl."],
+    mistake: "Apretar Ctrl + C sin seleccionar el texto primero. Si no seleccionas nada, no se copia nada.",
+    fun: "¿Sabías que copiar, cortar y pegar con atajos fue popularizado por Larry Tesler, un científico de la computación que trabajó en Xerox y Apple?",
+    check: [
+      ["¿Qué atajo sirve para pegar?", "Ctrl + V", ["Ctrl + Z", "Ctrl + S"]],
+      ["¿Qué hace Ctrl + Z?", "Deshacer", ["Guardar", "Copiar"]]
+    ]
+  },
+  "xtec3c": {
+    hook: "Si guardas tus juguetes en cajas con nombre, los encuentras rápido. ¡En el computador pasa igual! 📁",
+    steps: [
+      { title: "Archivos", text: "Un archivo es un trabajo guardado: un texto, un dibujo, una foto o una canción. Cada archivo tiene un nombre.", example: "📄 plantas.txt · 🖼️ dibujo.png" },
+      { title: "Carpetas", text: "Una carpeta es como una caja donde guardamos archivos. Dentro de una carpeta puede haber otras carpetas.", example: "📁 Colegio → 📁 Ciencias" },
+      { title: "Nombres claros", text: "Ponles nombres que digan qué hay adentro. «tarea_plantas» es mejor que «archivo1».", example: "✅ tarea_plantas · ❌ asdfg" },
+      { title: "Ordena por temas", text: "Crea una carpeta por materia o tema. Así encuentras todo fácil.", example: "📁 Colegio → 📁 Ciencias → 📄 plantas.txt" },
+      { title: "La extensión", text: "Al final del nombre suele haber un punto y unas letras que dicen el tipo de archivo. Se llama extensión.", example: ".txt texto · .png imagen · .mp3 sonido" }
+    ],
+    remember: ["Los archivos guardan nuestro trabajo.", "Las carpetas organizan los archivos.", "Usamos nombres claros."],
+    mistake: "Guardar todo en el escritorio con nombres como «nuevo» o «sin título». Después no encuentras nada.",
+    fun: "¿Sabías que el dibujo de un disquete 💾 todavía se usa como botón de «guardar», aunque casi nadie usa disquetes hoy?",
+    check: [
+      ["¿Dónde organizamos los archivos?", "En carpetas", ["En la pantalla apagada", "En el ratón"]],
+      ["¿Qué nombre de archivo es más claro?", "tarea_plantas", ["archivo1", "zzzz"]]
+    ]
+  },
+  "xtec3d": {
+    hook: "¿Cómo puedes ver una página creada en otro país en solo un segundo? ¡Gracias a internet! 🌐",
+    steps: [
+      { title: "¿Qué es internet?", text: "Internet es una red gigante que conecta millones de computadores y celulares de todo el mundo para compartir información.", example: "🌍 red mundial" },
+      { title: "Cómo te conectas", text: "Te conectas por wifi (sin cables), por cable o por datos del celular. El router de la casa reparte la conexión.", example: "📶 wifi · 📡 router" },
+      { title: "El navegador", text: "El navegador es el programa que usamos para ver páginas web. Escribes la dirección o buscas lo que quieres.", example: "🧭 navegador → www.ejemplo.com" },
+      { title: "Los enlaces", text: "Un enlace es un texto o botón que, al hacer clic, te lleva a otra página. A veces el puntero se vuelve una manito 👆.", example: "🔗 enlace → otra página" },
+      { title: "Navega con un adulto", text: "Usa internet con un adulto cerca y en páginas adecuadas para niños. Si algo te incomoda, avisa.", example: "✅ adulto cerca · ✅ páginas para niños" }
+    ],
+    remember: ["Internet conecta computadores de todo el mundo.", "El navegador sirve para ver páginas.", "Navegamos con un adulto cerca."],
+    mistake: "Pensar que internet y wifi son lo mismo. El wifi es solo una forma de conectarse a internet sin cables.",
+    fun: "¿Sabías que la Web fue inventada por Tim Berners-Lee en 1989, mientras trabajaba en el CERN, en Suiza?",
+    check: [
+      ["¿Qué programa usamos para ver páginas web?", "El navegador", ["La calculadora", "El reproductor de música"]],
+      ["¿Qué es un enlace?", "Algo que te lleva a otra página", ["Un tipo de cable", "Una contraseña"]]
+    ]
+  },
+  "xtec3e": {
+    hook: "¿Qué es más fácil de adivinar: «123456» o «Sol#Pan9Rio»? ¡Los ladrones de cuentas lo saben! 🔐",
+    steps: [
+      { title: "¿Para qué sirve?", text: "Una contraseña protege tus cuentas, como una llave protege tu casa. Solo quien la sabe puede entrar.", example: "🔑 llave = 🔐 contraseña" },
+      { title: "Que sea larga", text: "Mientras más larga, más difícil de adivinar. Usa al menos 12 caracteres si puedes.", example: "✅ Sol#Pan9Rio (11) · ❌ gato (4)" },
+      { title: "Que mezcle", text: "Combina mayúsculas, minúsculas, números y símbolos. Un truco: une tres palabras raras y agrégales números y símbolos.", example: "Luna + Tren + Mango → Luna7Tren!Mango" },
+      { title: "Lo que NO debes usar", text: "No uses tu nombre, tu fecha de cumpleaños, el nombre de tu mascota ni secuencias como 123456 o qwerty.", example: "❌ Sofia2015 · ❌ 123456" },
+      { title: "Nunca se comparte", text: "No le des tu contraseña a amigos. Solo tus papás o cuidadores pueden conocerla. Si crees que alguien la sabe, cámbiala.", example: "🤫 contraseña secreta" }
+    ],
+    remember: ["Una contraseña fuerte es larga.", "Mezcla mayúsculas, minúsculas, números y símbolos.", "Nunca la compartas con amigos."],
+    mistake: "Usar la misma contraseña para todo. Si alguien la descubre, puede entrar a todas tus cuentas.",
+    fun: "¿Sabías que «123456» aparece año tras año en las listas de contraseñas más usadas del mundo? ¡Y se adivina en menos de un segundo!",
+    check: [
+      ["¿Cuál contraseña es más fuerte?", "Luna7Tren!Mango", ["123456", "Sofia2015"]],
+      ["¿Con quién compartes tu contraseña?", "Solo con mis papás o cuidadores", ["Con mi mejor amigo", "Con todos en el chat"]]
+    ]
+  },
+  "xtec3f": {
+    hook: "Un televisor prendido sin nadie mirándolo gasta energía y dinero. ¿Cómo podemos ahorrar? 💡",
+    steps: [
+      { title: "¿De dónde viene la energía?", text: "La electricidad de la casa se produce en centrales: con agua (hidroeléctricas), sol, viento o quemando combustibles que contaminan.", example: "💧 agua · ☀️ sol · 🌬️ viento" },
+      { title: "Apagar lo que no usas", text: "Apaga las luces al salir de un cuarto y el televisor o la consola cuando nadie los usa.", example: "🌱 apagar luces · 💸 TV prendida sin nadie" },
+      { title: "Desconectar cargadores", text: "Muchos aparatos siguen gastando un poco de energía cuando están enchufados aunque estén apagados. Desconecta cargadores que no estés usando.", example: "🔌 desconectar el cargador" },
+      { title: "Usar la luz del sol", text: "De día, abre las cortinas y aprovecha la luz natural en vez de prender bombillas.", example: "☀️ cortinas abiertas" },
+      { title: "Bombillas LED y nevera cerrada", text: "Las bombillas LED gastan mucha menos energía que las antiguas. Y no dejes la nevera abierta mucho tiempo.", example: "LED ✅ · 🧊 cerrar la nevera rápido" }
+    ],
+    remember: ["Ahorrar energía cuida el planeta y el dinero.", "Apaga y desconecta lo que no uses.", "Aprovecha la luz del sol."],
+    mistake: "Pensar que un aparato apagado pero enchufado no gasta nada. Muchos siguen consumiendo un poco: desenchúfalos.",
+    fun: "¿Sabías que una bombilla LED puede gastar hasta un 80 % menos de energía que una bombilla incandescente antigua?",
+    check: [
+      ["¿Qué ayuda a ahorrar energía?", "Apagar las luces al salir", ["Dejar la TV prendida", "Abrir la nevera seguido"]],
+      ["¿Qué bombillas gastan menos energía?", "Las LED", ["Las incandescentes antiguas", "Todas gastan igual"]]
+    ]
+  },
+  "xtec3g": {
+    hook: "Las historias también enseñan tecnología. ¿Puedes encontrar en un cuento qué hizo bien el personaje? 📖",
+    steps: [
+      { title: "Lee con un propósito", text: "Antes de leer, mira el título y pregúntate: ¿de qué tratará? ¿Qué puedo aprender sobre usar la tecnología con cuidado?", example: "Título: «Tomás y la contraseña secreta»" },
+      { title: "Busca los detalles", text: "Fíjate en lo que hacen los personajes: ¿comparten datos?, ¿piden ayuda?, ¿cómo programan al robot?", example: "Tomás no dio su contraseña a un desconocido" },
+      { title: "Identifica el problema y la solución", text: "Casi todas las historias tienen un problema y una solución. Encuéntralos y piensa si la solución fue segura.", example: "Problema: mensaje raro · Solución: contarle a su mamá" },
+      { title: "Relaciona con tu vida", text: "Piensa qué harías tú en la misma situación. Así la lectura se convierte en una regla que puedes usar.", example: "Yo también le contaría a un adulto" }
+    ],
+    remember: ["Lee con atención y busca los detalles.", "Identifica el problema y la solución.", "Relaciona la historia con tus reglas de seguridad."],
+    mistake: "Responder sin volver al texto. Si dudas, regresa a la lectura y busca la frase que da la respuesta.",
+    fun: "¿Sabías que la palabra robot apareció por primera vez en una obra de teatro, R.U.R., del escritor checo Karel Čapek, en 1920?",
+    check: [
+      ["Si dudas de una respuesta sobre la lectura, ¿qué haces?", "Vuelvo a buscar en el texto", ["Invento una respuesta", "Dejo la pregunta"]],
+      ["En la historia, alguien pide su contraseña. ¿Qué es lo seguro?", "No darla y avisar a un adulto", ["Darla rápido", "Publicarla en el chat"]]
+    ]
+  },
+  /* ===== 4.º ===== */
+  "t4a": {
+    hook: "¿Cómo levantaron los antiguos piedras enormes sin grúas ni motores? ¡Con máquinas simples! ⚙️",
+    steps: [
+      { title: "¿Qué es una máquina simple?", text: "Una máquina simple es un objeto con pocas o ninguna pieza móvil que nos ayuda a hacer fuerza o a cambiar su dirección. Hace el trabajo más fácil.", example: "Palanca, polea, rueda y eje, plano inclinado, cuña" },
+      { title: "La palanca", text: "Es una barra que gira sobre un punto de apoyo. Si empujas lejos del apoyo, levantas más peso con menos fuerza.", example: "⚖️ subibaja · tijeras · destapador" },
+      { title: "La polea", text: "Es una rueda con una cuerda. Cambia la dirección de la fuerza: tiras hacia abajo y la carga sube.", example: "🪣 balde en un pozo · bandera en su asta" },
+      { title: "Rueda y eje", text: "Una rueda unida a una barra (eje) que giran juntos. Facilita mover cosas y girar objetos.", example: "🛞 carretilla · perilla de la puerta" },
+      { title: "Plano inclinado y cuña", text: "El plano inclinado es una rampa: subes un peso con menos fuerza pero recorres más distancia. La cuña son dos planos inclinados juntos que sirven para cortar o separar.", example: "♿ rampa · 🪓 hacha (cuña)" }
+    ],
+    remember: ["Hay cinco máquinas simples clásicas en esta lección: palanca, polea, rueda y eje, plano inclinado y cuña.", "Facilitan el trabajo reduciendo o cambiando la dirección de la fuerza.", "Las encontramos en objetos de todos los días."],
+    mistake: "Pensar que la rampa hace desaparecer el esfuerzo. Necesitas menos fuerza, pero recorres un camino más largo.",
+    fun: "¿Sabías que Arquímedes, hace más de 2200 años, dijo: «Denme un punto de apoyo y moveré el mundo», hablando de la palanca?",
+    check: [
+      ["¿Qué máquina simple es un subibaja?", "Palanca", ["Polea", "Cuña"]],
+      ["Una rampa es un…", "Plano inclinado", ["Rueda y eje", "Polea"]],
+      ["¿Qué máquina simple usa una rueda con cuerda para subir cargas?", "Polea", ["Cuña", "Plano inclinado"]]
+    ]
+  },
+  "t4b": {
+    hook: "Cuando prendes una linterna, la energía de la pila se convierte en luz. ¿A dónde se va la energía? 🔦",
+    steps: [
+      { title: "La energía se transforma", text: "La energía no desaparece: cambia de una forma a otra. Los artefactos son máquinas que transforman la energía para darnos lo que necesitamos.", example: "⚡ eléctrica → 💡 luz" },
+      { title: "Formas de energía", text: "Hay energía eléctrica, luminosa (luz), térmica (calor), sonora (sonido), de movimiento y química (guardada en pilas o alimentos).", example: "🔋 química · 🔥 térmica · 🔊 sonora" },
+      { title: "Ejemplos en casa", text: "La bombilla transforma electricidad en luz; la plancha, en calor; el parlante, en sonido; el ventilador, en movimiento.", example: "Ventilador: ⚡ → 🌀 movimiento" },
+      { title: "Siempre se escapa algo de calor", text: "Al transformarse, parte de la energía se vuelve calor que no usamos. Por eso un cargador o una bombilla vieja se calientan.", example: "Bombilla antigua: mucha energía se vuelve calor" },
+      { title: "Artefactos más eficientes", text: "Un artefacto eficiente aprovecha mejor la energía y desperdicia menos. Por eso las bombillas LED ahorran tanto.", example: "LED: más luz, menos calor" }
+    ],
+    remember: ["Los artefactos transforman la energía.", "La energía cambia de forma, no desaparece.", "Un artefacto eficiente desperdicia menos energía."],
+    mistake: "Creer que la pila «fabrica» electricidad de la nada. La pila guarda energía química y la transforma en eléctrica hasta que se agota.",
+    fun: "¿Sabías que el cuerpo humano también transforma energía? Convierte la energía química de los alimentos en movimiento y calor.",
+    check: [
+      ["¿En qué transforma la electricidad una plancha?", "En calor", ["En sonido", "En agua"]],
+      ["¿Qué tipo de energía guarda una pila?", "Química", ["Sonora", "Luminosa"]]
+    ]
+  },
+  "t4c": {
+    hook: "Un laberinto enorme parece imposible… hasta que lo partes en trozos pequeños. 🧩",
+    steps: [
+      { title: "Observa todo el laberinto", text: "Identifica el inicio, la meta, los muros y los caminos sin salida antes de escribir una sola instrucción.", example: "🤖 inicio · ⭐ meta · 🧱 muros" },
+      { title: "Divide el camino en partes", text: "Marca puntos intermedios (como esquinas) y resuelve el camino de un punto al siguiente. Es la estrategia de dividir y vencer.", example: "Inicio → esquina A → esquina B → meta" },
+      { title: "Usa repeticiones", text: "Si un movimiento se repite muchas veces, usa un bucle: en vez de → → → → → escribes REPETIR 5: avanzar.", example: "REPETIR 5 [ → ]" },
+      { title: "Prueba por tramos", text: "Ejecuta cada parte por separado y revisa que funcione. Así, si algo falla, sabes en qué tramo está el error.", example: "Tramo 1 ✅ · Tramo 2 ❌ → reviso el tramo 2" },
+      { title: "Busca el camino corto", text: "Cuando funcione, mira si hay un camino con menos pasos. Un programa más corto es más fácil de leer y corregir.", example: "14 pasos → 10 pasos" }
+    ],
+    remember: ["Divide el camino largo en partes.", "Usa bucles para los movimientos repetidos.", "Prueba cada tramo y corrige."],
+    mistake: "Escribir todo el programa de una vez sin probar. Si falla, cuesta mucho encontrar el error; prueba por partes.",
+    fun: "¿Sabías que una regla famosa para salir de muchos laberintos es poner una mano en la pared y nunca soltarla? Funciona si todas las paredes están conectadas.",
+    check: [
+      ["¿Qué estrategia ayuda con un laberinto largo?", "Dividirlo en partes", ["Mover al azar", "Empezar por la meta sin mirar"]],
+      ["→ → → → → se puede escribir como…", "REPETIR 5 [ → ]", ["REPETIR 2 [ → ]", "SI → ENTONCES ↓"]]
+    ]
+  },
+  "xtec4a": {
+    hook: "¿Le dirías a un robot «avanza» 100 veces? ¡Hay una forma más corta! Y ¿cómo decide si llevar paraguas? ☂️",
+    steps: [
+      { title: "El bucle repite", text: "Un bucle (o ciclo) repite un grupo de instrucciones un número de veces o mientras algo sea cierto. Ahorra escribir lo mismo muchas veces.", example: "REPETIR 4 veces: aplaudir 👏" },
+      { title: "Dibujar un cuadrado", text: "Un cuadrado tiene 4 lados iguales y 4 giros. Con un bucle: REPETIR 4: avanzar 10 pasos, girar 90°.", example: "REPETIR 4 [ avanzar 10 · girar 90° ] = ⬜" },
+      { title: "El condicional decide", text: "Un condicional revisa si algo es verdadero o falso y según eso hace una cosa u otra. Se escribe SI… ENTONCES… SI NO…", example: "SI llueve ENTONCES llevar paraguas SI NO llevar gorra" },
+      { title: "Verdadero o falso", text: "La condición siempre tiene respuesta de sí o no: ¿hay muro adelante?, ¿los puntos son más de 10?", example: "¿Hay muro? Sí → girar · No → avanzar" },
+      { title: "Bucle + condicional", text: "Juntos son muy poderosos: el robot repite pasos y en cada uno decide qué hacer.", example: "REPETIR 10 [ SI hay muro ENTONCES girar SI NO avanzar ]" }
+    ],
+    remember: ["Un bucle repite instrucciones.", "Un condicional decide según si algo es verdadero o falso.", "Juntos permiten programas cortos e inteligentes."],
+    mistake: "Confundir bucle con condicional. El bucle REPITE; el condicional DECIDE. Pregúntate: ¿quiero repetir o elegir?",
+    fun: "¿Sabías que los semáforos funcionan con un bucle? Repiten verde, amarillo y rojo una y otra vez todo el día.",
+    check: [
+      ["¿Qué hace un bucle?", "Repite instrucciones", ["Decide entre dos opciones", "Apaga el programa"]],
+      ["«SI llueve ENTONCES paraguas» es un…", "Condicional", ["Bucle", "Variable"]],
+      ["¿Cuántas veces repites «avanzar y girar 90°» para un cuadrado?", "4", ["3", "6"]]
+    ]
+  },
+  "xtec4b": {
+    hook: "Tus fotos, juegos y canciones están guardados en el computador solo con dos números: 0 y 1. ¿Cómo es posible? 💡",
+    steps: [
+      { title: "Dos estados", text: "Por dentro, el computador tiene millones de diminutos interruptores que solo pueden estar encendidos (1) o apagados (0).", example: "1 = encendido 💡 · 0 = apagado ⚫" },
+      { title: "El bit", text: "Cada 0 o 1 se llama bit. Con 8 bits juntos se forma un byte, que puede guardar, por ejemplo, una letra.", example: "01000001 = la letra A" },
+      { title: "Contar en binario", text: "En binario solo hay 0 y 1. Cuando se acaban, se agrega una posición, igual que del 9 pasamos al 10.", example: "0, 1, 10, 11, 100 = 0, 1, 2, 3, 4" },
+      { title: "El valor de cada posición", text: "Desde la derecha, las posiciones valen 1, 2, 4, 8, 16… Sumas los valores donde hay un 1.", example: "101 = 4 + 0 + 1 = 5" },
+      { title: "Todo es binario", text: "Las letras, los colores de una foto y los sonidos se convierten en números, y los números en ceros y unos.", example: "🖼️ píxel → número → 0 y 1" }
+    ],
+    remember: ["El computador usa solo 0 y 1.", "Cada 0 o 1 es un bit; 8 bits son un byte.", "En binario, las posiciones valen 1, 2, 4, 8…"],
+    mistake: "Leer «10» en binario como diez. En binario, 10 vale 2: una vez el 2 y cero veces el 1.",
+    fun: "¿Sabías que el matemático Gottfried Leibniz describió el sistema binario hace más de 300 años, mucho antes de que existieran los computadores?",
+    check: [
+      ["¿Cuánto vale 11 en binario?", "3", ["11", "2"]],
+      ["¿Cómo se llama cada 0 o 1?", "Bit", ["Byte", "Píxel"]],
+      ["¿Cuánto vale 100 en binario?", "4", ["100", "8"]]
+    ]
+  },
+  "xtec4c": {
+    hook: "Buscas «dinosaurios» y aparecen millones de resultados. ¿Cómo encuentras lo que necesitas… y sabes si es verdad? 🔎",
+    steps: [
+      { title: "Usa palabras clave", text: "No escribas una pregunta larga: escribe las palabras más importantes de lo que buscas.", example: "❌ quiero saber qué comían los dinosaurios · ✅ alimentación dinosaurios herbívoros" },
+      { title: "Sé específico", text: "Agrega palabras que precisen la búsqueda, como el lugar, la fecha o el tema exacto.", example: "volcanes Colombia · ríos de México" },
+      { title: "Mira quién lo escribió", text: "Prefiere páginas de museos, universidades, organismos oficiales o enciclopedias. Desconfía de páginas sin autor ni fecha.", example: "✅ sitio de un museo · ❓ blog anónimo" },
+      { title: "Compara 2 o 3 fuentes", text: "Si varias fuentes confiables dicen lo mismo, es más probable que sea cierto. Si se contradicen, investiga más.", example: "Fuente A + Fuente B + Fuente C = coinciden ✅" },
+      { title: "Cuidado con los anuncios", text: "Los primeros resultados a veces son anuncios pagados. Están marcados como «Patrocinado» o «Anuncio».", example: "🏷️ Patrocinado ≠ mejor información" }
+    ],
+    remember: ["Busca con palabras clave.", "Revisa quién escribió la información.", "Compara 2 o 3 fuentes confiables."],
+    mistake: "Creer que el primer resultado siempre es el mejor o el más verdadero. Puede ser un anuncio o una página poco confiable.",
+    fun: "¿Sabías que Google procesa miles de millones de búsquedas cada día?",
+    check: [
+      ["¿Qué ayuda a verificar una información?", "Comparar 2 o 3 fuentes", ["Leer solo el primer resultado", "Creer todo lo que aparece"]],
+      ["¿Qué fuente suele ser más confiable?", "La página de un museo", ["Un blog sin autor", "Un anuncio"]]
+    ]
+  },
+  "xtec4d": {
+    hook: "Cuando caminas en la arena dejas huellas. En internet también: cada foto, comentario y «me gusta» deja rastro. 👣",
+    steps: [
+      { title: "¿Qué es la huella digital?", text: "Tu huella digital es todo el rastro que dejas en internet: lo que publicas, comentas, compartes y buscas.", example: "📸 fotos · 💬 comentarios · 👍 reacciones" },
+      { title: "Puede durar mucho", text: "Lo que publicas puede copiarse, reenviarse o guardarse en capturas de pantalla. Aunque lo borres, puede seguir existiendo.", example: "Borré la foto, pero alguien hizo captura 📷" },
+      { title: "La regla de la abuela", text: "Antes de publicar, pregúntate: ¿me sentiría bien si mi abuela, mi profe o yo mismo en 10 años lo viera?", example: "Si dudas, no lo publiques" },
+      { title: "Protege tu información", text: "No publiques tu dirección, teléfono, colegio ni dónde estás en este momento.", example: "👎 publicar tu dirección" },
+      { title: "Construye una huella positiva", text: "Comparte tus logros, dibujos y comentarios amables. Tu huella puede mostrar lo mejor de ti.", example: "👍 comentario amable · 🎨 compartir un proyecto" }
+    ],
+    remember: ["Todo lo que publicas deja huella.", "Lo publicado puede durar mucho tiempo.", "Piensa antes de publicar y deja una huella positiva."],
+    mistake: "Pensar que si borras algo desaparece por completo. Otros pueden haberlo guardado o compartido.",
+    fun: "¿Sabías que existe un archivo de internet, el Internet Archive, que guarda copias de miles de millones de páginas web desde 1996?",
+    check: [
+      ["¿Qué deja una huella positiva?", "Un comentario amable", ["Publicar tu dirección", "Burlarte de alguien"]],
+      ["Si borras una foto publicada, ¿desaparece siempre?", "No, alguien pudo guardarla", ["Sí, siempre", "Sí, en un segundo"]]
+    ]
+  },
+  "xtec4e": {
+    hook: "Cuando pedaleas, la rueda de atrás gira. ¿Cómo viaja el movimiento de tus pies hasta la rueda? 🚲",
+    steps: [
+      { title: "¿Qué es un mecanismo?", text: "Un mecanismo es un conjunto de piezas que transmite el movimiento de un lugar a otro o lo transforma en otro tipo de movimiento.", example: "Pedales → cadena → rueda" },
+      { title: "Engranajes", text: "Son ruedas con dientes que encajan entre sí. Cuando una gira, mueve a la otra en sentido contrario.", example: "⚙️⚙️ reloj de agujas · batidora manual" },
+      { title: "Poleas con correa y cadenas", text: "Una correa o una cadena une dos ruedas que están separadas para que giren juntas en el mismo sentido.", example: "🚲 cadena de bicicleta" },
+      { title: "Grande y pequeño", text: "Si una rueda grande mueve a una pequeña, la pequeña gira más rápido. Así funcionan los cambios de la bicicleta.", example: "Plato grande + piñón pequeño = rueda rápida" },
+      { title: "Manivelas", text: "Una manivela es una palanca que hace girar un eje. Transforma el movimiento de tu mano en un giro.", example: "Sacapuntas de manivela · molino de mano" }
+    ],
+    remember: ["Los mecanismos transmiten y transforman el movimiento.", "Los engranajes tienen dientes y se mueven en sentido contrario.", "Cadenas y correas unen ruedas separadas."],
+    mistake: "Pensar que dos engranajes que se tocan giran hacia el mismo lado. Giran en sentidos contrarios.",
+    fun: "¿Sabías que el mecanismo de Anticitera, hallado en un naufragio griego, tiene más de 2000 años y usaba engranajes para predecir eclipses?",
+    check: [
+      ["¿Qué une los pedales con la rueda de la bicicleta?", "La cadena", ["Una cuña", "Un plano inclinado"]],
+      ["Dos engranajes que encajan giran…", "En sentidos contrarios", ["En el mismo sentido", "No giran"]]
+    ]
+  },
+  "xtec4f": {
+    hook: "Tu mochila siempre se cae del pupitre. ¿Y si inventas algo para resolverlo? 🎒💡",
+    steps: [
+      { title: "1. Identificar el problema", text: "Describe el problema con claridad: ¿qué pasa?, ¿a quién le afecta?, ¿cuándo ocurre?", example: "La mochila se cae del pupitre y se ensucia" },
+      { title: "2. Imaginar y planear", text: "Piensa en varias ideas, elige la mejor y dibuja un plan con medidas y materiales.", example: "📝 gancho de cartón grueso, 10 cm" },
+      { title: "3. Construir", text: "Fabrica un prototipo: un primer modelo sencillo para probar la idea, con materiales fáciles como cartón o cinta.", example: "🔨 gancho de cartón pegado al pupitre" },
+      { title: "4. Probar", text: "Pon a prueba tu prototipo y observa qué funciona y qué no. Anota los resultados.", example: "🧪 aguanta 2 kg, pero se dobla con 3 kg" },
+      { title: "5. Mejorar", text: "Con lo que aprendiste, cambia el diseño y vuelve a probar. Este ciclo se repite hasta lograrlo.", example: "🔧 lo hago doble y ahora aguanta 4 kg" }
+    ],
+    remember: ["El proceso de diseño tiene pasos: problema, plan, construir, probar y mejorar.", "Un prototipo es un primer modelo para probar.", "Equivocarse ayuda a mejorar el diseño."],
+    mistake: "Pensar que el primer prototipo debe salir perfecto. Los inventores prueban y mejoran muchas veces.",
+    fun: "¿Sabías que James Dyson hizo más de 5000 prototipos antes de lograr su aspiradora sin bolsa?",
+    check: [
+      ["¿Cuál es el primer paso del proceso de diseño?", "Identificar el problema", ["Construir", "Mejorar"]],
+      ["¿Qué es un prototipo?", "Un primer modelo para probar la idea", ["El producto final perfecto", "Un tipo de herramienta"]]
+    ]
+  },

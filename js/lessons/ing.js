@@ -438,8 +438,334 @@ Object.assign(window.CURRICULUM_LESSONS, {
     mistake: "Un error común es poner el color al final: 'I have got a bike red'. En inglés el color va antes: a red bike.",
     fun: "¿Sabías que en inglés los adjetivos casi nunca cambian? Red sirve para una bici o para diez bicis: red bikes.",
     check: [
-      ["Ordena: got / I / a / have / cat", "I have got a cat.", ["I got have a cat.", "Have I got a cat cat."]],
+      ["Ordena: got / I / a / have / cat", "I have got a cat.", ["I got have a cat.", "A cat I have got."]],
       ["¿Cuál está bien?", "These are my crayons.", ["These is my crayons.", "This are my crayons."]],
       ["¿Cuál está bien?", "He has got a green bike.", ["He have got a green bike.", "He has got a bike green."]]
+    ]
+  },
+  "i3a": {
+    hook: "En español decimos 'soy' y 'estoy'. ¡En inglés las dos se dicen con un solo verbo: to be!",
+    steps: [
+      { title: "Un verbo, dos significados", text: "El verbo to be significa ser y también estar. I am happy es 'estoy feliz' y I am a student es 'soy estudiante'.", example: "I am tall. (Soy alto.) · I am tired. (Estoy cansado.)" },
+      { title: "Am, is, are", text: "Cambia según la persona: I am; he, she, it is; we, you, they are. Apréndelo como una canción.", example: "I am · you are · he is · she is · it is · we are · they are" },
+      { title: "Formas cortas", text: "En inglés hablado se juntan las palabras con un apóstrofo: I'm, you're, he's, she's, it's, we're, they're.", example: "I'm nine years old. · She's my friend." },
+      { title: "Negativo", text: "Para negar se agrega not después del verbo: I am not, he is not (isn't), they are not (aren't).", example: "I'm not sad. · He isn't at home. · They aren't late." },
+      { title: "Preguntas", text: "Para preguntar se pone el verbo primero: Are you…? Is she…? Se responde Yes, I am o No, she isn't.", example: "Are you happy? → Yes, I am. · Is he tall? → No, he isn't." }
+    ],
+    remember: ["To be = ser o estar", "I am · he/she/it is · we/you/they are", "Para preguntar, el verbo va primero: Are you…?"],
+    mistake: "Muchos niños dicen 'I have nine years' como en español. En inglés la edad se dice con to be: I am nine years old.",
+    fun: "¿Sabías que to be es el verbo más usado del inglés? ¡Lo dices cientos de veces al día sin darte cuenta!",
+    check: [
+      ["Completa: She ___ happy.", "is", ["am", "are"]],
+      ["Completa: They ___ my friends.", "are", ["is", "am"]],
+      ["¿Cómo dices 'tengo diez años'?", "I am ten years old.", ["I have ten years.", "I is ten years old."]]
+    ]
+  },
+  "i3b": {
+    hook: "Antes de salir miras por la ventana: ¿sol o lluvia? ¡Vamos a dar el pronóstico del tiempo en inglés!",
+    steps: [
+      { title: "Sol y nubes", text: "Soleado es sunny ('sáni') y nublado es cloudy ('cláudi'). Fíjate: sun (sol) + y = sunny; cloud (nube) + y = cloudy.", example: "☀️ sunny · ☁️ cloudy" },
+      { title: "Lluvia, viento y nieve", text: "Lluvioso es rainy ('réini'), con viento es windy ('uíndi') y con nieve es snowy ('snóui').", example: "🌧️ rainy · 💨 windy · ❄️ snowy" },
+      { title: "Calor y frío", text: "Hace calor es hot ('jot'), hace frío es cold ('cóuld'), templado es warm ('uórm') y fresco es cool ('cul').", example: "🥵 hot · 🥶 cold · warm · cool" },
+      { title: "Preguntar por el clima", text: "Para preguntar ¿cómo está el clima? se dice What's the weather like? Se responde con It's…", example: "What's the weather like? → It's sunny and hot." },
+      { title: "Tormentas", text: "La tormenta es storm, el rayo es lightning ('láitning') y el arcoíris es rainbow ('réinbou').", example: "⛈️ It's stormy. · 🌈 Look, a rainbow!" }
+    ],
+    remember: ["sunny, cloudy, rainy, windy, snowy", "hot = calor y cold = frío", "What's the weather like? → It's…"],
+    mistake: "En español decimos 'hace calor', pero en inglés no se usa 'make'. Se dice It's hot, nunca 'It makes hot'.",
+    fun: "¿Sabías que en Inglaterra llueve tan seguido que hablar del clima es la forma favorita de empezar una conversación?",
+    check: [
+      ["¿Cómo se dice 'soleado' en inglés?", "sunny", ["snowy", "windy"]],
+      ["¿Cómo dices 'hace frío'?", "It's cold.", ["It makes cold.", "It's hot."]],
+      ["¿Qué significa rainy?", "lluvioso", ["nublado", "con viento"]]
+    ]
+  },
+  "i3c": {
+    hook: "¿Qué día es hoy? ¿Cuál es tu día favorito de la semana? ¡Vamos a aprenderlos en inglés!",
+    steps: [
+      { title: "Inicio de semana", text: "Lunes es Monday ('mándei'), martes es Tuesday ('tiúsdei') y miércoles es Wednesday ('uénsdei', la d no suena).", example: "Monday · Tuesday · Wednesday" },
+      { title: "Fin de la semana escolar", text: "Jueves es Thursday ('zérsdei') y viernes es Friday ('fráidei'). ¡Friday es el último día de escuela!", example: "Thursday · Friday 🎉" },
+      { title: "El fin de semana", text: "Sábado es Saturday ('sáterdei') y domingo es Sunday ('sándei'). Juntos son el weekend (fin de semana).", example: "Saturday + Sunday = weekend" },
+      { title: "Siempre con mayúscula", text: "En inglés, los días de la semana se escriben siempre con mayúscula al inicio, aunque estén en medio de la oración.", example: "I have English on Monday." },
+      { title: "Hablar de los días", text: "Para decir qué día es: Today is… (Hoy es…). Para decir cuándo haces algo usa on: on Saturday.", example: "Today is Friday. · I play soccer on Sunday. ⚽" }
+    ],
+    remember: ["Monday, Tuesday, Wednesday, Thursday, Friday", "Saturday y Sunday son el weekend", "Los días siempre llevan mayúscula"],
+    mistake: "Muchos niños confunden Tuesday (martes) con Thursday (jueves). Truco: Tuesday tiene 'tu' (dos) → segundo día de la semana escolar.",
+    fun: "¿Sabías que Sunday significa 'día del Sol' y Monday 'día de la Luna' (Moon)? ¡Igual que lunes viene de luna!",
+    check: [
+      ["¿Cómo se dice 'miércoles' en inglés?", "Wednesday", ["Thursday", "Tuesday"]],
+      ["¿Qué días forman el weekend?", "Saturday y Sunday", ["Friday y Monday", "Sunday y Monday"]],
+      ["¿Cuál está bien escrito?", "I swim on Monday.", ["I swim on monday.", "I swim in Monday."]]
+    ]
+  },
+  "i3d": {
+    hook: "Si estás de visita en otra ciudad y necesitas un hospital o un parque, ¿cómo lo pides en inglés?",
+    steps: [
+      { title: "Para aprender y jugar", text: "La escuela es school ('scul'), el parque es park ('park') y la biblioteca es library ('láibreri').", example: "🏫 school · 🏞️ park · 📚 library" },
+      { title: "Para comprar", text: "El supermercado es supermarket, la tienda es shop o store, la panadería es bakery ('béikeri') y el mercado es market.", example: "🛒 supermarket · 🥖 bakery · 🏪 store" },
+      { title: "Para cuidarnos", text: "El hospital es hospital ('jóspital'), la estación de policía es police station y la estación de bomberos es fire station.", example: "🏥 hospital · 🚓 police station · 🚒 fire station" },
+      { title: "Para divertirse", text: "El cine es movie theater o cinema, el zoológico es zoo ('zu'), el museo es museum ('miusíam') y el restaurante es restaurant.", example: "🎬 cinema · 🦁 zoo · 🏛️ museum" },
+      { title: "Preguntar dónde está", text: "Para preguntar dónde está un lugar: Where is the…? Se responde It's next to… (Está al lado de…).", example: "Where is the bank? → It's next to the park." }
+    ],
+    remember: ["school = escuela, park = parque", "library = biblioteca (¡no librería!)", "Where is the…? = ¿Dónde está el/la…?"],
+    mistake: "Library parece 'librería', pero significa biblioteca (donde prestas libros). La librería, donde compras libros, es bookstore.",
+    fun: "¿Sabías que la palabra zoo es la forma corta de zoological garden, o sea, 'jardín zoológico'?",
+    check: [
+      ["¿Qué significa library?", "biblioteca", ["librería", "laboratorio"]],
+      ["¿Cómo se dice 'panadería' en inglés?", "bakery", ["library", "market"]],
+      ["¿Cómo preguntas dónde está el parque?", "Where is the park?", ["What is the park?", "Who is the park?"]]
+    ]
+  },
+  "xing3a": {
+    hook: "En español decimos 'hay' para una cosa o para muchas. ¡En inglés hay dos formas!",
+    steps: [
+      { title: "There is: hay uno", text: "There is ('der is') se usa para una sola cosa. Se acorta como there's. Normalmente va seguido de a o an.", example: "There is a cat on the sofa. 🐱 (Hay un gato en el sofá.)" },
+      { title: "There are: hay varios", text: "There are ('der ar') se usa para dos o más cosas. La palabra que sigue va en plural.", example: "There are two dogs in the park. 🐕🐕" },
+      { title: "Negativo", text: "Para decir que no hay algo: there isn't (no hay uno) o there aren't any (no hay ninguno).", example: "There isn't a TV in my room. · There aren't any cookies. 🍪" },
+      { title: "Preguntas", text: "Para preguntar, se invierte: Is there…? Are there…? Para saber cuántos: How many… are there?", example: "Is there a pool? → Yes, there is. · How many chairs are there?" },
+      { title: "Describe tu cuarto", text: "Usa there is y there are para describir lugares. Es perfecto para hablar de tu cuarto, tu escuela o un dibujo.", example: "In my room there is a bed and there are three posters." }
+    ],
+    remember: ["There is = hay (una cosa)", "There are = hay (varias cosas)", "Preguntas: Is there…? / Are there…?"],
+    mistake: "Muchos niños dicen 'There is two dogs' o 'Have two dogs' por el español. Si son varios, usa there are: There are two dogs.",
+    fun: "¿Sabías que there (allí) y their (de ellos) se pronuncian igual? ¡Pero se escriben distinto y significan otra cosa!",
+    check: [
+      ["Completa: There ___ three apples.", "are", ["is", "am"]],
+      ["Completa: There ___ a book on the desk.", "is", ["are", "have"]],
+      ["¿Cómo preguntas si hay una alberca?", "Is there a pool?", ["Are there a pool?", "There is a pool?"]]
+    ]
+  },
+  "xing3b": {
+    hook: "¿De quién es esa mochila? ¿Es tuya, de él o de tu amiga? Los posesivos nos dicen de quién son las cosas.",
+    steps: [
+      { title: "Mi y tu", text: "My ('mái') es mi o mis. Your ('iór') es tu o tus. No cambian aunque sean muchas cosas.", example: "This is my bike. · Is this your pencil?" },
+      { title: "Su de él, de ella y de eso", text: "En inglés hay tres 'su': his es de él, her es de ella e its es de un animal o cosa.", example: "his book (el libro de él) · her bag (la bolsa de ella) · its tail (su cola)" },
+      { title: "Nuestro y de ellos", text: "Our ('áuer') es nuestro y their ('der') es su de ellos o ellas.", example: "our school (nuestra escuela) · their house (la casa de ellos)" },
+      { title: "El 's para personas", text: "Para decir que algo es de una persona, se agrega 's al nombre. Primero va el dueño y luego la cosa.", example: "Leo's ball (la pelota de Leo) · my mom's car (el carro de mi mamá)" },
+      { title: "Tabla completa", text: "Cada persona tiene su posesivo: I → my, you → your, he → his, she → her, it → its, we → our, they → their.", example: "She has got a dog. Her dog is white. 🐶" }
+    ],
+    remember: ["my, your, his, her, its, our, their", "his = de él / her = de ella", "Nombre + 's: Ana's book = el libro de Ana"],
+    mistake: "En español 'su' sirve para todo, por eso los niños confunden his y her. Piensa en el dueño: si es niño → his; si es niña → her.",
+    fun: "¿Sabías que its (de eso) y it's (it is) son distintos? ¡Solo los separa un apóstrofo! The dog wags its tail. · It's sunny.",
+    check: [
+      ["La mochila es de Pedro. ¿Qué dices?", "It's his backpack.", ["It's her backpack.", "It's its backpack."]],
+      ["¿Cómo dices 'la pelota de Leo'?", "Leo's ball", ["the ball Leo", "ball's Leo"]],
+      ["Completa: We love ___ teacher.", "our", ["their", "my"]]
+    ]
+  },
+  "xing3c": {
+    hook: "¿Te gusta la pizza? ¿Y las arañas? Vamos a aprender a decir lo que nos gusta y lo que no.",
+    steps: [
+      { title: "Me gusta: I like", text: "Para decir lo que te gusta usa I like + cosa. Si son cosas que se cuentan, van en plural.", example: "I like pizza. 🍕 · I like dogs. 🐶" },
+      { title: "No me gusta: I don't like", text: "Para decir lo que no te gusta usa I don't like. Don't es la forma corta de do not.", example: "I don't like spiders. 🕷️ · I don't like rain." },
+      { title: "Con he y she: likes", text: "Cuando hablas de otra persona (he, she) el verbo lleva -s: likes. ¡Es una regla muy importante!", example: "She likes cats. · My brother likes soccer." },
+      { title: "Con he y she: doesn't like", text: "En negativo con he o she se usa doesn't like. Ojo: después de doesn't, like ya no lleva -s.", example: "He doesn't like broccoli. 🥦" },
+      { title: "Preguntar gustos", text: "Para preguntar: Do you like…? Se responde Yes, I do o No, I don't. Con he/she: Does she like…?", example: "Do you like ice cream? → Yes, I do! 🍦" },
+      { title: "Me encanta / lo odio", text: "Para decir que algo te encanta usa love; para algo que no soportas usa hate.", example: "I love music. 🎵 · I hate mosquitoes." }
+    ],
+    remember: ["I like / I don't like", "He / she likes · He / she doesn't like", "Do you like…? → Yes, I do / No, I don't"],
+    mistake: "Muchos niños dicen 'She like' o 'She doesn't likes'. Lo correcto: She likes (con -s) y She doesn't like (sin -s).",
+    fun: "¿Sabías que en inglés no se dice 'me gusta' sino 'yo gusto'? I like pizza es como decir 'yo quiero mucho la pizza'.",
+    check: [
+      ["Completa: She ___ chocolate.", "likes", ["like", "liking"]],
+      ["¿Cuál oración está bien?", "He doesn't like spiders.", ["He doesn't likes spiders.", "He don't like spiders."]],
+      ["¿Cómo respondes 'sí' a Do you like pizza?", "Yes, I do.", ["Yes, I like.", "Yes, I am."]]
+    ]
+  },
+  "xing3d": {
+    hook: "¿A qué hora entras a la escuela? ¿Y a qué hora comes? ¡Vamos a leer el reloj en inglés!",
+    steps: [
+      { title: "Preguntar la hora", text: "Para preguntar la hora se dice What time is it? ('uát táim is it'). Se responde siempre con It's…", example: "What time is it? → It's…" },
+      { title: "En punto: o'clock", text: "Cuando el minutero apunta al 12, decimos el número + o'clock ('oclók').", example: "🕒 It's three o'clock. (Son las tres en punto.)" },
+      { title: "Y media: half past", text: "Cuando el minutero apunta al 6 son 30 minutos: half past + la hora. Past significa 'pasada'.", example: "🕝 It's half past two. (Son las dos y media.)" },
+      { title: "Y cuarto: a quarter past", text: "Cuando pasaron 15 minutos decimos a quarter past + la hora. Quarter significa cuarto.", example: "It's a quarter past four. (Son las cuatro y cuarto.)" },
+      { title: "Cuarto para: a quarter to", text: "Cuando faltan 15 minutos para la siguiente hora decimos a quarter to + la hora que viene.", example: "It's a quarter to six. (Es un cuarto para las seis = 5:45.)" }
+    ],
+    remember: ["What time is it? → It's…", "o'clock = en punto / half past = y media", "a quarter past = y cuarto / a quarter to = cuarto para"],
+    mistake: "Con a quarter to se dice la hora que viene, no la que pasó. 5:45 es a quarter to six, no 'a quarter to five'.",
+    fun: "¿Sabías que o'clock viene de 'of the clock', que significa 'del reloj'?",
+    check: [
+      ["¿Cómo se dice 7:00?", "It's seven o'clock.", ["It's half past seven.", "It's a quarter to seven."]],
+      ["¿Qué hora es half past two?", "2:30", ["2:15", "1:30"]],
+      ["¿Cómo se dice 8:45?", "It's a quarter to nine.", ["It's a quarter to eight.", "It's a quarter past eight."]]
+    ]
+  },
+  "xing3e": {
+    hook: "Desde que te levantas hasta que te duermes haces muchas cosas. ¡Vamos a contar tu día en inglés!",
+    steps: [
+      { title: "Las rutinas", text: "Para hablar de lo que haces todos los días usas: quién + verbo + lo demás. Palabras útiles: wake up (despertar), brush my teeth (lavarme los dientes), have breakfast (desayunar).", example: "I + brush + my + teeth + every + morning → I brush my teeth every morning." },
+      { title: "Agrega la hora", text: "Para decir a qué hora haces algo, usa at + la hora al final de la oración.", example: "I go to school at eight o'clock. 🏫" },
+      { title: "Usa los posesivos", text: "Para tus cosas usa my; para las de otra persona, his, her o el nombre con 's.", example: "I do my homework. · I play with my brother's ball." },
+      { title: "Describe con there is / are", text: "Puedes contar cómo es un lugar de tu día con there is o there are.", example: "There are twenty kids in my class." },
+      { title: "Cuenta tus gustos", text: "Termina tu historia diciendo qué te gusta y qué no. ¡Recuerda la -s con he o she!", example: "I like lunch time. My sister doesn't like Mondays." }
+    ],
+    remember: ["Orden: quién + verbo + lo demás", "La hora va con at: at seven o'clock", "Posesivos: my, his, her, Ana's"],
+    mistake: "Muchos niños dicen 'I wash the teeth'. En inglés se usa el posesivo con las partes del cuerpo: I brush my teeth.",
+    fun: "¿Sabías que en inglés para decir 'desayunar' casi siempre dicen have breakfast, ¡que es como 'tener desayuno'!?",
+    check: [
+      ["Ordena: teeth / I / my / brush", "I brush my teeth.", ["I my teeth brush.", "Brush I my teeth."]],
+      ["Completa: I go to bed ___ nine o'clock.", "at", ["on", "in"]],
+      ["¿Cuál está bien?", "There is a park near my house.", ["There are a park near my house.", "Is there a park near my house."]]
+    ]
+  },
+  "i4a": {
+    hook: "Correr, saltar, nadar… ¡tu cuerpo hace muchas acciones! Las palabras que dicen acciones se llaman verbos.",
+    steps: [
+      { title: "Moverse", text: "Correr es run ('ran'), caminar es walk ('uók'), saltar es jump ('champ') y bailar es dance ('dans').", example: "🏃 run · 🚶 walk · 🦘 jump · 💃 dance" },
+      { title: "En el agua y en el aire", text: "Nadar es swim ('suím'), volar es fly ('flái') y trepar es climb ('cláim', la b no suena).", example: "🏊 swim · 🦅 fly · 🧗 climb" },
+      { title: "En la escuela", text: "Leer es read ('rid'), escribir es write ('ráit'), dibujar es draw ('dro') y cantar es sing ('sing').", example: "📖 read · ✍️ write · 🎨 draw · 🎤 sing" },
+      { title: "Todos los días", text: "Comer es eat ('it'), beber es drink ('drink'), dormir es sleep ('slip') y jugar es play ('pléi').", example: "🍽️ eat · 🥤 drink · 😴 sleep · 🎮 play" },
+      { title: "Úsalos en oraciones", text: "Pon el verbo después de quién lo hace. Con I, you, we, they va igual; con he/she agrega -s.", example: "I swim every day. · My cat sleeps a lot." }
+    ],
+    remember: ["run, walk, jump, swim, fly", "read, write, draw, sing", "Con he/she el verbo lleva -s: she runs"],
+    mistake: "Read se escribe con ea pero se dice 'rid'. Y en climb y write hay letras mudas: la b y la w no suenan.",
+    fun: "¿Sabías que el canguro puede saltar (jump) más de tres veces su propio largo? ¡Pero no puede caminar hacia atrás!",
+    check: [
+      ["¿Cómo se dice 'nadar' en inglés?", "swim", ["fly", "run"]],
+      ["¿Qué significa draw?", "dibujar", ["beber", "escribir"]],
+      ["Completa: My dog ___ fast.", "runs", ["run", "running"]]
+    ]
+  },
+  "i4b": {
+    hook: "Los pájaros pueden volar, pero los perros no. ¿Y tú? ¿Qué puedes hacer?",
+    steps: [
+      { title: "Can: poder o saber hacer", text: "Can ('can') significa poder o saber hacer algo. Se pone antes del verbo y el verbo no cambia.", example: "I can swim. (Sé nadar.) · Birds can fly. 🐦" },
+      { title: "Igual para todos", text: "Can es igual con todas las personas: I can, you can, he can, she can, they can. ¡Nunca lleva -s!", example: "She can dance. · He can play the guitar. 🎸" },
+      { title: "Can't: no poder", text: "Para decir que no puedes, usa can't ('kant'), que es la forma corta de cannot.", example: "Dogs can't fly. · I can't whistle." },
+      { title: "Preguntas", text: "Para preguntar, pon can primero: Can you…? Se responde Yes, I can o No, I can't.", example: "Can you ride a bike? → Yes, I can! 🚲" },
+      { title: "Pedir permiso", text: "Can también sirve para pedir permiso o ayuda de forma amable.", example: "Can I go to the bathroom, please? · Can you help me?" }
+    ],
+    remember: ["can + verbo = poder / saber hacer", "Can nunca lleva -s y el verbo tampoco", "Can you…? → Yes, I can / No, I can't"],
+    mistake: "Muchos niños dicen 'She cans swim' o 'He can swims'. Con can nada cambia: She can swim.",
+    fun: "¿Sabías que can también significa 'lata'? A can of soda es una lata de refresco. ¡Misma palabra, otro significado!",
+    check: [
+      ["¿Cuál oración está bien?", "She can swim.", ["She cans swim.", "She can swims."]],
+      ["¿Cómo dices 'los peces no pueden caminar'?", "Fish can't walk.", ["Fish can walk.", "Fish don't can walk."]],
+      ["¿Cómo respondes 'no' a Can you fly?", "No, I can't.", ["No, I don't.", "No, I am not."]]
+    ]
+  },
+  "i4c": {
+    hook: "¿Dónde está el gato: arriba de la mesa, abajo o adentro de la caja? ¡Las preposiciones nos lo dicen!",
+    steps: [
+      { title: "In: dentro", text: "In ('in') significa dentro de o en. Se usa cuando algo está adentro de otra cosa.", example: "The pencil is in the box. 📦 (El lápiz está en la caja.)" },
+      { title: "On: encima", text: "On ('on') significa sobre o encima de, tocando la superficie.", example: "The book is on the table. 📕 (El libro está sobre la mesa.)" },
+      { title: "Under: debajo", text: "Under ('ánder') significa debajo de.", example: "The cat is under the table. 🐱 (El gato está debajo de la mesa.)" },
+      { title: "Next to y between", text: "Next to ('nékst tu') es al lado de. Between ('bituín') es entre dos cosas.", example: "The lamp is next to the bed. · The ball is between the chairs." },
+      { title: "Behind e in front of", text: "Behind ('bijáind') es detrás de e in front of ('in front ov') es delante de.", example: "The dog is behind the door. · The car is in front of the house." }
+    ],
+    remember: ["in = dentro / on = encima / under = debajo", "next to = al lado / between = entre", "behind = detrás / in front of = delante"],
+    mistake: "En español 'en' sirve para dentro y encima. En inglés no: dentro es in (in the box) y encima es on (on the box).",
+    fun: "¿Sabías que en inglés se dice on the bus y on the plane, aunque estés adentro? ¡Es una excepción divertida!",
+    check: [
+      ["El gato está debajo de la silla: The cat is ___ the chair.", "under", ["on", "behind"]],
+      ["¿Qué significa next to?", "al lado de", ["detrás de", "entre"]],
+      ["Las llaves están dentro del cajón: The keys are ___ the drawer.", "in", ["on", "under"]]
+    ]
+  },
+  "i4d": {
+    hook: "Con pocas palabras dices poco. ¡Con más palabras puedes contar cosas increíbles! Vamos a armar oraciones largas.",
+    steps: [
+      { title: "La base", text: "Toda oración necesita quién y qué hace: sujeto + verbo. Después agregas más información.", example: "I swim. → I can swim." },
+      { title: "Agrega cómo", text: "Palabras como fast (rápido), slowly (despacio) o well (bien) dicen cómo haces algo. Van después del verbo o de lo que haces.", example: "I can swim very fast. 🏊" },
+      { title: "Agrega dónde", text: "Usa preposiciones para decir dónde: in the pool, at school, under the tree. Casi siempre van al final.", example: "My cat sleeps under the table." },
+      { title: "Une ideas con and y but", text: "And (y) une dos ideas parecidas. But (pero) une ideas opuestas.", example: "I can sing, but I can't dance. · I like apples and bananas." },
+      { title: "Orden final", text: "Un buen orden es: quién + verbo + qué + cómo + dónde + cuándo. ¡No tienes que usar todos siempre!", example: "She plays soccer very well at school on Fridays." }
+    ],
+    remember: ["quién + verbo + qué + cómo + dónde + cuándo", "and = y / but = pero", "very va antes de la palabra: very fast"],
+    mistake: "Muchos niños dicen 'I can very fast swim'. En inglés el cómo va después de la acción: I can swim very fast.",
+    fun: "¿Sabías que la oración 'The quick brown fox jumps over the lazy dog' usa todas las letras del abecedario inglés?",
+    check: [
+      ["Ordena: fast / can / I / run / very", "I can run very fast.", ["I very fast can run.", "Can I run fast very."]],
+      ["¿Qué palabra une ideas opuestas?", "but", ["and", "very"]],
+      ["¿Cuál está bien?", "He reads books at the library.", ["He at the library reads books.", "Reads he books at the library."]]
+    ]
+  },
+  "xing4a": {
+    hook: "¿Qué estás haciendo justo ahora? ¡Estás leyendo! Para eso usamos el presente continuo.",
+    steps: [
+      { title: "¿Para qué sirve?", text: "El presente continuo habla de lo que pasa en este momento. En español es como decir 'estoy comiendo', 'está lloviendo'.", example: "I am reading. 📖 (Estoy leyendo.)" },
+      { title: "La fórmula", text: "Se forma con am, is o are + verbo con -ing. Am con I; is con he, she, it; are con we, you, they.", example: "She is dancing. · They are playing. ⚽" },
+      { title: "Cómo agregar -ing", text: "Casi siempre solo se agrega -ing. Si termina en e muda, se quita la e. Si es corto y termina en vocal + consonante, se dobla la consonante.", example: "play → playing · dance → dancing · swim → swimming · run → running" },
+      { title: "Negativo", text: "Para negar, pon not después de am, is o are: I'm not, she isn't, they aren't.", example: "He isn't sleeping. He is watching TV. 📺" },
+      { title: "Preguntas", text: "Pon am, is o are primero. Para saber qué hace alguien: What are you doing? (¿Qué estás haciendo?).", example: "Are you eating? → Yes, I am. · What is she doing? → She's drawing." },
+      { title: "Palabras pista", text: "Now (ahora), right now (ahora mismo), look! y listen! son pistas de que debes usar el presente continuo.", example: "Look! The baby is sleeping now. 👶" }
+    ],
+    remember: ["am / is / are + verbo-ing", "Pasa ahora mismo: now, right now, look!", "swim → swimming, dance → dancing"],
+    mistake: "Muchos niños olvidan am, is o are y dicen 'I reading'. ¡Necesitas las dos partes!: I am reading.",
+    fun: "¿Sabías que algunos verbos casi nunca van en -ing, como know (saber) o like (gustar)? Se dice I like it, no 'I'm liking it'.",
+    check: [
+      ["Completa: They ___ playing soccer now.", "are", ["is", "am"]],
+      ["¿Cuál es la forma -ing de swim?", "swimming", ["swiming", "swimeing"]],
+      ["¿Cuál oración está bien?", "She is dancing.", ["She dancing.", "She is danceing."]]
+    ]
+  },
+  "xing4b": {
+    hook: "¿Te lavas los dientes siempre, a veces o nunca? Los adverbios de frecuencia dicen cada cuánto hacemos algo.",
+    steps: [
+      { title: "De 100% a 0%", text: "Always (siempre, 100%), usually (normalmente), often (a menudo), sometimes (a veces), rarely (casi nunca), never (nunca, 0%).", example: "always ▓▓▓▓▓ · sometimes ▓▓░░░ · never ░░░░░" },
+      { title: "Antes del verbo", text: "El adverbio de frecuencia va antes del verbo de acción, entre la persona y el verbo.", example: "I always brush my teeth. · She often plays tennis." },
+      { title: "Después de to be", text: "Pero si el verbo es am, is o are, el adverbio va después.", example: "She is never late. · I am usually happy. 😊" },
+      { title: "Preguntar: How often?", text: "Para preguntar cada cuánto se usa How often…? Se puede responder con un adverbio o con every day, once a week…", example: "How often do you play soccer? → I play every Saturday." },
+      { title: "Never ya es negativo", text: "Never ya significa 'no' por sí solo, así que no se usa con don't.", example: "I never eat fish. 🐟 (Nunca como pescado.)" }
+    ],
+    remember: ["always, usually, often, sometimes, rarely, never", "Van antes del verbo: I always read", "Van después de to be: He is always happy"],
+    mistake: "Muchos niños dicen 'I don't never eat fish' como en español 'no como nunca'. En inglés basta con never: I never eat fish.",
+    fun: "¿Sabías que sometimes es la mezcla de some (algunas) + times (veces)? ¡Literalmente 'algunas veces'!",
+    check: [
+      ["¿Cuál oración está bien?", "I always eat breakfast.", ["I eat always breakfast.", "Always I eat breakfast."]],
+      ["¿Cuál oración está bien?", "She is never late.", ["She never is late.", "She is late never."]],
+      ["¿Qué adverbio significa 0%?", "never", ["sometimes", "often"]]
+    ]
+  },
+  "xing4c": {
+    hook: "¿Qué? ¿Dónde? ¿Cuándo? ¿Quién? Las mejores preguntas empiezan con una palabra especial. ¡En inglés casi todas empiezan con W!",
+    steps: [
+      { title: "What y which", text: "What ('uát') pregunta qué o cuál. Which ('uích') pregunta cuál entre pocas opciones.", example: "What is your name? · Which color do you like, red or blue?" },
+      { title: "Where y when", text: "Where ('uér') pregunta dónde. When ('uén') pregunta cuándo.", example: "Where do you live? 🏠 · When is your birthday? 🎂" },
+      { title: "Who y why", text: "Who ('ju') pregunta quién. Why ('uái') pregunta por qué; se responde con because (porque).", example: "Who is she? · Why are you sad? → Because I lost my toy." },
+      { title: "How", text: "How ('jáu') pregunta cómo. Con otras palabras forma más preguntas: how old (qué edad), how many (cuántos), how much (cuánto).", example: "How are you? · How old are you? · How many brothers have you got?" },
+      { title: "El orden de la pregunta", text: "Primero va la palabra de pregunta y luego el verbo: Where is…? o Where do you…? ¡Y al final, signo de interrogación solo al final!", example: "Where is my backpack? · What do you eat for lunch?" }
+    ],
+    remember: ["what = qué, where = dónde, when = cuándo", "who = quién, why = por qué, how = cómo, which = cuál", "Why? se responde con because"],
+    mistake: "En español abrimos con ¿, pero en inglés solo se pone ? al final. También confunden where (dónde) con were (eran): ¡where lleva h!",
+    fun: "¿Sabías que los periodistas usan las 'cinco W' (what, where, when, who, why) para escribir una buena noticia?",
+    check: [
+      ["¿Qué palabra pregunta 'dónde'?", "where", ["when", "who"]],
+      ["Completa: ___ is your birthday? → In May.", "When", ["Who", "Where"]],
+      ["¿Cómo respondes a una pregunta con Why?", "Because…", ["Yes, I do.", "In the park."]]
+    ]
+  },
+  "xing4d": {
+    hook: "Montañas que echan fuego, islas en medio del mar, arcoíris en el cielo… ¡La naturaleza es increíble también en inglés!",
+    steps: [
+      { title: "La tierra", text: "La montaña es mountain ('máunten'), el volcán es volcano ('volkéinou'), el valle es valley ('váli') y el desierto es desert ('désert').", example: "⛰️ mountain · 🌋 volcano · 🏜️ desert" },
+      { title: "El agua", text: "El río es river ('ríver'), el lago es lake ('léik'), el océano es ocean ('óushan') y la cascada es waterfall ('uáterfol').", example: "🏞️ river · lake · 🌊 ocean · waterfall" },
+      { title: "Islas y playas", text: "La isla es island ('áiland', la s no suena), la playa es beach ('bich') y la cueva es cave ('kéiv').", example: "🏝️ island · 🏖️ beach · cave" },
+      { title: "Plantas", text: "El bosque es forest ('fórest'), la selva es jungle ('chángol'), el árbol es tree ('tri') y la flor es flower ('fláuer').", example: "🌲 forest · 🌴 jungle · 🌳 tree · 🌸 flower" },
+      { title: "En el cielo", text: "El cielo es sky ('skái'), el arcoíris es rainbow ('réinbou'), la luna es moon ('mun') y las estrellas son stars.", example: "🌈 rainbow · 🌙 moon · There are many stars in the sky." }
+    ],
+    remember: ["mountain, volcano, island, desert", "river, lake, ocean, waterfall", "forest, jungle, tree, flower"],
+    mistake: "Muchos niños pronuncian island como 'island' con s. ¡La s no suena! Se dice 'áiland'. Y desert (desierto) no es dessert (postre).",
+    fun: "¿Sabías que el Salto Ángel en Venezuela es la cascada (waterfall) más alta del mundo, con casi 1 kilómetro de caída?",
+    check: [
+      ["¿Cómo se dice 'isla' en inglés?", "island", ["lake", "beach"]],
+      ["¿Qué significa waterfall?", "cascada", ["río", "océano"]],
+      ["¿Cómo se dice 'volcán' en inglés?", "volcano", ["mountain", "valley"]]
+    ]
+  },
+  "xing4e": {
+    hook: "Ya sabes el presente continuo, las preguntas y los adverbios de frecuencia. ¡Hora de armar oraciones como un experto!",
+    steps: [
+      { title: "Presente continuo", text: "El orden es: quién + am/is/are + verbo-ing + lo demás. Palabras como now van al final.", example: "The + baby + is + sleeping + now → The baby is sleeping now. 👶" },
+      { title: "Preguntas con W", text: "El orden es: palabra de pregunta + verbo (is, are, do, does) + quién + lo demás.", example: "What + are + you + doing? → What are you doing?" },
+      { title: "Preguntas con do", text: "En presente simple las preguntas usan do o does antes de la persona.", example: "Where + do + you + live? → Where do you live?" },
+      { title: "Adverbios de frecuencia", text: "Recuerda: van antes del verbo de acción pero después de am, is o are.", example: "We + usually + walk + to + school → We usually walk to school." },
+      { title: "Revisa la oración", text: "Revisa: ¿tiene am/is/are si hay -ing?, ¿la palabra W va primero en preguntas?, ¿el adverbio está en su lugar?", example: "✔ Why is she crying? · ✔ He is always hungry." }
+    ],
+    remember: ["am/is/are + -ing para lo que pasa ahora", "Pregunta: W + verbo + persona + resto", "Adverbio antes del verbo, después de to be"],
+    mistake: "Un error común es 'What you are doing?'. En preguntas, el verbo va antes de la persona: What are you doing?",
+    fun: "¿Sabías que en inglés puedes cambiar una afirmación a pregunta solo moviendo el verbo? You are happy → Are you happy?",
+    check: [
+      ["Ordena: playing / are / the / kids", "The kids are playing.", ["The kids playing are.", "Are playing the kids."]],
+      ["¿Cuál pregunta está bien?", "Where are you going?", ["Where you are going?", "Where going you are?"]],
+      ["¿Cuál oración está bien?", "We usually walk to school.", ["We walk usually to school.", "Usually we walk school to."]]
     ]
   },
