@@ -1396,14 +1396,20 @@
 
   /* ================= creador de avatar ================= */
   let avd = null; // { o: partes, from: "setup" | "profile" }
-  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo", extra: "Detalles", print: "Dibujo de la camiseta" };
+  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo", extra: "Detalles", print: "Dibujo de la camiseta", streak: "Mechas de color" };
   function vAvatar(p) {
     const q = p.q || "profile", from = q.startsWith("setup") || !S.profile ? "setup" : "profile", target = q.endsWith("adult") ? "adultAvatar" : "avatar";
     if (!avd || avd.from !== from || avd.target !== target) { const src = from === "setup" ? draft || {} : S.profile, cur = src[target]; avd = { from, target, o: ART.parseC(String(cur || "").startsWith("c:") ? cur : ART.randomC()) }; }
     const o = avd.o, code = ART.encodeC(o);
     const row = (k) => {
       const opts = ART.PARTS[k], swatch = typeof opts[0] === "string" && opts[0].startsWith("#");
-      return `<div class="av-row"><h3>${AV_LABELS[k]}</h3><div class="av-opts ${swatch ? "sw" : ""}">${opts.map((v, i) => {
+      let idx = ART.ORDERS[k] || opts.map((_, i) => i), tabs = "";
+      if (k === "hair") {
+        const g = ART.HAIR_GROUPS.find(([n]) => n === avd.tab);
+        if (g) idx = g[1];
+        tabs = `<div class="av-tabs">${[["Todos"]].concat(ART.HAIR_GROUPS).map(([n]) => `<button class="chip" data-act="avTab" data-v="${n}" aria-pressed="${(avd.tab || "Todos") === n}">${n}</button>`).join("")}</div>`;
+      }
+      return `<div class="av-row"><h3>${AV_LABELS[k]}${k === "hair" ? ` <small>${opts.length} estilos</small>` : ""}</h3>${tabs}<div class="av-opts ${swatch ? "sw" : ""}">${idx.map((i) => { const v = opts[i];
         const on = o[k] === i, attrs = `data-act="avPart" data-k="${k}" data-v="${i}" aria-pressed="${on}"`;
         if (swatch) return `<button class="swatch" ${attrs} aria-label="${AV_LABELS[k]} ${i + 1}" style="background:${v}"></button>`;
         const alt = Object.assign({}, o, { [k]: i });
@@ -1414,7 +1420,7 @@
       <div class="av-preview card"><div class="av-big">${av(code)}</div><p class="eyebrow">${target === "adultAvatar" ? "Avatar del adulto" : "Mi avatar"}</p><h2>${esc((from === "setup" ? draft && (target === "adultAvatar" ? draft.adult : draft.name) : S.profile[target === "adultAvatar" ? "adult" : "name"]) || "Mi avatar")}</h2>
         <div class="row" style="justify-content:center"><button class="btn ghost" data-act="avRandom">${I("sparkle")} Sorpresa</button><button class="btn" data-act="avSave">Usar este avatar</button></div>
         <button class="linkbtn" data-act="avCancel">Cancelar</button></div>
-      <div class="av-parts">${["skin", "hair", "hairColor", "eyes", "mouth", "extra", "acc", "shirt", "print", "bg"].map(row).join("")}</div>
+      <div class="av-parts">${["skin", "hair", "hairColor", "streak", "eyes", "mouth", "extra", "acc", "shirt", "print", "bg"].map(row).join("")}</div>
     </section>`;
   }
 
@@ -1473,6 +1479,7 @@
       case "morePractice": return morePractice(b.dataset.id, +b.dataset.li);
       case "settings": return settings();
       case "avPart": avd.o[b.dataset.k] = +b.dataset.v; sfx.tap(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
+      case "avTab": avd.tab = b.dataset.v; sfx.tap(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
       case "avRandom": avd.o = ART.parseC(ART.randomC()); sfx.right(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
       case "avCancel": { const f = avd && avd.from; avd = null; return go(f === "setup" ? "setup" : "shop", f === "setup" ? { first: !S.profile } : {}); }
       case "avSave": {

@@ -224,24 +224,81 @@
   /* ---------- creador de avatar: "c:piel.peinado.colorPelo.ojos.boca.accesorio.camiseta.fondo" ---------- */
   const PARTS = {
     skin: ["#ffdbb4", "#f1c27d", "#e0ac69", "#c68642", "#8d5524", "#5c3a21"],
-    hair: ["Calvo", "Corto", "Puntas", "Largo", "Afro", "Coletas", "Moño", "Cresta", "Rizado", "Trenza"],
-    hairColor: ["#2b2b2b", "#7a4a2a", "#f2c14e", "#c0392b", "#1cb0f6", "#ff4b9b", "#a568cc", "#58cc02"],
+    hair: ["Calvo", "Corto", "Puntas", "Largo", "Afro", "Coletas", "Moño", "Cresta", "Rizado", "Trenza",
+      "Rapado", "Raya al lado", "Hongo", "Copete", "Despeinado", "Lado rapado", "Melena", "Largo con flequillo", "Cola de caballo", "Dos moños",
+      "Dos trenzas", "Rastas", "Ondas largas", "Rizos largos", "Trenzas africanas", "Pixie", "Coleta de lado", "Media cola", "Mini rizos", "Melena rizada"],
+    hairColor: ["#2b2b2b", "#7a4a2a", "#f2c14e", "#c0392b", "#1cb0f6", "#ff4b9b", "#a568cc", "#58cc02",
+      "#4a2c17", "#a0673a", "#d9a441", "#f6e3a1", "#e0662c", "#9e9e9e", "#f4f1ea", "#ff9600", "#2ec4b6", "#1e3a8a"],
+    streak: ["Sin mechas", "Doradas", "Rosadas", "Azules", "Moradas", "Verdes", "Naranjas", "Blancas"],
     eyes: ["Puntos", "Felices", "Brillantes", "Guiño", "Estrellas", "Dormilones"],
     mouth: ["Sonrisa", "Carcajada", "Lengua", "Sorpresa", "Pícara"],
-    acc: ["Nada", "Gafas", "Gafas de sol", "Gorra", "Corona", "Audífonos", "Moño", "Flor", "Gorro de fiesta", "Gorro de lana", "Diadema", "Casco espacial"],
+    acc: ["Nada", "Gafas", "Gafas de sol", "Gorra", "Corona", "Audífonos", "Moño", "Flor", "Gorro de fiesta", "Gorro de lana", "Diadema", "Casco espacial", "Pinzas de estrella", "Bandana"],
     extra: ["Nada", "Pecas", "Curita", "Rayo", "Corazón", "Bigote"],
     print: ["Nada", "Estrella", "Corazón", "Rayo", "Número 1", "Flor"],
     shirt: ["#58cc02", "#1cb0f6", "#ff4b4b", "#ffc800", "#ce82ff", "#ff9600", "#ff4b9b", "#3c3c3c"],
     bg: ["#ddf4ff", "#d7ffb8", "#fff5cc", "#ffdfe0", "#f1d4ff", "#ffe8cc", "#e5e5e5", "#c9f2ff"]
   };
-  const KEYS = ["skin", "hair", "hairColor", "eyes", "mouth", "acc", "shirt", "bg", "extra", "print"];
+  const KEYS = ["skin", "hair", "hairColor", "eyes", "mouth", "acc", "shirt", "bg", "extra", "print", "streak"];
+  // grupos de peinados (para filtrar en el creador) y orden de colores (naturales primero, luego fantasía)
+  const HAIR_GROUPS = [
+    ["Cortos", [0, 1, 2, 7, 10, 11, 12, 13, 14, 15, 25, 28]],
+    ["Largos", [3, 16, 17, 22, 29]],
+    ["Recogidos", [5, 6, 9, 18, 19, 20, 26, 27]],
+    ["Rizos y trenzas", [4, 8, 21, 23, 24, 28, 29]]
+  ];
+  const ORDERS = { hairColor: [0, 8, 1, 9, 10, 2, 11, 12, 3, 13, 14, 15, 5, 6, 4, 17, 16, 7] };
+  const STREAK = [null, "#ffe27a", "#ff7ab8", "#58c8ff", "#c38bff", "#7be04a", "#ffb04a", "#ffffff"];
   const parseC = (v) => { const n = String(v).slice(2).split(".").map(Number); const o = {}; KEYS.forEach((k, i) => { const max = PARTS[k].length; o[k] = Number.isInteger(n[i]) && n[i] >= 0 && n[i] < max ? n[i] : 0; }); return o; };
   const encodeC = (o) => "c:" + KEYS.map((k) => o[k] || 0).join(".");
-  const randomC = () => { const o = {}; KEYS.forEach((k) => { o[k] = Math.floor(Math.random() * PARTS[k].length); }); if (o.acc && Math.random() < 0.3) o.acc = 0; return encodeC(o); };
+  const randomC = () => { const o = {}; KEYS.forEach((k) => { o[k] = Math.floor(Math.random() * PARTS[k].length); }); if (o.acc && Math.random() < 0.3) o.acc = 0; if (Math.random() < 0.7) o.streak = 0; return encodeC(o); };
   function custom(o) {
     const sk = PARTS.skin[o.skin], hc = PARTS.hairColor[o.hairColor], h = o.hair, ink = "#3c3c3c";
-    const back = { 3: `<path d="M14 30 Q13 11 32 11 Q51 11 50 30 V54 H42 V34 H22 V54 H14Z" fill="${hc}"/>`, 4: `<circle cx="32" cy="24" r="20" fill="${hc}"/><circle cx="15" cy="32" r="7" fill="${hc}"/><circle cx="49" cy="32" r="7" fill="${hc}"/>`, 5: `<circle cx="11" cy="31" r="6.5" fill="${hc}"/><circle cx="53" cy="31" r="6.5" fill="${hc}"/><circle cx="16" cy="30" r="2" fill="#ff4b9b"/><circle cx="48" cy="30" r="2" fill="#ff4b9b"/>`, 6: `<circle cx="32" cy="9" r="7.5" fill="${hc}"/>`, 9: `<path d="M44 26 Q52 34 48 44 Q52 50 47 56 Q44 52 46 46 Q42 40 44 26Z" fill="${hc}"/><circle cx="47" cy="57" r="2.2" fill="#ff4b9b"/>` }[h] || "";
-    const front = { 1: `<path d="M17 28 Q16 12 32 12 Q48 12 47 28 Q42 18 32 19 Q22 18 17 28Z" fill="${hc}"/>`, 2: `<path d="M17 27 L18 15 L23 18 L26 9 L30 16 L34 8 L37 16 L42 10 L43 18 L47 16 L47 27 Q40 19 32 20 Q24 19 17 27Z" fill="${hc}"/>`, 3: `<path d="M17 29 Q16 12 32 12 Q48 12 47 29 Q44 19 36 18 Q30 24 18 29Z" fill="${hc}"/>`, 4: `<path d="M17 26 Q18 12 32 12 Q46 12 47 26 Q40 20 32 20 Q24 20 17 26Z" fill="${hc}"/>`, 5: `<path d="M17 27 Q16 12 32 12 Q48 12 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/><path d="M32 12 V20" stroke="${sk}" stroke-width="1.5"/>`, 6: `<path d="M17 27 Q16 13 32 13 Q48 13 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/>`, 7: `<path d="M28 5 Q32 2 36 5 L36 21 L28 21Z" fill="${hc}"/>`, 8: `<g fill="${hc}"><circle cx="19" cy="22" r="5"/><circle cx="24" cy="16" r="5.5"/><circle cx="31" cy="13.5" r="5.5"/><circle cx="38" cy="15" r="5.5"/><circle cx="44" cy="20" r="5"/><circle cx="46.5" cy="26" r="3.5"/><circle cx="17.5" cy="27" r="3.5"/></g>`, 9: `<path d="M17 27 Q16 12 32 12 Q48 12 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/>` }[h] || "";
+    const F = (d) => `<path d="${d}" fill="${hc}"/>`, C = (pts) => `<g fill="${hc}">${pts.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join("")}</g>`;
+    const TIE = (x, y) => `<circle cx="${x}" cy="${y}" r="2.4" fill="#ff4b9b"/>`;
+    const braid = (x, y0, n) => Array.from({ length: n }, (_, i) => `<ellipse cx="${x}" cy="${y0 + i * 5.5}" rx="3.6" ry="3.3" fill="${hc}"/><path d="M${x - 2.6} ${y0 + i * 5.5 + 1.5} Q${x} ${y0 + i * 5.5 + 3} ${x + 2.6} ${y0 + i * 5.5 + 1.5}" stroke="#000" stroke-opacity=".18" stroke-width="1" fill="none"/>`).join("") + TIE(x, y0 + n * 5.5 - 1.5);
+    const LONG = F("M14 30 Q13 11 32 11 Q51 11 50 30 V56 H42 V34 H22 V56 H14Z");
+    const TOP = F("M17 27 Q16 12 32 12 Q48 12 47 27 Q40 20 32 21 Q24 20 17 27Z");
+    const SIDE = F("M17 29 Q16 12 32 12 Q48 12 47 29 Q44 19 36 18 Q30 24 18 29Z");
+    const PART = TOP + `<path d="M32 12 V20" stroke="${sk}" stroke-width="1.5"/>`;
+    const back = {
+      3: `<path d="M14 30 Q13 11 32 11 Q51 11 50 30 V54 H42 V34 H22 V54 H14Z" fill="${hc}"/>`, 4: `<circle cx="32" cy="24" r="20" fill="${hc}"/><circle cx="15" cy="32" r="7" fill="${hc}"/><circle cx="49" cy="32" r="7" fill="${hc}"/>`, 5: `<circle cx="11" cy="31" r="6.5" fill="${hc}"/><circle cx="53" cy="31" r="6.5" fill="${hc}"/><circle cx="16" cy="30" r="2" fill="#ff4b9b"/><circle cx="48" cy="30" r="2" fill="#ff4b9b"/>`, 6: `<circle cx="32" cy="9" r="7.5" fill="${hc}"/>`, 9: `<path d="M44 26 Q52 34 48 44 Q52 50 47 56 Q44 52 46 46 Q42 40 44 26Z" fill="${hc}"/><circle cx="47" cy="57" r="2.2" fill="#ff4b9b"/>`,
+      16: F("M13 30 Q12 10 32 10 Q52 10 51 30 V41 Q47 44 44 40 V30 H20 V40 Q17 44 13 41Z"),
+      17: LONG,
+      18: F("M42 13 Q57 13 55 30 Q54 42 47 49 Q51 37 46 24Z"),
+      19: C([[17, 13, 7], [47, 13, 7]]),
+      20: braid(14, 36, 4) + braid(50, 36, 4),
+      21: `<g stroke="${hc}" stroke-width="5" stroke-linecap="round" fill="none"><path d="M15 22 Q12 36 14 48"/><path d="M19 18 Q16 34 19 46"/><path d="M45 18 Q48 34 45 46"/><path d="M49 22 Q52 36 50 48"/></g>`,
+      22: F("M14 28 Q12 10 32 10 Q52 10 50 28 Q55 34 50 40 Q55 46 50 52 Q47 57 42 53 V34 H22 V53 Q17 57 14 52 Q9 46 14 40 Q9 34 14 28Z"),
+      23: C([[32, 20, 17], [15, 24, 6.5], [13, 32, 6.5], [14, 40, 6.5], [16, 48, 6], [20, 54, 5], [49, 24, 6.5], [51, 32, 6.5], [50, 40, 6.5], [48, 48, 6], [44, 54, 5]]),
+      24: F("M15 30 Q14 11 32 11 Q50 11 49 30Z") + `<g stroke="${hc}" stroke-width="3.4" stroke-linecap="round" fill="none"><path d="M13 26 V58"/><path d="M16.5 28 V60"/><path d="M20 34 V60"/><path d="M44 34 V60"/><path d="M47.5 28 V60"/><path d="M51 26 V58"/></g><g fill="#ffc800"><circle cx="13" cy="58" r="1.6"/><circle cx="20" cy="60" r="1.6"/><circle cx="44" cy="60" r="1.6"/><circle cx="51" cy="58" r="1.6"/></g>`,
+      26: F("M43 22 Q56 26 53 42 Q51 52 45 57 Q48 45 45 36 Q44 30 41 26Z"),
+      27: LONG + C([[32, 8, 5]]),
+      29: C([[32, 19, 16], [15, 26, 6.5], [14, 34, 6.5], [17, 41, 6], [49, 26, 6.5], [50, 34, 6.5], [47, 41, 6]])
+    }[h] || "";
+    const front = {
+      1: `<path d="M17 28 Q16 12 32 12 Q48 12 47 28 Q42 18 32 19 Q22 18 17 28Z" fill="${hc}"/>`, 2: `<path d="M17 27 L18 15 L23 18 L26 9 L30 16 L34 8 L37 16 L42 10 L43 18 L47 16 L47 27 Q40 19 32 20 Q24 19 17 27Z" fill="${hc}"/>`, 3: SIDE, 4: `<path d="M17 26 Q18 12 32 12 Q46 12 47 26 Q40 20 32 20 Q24 20 17 26Z" fill="${hc}"/>`, 5: PART, 6: `<path d="M17 27 Q16 13 32 13 Q48 13 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/>`, 7: `<path d="M28 5 Q32 2 36 5 L36 21 L28 21Z" fill="${hc}"/>`, 8: `<g fill="${hc}"><circle cx="19" cy="22" r="5"/><circle cx="24" cy="16" r="5.5"/><circle cx="31" cy="13.5" r="5.5"/><circle cx="38" cy="15" r="5.5"/><circle cx="44" cy="20" r="5"/><circle cx="46.5" cy="26" r="3.5"/><circle cx="17.5" cy="27" r="3.5"/></g>`, 9: TOP,
+      10: `<path d="M17 26 Q17 13 32 13 Q47 13 47 26 Q40 17.5 32 17.5 Q24 17.5 17 26Z" fill="${hc}" opacity=".8"/>`,
+      11: F("M17 29 Q15 11 32 11 Q49 11 47 27 Q44 19 37 18 Q29 17 22 22 Q19 24 17 29Z") + `<path d="M23 12.5 Q25 15 24.5 19" stroke="${sk}" stroke-width="1.3" fill="none" stroke-linecap="round"/>`,
+      12: F("M15 31 Q14 10 32 10 Q50 10 49 31 H47 L46 24 H18 L17 31Z"),
+      13: F("M17 27 Q16 14 25 12 Q29 3 43 6 Q38 8 40 12 Q48 14 47 27 Q42 19 32 20 Q22 19 17 27Z"),
+      14: F("M16 28 L15 18 L20 19 L19 11 L25 15 L28 7 L32 13 L37 6 L39 14 L45 10 L44 17 L49 17 L48 28 Q42 20 32 21 Q22 20 16 28Z"),
+      15: F("M17 25 Q18 11 34 10 Q50 10 50 22 Q48 30 44 33 Q46 24 40 20 Q30 18 17 25Z") + F("M16.5 29 Q16 21 19.5 17.5 L22 22 Q18 24 17.5 29Z").replace("/>", ' opacity=".45"/>'),
+      16: F("M17 29 Q16 12 32 12 Q48 12 47 29 Q43 19 32 19 Q21 19 17 29Z"),
+      17: F("M16.5 29 Q15 11 32 11 Q49 11 47.5 29 L46 24 H18Z"),
+      18: F("M17 27 Q16 12 32 12 Q48 12 47 27 Q40 18 32 18 Q24 18 17 27Z") + TIE(44, 14),
+      19: PART + TIE(21.5, 15) + TIE(42.5, 15),
+      20: PART,
+      21: TOP + `<g stroke="${hc}" stroke-width="4.5" stroke-linecap="round"><path d="M22 18 L20 26"/><path d="M42 18 L44 26"/></g>`,
+      22: SIDE, 23: C([[19, 22, 5], [24, 16, 5.5], [31, 13.5, 5.5], [38, 15, 5.5], [44, 20, 5]]),
+      24: PART,
+      25: F("M16.5 30 Q15 11 32 11 Q48 11 47.5 26 Q44 18 38 19 Q32 23 24 22 Q19 25 16.5 30Z"),
+      26: SIDE + TIE(44, 23),
+      27: TOP,
+      28: C([[18, 24, 3.6], [20, 18.5, 3.8], [25, 14.5, 4], [31, 12.5, 4], [37, 13, 4], [42.5, 16, 3.8], [45.5, 21, 3.6], [46.5, 26, 3]]),
+      29: C([[19, 22, 5], [24, 16, 5.5], [31, 13.5, 5.5], [38, 15, 5.5], [44, 20, 5]])
+    }[h] || "";
+    const sc = STREAK[o.streak];
+    const streak = sc && ![0, 7, 10].includes(h) ? `<path d="M23 15 Q26 15.5 26.5 18.5 M37 14 Q40 14.5 41 17.5" stroke="${sc}" stroke-width="2.2" fill="none" stroke-linecap="round"/>` : "";
     const ex = [26, 38], ey = 30;
     const eyes = [
       ex.map((x) => `<circle cx="${x}" cy="${ey}" r="2.6" fill="${ink}"/><circle cx="${x + .9}" cy="${ey - 1}" r=".8" fill="#fff"/>`).join(""),
@@ -270,7 +327,9 @@
       `<path d="M23 15 L32 -2 L41 15Z" fill="#ce82ff"/><path d="M26 9 L38 9 M24.5 12 L39.5 12" stroke="#ffc800" stroke-width="1.6"/><circle cx="32" cy="-1" r="2.6" fill="#ffc800"/>`,
       `<path d="M15.5 25 Q15 8 32 8 Q49 8 48.5 25Z" fill="#1cb0f6"/><path d="M15 21 H49 V26 Q32 23 15 26Z" fill="#1899d6"/><path d="M20 16 h24 M19 12.5 h26" stroke="#fff" stroke-width="1.4" opacity=".5"/><circle cx="32" cy="6" r="4" fill="#fff"/>`,
       `<path d="M16.5 24 Q17 10 32 10 Q47 10 47.5 24" stroke="#ff4b9b" stroke-width="3.6" fill="none" stroke-linecap="round"/><circle cx="24" cy="12.5" r="2.4" fill="#ffc800"/>`,
-      `<circle cx="32" cy="30" r="24" fill="#bfe9ff" opacity=".28" stroke="#fff" stroke-width="2.5"/><path d="M18 20 Q22 12 30 10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".9"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#afafaf"/>`
+      `<circle cx="32" cy="30" r="24" fill="#bfe9ff" opacity=".28" stroke="#fff" stroke-width="2.5"/><path d="M18 20 Q22 12 30 10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".9"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#afafaf"/>`,
+      [[21, 17], [43, 17]].map(([x, y]) => `<path d="M${x} ${y - 3.6} l1.1 2.3 2.5.4 -1.8 1.7.4 2.5 -2.2 -1.2 -2.2 1.2.4 -2.5 -1.8 -1.7 2.5 -.4z" fill="#ffc800" stroke="#e5a000" stroke-width=".6"/>`).join(""),
+      `<path d="M16 22 Q17 10 32 10 Q47 10 48 22 Q32 17 16 22Z" fill="#ff4b4b"/><g fill="#fff"><circle cx="24" cy="15.5" r="1"/><circle cx="32" cy="13.5" r="1"/><circle cx="40" cy="15.5" r="1"/></g><path d="M48 20 L55 17 L53 24Z" fill="#ea2b2b"/>`
     ][o.acc];
     const extra = ["",
       `<g fill="#a0522d" opacity=".55"><circle cx="20" cy="34" r=".9"/><circle cx="22.5" cy="35.5" r=".9"/><circle cx="19.5" cy="37" r=".9"/><circle cx="44" cy="34" r=".9"/><circle cx="41.5" cy="35.5" r=".9"/><circle cx="44.5" cy="37" r=".9"/></g>`,
@@ -289,7 +348,7 @@
     return `<circle cx="32" cy="32" r="32" fill="${PARTS.bg[o.bg]}"/>${back}
       <path d="M9 66 Q11 46 32 46 Q53 46 55 66Z" fill="${PARTS.shirt[o.shirt]}"/><path d="M26 46 Q32 52 38 46" fill="${sk}"/>${print}
       <rect x="28" y="40" width="8" height="8" fill="${sk}"/><circle cx="16.5" cy="31" r="3.6" fill="${sk}"/><circle cx="47.5" cy="31" r="3.6" fill="${sk}"/>
-      <ellipse cx="32" cy="30" rx="15.5" ry="16" fill="${sk}"/>${front}
+      <ellipse cx="32" cy="30" rx="15.5" ry="16" fill="${sk}"/>${front}${streak}
       <circle cx="21" cy="36" r="2.8" fill="#ff8fa3" opacity=".5"/><circle cx="43" cy="36" r="2.8" fill="#ff8fa3" opacity=".5"/>${eyes}${mouth}${extra}${acc}`;
   }
 
@@ -300,5 +359,5 @@
   let clipN = 0;
   const avatar = (v) => { if (typeof v === "string" && v.startsWith("c:")) { const id = "avc" + (++clipN); return `<svg class="avi" viewBox="0 0 64 64" role="img" aria-label="Avatar"><defs><clipPath id="${id}"><circle cx="32" cy="32" r="32"/></clipPath></defs><g clip-path="url(#${id})">${custom(parseC(v))}</g></svg>`; } const id = avatarId(v); return id ? `<svg class="avi" viewBox="0 0 64 64" role="img" aria-label="Avatar">${AV[id]}</svg>` : `<span class="avi">${v || ""}</span>`; };
 
-  window.ART = { nova, world, unit, trophy, NAMES, icon, avatar, avatarId, KID_AVATARS, ADULT_AVATARS, PARTS, AVKEYS: KEYS, parseC, encodeC, randomC };
+  window.ART = { nova, world, unit, trophy, NAMES, icon, avatar, avatarId, KID_AVATARS, ADULT_AVATARS, PARTS, AVKEYS: KEYS, HAIR_GROUPS, ORDERS, parseC, encodeC, randomC };
 })();

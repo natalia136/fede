@@ -633,3 +633,6 @@ svg.avi { border-radius: 50%; }
 @media (max-width: 760px) { .avatar-maker { grid-template-columns: 1fr; } .av-preview { position: static; } }
 .notice.share pre { white-space: pre-wrap; font-family: inherit; font-weight: 700; background: var(--panel); border: 2px dashed var(--stroke); border-radius: 12px; padding: 12px; margin: 8px 0; }
 .notice.share { display: grid; gap: 6px; justify-items: start; }
+.av-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.av-tabs .chip[aria-pressed="true"] { border-color: var(--cyan); background: var(--sel-bg); color: var(--cyan-ink); }
+.av-row h3 small { font-size: .72rem; letter-spacing: 0; text-transform: none; color: var(--cyan-ink); margin-left: 6px; }
