@@ -530,7 +530,12 @@
     let mission = plan && plan.items.length ? plan.items.map((it, i) => ({ ref: it.ref, done: it.done, fromPlan: i })) : null;
     if (!mission) mission = dailySuggestions().map((ref) => ({ ref }));
     const mine = S.courses.slice(-3).reverse();
-    return `<section class="stack">
+    const LS = API.on && API.pid ? localSaved() : null;
+    const rescue = LS ? `<div class="card stack rescue"><h2>${I("gift")} Encontramos progreso guardado en este navegador</h2>
+      <div class="row"><span class="pp-av small">${av(LS.state.profile.avatar || "bunny")}</span><span><b>${esc(LS.state.profile.name || "Sin nombre")}</b> · nivel ${levelInfo(LS.state.xp || 0).lv} · ${LS.state.coins || 0} monedas · ${LS.done} lecciones hechas</span></div>
+      <p class="muted" style="margin:0">Es lo que se jugó en este equipo antes de entrar con la cuenta. Se junta con lo de ${esc(P.name)} sin borrar nada.</p>
+      <div class="row"><button class="btn" data-act="importLocal" data-id="${esc(API.pid)}">Pasarlo a ${esc(P.name)}</button><button class="btn ghost small" data-act="importLocal">Crear un perfil aparte</button><button class="linkbtn" data-act="dismissLocal">No, gracias</button></div></div>` : "";
+    return `<section class="stack">${rescue}
       <div class="player-card"><div class="av-wrap"><div class="big-av" data-frame="${S.equip.frame}">${av(P.avatar)}</div>${petHTML()}</div>
         <div><p class="eyebrow">${c.name} · ${esc(gradeLabel(P.country, P.grade))}</p><h1>¡Hola, ${esc(P.name || "campeón")}!</h1>
           <p class="meta">${S.equip.title ? `<span class="title-badge">${esc(itemName(S.equip.title))}</span> ` : ""}${L.rank} · estudias con ${esc(P.adult || "tu acompañante")} ${av(P.adultAvatar)}</p>
@@ -1413,10 +1418,25 @@
       return { state: Object.assign(DEF(), o), done };
     } catch (e) { return null; }
   }
+  // junta dos progresos sin perder nada: se queda con lo mejor de cada lección y con el mayor XP y monedas
+  function mergeStates(base, extra) {
+    const out = JSON.parse(JSON.stringify(base));
+    Object.entries(extra.progress || {}).forEach(([k, v]) => { const a = out.progress[k]; out.progress[k] = !a ? v : Object.assign({}, a, { stars: Math.max(a.stars || 0, v.stars || 0), best: Math.max(a.best || 0, v.best || 0), plays: (a.plays || 0) + (v.plays || 0) }); });
+    ["xp", "coins", "stars", "bestCombo"].forEach((k) => { out[k] = Math.max(out[k] || 0, extra[k] || 0); });
+    out.stickers = [...new Set([...(out.stickers || []), ...(extra.stickers || [])])];
+    out.owned = [...new Set([...(out.owned || []), ...(extra.owned || [])])];
+    const ids = new Set((out.courses || []).map((c) => c.id)); out.courses = [...(out.courses || []), ...(extra.courses || []).filter((c) => !ids.has(c.id))];
+    if ((extra.streak && extra.streak.n || 0) > (out.streak && out.streak.n || 0)) out.streak = extra.streak;
+    out.history = [...(extra.history || []), ...(out.history || [])].slice(-200);
+    if (!out.plan && extra.plan) out.plan = extra.plan;
+    return out;
+  }
   async function importLocal(targetId) {
     const L = localSaved(); if (!L) return;
-    const st = JSON.parse(JSON.stringify(L.state)); delete st.apiKey;
+    let st = JSON.parse(JSON.stringify(L.state)); delete st.apiKey;
+    // al pasarlo al perfil abierto, se conserva su nombre, avatar, país y grado
     try {
+      if (targetId) { const cur = targetId === API.pid ? S : (await callApi("GET", "profiles/" + targetId)).state; st = mergeStates(Object.assign(DEF(), cur), st); }
       if (targetId) await callApi("PUT", "profiles/" + targetId, { state: st });
       else { const r = await callApi("POST", "profiles", { state: st }); targetId = r.id; }
       remember("ae-imported", String(L.state.updatedAt || 0));
@@ -1429,7 +1449,7 @@
     const rescue = L ? `<div class="card stack rescue"><h2>${I("gift")} Encontramos progreso guardado en este navegador</h2>
       <div class="row"><span class="pp-av small">${av(L.state.profile.avatar || "bunny")}</span><span><b>${esc(L.state.profile.name || "Sin nombre")}</b> · nivel ${lv.lv} · ${L.state.coins || 0} monedas · ${L.done} lecciones hechas</span></div>
       <p class="muted" style="margin:0">Es lo que se jugó en este equipo antes de entrar con tu cuenta. Pásalo a tu cuenta para no perderlo y verlo en cualquier dispositivo.</p>
-      ${p.importTo ? `<div class="confirm-row"><span>¿Reemplazar el progreso de ${esc((API.profiles.find((x) => x.id === p.importTo) || {}).profile?.name || "ese perfil")} por este?</span><button class="btn small" data-act="importLocal" data-id="${esc(p.importTo)}">Sí, reemplazar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>`
+      ${p.importTo ? `<div class="confirm-row"><span>¿Juntar este progreso con el de ${esc((API.profiles.find((x) => x.id === p.importTo) || {}).profile?.name || "ese perfil")}? No se borra nada.</span><button class="btn small" data-act="importLocal" data-id="${esc(p.importTo)}">Sí, juntar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>`
         : `<div class="row"><button class="btn" data-act="importLocal">Recuperar como perfil nuevo</button>${API.profiles.map((x) => `<button class="btn ghost small" data-act="go" data-to="profiles" data-q="import" data-id="${esc(x.id)}">Pasarlo a ${esc((x.profile || {}).name || "este perfil")}</button>`).join("")}</div>`}
     </div>` : "";
     return `<section class="stack profiles-page">
@@ -1687,6 +1707,7 @@
       case "authMode": return go("auth", { mode: b.dataset.v });
       case "pickProfile": return pickProfile(b.dataset.id);
       case "importLocal": b.disabled = true; return importLocal(b.dataset.id || null);
+      case "dismissLocal": { const L = localSaved(); if (L) remember("ae-imported", String(L.state.updatedAt || 0)); return render(); }
       case "newProfile": S = DEF(); API.pid = null; draft = null; return go("setup", { first: true });
       case "delProfile": return go("profiles", { confirm: b.dataset.id });
       case "delProfileYes": return delProfile(b.dataset.id);
