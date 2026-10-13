@@ -144,6 +144,54 @@
     } catch (e) { /* sin audio */ }
   }
   const sfx = { right: () => tone([660, 880, 1320]), wrong: () => tone([300, 220], 0.2, "sawtooth", 0.14), win: () => tone([523, 659, 784, 1046, 1318], 0.18, "triangle", 0.12), tap: () => tone([520], 0.05, "square"), step: () => tone([440], 0.06) };
+  /* ---------- texto para la voz: símbolos en palabras, sin emojis y con pausas claras ---------- */
+  const NUM_ORD = { 1: "primer", 2: "segundo", 3: "tercer", 4: "cuarto", 5: "quinto", 6: "sexto", 7: "séptimo", 8: "octavo", 9: "noveno", 10: "décimo" };
+  const FRAC = { 2: ["medio", "medios"], 3: ["tercio", "tercios"], 4: ["cuarto", "cuartos"], 5: ["quinto", "quintos"], 6: ["sexto", "sextos"], 7: ["séptimo", "séptimos"], 8: ["octavo", "octavos"], 9: ["noveno", "novenos"], 10: ["décimo", "décimos"], 100: ["centésimo", "centésimos"] };
+  const UNITS = { km: "kilómetros", cm: "centímetros", mm: "milímetros", m: "metros", kg: "kilos", g: "gramos", ml: "mililitros", l: "litros", h: "horas", min: "minutos" };
+  function speechText(text, lang = "es") {
+    let t = String(text || "");
+    if (lang.startsWith("en")) return t.replace(/\([^)]*\)/g, "").replace(/\p{Extended_Pictographic}|️|‍/gu, "").replace(/\s+/g, " ").trim();
+    if (/[→⇒➜][^,;.]*[→⇒➜]/.test(t)) t = t.replace(/\s*[→⇒➜]\s*/g, ", luego, "); // cadenas: A → B → C
+    t = t
+      .replace(/[→⇒➜←]\s*(?=(derecha|izquierda)\b)/g, "")
+      .replace(/√\s?(\d+)/g, "raíz cuadrada de $1").replace(/÷\s?(\d)/g, "dividido entre $1").replace(/(^|\s)[×x]\s?(\d)/g, "$1por $2")
+      .replace(/⌘/g, "Comando").replace(/(\w)\*(\w)/g, "$1 por $2")
+      .replace(/\s*[❌✘✗]\s*([.,;]|$)/g, "$1").replace(/[❌✘✗]\s*/g, " No: ")
+      .replace(/CO₂/g, "dióxido de carbono").replace(/H₂O/g, "H dos O").replace(/O₂/g, "oxígeno").replace(/[₀-₉]/g, (c) => String(c.charCodeAt(0) - 8320))
+      .replace(/\s*↑/g, " sube").replace(/\s*↓/g, " baja").replace(/[\u2580-\u259F\u25A0-\u25FF]+/g, " ").replace(/[\[\]{}]/g, "")
+      .replace(/\$\s?(\d[\d.,]*)/g, "$1 pesos").replace(/(\d[\d.,]*)\s?€/g, "$1 euros").replace(/€\s?(\d[\d.,]*)/g, "$1 euros").replace(/✅\s*/g, " Sí: ").replace(/[✔✓]\s*/g, " ")
+      .replace(/\p{Extended_Pictographic}|️|‍|[\u{1F1E6}-\u{1F1FF}]/gu, " ")
+      .replace(/\ba\.\s?C\./g, "antes de Cristo").replace(/\bd\.\s?C\./g, "después de Cristo")
+      .replace(/\bp\.\s?ej\./gi, "por ejemplo").replace(/\bEj\.:?/g, "Por ejemplo:").replace(/\betc\./g, "etcétera")
+      .replace(/\b[Nn]\.º\s?/g, "número ")
+      .replace(/\b(10|[1-9])\.?[º°](?!C)\s?(de\b)?/g, (_, n, de) => (de ? ({ 1: "primero", 3: "tercero" }[n] || NUM_ORD[n]) + " de" : NUM_ORD[n] + " "))
+      .replace(/(^|[\s(,;:])[−-](?=\d)/g, "$1menos ")
+      .replace(/(\d)\s?°C/g, "$1 grados centígrados").replace(/(\d)\s?°/g, "$1 grados").replace(/°C/g, "grados centígrados").replace(/°/g, "grado")
+      .replace(/(\d)\s?%/g, "$1 por ciento")
+      .replace(/(\d+)\s?\/\s?(\d+)(?![\d\/])/g, (m, a, b) => { const f = FRAC[+b]; return f ? `${a === "1" ? (b === "2" ? "un" : "un") : a} ${+a === 1 ? f[0] : f[1]}` : `${a} de ${b}`; })
+      .replace(/(\d{1,2}):(\d{2})/g, (m, h, mm) => (mm === "00" ? `${h} en punto` : `${h} y ${+mm}`))
+      .replace(/(\d)\s*[×x✕]\s*(\d)/g, "$1 por $2").replace(/\s[×✕]\s/g, " por ")
+      .replace(/(\d)\s*÷\s*(\d)/g, "$1 dividido entre $2").replace(/\s÷\s/g, " dividido entre ")
+      .replace(/(\d|\))\s*[−–]\s*(\d|\()/g, "$1 menos $2").replace(/(\d)\s+-\s+(\d)/g, "$1 menos $2")
+      .replace(/(\d|\))\s*\+\s*(\d|\()/g, "$1 más $2").replace(/\s\+\s/g, " más ")
+      .replace(/=\s*\?/g, "es igual a... ¿cuánto?").replace(/\s*=\s*/g, " es igual a ")
+      .replace(/(^|\s)[−–]\s*(?=[.,;\s]|$)/g, "$1menos ").replace(/(^|\s)\+(?=[.,;\s]|$)/g, "$1más ").replace(/(^|\s)[×÷](?=[.,;\s]|$)/g, (m, sp) => sp + (m.includes("×") ? "por " : "dividido entre "))
+      .replace(/\s*≠\s*/g, " es distinto de ").replace(/\s*≈\s*/g, " es casi ")
+      .replace(/signos?\s*<\s*y\s*>/g, "signos menor que y mayor que").replace(/signo\s*</g, "signo menor que").replace(/signo\s*>/g, "signo mayor que")
+      .replace(/\s*<\s*/g, " es menor que ").replace(/\s*>\s*/g, " es mayor que ")
+      .replace(/(\d)\s?(km|cm|mm|kg|ml|min|m|g|l|h)(?![\p{L}\d])/gu, (m, n, u) => `${n} ${UNITS[u]}`)
+      .replace(/(\d)\s*[→⇒➜]\s*/g, "$1, y queda: ").replace(/\s*[→⇒➜]\s*/g, " se convierte en ").replace(/\s*[·•|]\s*/g, ", ")
+      .replace(/[«»“”"]/g, "").replace(/\s*\(([^)]*)\)/g, ", $1,")
+      .replace(/\b([A-ZÁÉÍÓÚÑ]{4,})\b/g, (w) => w.toLowerCase())
+      .replace(/…/g, "...").replace(/_{2,}/g, " espacio en blanco ")
+      .replace(/[^\p{L}\p{N}\s.,;:!?¿¡'"()\-–—…%\/@#_]/gu, " ")
+      .replace(/\s+([,.;:!?])/g, "$1").replace(/([,;:])\1+/g, "$1").replace(/,\s*([.;:!?])/g, "$1")
+      .replace(/([!?])\.+/g, "$1").replace(/\.\s*,/g, ".").replace(/(^|[.!?]\s*),\s*/g, "$1").replace(/\.{4,}/g, "...")
+      .replace(/\s+/g, " ").trim();
+    return t;
+  }
+  // une partes en frases completas: cada una termina con punto para que la voz haga una pausa
+  const sayParts = (...parts) => parts.filter((x) => x && String(x).trim()).map((x) => { const y = String(x).trim(); return /[.!?…:]$/.test(y) ? y : y + "."; }).join(" ");
   // Voz: ElevenLabs a través del servidor (si está configurada) y, si no, la voz del navegador.
   const voiceCache = new Map(); let voiceAudio = null, voiceSeq = 0, voiceOff = false;
   function stopVoice() { voiceSeq++; if (voiceAudio) { try { voiceAudio.pause(); } catch (e) { /* */ } voiceAudio = null; } if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) { /* */ } }
@@ -151,7 +199,7 @@
     try {
       if (!("speechSynthesis" in window)) { toast("Este navegador no puede leer en voz alta"); return; }
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = lang.startsWith("en") ? 0.85 : 0.95;
+      const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = lang.startsWith("en") ? 0.85 : 0.9;
       // preferimos voces latinoamericanas y las "naturales"/en línea, que suenan menos robóticas
       const vs = speechSynthesis.getVoices().filter((x) => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0, 2)));
       const score = (x) => (/natural|neural|online|google|premium|enhanced/i.test(x.name) ? 2 : 0) + (lang.startsWith("es") && /(mx|us|419|co|ar|cl|pe)$/i.test(x.lang.replace("_", "-")) ? 3 : 0);
@@ -161,8 +209,7 @@
     } catch (e) { /* */ }
   }
   async function speak(text, lang = "es-ES") {
-    text = String(text || "").replace(/\s+/g, " ").trim();
-    if (lang.startsWith("en")) text = text.replace(/\([^)]*\)/g, "").trim();
+    text = speechText(text, lang);
     if (!text) return;
     stopVoice(); const seq = voiceSeq;
     if (!API.voice || voiceOff || !API.token) return speakBrowser(text, lang);
@@ -628,7 +675,7 @@
         <div class="lsn-box warn"><b>${I("bulb")} ¡Ojo con este error!</b><p>${esc(L.mistake)}</p></div>
         <div class="lsn-box fun"><b>${I("sparkle")} ¿Sabías que…?</b><p>${esc(L.fun)}</p></div>
         <h3>Comprueba lo que aprendiste</h3>${check}
-        <div class="row lsn-nav"><button class="btn ghost small" data-act="lsnGo" data-v="${n - 1}">← Volver a los pasos</button></div></article>`;
+        <div class="row lsn-nav"><button class="btn ghost small" data-act="lsnGo" data-v="${n - 1}">← Volver a los pasos</button><button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar el repaso</button></div></article>`;
     }
     return `<div class="lsn">${dots}${body}</div>`;
   }
@@ -1654,8 +1701,12 @@
       case "quick": return startPlay(dailySuggestions()[0], null, "solo");
       case "readLesson": {
         const u = unit(ref), L = richLesson(u);
-        if (L && lsn.key === u.key && lsn.step < L.steps.length) { const st = L.steps[lsn.step]; return speak(`${lsn.step === 0 ? L.hook + " " : ""}${st.title}. ${st.text} ${st.example || ""}`, "es-ES"); }
-        return speak(`${u.title}. ${u.lesson || ""} ${u.example || ""}`, "es-ES");
+        if (L && lsn.key === u.key && lsn.step < L.steps.length) {
+          const st = L.steps[lsn.step];
+          return speak(sayParts(lsn.step === 0 ? L.hook : "", `Paso ${lsn.step + 1}: ${st.title}`, st.text, st.example ? `Por ejemplo: ${st.example}` : ""), "es-ES");
+        }
+        if (L && lsn.key === u.key) return speak(sayParts("Lo más importante", ...L.remember, "¡Ojo con este error!", L.mistake, "¿Sabías que...?", L.fun.replace(/^¿?Sabías que\s*/i, "")), "es-ES");
+        return speak(sayParts(u.title, u.lesson, u.example ? `Por ejemplo: ${u.example}` : ""), "es-ES");
       }
       case "cfgTestAI": { cfg.msg.ai = { ok: true, text: "Probando…" }; render(); callApi("POST", "admin/test-ai").then((d) => { cfg.msg.ai = { ok: true, text: `¡Funciona! La IA respondió: «${d.text.trim()}»` }; render(); }).catch((e) => { cfg.msg.ai = { ok: false, text: e.message }; render(); }); return; }
       case "cfgClear": { const sec = b.dataset.sec; return cfgSave(sec, sec === "voice" ? { api_key: "-", voice_id: "", voice_id_en: "" } : { api_key: "-" }, "Clave quitada."); }

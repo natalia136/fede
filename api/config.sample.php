@@ -33,7 +33,7 @@ return [
     'stability' => 0.5,                // 0 a 1: más bajo = más expresiva, más alto = más estable
     'similarity' => 0.75,              // 0 a 1: parecido a la voz original
     'style' => 0.2,                    // 0 a 1: más alto = más actuada (un poco más lenta)
-    'speed' => 1.0,                    // 0.7 a 1.2: velocidad de lectura
+    'speed' => 0.95,                    // 0.7 a 1.2: velocidad de lectura
     'daily_chars_per_user' => 20000,   // letras nuevas por cuenta al día (0 = sin límite). Lo ya guardado no cuenta.
   ],
 ];

@@ -23,7 +23,7 @@ function applySettings() {
   AI = Object.assign({ enabled: true, api_key: "", model: "claude-haiku-5-5", effort: "low", max_tokens: 16000, daily_limit_per_user: 40, tasks: { course: true, practice: true, explain: true } }, CONFIG.ai || {}, over("ai"));
   AI_KEY = AI.enabled ? (AI.api_key || process.env.ANTHROPIC_API_KEY || "") : "";
   AI_TASKS = AI_KEY ? Object.keys(AI.tasks || {}).filter((k) => AI.tasks[k]) : [];
-  VOICE = Object.assign({ enabled: true, api_key: "", voice_id: "", voice_name: "", voice_id_en: "", voice_name_en: "", model: "eleven_flash_v2_5", stability: 0.5, similarity: 0.75, style: 0.2, speed: 1.0, daily_chars_per_user: 20000 }, CONFIG.voice || {}, over("voice"));
+  VOICE = Object.assign({ enabled: true, api_key: "", voice_id: "", voice_name: "", voice_id_en: "", voice_name_en: "", model: "eleven_flash_v2_5", stability: 0.5, similarity: 0.75, style: 0.2, speed: 0.95, daily_chars_per_user: 20000 }, CONFIG.voice || {}, over("voice"));
   VOICE_ON = !!(VOICE.enabled && VOICE.api_key && VOICE.voice_id);
 }
 applySettings();

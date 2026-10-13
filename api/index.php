@@ -24,7 +24,7 @@ $AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-haiku-
 if ($AI['api_key'] === '') $AI['api_key'] = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
 $AI_KEY = ($AI['enabled'] && $AI['api_key'] !== '') ? $AI['api_key'] : '';
 $AI_TASKS = $AI_KEY === '' ? [] : array_keys(array_filter($AI['tasks'] ?? []));
-$VOICE = array_merge(['enabled' => true, 'api_key' => '', 'voice_id' => '', 'voice_id_en' => '', 'model' => 'eleven_flash_v2_5', 'stability' => 0.5, 'similarity' => 0.75, 'style' => 0.2, 'speed' => 1.0, 'daily_chars_per_user' => 20000], $config['voice'] ?? []);
+$VOICE = array_merge(['enabled' => true, 'api_key' => '', 'voice_id' => '', 'voice_id_en' => '', 'model' => 'eleven_flash_v2_5', 'stability' => 0.5, 'similarity' => 0.75, 'style' => 0.2, 'speed' => 0.95, 'daily_chars_per_user' => 20000], $config['voice'] ?? []);
 $VOICE_ON = $VOICE['enabled'] && $VOICE['api_key'] !== '' && $VOICE['voice_id'] !== '';
 const SESSION_DAYS = 30;
 const MAX_BODY = 2097152;
