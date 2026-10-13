@@ -43,7 +43,7 @@ function newSession(userId) {
   return token;
 }
 function authUser(req) {
-  const m = /^Bearer ([a-f0-9]{64})$/.exec(req.headers.authorization || "");
+  const m = /^Bearer ([a-f0-9]{64})$/.exec(req.headers.authorization || "") || /^([a-f0-9]{64})$/.exec(req.headers["x-auth-token"] || "");
   if (!m) return null;
   const s = db.sessions.find((x) => x.tokenHash === sha(m[1]) && x.expires > Date.now());
   return s ? db.users.find((u) => u.id === s.userId) || null : null;

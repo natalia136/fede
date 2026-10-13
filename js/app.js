@@ -389,7 +389,7 @@
     const lv = u.lv || 1;
     if (u.gen === "robot") return Array.from({ length: lv + 1 }, () => ({ kind: "robot", level: Math.min(5, (u.params.level || 0) + (lv === 3 ? 1 : 0)) }));
     const ctx = { used: new Set() }, out = [], seen = new Set(), n = /order/.test(u.gen) ? 3 + lv : Math.round(LEVELS[lv].n * (lv === 3 ? 0.7 : 1));
-    for (let i = 0, g = 0; out.length < n && g < 80; g++) { const q = GEN[u.gen](u.params || {}, ctx); const k = q.prompt + (q.answer || q.items.join()); if (seen.has(k)) continue; seen.add(k); out.push(q); i++; }
+    for (let i = 0, g = 0; out.length < n && g < 80; g++) { const q = GEN[u.gen](u.params || {}, ctx); const k = q.prompt + (q.visual || "") + (q.answer || q.items.join()); if (seen.has(k)) continue; seen.add(k); out.push(q); i++; }
     if (lv === 3 && u.subj && u.g != null && !u.review) {
       // "Domina": mezcla repaso de los temas anteriores del mismo mundo
       const list = TOPICS[u.subj][u.g], idx = list.findIndex((t) => t.id === u.key.split("#")[0]);
@@ -1278,7 +1278,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
   /* ================= cuentas (servidor propio: server.js + data/db.json) ================= */
   function remember(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* */ } }
   async function callApi(method, url, body) {
-    const r = await fetch("api/" + url, { method, headers: Object.assign({ "content-type": "application/json" }, API.token ? { authorization: "Bearer " + API.token } : {}), body: body ? JSON.stringify(body) : undefined });
+    const r = await fetch("api/" + url, { method, headers: Object.assign({ "content-type": "application/json" }, API.token ? { authorization: "Bearer " + API.token, "x-auth-token": API.token } : {}), body: body ? JSON.stringify(body) : undefined });
     const data = await r.json().catch(() => ({}));
     if (r.status === 401 && API.user) { clearSession(); render(); }
     if (!r.ok) throw Object.assign(new Error(data.error || `Error ${r.status}`), { status: r.status });

@@ -1,0 +1,13 @@
+# Aventura Escolar en hosting compartido (Apache / LiteSpeed)
+Options -Indexes
+DirectoryIndex index.html
+# Bloquea archivos privados: datos, herramientas, servidor Node y documentación
+RedirectMatch 404 ^/(data|tools|node_modules|\.git)(/|$)
+<FilesMatch "^(server\.js|README\.md|DEPLOY\.md|package\.json|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+# Fuerza HTTPS (las contraseñas viajan cifradas)
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

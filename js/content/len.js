@@ -87,19 +87,19 @@ window.CURRICULUM.extend({
         ["¿Con qué letra empieza MANO?", "M", ["P", "S", "L"], "✋"]
       ],
       "len_g1_silabas": [
-        ["Completa: CA __ (casa)", "sa", ["fu", "ti", "bo"], "🏠", "ca + sa = casa"],
-        ["Completa: LU __ (luna)", "na", ["pe", "si", "to"], "🌙", "lu + na = luna"],
-        ["Completa: MA __ (mano)", "no", ["fi", "pu", "le"], "✋", "ma + no = mano"],
-        ["Completa: FO __ (foca)", "ca", ["mi", "tu", "pe"], "🦭", "fo + ca = foca"],
-        ["Completa: VA __ (vaca)", "ca", ["fi", "nu", "le"], "🐄", "va + ca = vaca"],
-        ["Completa: LO __ (lobo)", "bo", ["fe", "ni", "pu"], "🐺", "lo + bo = lobo"],
-        ["Completa: __ TO (pato)", "pa", ["fi", "nu", "le"], "🦆", "pa + to = pato"],
-        ["Completa: PE __ (pera)", "ra", ["fu", "mi", "ce"], "🍐", "pe + ra = pera"],
-        ["Completa: SO __ (sopa)", "pa", ["fi", "ne", "lu"], "🍲", "so + pa = sopa"],
-        ["Completa: BO __ (bota)", "ta", ["fi", "nu", "pe"], "👢", "bo + ta = bota"],
-        ["Completa: NU __ (nube)", "be", ["fa", "ti", "mo"], "☁️", "nu + be = nube"],
-        ["Completa: MO __ (moto)", "to", ["fi", "nu", "pe"], "🏍️", "mo + to = moto"],
-        ["Completa: __ NA (rana)", "ra", ["fi", "pu", "te"], "🐸", "ra + na = rana"],
+        ["Completa: CA __", "sa", ["fu", "ti", "pu"], "🏠", "ca + sa = casa"],
+        ["Completa: LU __", "na", ["pe", "si", "fe"], "🌙", "lu + na = luna"],
+        ["Completa: MA __", "no", ["fi", "pu", "le"], "✋", "ma + no = mano"],
+        ["Completa: FO __", "ca", ["mi", "tu", "pe"], "🦭", "fo + ca = foca"],
+        ["Completa: VA __", "ca", ["fi", "nu", "po"], "🐄", "va + ca = vaca"],
+        ["Completa: LO __", "bo", ["fe", "ni", "pu"], "🐺", "lo + bo = lobo"],
+        ["Completa: __ TO", "pa", ["fi", "nu", "le"], "🦆", "pa + to = pato"],
+        ["Completa: PE __", "ra", ["fu", "mi", "ce"], "🍐", "pe + ra = pera"],
+        ["Completa: SO __", "pa", ["fi", "ne", "lu"], "🍲", "so + pa = sopa"],
+        ["Completa: BO __", "ta", ["fi", "nu", "pe"], "👢", "bo + ta = bota"],
+        ["Completa: NU __", "be", ["fa", "ti", "mo"], "☁️", "nu + be = nube"],
+        ["Completa: MO __", "to", ["fi", "nu", "pe"], "🏍️", "mo + to = moto"],
+        ["Completa: __ NA", "ra", ["fi", "pu", "te"], "🐸", "ra + na = rana"],
         ["¿Qué palabra se forma con PA + LO?", "palo", ["lopa", "pala", "polo"], "🪵"],
         ["¿Qué palabra se forma con ME + SA?", "mesa", ["sama", "masa", "seme"], "🪑"]
       ],
@@ -122,20 +122,20 @@ window.CURRICULUM.extend({
 
       /* ---------- 2.º ---------- */
       "len_g2_trabadas": [
-        ["Completa: __ato (plato)", "pl", ["pr", "bl", "cl"], "🍽️", "pl + ato = plato"],
-        ["Completa: __or (flor)", "fl", ["fr", "bl", "cl"], "🌸", "fl + or = flor"],
-        ["Completa: __azo (brazo)", "br", ["bl", "pr", "gl"], "💪", "br + azo = brazo"],
-        ["Completa: __en (tren)", "tr", ["tl", "dr", "pl"], "🚂", "tr + en = tren"],
-        ["Completa: __obo (globo)", "gl", ["bl", "gr", "cl"], "🎈", "gl + obo = globo"],
-        ["Completa: __esa (fresa)", "fr", ["fl", "br", "cl"], "🍓", "fr + esa = fresa"],
-        ["Completa: __avo (clavo)", "cl", ["cr", "pl", "gl"], "🔩", "cl + avo = clavo"],
-        ["Completa: __uja (bruja)", "br", ["bl", "pr", "dr"], "🧙", "br + uja = bruja"],
-        ["Completa: __agón (dragón)", "dr", ["tr", "gr", "br"], "🐉", "dr + agón = dragón"],
-        ["Completa: li__o (libro)", "br", ["bl", "pr", "dr"], "📚", "li + bro = libro"],
-        ["Completa: ce__a (cebra)", "br", ["bl", "pl", "gr"], "🦓", "ce + bra = cebra"],
-        ["Completa: __amenco (flamenco)", "fl", ["fr", "pl", "cl"], "🦩", "fla + men + co = flamenco"],
-        ["Completa: __aneta (planeta)", "pl", ["pr", "bl", "fl"], "🌍", "pla + ne + ta = planeta"],
-        ["Completa: __illo (grillo)", "gr", ["gl", "dr", "pl"], "🦗", "gr + illo = grillo"],
+        ["Completa: __ato", "pl", ["pr", "bl", "cl"], "🍽️", "pl + ato = plato"],
+        ["Completa: __or", "fl", ["fr", "bl", "cl"], "🌸", "fl + or = flor"],
+        ["Completa: __azo", "br", ["bl", "pr", "gl"], "💪", "br + azo = brazo"],
+        ["Completa: __en", "tr", ["tl", "dr", "pl"], "🚂", "tr + en = tren"],
+        ["Completa: __obo", "gl", ["bl", "gr", "cl"], "🎈", "gl + obo = globo"],
+        ["Completa: __esa", "fr", ["fl", "br", "cl"], "🍓", "fr + esa = fresa"],
+        ["Completa: __avo", "cl", ["cr", "pl", "gl"], "🔩", "cl + avo = clavo"],
+        ["Completa: __uja", "br", ["bl", "pr", "dr"], "🧙", "br + uja = bruja"],
+        ["Completa: __agón", "dr", ["tr", "gr", "br"], "🐉", "dr + agón = dragón"],
+        ["Completa: li__o", "br", ["bl", "pr", "dr"], "📚", "li + bro = libro"],
+        ["Completa: ce__a", "br", ["bl", "pl", "gr"], "🦓", "ce + bra = cebra"],
+        ["Completa: __amenco", "fl", ["fr", "pl", "cl"], "🦩", "fla + men + co = flamenco"],
+        ["Completa: __aneta", "pl", ["pr", "bl", "fl"], "🌍", "pla + ne + ta = planeta"],
+        ["Completa: __illo", "gr", ["gl", "dr", "pl"], "🦗", "gr + illo = grillo"],
         ["¿Qué palabra tiene una sílaba trabada?", "plátano", ["pelota", "camisa", "tomate"], "🍌", "PLá-ta-no: la p y la l van juntas."],
         ["¿Qué palabra tiene una sílaba trabada?", "cabra", ["cama", "cara", "casa"], "🐐", "ca-BRA: la b y la r van juntas."]
       ],
@@ -387,7 +387,7 @@ window.CURRICULUM.extend({
         ["¿Cuál está bien escrita?", "amable", ["amavle", "hamable", "amabel"], "😊", "Las palabras terminadas en -ble llevan b."],
         ["¿Cuál está bien escrita?", "obedecer", ["ovedecer", "obedeser", "hobedecer"], "🙋"],
         ["¿Cuál está bien escrita?", "nube", ["nuve", "nuvbe", "nubbe"], "☁️"],
-        ["¿Cuál está bien escrita?", "llevar", ["llebar", "yebar", "llevarr"], "🎒", "Las formas de llevar, llover y llegar van con v cuando suenan /b/ después de ll-: llevar, llover."],
+        ["¿Cuál está bien escrita?", "llevar", ["llebar", "yebar", "llevarr"], "🎒", "Las palabras que empiezan por lla-, lle-, llo-, llu- llevan v: llave, llevar, llover, lluvia."],
         ["¿Cuál está bien escrita?", "abuelo", ["avuelo", "abuelho", "habuelo"], "👴"],
         ["¿Cuál está bien escrita?", "brazo", ["vrazo", "brasso", "brazzo"], "💪", "Antes de r y l siempre se escribe b: brazo, blanco."],
         ["¿Cuál está bien escrita?", "nuevo", ["nuebo", "nuevvo", "nuheo"], "🆕", "Adjetivos en -evo van con v: nuevo, longevo."]
@@ -401,7 +401,7 @@ window.CURRICULUM.extend({
         ["En voz pasiva, quien realiza la acción se llama…", "Complemento agente", ["Sujeto paciente", "Núcleo del sujeto", "Adverbio"], "🧑‍🏭", "Va introducido por la preposición «por»."],
         ["En «El puente fue construido por los obreros», el complemento agente es…", "por los obreros", ["El puente", "fue construido", "construido"], "🌉"],
         ["La voz pasiva se forma con el verbo «ser» más…", "El participio", ["El infinitivo", "El gerundio", "Un adjetivo cualquiera"], "🔧"],
-        ["Pasa a voz activa: «La torta fue preparada por mi tía».", "Mi tía preparó la torta.", ["La torta preparó a mi tía.", "Mi tía fue preparada por la torta.", "La torta está preparada."], "🎂"],
+        ["Pasa a voz activa: «El pastel fue preparado por mi tía».", "Mi tía preparó el pastel.", ["El pastel preparó a mi tía.", "Mi tía fue preparada por el pastel.", "El pastel está preparado."], "🎂"],
         ["Pasa a voz pasiva: «Cervantes escribió el Quijote».", "El Quijote fue escrito por Cervantes.", ["Cervantes fue escrito por el Quijote.", "El Quijote escribió a Cervantes.", "Cervantes es escribido por el Quijote."], "📜"],
         ["¿Cuál está en voz pasiva?", "La ventana fue rota por la pelota.", ["La pelota rompió la ventana.", "La ventana es muy grande.", "La pelota está rota."], "🪟"],
         ["¿Cuál es el participio de «escribir»?", "escrito", ["escribido", "escribiendo", "escribí"], "✍️"],
@@ -411,7 +411,7 @@ window.CURRICULUM.extend({
       ],
       "len_g6_homofonos": [
         ["Ojalá ___ sol mañana.", "haya", ["halla", "aya", "allá"], "☀️", "«Haya» viene del verbo haber; «halla», de hallar (encontrar)."],
-        ["Siempre ___ las llaves debajo del sofá (hallar).", "halla", ["haya", "aya", "alla"], "🔑"],
+        ["Mi abuelo siempre ___ las llaves debajo del sofá (hallar).", "halla", ["haya", "aya", "alla"], "🔑"],
         ["Ayer mi hermano ___ fiebre.", "tuvo", ["tubo", "tuvó", "tubó"], "🤒", "«Tuvo» es del verbo tener; «tubo» es un cilindro hueco."],
         ["El agua pasa por un ___ de metal.", "tubo", ["tuvo", "tuvó", "tubó"], "🚰"],
         ["Voy ___ comer a casa de mi abuela.", "a", ["ha", "ah"], "🍽️", "«A» es preposición; «ha» es del verbo haber."],
@@ -462,9 +462,9 @@ window.CURRICULUM.extend({
         ["«Valiente como un león» es una…", "Comparación o símil", ["Metáfora", "Hipérbole", "Aliteración"], "🦁"],
         ["«El viento cantaba entre los árboles» es una…", "Personificación", ["Hipérbole", "Comparación", "Antítesis"], "🌬️"],
         ["«Tengo tanta hambre que me comería un elefante» es una…", "Hipérbole", ["Metáfora", "Personificación", "Anáfora"], "🐘"],
-        ["«Volverán las golondrinas, volverán las flores, volverán los días…» usa…", "Anáfora (repetición al inicio)", ["Onomatopeya", "Hipérbole", "Símil"], "🔁"],
+        ["«Mientras haya luz, mientras haya risa, mientras haya amigos…» usa…", "Anáfora (repetición al inicio)", ["Onomatopeya", "Hipérbole", "Símil"], "🔁"],
         ["«El ruido con que rueda la ronca tempestad» usa…", "Aliteración (repetición de sonidos)", ["Antítesis", "Metáfora", "Comparación"], "🌩️", "Se repite el sonido de la r."],
-        ["«Es tan corto el amor y tan largo el olvido» usa…", "Antítesis (ideas opuestas)", ["Onomatopeya", "Personificación", "Anáfora"], "⚖️"],
+        ["«Unos llegan con el día; otros se van con la noche» usa…", "Antítesis (ideas opuestas)", ["Onomatopeya", "Personificación", "Anáfora"], "⚖️"],
         ["«La blanca nieve» usa un…", "Epíteto (adjetivo que dice algo obvio)", ["Hipérbaton", "Símil", "Diálogo"], "❄️"],
         ["«Del salón en el ángulo oscuro» (en lugar de «en el ángulo oscuro del salón») es un…", "Hipérbaton (orden alterado)", ["Epíteto", "Símil", "Anáfora"], "🔀"],
         ["«El tic tac del reloj no me deja dormir» usa…", "Onomatopeya", ["Metáfora", "Antítesis", "Hipérbaton"], "⏰"],
@@ -520,7 +520,7 @@ window.CURRICULUM.extend({
         ["🌅 Me despierto", "🪥 Me cepillo los dientes", "🎒 Me pongo la mochila", "🏫 Llego a la escuela"],
         ["🥚 La gallina pone un huevo", "🐣 El pollito rompe el cascarón", "🐥 El pollito sale", "🐔 El pollito crece"],
         ["🌱 Siembro la semilla", "💧 La riego", "🌿 Sale una plantita", "🌻 Crece la flor"],
-        ["🎂 Hacemos la torta", "🕯️ Ponemos las velas", "🎶 Cantamos «Feliz cumpleaños»", "🌬️ Soplo las velas"],
+        ["🎂 Hacemos el pastel", "🕯️ Ponemos las velas", "🎶 Cantamos «Feliz cumpleaños»", "🌬️ Soplo las velas"],
         ["☁️ El cielo se nubla", "🌧️ Empieza a llover", "☂️ Abro mi paraguas", "🌈 Sale el arcoíris"],
         ["🧸 Saco mis juguetes", "🎲 Juego con mis amigos", "📦 Guardo los juguetes en la caja"]
       ],
@@ -565,7 +565,7 @@ window.CURRICULUM.extend({
         { title: "El paseo en bicicleta", text: "Pablo tiene una bicicleta nueva. Es roja y tiene una campana. El sábado sale a pasear con su papá por el parque. Pablo se pone el casco antes de subir. Pedalea despacio y toca la campana: ¡rin, rin! De pronto ve un charco grande. Pablo frena a tiempo y lo rodea. Su papá lo felicita. Después comen un helado de fresa bajo un árbol.",
           qs: [["¿De qué color es la bicicleta?", "Roja", ["Azul", "Negra", "Verde"]], ["¿Qué se pone Pablo antes de subir?", "El casco", ["Una gorra", "Unas botas", "Una bufanda"]], ["¿Qué hizo Pablo al ver el charco?", "Frenó y lo rodeó", ["Saltó dentro", "Se cayó", "Volvió a casa"]], ["¿Por qué lo felicitó su papá?", "Porque manejó con cuidado", ["Porque llegó primero", "Porque compró helado", "Porque se ensució"]]] },
         { title: "La sopa de Lola", text: "Lola quiere hacer una sopa para su familia. Lava las papas, las zanahorias y el tomate. Su mamá corta las verduras, porque el cuchillo es peligroso. Lola echa todo en la olla con agua y un poco de sal. Esperan un rato mientras sale un rico olor. A la hora de comer, todos prueban la sopa. Papá dice: «¡Qué sabrosa!». Lola sonríe orgullosa.",
-          qs: [["¿Qué quiere hacer Lola?", "Una sopa", ["Una torta", "Un jugo", "Una ensalada de frutas"]], ["¿Quién corta las verduras?", "Su mamá", ["Lola", "Papá", "El abuelo"]], ["¿Por qué la mamá corta las verduras?", "Porque el cuchillo es peligroso", ["Porque Lola no quiere", "Porque no hay papas", "Porque Lola está dormida"]], ["¿Cómo se siente Lola al final?", "Orgullosa", ["Triste", "Aburrida", "Asustada"]]] }
+          qs: [["¿Qué quiere hacer Lola?", "Una sopa", ["Un pastel", "Un jugo", "Una ensalada de frutas"]], ["¿Quién corta las verduras?", "Su mamá", ["Lola", "Papá", "El abuelo"]], ["¿Por qué la mamá corta las verduras?", "Porque el cuchillo es peligroso", ["Porque Lola no quiere", "Porque no hay papas", "Porque Lola está dormida"]], ["¿Cómo se siente Lola al final?", "Orgullosa", ["Triste", "Aburrida", "Asustada"]]] }
       ],
       "len_r2b": [
         { title: "El faro y la gaviota", text: "En lo alto de una roca había un faro viejo. Cada noche, su luz giraba para guiar a los barcos. Una gaviota llamada Brisa vivía en su ventana. Una noche de tormenta, la luz del faro se apagó. Brisa vio un pequeño barco que se acercaba a las rocas. Voló hasta el pueblo y graznó tan fuerte que despertó al farero. El hombre subió corriendo, encendió la lámpara y el barco pudo llegar al puerto sin peligro. Desde entonces, el farero deja migas de pan para Brisa todas las mañanas.",
@@ -586,8 +586,8 @@ window.CURRICULUM.extend({
       "len_r4b": [
         { title: "Carta a la abuela", text: "Querida abuela: Te escribo desde el campamento. Los primeros días extrañé mucho la casa y casi no hablaba con nadie. Pero el martes nos tocó cocinar en equipo y conocí a Martín, que también es tímido. Ahora somos inseparables. Ayer subimos a una colina y vimos el amanecer: el cielo se puso naranja como tus mermeladas. Todavía no aprendí a remar, pero el monitor dice que mañana lo intentaremos otra vez. Te mando un abrazo enorme y te cuento todo cuando vuelva. Tu nieta, Elena.",
           qs: [["¿Quién escribe la carta?", "Elena, la nieta", ["La abuela", "Martín", "El monitor"]], ["¿Cómo se sentía Elena los primeros días?", "Extrañaba su casa", ["Estaba muy contenta", "Estaba enferma", "Estaba enojada con Martín"]], ["¿Qué ayudó a Elena a sentirse mejor?", "Hacer un amigo al cocinar en equipo", ["Volver a casa", "Aprender a remar", "Recibir una carta"]], ["¿Qué podemos inferir sobre la abuela?", "Que prepara mermeladas", ["Que vive en el campamento", "Que es la monitora", "Que no sabe leer"]]] },
-        { title: "Vecinos rescatan a un perro en la quebrada", text: "Durante la mañana del domingo, un grupo de vecinos rescató a un perro que había caído en una quebrada cerca del parque central. Los niños que jugaban fútbol escucharon los ladridos y avisaron a sus padres. Con una cuerda y una canasta, dos jóvenes bajaron con cuidado y subieron al animal, que solo tenía una herida leve en una pata. Una veterinaria del barrio lo atendió sin cobrar. El perro, al que llamaron Valiente, ya tiene una familia que lo adoptó.",
-          qs: [["¿Qué tipo de texto es?", "Una noticia", ["Un poema", "Una receta", "Una fábula"]], ["¿Quiénes oyeron primero al perro?", "Unos niños que jugaban fútbol", ["La veterinaria", "Los bomberos", "Los dos jóvenes"]], ["¿Por qué crees que le pusieron «Valiente» al perro?", "Porque resistió en la quebrada hasta que lo rescataron", ["Porque mordió a alguien", "Porque era muy grande", "Porque ganó un concurso"]], ["¿Cuál es la idea principal?", "Los vecinos trabajaron juntos para salvar a un perro", ["Los niños juegan fútbol los domingos", "Las quebradas son bonitas", "Las veterinarias cobran caro"]]] }
+        { title: "Vecinos rescatan a un perro en un barranco", text: "Durante la mañana del domingo, un grupo de vecinos rescató a un perro que había caído en un barranco cerca del parque central. Los niños que jugaban fútbol escucharon los ladridos y avisaron a sus padres. Con una cuerda y una canasta, dos jóvenes bajaron con cuidado y subieron al animal, que solo tenía una herida leve en una pata. Una veterinaria del barrio lo atendió sin cobrar. El perro, al que llamaron Valiente, ya tiene una familia que lo adoptó.",
+          qs: [["¿Qué tipo de texto es?", "Una noticia", ["Un poema", "Una receta", "Una fábula"]], ["¿Quiénes oyeron primero al perro?", "Unos niños que jugaban fútbol", ["La veterinaria", "Los bomberos", "Los dos jóvenes"]], ["¿Por qué crees que le pusieron «Valiente» al perro?", "Porque resistió en el barranco hasta que lo rescataron", ["Porque mordió a alguien", "Porque era muy grande", "Porque ganó un concurso"]], ["¿Cuál es la idea principal?", "Los vecinos trabajaron juntos para salvar a un perro", ["Los niños juegan fútbol los domingos", "Los barrancos son bonitos", "Las veterinarias cobran caro"]]] }
       ],
       "len_r5b": [
         { title: "Los volcanes", text: "Un volcán es una abertura en la corteza terrestre por donde sale material muy caliente del interior de la Tierra. Esa roca fundida se llama magma cuando está bajo tierra y lava cuando sale a la superficie. Algunos volcanes están activos y pueden entrar en erupción; otros están dormidos o extinguidos. Aunque las erupciones son peligrosas, las cenizas volcánicas hacen que los suelos sean muy fértiles, y por eso muchas personas cultivan cerca de los volcanes. En América Latina hay muchos, como el Popocatépetl en México o el Cotopaxi en Ecuador.",
@@ -598,8 +598,8 @@ window.CURRICULUM.extend({
       "len_r6b": [
         { title: "¿Uniformes en la escuela?", text: "En mi opinión, el uniforme escolar es una buena idea. En primer lugar, evita que los estudiantes se comparen por la ropa que llevan, lo que reduce las burlas. En segundo lugar, ahorra tiempo cada mañana, porque no hay que decidir qué ponerse. Algunos dicen que el uniforme limita la personalidad; sin embargo, la personalidad se muestra en lo que hacemos y decimos, no solo en la ropa. Además, muchas escuelas permiten un día libre a la semana. Por todo esto, considero que el uniforme ayuda a la convivencia escolar.",
           qs: [["¿Cuál es la tesis del autor?", "El uniforme escolar es una buena idea", ["El uniforme debe prohibirse", "La ropa no importa", "Las escuelas deben cerrar"]], ["¿Qué argumento usa el autor?", "Evita que los estudiantes se comparen por la ropa", ["El uniforme es más barato que todo", "Los profesores lo exigen", "La ropa de color es fea"]], ["¿Cómo responde el autor a quienes dicen que limita la personalidad?", "Dice que la personalidad se muestra en lo que hacemos y decimos", ["Les da la razón", "No responde", "Dice que la personalidad no existe"]], ["¿Qué palabra introduce la conclusión?", "Por todo esto", ["En primer lugar", "Sin embargo", "Además"]]] },
-        { title: "Bicicletas para la ciudad", text: "Cada vez más ciudades construyen ciclovías. Según varios estudios, ir en bicicleta reduce la contaminación del aire, porque no produce gases, y mejora la salud de quienes pedalean. Sin embargo, algunas personas opinan que las ciclovías quitan espacio a los carros y empeoran el tráfico. Los defensores responden que, si más gente usa la bicicleta, habrá menos carros en las calles. Creo que las ciudades deberían invertir en ciclovías seguras, porque una ciudad con menos humo es una ciudad más sana para todos.",
-          qs: [["¿Cuál de estas frases es un hecho?", "Ir en bicicleta no produce gases", ["Una ciudad con menos humo es más bonita", "Creo que las ciudades deberían invertir en ciclovías", "Las ciclovías son lo mejor del mundo"]], ["¿Qué objeción se menciona?", "Las ciclovías quitan espacio a los carros", ["Las bicicletas son caras", "Pedalear es aburrido", "No hay bicicletas en las tiendas"]], ["¿Qué palabra introduce una idea contraria?", "Sin embargo", ["Porque", "Cada vez", "Según"]], ["¿Cuál es la intención del autor?", "Convencer de que se construyan ciclovías", ["Vender bicicletas", "Contar un cuento", "Explicar cómo arreglar una bicicleta"]]] }
+        { title: "Bicicletas para la ciudad", text: "Cada vez más ciudades construyen ciclovías. Según varios estudios, ir en bicicleta reduce la contaminación del aire, porque no produce gases, y mejora la salud de quienes pedalean. Sin embargo, algunas personas opinan que las ciclovías quitan espacio a los automóviles y empeoran el tráfico. Los defensores responden que, si más gente usa la bicicleta, habrá menos automóviles en las calles. Creo que las ciudades deberían invertir en ciclovías seguras, porque una ciudad con menos humo es una ciudad más sana para todos.",
+          qs: [["¿Cuál de estas frases es un hecho?", "Ir en bicicleta no produce gases", ["Una ciudad con menos humo es más bonita", "Creo que las ciudades deberían invertir en ciclovías", "Las ciclovías son lo mejor del mundo"]], ["¿Qué objeción se menciona?", "Las ciclovías quitan espacio a los automóviles", ["Las bicicletas son caras", "Pedalear es aburrido", "No hay bicicletas en las tiendas"]], ["¿Qué palabra introduce una idea contraria?", "Sin embargo", ["Porque", "Cada vez", "Según"]], ["¿Cuál es la intención del autor?", "Convencer de que se construyan ciclovías", ["Vender bicicletas", "Contar un cuento", "Explicar cómo arreglar una bicicleta"]]] }
       ]
     }
   },
