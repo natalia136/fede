@@ -17,7 +17,9 @@ let CONFIG = {}; try { CONFIG = JSON.parse(fs.readFileSync(path.join(ROOT, "conf
 const AI = Object.assign({ enabled: true, api_key: "", model: "claude-haiku-5-5", effort: "low", max_tokens: 16000, daily_limit_per_user: 40, tasks: { course: true, practice: true, explain: true } }, CONFIG.ai || {});
 const AI_KEY = AI.enabled ? (AI.api_key || process.env.ANTHROPIC_API_KEY || "") : "";
 const AI_TASKS = AI_KEY ? Object.keys(AI.tasks || {}).filter((k) => AI.tasks[k]) : [];
-const PUBLIC = new Set(["/index.html", "/ai/prompts.json", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].map((k) => `/js/content/${k}.js`)]);
+const VOICE = Object.assign({ enabled: true, api_key: "", voice_id: "", voice_id_en: "", model: "eleven_flash_v2_5", stability: 0.5, similarity: 0.75, style: 0.2, speed: 1.0, daily_chars_per_user: 20000 }, CONFIG.voice || {});
+const VOICE_ON = !!(VOICE.enabled && VOICE.api_key && VOICE.voice_id);
+const PUBLIC = new Set(["/index.html", "/ai/prompts.json", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].flatMap((k) => [`/js/content/${k}.js`, `/js/lessons/${k}.js`])]);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 
 /* ---------- base de datos en un archivo JSON ---------- */
@@ -95,7 +97,7 @@ async function api(req, res, pathname) {
   const method = req.method, ip = req.socket.remoteAddress || "";
   const parts = pathname.split("/").filter(Boolean).slice(1); // sin "api"
 
-  if (method === "GET" && parts[0] === "health") return send(res, 200, { ok: true, ai: !!AI_KEY, aiTasks: AI_TASKS, appName: CONFIG.app_name || null });
+  if (method === "GET" && parts[0] === "health") return send(res, 200, { ok: true, ai: !!AI_KEY, aiTasks: AI_TASKS, voice: VOICE_ON, appName: CONFIG.app_name || null });
 
   if (method === "POST" && parts[0] === "register") {
     const b = await readJson(req), email = String(b.email || "").trim().toLowerCase(), name = String(b.name || "").trim().slice(0, 40), pw = String(b.password || "");
@@ -174,6 +176,34 @@ async function api(req, res, pathname) {
     if (!r.ok) return fail(res, 502, (data.error && data.error.message) || `Error ${r.status} de la IA.`);
     if (data.stop_reason === "refusal") return fail(res, 422, "refusal");
     return send(res, 200, { text: (data.content || []).filter((c) => c.type === "text").map((c) => c.text).join("") });
+  }
+
+  // voz natural (ElevenLabs): los audios se guardan en data/tts para no pagar dos veces la misma frase
+  if (method === "POST" && parts[0] === "tts") {
+    if (!VOICE_ON) return fail(res, 503, "La voz no está configurada en el servidor.");
+    const b = await readJson(req), lang = b.lang === "en" ? "en" : "es";
+    const text = String(b.text || "").replace(/\s+/g, " ").trim().slice(0, 1500);
+    if (!text) return fail(res, 400, "No hay texto para leer.");
+    const voice = lang === "en" && VOICE.voice_id_en ? VOICE.voice_id_en : VOICE.voice_id;
+    if (!/^[A-Za-z0-9]{8,40}$/.test(voice)) return fail(res, 500, "El voice_id de config.json no es válido.");
+    const dir = path.join(DATA_DIR, "tts"); fs.mkdirSync(dir, { recursive: true });
+    const file = path.join(dir, crypto.createHash("sha256").update([VOICE.model, voice, lang, VOICE.stability, VOICE.similarity, VOICE.style, VOICE.speed, text].join("|")).digest("hex") + ".mp3");
+    let audio = null; try { audio = fs.readFileSync(file); } catch (e) { /* no está guardado */ }
+    if (!audio) {
+      const day = new Date().toISOString().slice(0, 10), limit = +VOICE.daily_chars_per_user || 0;
+      db.tts_usage = db.tts_usage || {}; const used = (db.tts_usage[user.id] || {})[day] || 0;
+      if (limit && used + text.length > limit) return fail(res, 429, "Se acabó la voz natural por hoy. Seguimos con la voz del navegador.");
+      db.tts_usage[user.id] = { [day]: used + text.length }; persist();
+      const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_64`, {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "audio/mpeg", "xi-api-key": VOICE.api_key },
+        body: JSON.stringify({ text, model_id: VOICE.model, language_code: lang, voice_settings: { stability: +VOICE.stability, similarity_boost: +VOICE.similarity, style: +VOICE.style, speed: +VOICE.speed } })
+      });
+      if (!r.ok) { const e = await r.json().catch(() => ({})); const m = e.detail && (e.detail.message || e.detail); return fail(res, 502, typeof m === "string" ? m : `Error ${r.status} de ElevenLabs.`); }
+      audio = Buffer.from(await r.arrayBuffer()); fs.writeFileSync(file, audio);
+    }
+    res.writeHead(200, { "Content-Type": "audio/mpeg", "Content-Length": audio.length, "Cache-Control": "private, max-age=604800" });
+    return res.end(audio);
   }
 
   // administración de usuarios

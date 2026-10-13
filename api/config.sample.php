@@ -21,4 +21,19 @@ return [
       'explain' => true,               // botón "Nova, explícame"
     ],
   ],
+
+  // Voz natural con ElevenLabs (opcional). Sin clave, la app usa la voz del navegador.
+  // Los audios se guardan en data/tts: cada frase se paga una sola vez aunque la escuchen muchos niños.
+  'voice' => [
+    'enabled' => true,
+    'api_key' => '',                   // ← PEGA AQUÍ TU CLAVE DE ELEVENLABS (Developers → API Keys)
+    'voice_id' => '',                  // ← ID de la voz en español latino (Voices → la voz → "Copy voice ID")
+    'voice_id_en' => '',               // opcional: otra voz para leer en inglés (vacío = usa la misma)
+    'model' => 'eleven_flash_v2_5',    // el más económico (mitad de precio). Más natural: 'eleven_multilingual_v2'
+    'stability' => 0.5,                // 0 a 1: más bajo = más expresiva, más alto = más estable
+    'similarity' => 0.75,              // 0 a 1: parecido a la voz original
+    'style' => 0.2,                    // 0 a 1: más alto = más actuada (un poco más lenta)
+    'speed' => 1.0,                    // 0.7 a 1.2: velocidad de lectura
+    'daily_chars_per_user' => 20000,   // letras nuevas por cuenta al día (0 = sin límite). Lo ya guardado no cuenta.
+  ],
 ];

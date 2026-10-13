@@ -12,6 +12,8 @@ $AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-haiku-
 if ($AI['api_key'] === '') $AI['api_key'] = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
 $AI_KEY = ($AI['enabled'] && $AI['api_key'] !== '') ? $AI['api_key'] : '';
 $AI_TASKS = $AI_KEY === '' ? [] : array_keys(array_filter($AI['tasks'] ?? []));
+$VOICE = array_merge(['enabled' => true, 'api_key' => '', 'voice_id' => '', 'voice_id_en' => '', 'model' => 'eleven_flash_v2_5', 'stability' => 0.5, 'similarity' => 0.75, 'style' => 0.2, 'speed' => 1.0, 'daily_chars_per_user' => 20000], $config['voice'] ?? []);
+$VOICE_ON = $VOICE['enabled'] && $VOICE['api_key'] !== '' && $VOICE['voice_id'] !== '';
 const SESSION_DAYS = 30;
 const MAX_BODY = 2097152;
 
@@ -94,7 +96,7 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $ip = $_SERVER['REMOTE_ADDR'] ?? '';
 $EMAIL = '/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/';
 
-if ($method === 'GET' && ($parts[0] ?? '') === 'health') send(200, ['ok' => true, 'ai' => $AI_KEY !== '', 'aiTasks' => $AI_TASKS, 'appName' => $config['app_name'] ?? null]);
+if ($method === 'GET' && ($parts[0] ?? '') === 'health') send(200, ['ok' => true, 'ai' => $AI_KEY !== '', 'aiTasks' => $AI_TASKS, 'voice' => $VOICE_ON, 'appName' => $config['app_name'] ?? null]);
 
 if ($method === 'POST' && ($parts[0] ?? '') === 'register') {
   $b = body(); $email = strtolower(trim((string) ($b['email'] ?? ''))); $name = mb_substr(trim((string) ($b['name'] ?? '')), 0, 40); $pw = (string) ($b['password'] ?? '');
@@ -164,6 +166,43 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
   if (($data['stop_reason'] ?? '') === 'refusal') fail(422, 'refusal');
   $text = ''; foreach ($data['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $text .= $c['text'];
   send(200, ['text' => $text]);
+}
+
+/* ---------- voz natural (ElevenLabs): los audios se guardan para no pagar dos veces la misma frase ---------- */
+if ($method === 'POST' && ($parts[0] ?? '') === 'tts') {
+  if (!$VOICE_ON) fail(503, 'La voz no está configurada en el servidor.');
+  $b = body(); $lang = ($b['lang'] ?? 'es') === 'en' ? 'en' : 'es';
+  $text = trim(preg_replace('/\s+/u', ' ', (string) ($b['text'] ?? '')));
+  if ($text === '') fail(400, 'No hay texto para leer.');
+  $text = mb_substr($text, 0, 1500);
+  $voice = $lang === 'en' && $VOICE['voice_id_en'] !== '' ? $VOICE['voice_id_en'] : $VOICE['voice_id'];
+  if (!preg_match('/^[A-Za-z0-9]{8,40}$/', (string) $voice)) fail(500, 'El voice_id de config.php no es válido.');
+  $dir = $DATA_DIR . '/tts'; if (!is_dir($dir)) { @mkdir($dir, 0700, true); protect_dir($DATA_DIR); }
+  $file = $dir . '/' . hash('sha256', implode('|', [$VOICE['model'], $voice, $lang, $VOICE['stability'], $VOICE['similarity'], $VOICE['style'], $VOICE['speed'], $text])) . '.mp3';
+  $chars = mb_strlen($text); $limit = (int) $VOICE['daily_chars_per_user']; $cached = is_file($file);
+  $check = with_db(function (&$db) use ($limit, $chars, $cached) {
+    $user = &auth_user($db); if (!$user) return 'auth';
+    if ($cached) return 'ok';
+    $day = gmdate('Y-m-d'); $used = $db['tts_usage'][$user['id']][$day] ?? 0;
+    if ($limit > 0 && $used + $chars > $limit) return 'limit';
+    $db['tts_usage'] = [$user['id'] => [$day => $used + $chars]] + array_map(fn($d) => array_intersect_key($d, [$day => 1]), $db['tts_usage'] ?? []);
+    return 'ok';
+  });
+  if ($check === 'auth') fail(401, 'Tu sesión terminó. Inicia sesión de nuevo.');
+  if ($check === 'limit') fail(429, 'Se acabó la voz natural por hoy. Seguimos con la voz del navegador.');
+  if (!$cached) {
+    $ch = curl_init('https://api.elevenlabs.io/v1/text-to-speech/' . $voice . '?output_format=mp3_44100_64');
+    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 60,
+      CURLOPT_HTTPHEADER => ['content-type: application/json', 'accept: audio/mpeg', 'xi-api-key: ' . $VOICE['api_key']],
+      CURLOPT_POSTFIELDS => json_encode(['text' => $text, 'model_id' => $VOICE['model'], 'language_code' => $lang,
+        'voice_settings' => ['stability' => (float) $VOICE['stability'], 'similarity_boost' => (float) $VOICE['similarity'], 'style' => (float) $VOICE['style'], 'speed' => (float) $VOICE['speed']]], JSON_UNESCAPED_UNICODE)]);
+    $audio = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $cerr = curl_error($ch); curl_close($ch);
+    if ($audio === false) fail(502, 'No se pudo conectar con ElevenLabs: ' . $cerr);
+    if ($code < 200 || $code >= 300) { $e = json_decode((string) $audio, true); $m = is_array($e) ? ($e["detail"]["message"] ?? $e["detail"] ?? null) : null; fail(502, is_string($m) ? $m : "Error $code de ElevenLabs."); }
+    @file_put_contents($file, $audio, LOCK_EX);
+  } else $audio = file_get_contents($file);
+  header('Content-Type: audio/mpeg'); header('Cache-Control: private, max-age=604800'); header('Content-Length: ' . strlen($audio));
+  echo $audio; exit;
 }
 
 /* ---------- rutas con sesión ---------- */

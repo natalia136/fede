@@ -52,6 +52,23 @@ Las instrucciones que recibe la IA para cada uso están en `ai/prompts.json`. Pa
 
 > Si alguna vez la clave se expone, revócala en la consola de Anthropic y pon una nueva en `config.php`.
 
+## 3b. Voz natural con ElevenLabs (opcional)
+
+Sin esto la app lee con la voz del navegador (elige la latinoamericana más natural que tenga el equipo). Con ElevenLabs suena como una persona.
+
+1. Crea una cuenta en elevenlabs.io. En **Developers → API Keys** crea una clave (empieza con `sk_`).
+2. En **Voices → Voice Library** busca voces con filtro de idioma **Spanish** y acento **Latin American** (o Mexican / Colombian). Escucha varias y agrega la que te guste a "My Voices".
+3. Abre la voz en **My Voices** y usa **Copy voice ID** (un código de unas 20 letras y números).
+4. En `api/config.php`, en el bloque `'voice'`, pega la clave en `'api_key'` y el ID en `'voice_id'`. Si quieres otra voz para el inglés, pon su ID en `'voice_id_en'`.
+
+| Opción | Para qué sirve |
+|---|---|
+| `model` | `eleven_flash_v2_5` es el más económico (mitad de precio). `eleven_multilingual_v2` suena un poco más natural y cuesta el doble. |
+| `stability` / `style` / `speed` | Ajustan la expresividad y la velocidad. |
+| `daily_chars_per_user` | Letras nuevas que cada cuenta puede generar al día (0 = sin límite). |
+
+Cada frase se genera **una sola vez** y se guarda en `data/tts/`: si otro niño escucha la misma lección, no se vuelve a pagar. Si se acaba el saldo o el límite del día, la app sigue con la voz del navegador sin romperse.
+
 ## 4. Primer uso
 
 1. Abre `https://tudominio.com`.

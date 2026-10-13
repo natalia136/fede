@@ -1,5 +1,5 @@
 {
-  "_info": "Copia este archivo como config.json (en la misma carpeta que server.js) y pega tu clave en ai.api_key. config.json no se sube al repositorio ni se envía al navegador.",
+  "_info": "Copia este archivo como config.json (en la misma carpeta que server.js) y pega tus claves en ai.api_key y voice.api_key. config.json no se sube al repositorio ni se envía al navegador.",
   "ai": {
     "enabled": true,
     "api_key": "",
@@ -7,6 +7,22 @@
     "effort": "low",
     "max_tokens": 16000,
     "daily_limit_per_user": 40,
-    "tasks": { "course": true, "practice": true, "explain": true }
+    "tasks": {
+      "course": true,
+      "practice": true,
+      "explain": true
+    }
+  },
+  "voice": {
+    "enabled": true,
+    "api_key": "",
+    "voice_id": "",
+    "voice_id_en": "",
+    "model": "eleven_flash_v2_5",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "style": 0.2,
+    "speed": 1.0,
+    "daily_chars_per_user": 20000
   }
 }
