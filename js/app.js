@@ -1402,10 +1402,39 @@
         <p class="muted small-note">${reg ? "¿Ya tienen cuenta? " : "¿Primera vez? "}<button type="button" class="linkbtn" data-act="authMode" data-v="${reg ? "login" : "register"}">${reg ? "Inicia sesión" : "Crea una cuenta"}</button></p>
       </form></section>`;
   }
+  // progreso guardado en este navegador cuando se usó la app sin servidor (o antes de crear la cuenta)
+  function localSaved() {
+    try {
+      const raw = localStorage.getItem(KEY); if (!raw) return null;
+      const o = JSON.parse(raw); if (!o || !o.profile) return null;
+      const done = Object.keys(o.progress || {}).length;
+      if (!done && !(o.xp > 0)) return null;
+      if (localStorage.getItem("ae-imported") === String(o.updatedAt || 0)) return null;
+      return { state: Object.assign(DEF(), o), done };
+    } catch (e) { return null; }
+  }
+  async function importLocal(targetId) {
+    const L = localSaved(); if (!L) return;
+    const st = JSON.parse(JSON.stringify(L.state)); delete st.apiKey;
+    try {
+      if (targetId) await callApi("PUT", "profiles/" + targetId, { state: st });
+      else { const r = await callApi("POST", "profiles", { state: st }); targetId = r.id; }
+      remember("ae-imported", String(L.state.updatedAt || 0));
+      await loadMe(); await loadProfile(targetId); confetti(80); toast("¡Progreso recuperado!"); go("home");
+    } catch (e) { toast(e.message); }
+  }
   function vProfiles(p) {
-    const U = API.user || {};
+    const U = API.user || {}, L = localSaved();
+    const lv = L ? levelInfo(L.state.xp || 0) : null;
+    const rescue = L ? `<div class="card stack rescue"><h2>${I("gift")} Encontramos progreso guardado en este navegador</h2>
+      <div class="row"><span class="pp-av small">${av(L.state.profile.avatar || "bunny")}</span><span><b>${esc(L.state.profile.name || "Sin nombre")}</b> · nivel ${lv.lv} · ${L.state.coins || 0} monedas · ${L.done} lecciones hechas</span></div>
+      <p class="muted" style="margin:0">Es lo que se jugó en este equipo antes de entrar con tu cuenta. Pásalo a tu cuenta para no perderlo y verlo en cualquier dispositivo.</p>
+      ${p.importTo ? `<div class="confirm-row"><span>¿Reemplazar el progreso de ${esc((API.profiles.find((x) => x.id === p.importTo) || {}).profile?.name || "ese perfil")} por este?</span><button class="btn small" data-act="importLocal" data-id="${esc(p.importTo)}">Sí, reemplazar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>`
+        : `<div class="row"><button class="btn" data-act="importLocal">Recuperar como perfil nuevo</button>${API.profiles.map((x) => `<button class="btn ghost small" data-act="go" data-to="profiles" data-q="import" data-id="${esc(x.id)}">Pasarlo a ${esc((x.profile || {}).name || "este perfil")}</button>`).join("")}</div>`}
+    </div>` : "";
     return `<section class="stack profiles-page">
       <div class="center-head"><div class="mascot-mid">${ART.nova("wave")}</div><p class="eyebrow">Cuenta de ${esc(U.name || "")} · ${esc(U.email || "")}</p><h1>¿Quién va a estudiar hoy?</h1></div>
+      ${rescue}
       <div class="profile-grid">${API.profiles.map((x) => { const pr = x.profile || {}, L = levelInfo(x.xp || 0); return `<div class="profile-tile">
         <button class="profile-pick" data-act="pickProfile" data-id="${esc(x.id)}"><span class="pp-av">${av(pr.avatar || "bunny")}</span><b>${esc(pr.name || "Sin nombre")}</b><small>${pr.country ? esc(gradeLabel(pr.country, pr.grade)) : ""}</small><span class="tag">Nivel ${L.lv}</span></button>
         ${p.confirm === x.id ? `<div class="confirm-row"><span>¿Eliminar a ${esc(pr.name || "este perfil")} y todo su progreso?</span><button class="btn small danger" data-act="delProfileYes" data-id="${esc(x.id)}">Sí, eliminar</button><button class="btn ghost small" data-act="go" data-to="profiles">No</button></div>` : `<button class="linkbtn" data-act="delProfile" data-id="${esc(x.id)}">Eliminar</button>`}
@@ -1582,6 +1611,7 @@
         if (b.dataset.to === "maker" && maker.status !== "loading") maker = { status: "idle", course: null, error: "", form: null };
         if (b.dataset.to === "duel") duel = null;
         if (b.dataset.to === "plan" && b.dataset.edit) { planDraft = S.plan ? JSON.parse(JSON.stringify(S.plan.settings)) : null; }
+        if (b.dataset.to === "profiles" && b.dataset.q === "import") return go("profiles", { importTo: b.dataset.id });
         if (b.dataset.to === "admin") return go("admin", { reset: b.dataset.q === "reset" ? b.dataset.id : null, del: b.dataset.q === "del" ? b.dataset.id : null });
         return go(b.dataset.to, { id: b.dataset.id, q: b.dataset.q, edit: b.dataset.edit });
       }
@@ -1656,6 +1686,7 @@
       case "account": return accountMenu();
       case "authMode": return go("auth", { mode: b.dataset.v });
       case "pickProfile": return pickProfile(b.dataset.id);
+      case "importLocal": b.disabled = true; return importLocal(b.dataset.id || null);
       case "newProfile": S = DEF(); API.pid = null; draft = null; return go("setup", { first: true });
       case "delProfile": return go("profiles", { confirm: b.dataset.id });
       case "delProfileYes": return delProfile(b.dataset.id);
