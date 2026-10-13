@@ -67,7 +67,7 @@
   let S = DEF();
   try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); S = Object.assign(DEF(), o); if (!S.xp && S.stars) S.xp = S.stars * 10; if (!("coins" in o)) S.coins = S.stars; } } catch (e) { /* sin almacenamiento */ }
 
-  const API = { on: false, ai: false, aiTasks: [], token: null, user: null, profiles: [], pid: null, timer: null };
+  const API = { on: false, ai: false, voice: false, aiTasks: [], token: null, user: null, profiles: [], pid: null, timer: null };
   try { API.token = localStorage.getItem("ae-token"); API.pid = localStorage.getItem("ae-pid"); } catch (e) { /* */ }
   // Nube (dentro de claude.ai): guarda perfil, progreso y cursos por persona.
   const cloud = { db: null, uid: null, chain: Promise.resolve(), timer: null };
@@ -144,15 +144,40 @@
     } catch (e) { /* sin audio */ }
   }
   const sfx = { right: () => tone([660, 880, 1320]), wrong: () => tone([300, 220], 0.2, "sawtooth", 0.14), win: () => tone([523, 659, 784, 1046, 1318], 0.18, "triangle", 0.12), tap: () => tone([520], 0.05, "square"), step: () => tone([440], 0.06) };
-  function speak(text, lang = "es-ES") {
+  // Voz: ElevenLabs a través del servidor (si está configurada) y, si no, la voz del navegador.
+  const voiceCache = new Map(); let voiceAudio = null, voiceSeq = 0, voiceOff = false;
+  function stopVoice() { voiceSeq++; if (voiceAudio) { try { voiceAudio.pause(); } catch (e) { /* */ } voiceAudio = null; } if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) { /* */ } }
+  function speakBrowser(text, lang) {
     try {
       if (!("speechSynthesis" in window)) { toast("Este navegador no puede leer en voz alta"); return; }
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(lang.startsWith("en") ? String(text).replace(/\([^)]*\)/g, "").trim() : text); u.lang = lang; u.rate = lang.startsWith("en") ? 0.85 : 0.95;
-      const v = speechSynthesis.getVoices().find((x) => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0, 2)));
-      if (v) u.voice = v;
+      const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = lang.startsWith("en") ? 0.85 : 0.95;
+      // preferimos voces latinoamericanas y las "naturales"/en línea, que suenan menos robóticas
+      const vs = speechSynthesis.getVoices().filter((x) => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0, 2)));
+      const score = (x) => (/natural|neural|online|google|premium|enhanced/i.test(x.name) ? 2 : 0) + (lang.startsWith("es") && /(mx|us|419|co|ar|cl|pe)$/i.test(x.lang.replace("_", "-")) ? 3 : 0);
+      const v = vs.sort((a, b) => score(b) - score(a))[0];
+      if (v) { u.voice = v; u.lang = v.lang; }
       speechSynthesis.speak(u);
     } catch (e) { /* */ }
+  }
+  async function speak(text, lang = "es-ES") {
+    text = String(text || "").replace(/\s+/g, " ").trim();
+    if (lang.startsWith("en")) text = text.replace(/\([^)]*\)/g, "").trim();
+    if (!text) return;
+    stopVoice(); const seq = voiceSeq;
+    if (!API.voice || voiceOff || !API.token) return speakBrowser(text, lang);
+    const key = lang.slice(0, 2) + "|" + text;
+    try {
+      let url = voiceCache.get(key);
+      if (!url) {
+        const r = await fetch("api/tts", { method: "POST", headers: { "content-type": "application/json", authorization: "Bearer " + API.token, "x-auth-token": API.token }, body: JSON.stringify({ text, lang: lang.slice(0, 2) }) });
+        if (!r.ok) { const d = await r.json().catch(() => ({})); if (r.status === 429 || r.status === 503) { voiceOff = true; if (d.error) toast(d.error); } throw new Error(d.error || "tts"); }
+        url = URL.createObjectURL(await r.blob()); voiceCache.set(key, url);
+        if (voiceCache.size > 60) { const [k0, u0] = voiceCache.entries().next().value; URL.revokeObjectURL(u0); voiceCache.delete(k0); }
+      }
+      if (seq !== voiceSeq) return; // ya se pidió otra cosa
+      voiceAudio = new Audio(url); await voiceAudio.play();
+    } catch (e) { if (seq === voiceSeq) speakBrowser(text, lang); }
   }
   function confetti(amount = 160) {
     if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -367,7 +392,7 @@
     if (ref.type === "topic") {
       const x = TOPIC_INDEX[ref.id]; if (!x) return null;
       const lv = Math.min(3, Math.max(1, ref.lv || 1)), L = LEVELS[lv];
-      return { key: lkey(ref.id, lv), lv, g: x.g, levelName: L.name, title: x.t.title, subj: x.s, lesson: x.t.lesson, example: x.t.example, tip: x.t.tip, gen: x.t.gen, params: x.t.params, where: `${subjName(x.s)} · Lección ${lv} de 3: ${L.name}` };
+      return { key: lkey(ref.id, lv), tid: ref.id, lv, g: x.g, levelName: L.name, title: x.t.title, subj: x.s, lesson: x.t.lesson, example: x.t.example, tip: x.t.tip, gen: x.t.gen, params: x.t.params, where: `${subjName(x.s)} · Lección ${lv} de 3: ${L.name}` };
     }
     const c = findCourse(ref.cid); if (!c) return null;
     const ls = courseLessons(c), l = ls[ref.li]; if (!l) return null;
@@ -404,7 +429,7 @@
   const app = () => $("#app");
   let view = { name: "home", p: {} };
   let play = null; // estado de la partida
-  function go(name, p = {}) { stopTimer(); view = { name, p }; if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) { /* */ } render(); window.scrollTo(0, 0); }
+  function go(name, p = {}) { stopTimer(); view = { name, p }; stopVoice(); render(); window.scrollTo(0, 0); }
   function render() {
     if (API.on) {
       if (!API.user) view = { name: "auth", p: view.name === "auth" ? view.p : {} };
@@ -545,19 +570,53 @@
     ["juntos", "team", "Juntos", (P) => `Turnos entre ${esc(P.name)} y ${esc(P.adult)}, con marcador.`],
     ["reloj", "stopwatch", "Contrarreloj", () => "Responde antes de que acabe el tiempo: ¡más rápido, más XP!"]
   ];
+  /* ---------- lecciones completas (js/lessons/*.js, se cargan al abrir una lección) ---------- */
+  const lessonFiles = {};
+  function loadLessons(subj) {
+    if (lessonFiles[subj]) return lessonFiles[subj];
+    lessonFiles[subj] = new Promise((ok) => { const sc = document.createElement("script"); sc.src = `js/lessons/${subj}.js`; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+    return lessonFiles[subj];
+  }
+  const richLesson = (u) => (u && u.tid && window.CURRICULUM_LESSONS && window.CURRICULUM_LESSONS[u.tid]) || null;
+  let lsn = { key: null, step: 0, open: true, ans: {}, opts: {} };
+  function vRich(u, L, refJ) {
+    if (lsn.key !== u.key) lsn = { key: u.key, step: 0, open: u.lv === 1, ans: {}, opts: {} };
+    if (!lsn.open) return `<button class="btn ghost" data-act="lsnOpen">${I("book")} Repasar la lección completa (${L.steps.length} pasos)</button>`;
+    const n = L.steps.length, i = lsn.step, done = i >= n;
+    const dots = `<div class="lsn-dots">${L.steps.map((_, k) => `<button data-act="lsnGo" data-v="${k}" aria-label="Paso ${k + 1}" class="${k < i ? "done" : k === i ? "on" : ""}"></button>`).join("")}<button data-act="lsnGo" data-v="${n}" aria-label="Repaso final" class="${done ? "on" : ""}"></button></div>`;
+    let body;
+    if (!done) {
+      const st = L.steps[i];
+      body = `<article class="lsn-card"><p class="eyebrow">Paso ${i + 1} de ${n}</p><h2>${esc(st.title)}</h2><p>${esc(st.text)}</p>${st.example ? `<div class="example">${esc(st.example)}</div>` : ""}
+        <div class="row lsn-nav">${i ? `<button class="btn ghost small" data-act="lsnGo" data-v="${i - 1}">← Anterior</button>` : ""}<button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar</button><button class="btn small" data-act="lsnGo" data-v="${i + 1}">${i + 1 < n ? "Siguiente paso →" : "Terminar la lección →"}</button></div></article>`;
+    } else {
+      const check = L.check.map((q, k) => {
+        const opts = lsn.opts[k] || (lsn.opts[k] = shuffle([String(q[1]), ...q[2].map(String)])), a = lsn.ans[k];
+        return `<div class="lsn-q"><b>${esc(q[0])}</b><div class="lsn-opts">${opts.map((o) => `<button class="chip ${a != null && o === String(q[1]) ? "ok" : a === o ? "bad" : ""}" data-act="lsnAns" data-k="${k}" data-v="${esc(o)}" ${a != null ? "disabled" : ""}>${esc(o)}</button>`).join("")}</div>${a != null ? `<p class="${a === String(q[1]) ? "good" : "muted"}">${a === String(q[1]) ? "¡Muy bien! ✔" : `La respuesta es: <b>${esc(q[1])}</b>`}</p>` : ""}</div>`;
+      }).join("");
+      body = `<article class="lsn-card"><p class="eyebrow">Repaso final</p><h2>Lo más importante</h2>
+        <ul class="lsn-remember">${L.remember.map((r) => `<li>${I("star")}<span>${esc(r)}</span></li>`).join("")}</ul>
+        <div class="lsn-box warn"><b>${I("bulb")} ¡Ojo con este error!</b><p>${esc(L.mistake)}</p></div>
+        <div class="lsn-box fun"><b>${I("sparkle")} ¿Sabías que…?</b><p>${esc(L.fun)}</p></div>
+        <h3>Comprueba lo que aprendiste</h3>${check}
+        <div class="row lsn-nav"><button class="btn ghost small" data-act="lsnGo" data-v="${n - 1}">← Volver a los pasos</button></div></article>`;
+    }
+    return `<div class="lsn">${dots}${body}</div>`;
+  }
   function vLesson(p) {
     const ref = p.ref, u = unit(ref); if (!u) return `<p>No encontramos esa lección.</p>`;
-    const P = S.profile;
+    const P = S.profile, refJ = esc(JSON.stringify(ref));
+    if (u.tid && !lessonFiles[u.subj]) loadLessons(u.subj).then(() => { if (view.name === "lesson") render(); });
+    const L = richLesson(u);
     return `<section class="lesson">
-      <button class="btn ghost small" style="justify-self:start" data-act="back" data-ref='${esc(JSON.stringify(ref))}'>← Volver</button>
+      <button class="btn ghost small" style="justify-self:start" data-act="back" data-ref='${refJ}'>← Volver</button>
       <div class="lesson-head" style="${sv(u.subj)}"><span class="badge">${I(u.subj)}</span><div><p class="eyebrow">${esc(u.where)}</p><h1>${esc(u.title)}</h1></div></div>
-      <div class="teach"><span class="teach-art">${ART.nova("think")}</span><div class="bubble"><b>Aprendamos</b><br>${esc(u.lesson || "")}</div></div>
-      ${u.example ? `<div class="example">${esc(u.example)}</div>` : ""}
+      <div class="teach"><span class="teach-art">${ART.nova("think")}</span><div class="bubble"><b>Aprendamos</b><br>${esc(L ? L.hook : u.lesson || "")}</div></div>
+      ${L ? vRich(u, L, refJ) : `${u.example ? `<div class="example">${esc(u.example)}</div>` : ""}<div class="row"><button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar la lección</button></div>`}
       ${u.tip ? `<div class="parent"><b>${av(P.adultAvatar)} Para hacer juntos:</b> ${esc(u.tip)}</div>` : ""}
-      <div class="row"><button class="btn ghost small" data-act="readLesson" data-ref='${esc(JSON.stringify(ref))}'>🔊 Escuchar la lección</button></div>
       <h2>Elige el modo de juego</h2>
       <div class="mode-pick">${MODES.map(([k, ic, t, d]) => `<button class="mode" data-act="mode" data-v="${k}" aria-pressed="${playMode === k}"><span class="mi">${I(ic)}</span><b>${t}</b><span class="muted">${d(P)}</span></button>`).join("")}</div>
-      <button class="btn big" data-act="start" data-ref='${esc(JSON.stringify(ref))}' ${p.plan != null ? `data-plan="${p.plan}"` : ""}>¡A jugar! 🎮</button>
+      <button class="btn big" data-act="start" data-ref='${refJ}' ${p.plan != null ? `data-plan="${p.plan}"` : ""}>¡A jugar! 🎮</button>
     </section>`;
   }
 
@@ -1265,7 +1324,7 @@
       const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 2500);
       const r = await fetch("api/health", { signal: ctl.signal }); clearTimeout(t);
       const d = r.ok ? await r.json() : null; if (!d || !d.ok) return false;
-      API.on = true; API.ai = !!d.ai; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true;
+      API.on = true; API.ai = !!d.ai; API.voice = !!d.voice; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true;
     } catch (e) { return false; }
   }
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
@@ -1453,7 +1512,14 @@
       case "start": return startPlay(ref, b.dataset.plan != null ? +b.dataset.plan : null, playMode);
       case "together": return startPlay(dailySuggestions()[0], null, "juntos");
       case "quick": return startPlay(dailySuggestions()[0], null, "solo");
-      case "readLesson": { const u = unit(ref); return speak(`${u.title}. ${u.lesson || ""} ${u.example || ""}`, "es-ES"); }
+      case "readLesson": {
+        const u = unit(ref), L = richLesson(u);
+        if (L && lsn.key === u.key && lsn.step < L.steps.length) { const st = L.steps[lsn.step]; return speak(`${lsn.step === 0 ? L.hook + " " : ""}${st.title}. ${st.text} ${st.example || ""}`, "es-ES"); }
+        return speak(`${u.title}. ${u.lesson || ""} ${u.example || ""}`, "es-ES");
+      }
+      case "lsnOpen": lsn.open = true; return render();
+      case "lsnGo": { lsn.step = Math.max(0, +b.dataset.v); stopVoice(); sfx.step(); const y = window.scrollY; render(); const c = document.querySelector(".lsn"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); else window.scrollTo(0, y); return; }
+      case "lsnAns": { const k = +b.dataset.k, L = richLesson(unit(view.p.ref)); if (!L || lsn.ans[k] != null) return; lsn.ans[k] = b.dataset.v; if (b.dataset.v === String(L.check[k][1])) sfx.right(); else sfx.wrong(); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
       case "answer": return onAnswer(b);
       case "select": return selectOpt(b);
       case "check": return checkSel();

@@ -636,3 +636,30 @@ svg.avi { border-radius: 50%; }
 .av-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .av-tabs .chip[aria-pressed="true"] { border-color: var(--cyan); background: var(--sel-bg); color: var(--cyan-ink); }
 .av-row h3 small { font-size: .72rem; letter-spacing: 0; text-transform: none; color: var(--cyan-ink); margin-left: 6px; }
+/* lecciones completas paso a paso */
+.lsn { display: grid; gap: 12px; }
+.lsn-dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.lsn-dots button { flex: 1 1 24px; max-width: 90px; height: 10px; border-radius: 99px; border: 0; background: var(--stroke); cursor: pointer; padding: 0; }
+.lsn-dots button.done { background: #58cc02; }
+.lsn-dots button.on { background: var(--cyan); }
+.lsn-card { border: 2px solid var(--stroke); border-bottom-width: 5px; border-radius: var(--r); background: var(--panel); padding: 18px 20px; display: grid; gap: 12px; animation: pop .3s; }
+.lsn-card h2 { margin: 0; font-size: clamp(1.2rem, 3.4vw, 1.5rem); text-wrap: balance; }
+.lsn-card h3 { margin: 6px 0 0; }
+.lsn-card > p { font-size: 1.08rem; line-height: 1.6; margin: 0; max-width: 68ch; }
+.lsn-nav { justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.lsn-remember { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.lsn-remember li { display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: start; font-weight: 700; line-height: 1.45; }
+.lsn-remember .ico { width: 22px; height: 22px; }
+.lsn-box { border-radius: 14px; padding: 12px 14px; border: 2px solid var(--stroke); }
+.lsn-box p { margin: 6px 0 0; line-height: 1.5; }
+.lsn-box b .ico { width: 1.3em; height: 1.3em; vertical-align: -.3em; }
+.lsn-box.warn { background: color-mix(in srgb, #ffc800 14%, var(--panel)); border-color: color-mix(in srgb, #ffc800 55%, var(--stroke)); }
+.lsn-box.fun { background: color-mix(in srgb, #ce82ff 12%, var(--panel)); border-color: color-mix(in srgb, #ce82ff 50%, var(--stroke)); }
+.lsn-q { display: grid; gap: 8px; padding: 10px 0; border-top: 2px dashed var(--stroke); }
+.lsn-q p { margin: 0; font-weight: 800; }
+.lsn-q p.good { color: var(--good-ink); }
+.lsn-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.lsn-opts .chip { font-size: 1rem; }
+.lsn-opts .chip.ok { border-color: #58cc02; background: var(--good-bg); color: var(--good-ink); }
+.lsn-opts .chip.bad { border-color: #ff4b4b; background: var(--bad-bg); color: var(--bad-ink); }
+.lsn-opts .chip:disabled { cursor: default; opacity: 1; }
