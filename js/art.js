@@ -224,22 +224,24 @@
   /* ---------- creador de avatar: "c:piel.peinado.colorPelo.ojos.boca.accesorio.camiseta.fondo" ---------- */
   const PARTS = {
     skin: ["#ffdbb4", "#f1c27d", "#e0ac69", "#c68642", "#8d5524", "#5c3a21"],
-    hair: ["Calvo", "Corto", "Puntas", "Largo", "Afro", "Coletas", "Moño", "Cresta"],
+    hair: ["Calvo", "Corto", "Puntas", "Largo", "Afro", "Coletas", "Moño", "Cresta", "Rizado", "Trenza"],
     hairColor: ["#2b2b2b", "#7a4a2a", "#f2c14e", "#c0392b", "#1cb0f6", "#ff4b9b", "#a568cc", "#58cc02"],
     eyes: ["Puntos", "Felices", "Brillantes", "Guiño", "Estrellas", "Dormilones"],
     mouth: ["Sonrisa", "Carcajada", "Lengua", "Sorpresa", "Pícara"],
-    acc: ["Nada", "Gafas", "Gafas de sol", "Gorra", "Corona", "Audífonos", "Moño", "Flor", "Gorro de fiesta"],
+    acc: ["Nada", "Gafas", "Gafas de sol", "Gorra", "Corona", "Audífonos", "Moño", "Flor", "Gorro de fiesta", "Gorro de lana", "Diadema", "Casco espacial"],
+    extra: ["Nada", "Pecas", "Curita", "Rayo", "Corazón", "Bigote"],
+    print: ["Nada", "Estrella", "Corazón", "Rayo", "Número 1", "Flor"],
     shirt: ["#58cc02", "#1cb0f6", "#ff4b4b", "#ffc800", "#ce82ff", "#ff9600", "#ff4b9b", "#3c3c3c"],
     bg: ["#ddf4ff", "#d7ffb8", "#fff5cc", "#ffdfe0", "#f1d4ff", "#ffe8cc", "#e5e5e5", "#c9f2ff"]
   };
-  const KEYS = ["skin", "hair", "hairColor", "eyes", "mouth", "acc", "shirt", "bg"];
+  const KEYS = ["skin", "hair", "hairColor", "eyes", "mouth", "acc", "shirt", "bg", "extra", "print"];
   const parseC = (v) => { const n = String(v).slice(2).split(".").map(Number); const o = {}; KEYS.forEach((k, i) => { const max = PARTS[k].length; o[k] = Number.isInteger(n[i]) && n[i] >= 0 && n[i] < max ? n[i] : 0; }); return o; };
   const encodeC = (o) => "c:" + KEYS.map((k) => o[k] || 0).join(".");
   const randomC = () => { const o = {}; KEYS.forEach((k) => { o[k] = Math.floor(Math.random() * PARTS[k].length); }); if (o.acc && Math.random() < 0.3) o.acc = 0; return encodeC(o); };
   function custom(o) {
     const sk = PARTS.skin[o.skin], hc = PARTS.hairColor[o.hairColor], h = o.hair, ink = "#3c3c3c";
-    const back = { 3: `<path d="M14 30 Q13 11 32 11 Q51 11 50 30 V54 H42 V34 H22 V54 H14Z" fill="${hc}"/>`, 4: `<circle cx="32" cy="24" r="20" fill="${hc}"/><circle cx="15" cy="32" r="7" fill="${hc}"/><circle cx="49" cy="32" r="7" fill="${hc}"/>`, 5: `<circle cx="11" cy="31" r="6.5" fill="${hc}"/><circle cx="53" cy="31" r="6.5" fill="${hc}"/><circle cx="16" cy="30" r="2" fill="#ff4b9b"/><circle cx="48" cy="30" r="2" fill="#ff4b9b"/>`, 6: `<circle cx="32" cy="9" r="7.5" fill="${hc}"/>` }[h] || "";
-    const front = { 1: `<path d="M17 28 Q16 12 32 12 Q48 12 47 28 Q42 18 32 19 Q22 18 17 28Z" fill="${hc}"/>`, 2: `<path d="M17 27 L18 15 L23 18 L26 9 L30 16 L34 8 L37 16 L42 10 L43 18 L47 16 L47 27 Q40 19 32 20 Q24 19 17 27Z" fill="${hc}"/>`, 3: `<path d="M17 29 Q16 12 32 12 Q48 12 47 29 Q44 19 36 18 Q30 24 18 29Z" fill="${hc}"/>`, 4: `<path d="M17 26 Q18 12 32 12 Q46 12 47 26 Q40 20 32 20 Q24 20 17 26Z" fill="${hc}"/>`, 5: `<path d="M17 27 Q16 12 32 12 Q48 12 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/><path d="M32 12 V20" stroke="${sk}" stroke-width="1.5"/>`, 6: `<path d="M17 27 Q16 13 32 13 Q48 13 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/>`, 7: `<path d="M28 5 Q32 2 36 5 L36 21 L28 21Z" fill="${hc}"/>` }[h] || "";
+    const back = { 3: `<path d="M14 30 Q13 11 32 11 Q51 11 50 30 V54 H42 V34 H22 V54 H14Z" fill="${hc}"/>`, 4: `<circle cx="32" cy="24" r="20" fill="${hc}"/><circle cx="15" cy="32" r="7" fill="${hc}"/><circle cx="49" cy="32" r="7" fill="${hc}"/>`, 5: `<circle cx="11" cy="31" r="6.5" fill="${hc}"/><circle cx="53" cy="31" r="6.5" fill="${hc}"/><circle cx="16" cy="30" r="2" fill="#ff4b9b"/><circle cx="48" cy="30" r="2" fill="#ff4b9b"/>`, 6: `<circle cx="32" cy="9" r="7.5" fill="${hc}"/>`, 9: `<path d="M44 26 Q52 34 48 44 Q52 50 47 56 Q44 52 46 46 Q42 40 44 26Z" fill="${hc}"/><circle cx="47" cy="57" r="2.2" fill="#ff4b9b"/>` }[h] || "";
+    const front = { 1: `<path d="M17 28 Q16 12 32 12 Q48 12 47 28 Q42 18 32 19 Q22 18 17 28Z" fill="${hc}"/>`, 2: `<path d="M17 27 L18 15 L23 18 L26 9 L30 16 L34 8 L37 16 L42 10 L43 18 L47 16 L47 27 Q40 19 32 20 Q24 19 17 27Z" fill="${hc}"/>`, 3: `<path d="M17 29 Q16 12 32 12 Q48 12 47 29 Q44 19 36 18 Q30 24 18 29Z" fill="${hc}"/>`, 4: `<path d="M17 26 Q18 12 32 12 Q46 12 47 26 Q40 20 32 20 Q24 20 17 26Z" fill="${hc}"/>`, 5: `<path d="M17 27 Q16 12 32 12 Q48 12 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/><path d="M32 12 V20" stroke="${sk}" stroke-width="1.5"/>`, 6: `<path d="M17 27 Q16 13 32 13 Q48 13 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/>`, 7: `<path d="M28 5 Q32 2 36 5 L36 21 L28 21Z" fill="${hc}"/>`, 8: `<g fill="${hc}"><circle cx="19" cy="22" r="5"/><circle cx="24" cy="16" r="5.5"/><circle cx="31" cy="13.5" r="5.5"/><circle cx="38" cy="15" r="5.5"/><circle cx="44" cy="20" r="5"/><circle cx="46.5" cy="26" r="3.5"/><circle cx="17.5" cy="27" r="3.5"/></g>`, 9: `<path d="M17 27 Q16 12 32 12 Q48 12 47 27 Q40 20 32 21 Q24 20 17 27Z" fill="${hc}"/>` }[h] || "";
     const ex = [26, 38], ey = 30;
     const eyes = [
       ex.map((x) => `<circle cx="${x}" cy="${ey}" r="2.6" fill="${ink}"/><circle cx="${x + .9}" cy="${ey - 1}" r=".8" fill="#fff"/>`).join(""),
@@ -265,13 +267,30 @@
       `<path d="M14.5 30 Q14.5 9 32 9 Q49.5 9 49.5 30" stroke="${ink}" stroke-width="3.5" fill="none"/><rect x="10.5" y="25" width="7" height="12" rx="3.5" fill="#1cb0f6"/><rect x="46.5" y="25" width="7" height="12" rx="3.5" fill="#1cb0f6"/>`,
       `<path d="M38 13 L46 8 L46 18Z M38 13 L30 8 L30 18Z" fill="#ff4b9b"/><circle cx="38" cy="13" r="2.4" fill="#d93d82"/>`,
       `<g transform="translate(45 14)"><circle cx="0" cy="-4" r="3.2" fill="#ff8fa3"/><circle cx="4" cy="0" r="3.2" fill="#ff8fa3"/><circle cx="0" cy="4" r="3.2" fill="#ff8fa3"/><circle cx="-4" cy="0" r="3.2" fill="#ff8fa3"/><circle r="2.6" fill="#ffc800"/></g>`,
-      `<path d="M23 15 L32 -2 L41 15Z" fill="#ce82ff"/><path d="M26 9 L38 9 M24.5 12 L39.5 12" stroke="#ffc800" stroke-width="1.6"/><circle cx="32" cy="-1" r="2.6" fill="#ffc800"/>`
+      `<path d="M23 15 L32 -2 L41 15Z" fill="#ce82ff"/><path d="M26 9 L38 9 M24.5 12 L39.5 12" stroke="#ffc800" stroke-width="1.6"/><circle cx="32" cy="-1" r="2.6" fill="#ffc800"/>`,
+      `<path d="M15.5 25 Q15 8 32 8 Q49 8 48.5 25Z" fill="#1cb0f6"/><path d="M15 21 H49 V26 Q32 23 15 26Z" fill="#1899d6"/><path d="M20 16 h24 M19 12.5 h26" stroke="#fff" stroke-width="1.4" opacity=".5"/><circle cx="32" cy="6" r="4" fill="#fff"/>`,
+      `<path d="M16.5 24 Q17 10 32 10 Q47 10 47.5 24" stroke="#ff4b9b" stroke-width="3.6" fill="none" stroke-linecap="round"/><circle cx="24" cy="12.5" r="2.4" fill="#ffc800"/>`,
+      `<circle cx="32" cy="30" r="24" fill="#bfe9ff" opacity=".28" stroke="#fff" stroke-width="2.5"/><path d="M18 20 Q22 12 30 10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".9"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#afafaf"/>`
     ][o.acc];
+    const extra = ["",
+      `<g fill="#a0522d" opacity=".55"><circle cx="20" cy="34" r=".9"/><circle cx="22.5" cy="35.5" r=".9"/><circle cx="19.5" cy="37" r=".9"/><circle cx="44" cy="34" r=".9"/><circle cx="41.5" cy="35.5" r=".9"/><circle cx="44.5" cy="37" r=".9"/></g>`,
+      `<g transform="rotate(-25 21 36)"><rect x="16" y="34" width="10" height="4.5" rx="2" fill="#ffd08a"/><circle cx="20" cy="36.2" r=".6" fill="#e5a000"/><circle cx="22" cy="36.2" r=".6" fill="#e5a000"/></g>`,
+      `<path d="M44 31 L41 36 H44 L42 41 L47 35 H44 L46 31Z" fill="#ffc800"/>`,
+      `<path d="M43 39 l-3 -3 a1.9 1.9 0 0 1 3 -2.2 a1.9 1.9 0 0 1 3 2.2z" fill="#ff4b4b"/>`,
+      `<path d="M25 36 Q28.5 33.5 32 35.5 Q35.5 33.5 39 36 Q35.5 37.5 32 36.3 Q28.5 37.5 25 36Z" fill="#3c3c3c"/>`
+    ][o.extra];
+    const print = ["",
+      `<path d="M32 51 l1.8 3.7 4 .6 -2.9 2.8.7 4 -3.6 -1.9 -3.6 1.9.7 -4 -2.9 -2.8 4 -.6z" fill="#fff"/>`,
+      `<path d="M32 61 l-5 -5 a3 3 0 0 1 5 -3.5 a3 3 0 0 1 5 3.5z" fill="#fff"/>`,
+      `<path d="M33.5 51 L28.5 57.5 H32 L30.5 63 L36 56 H32.5 L34.5 51Z" fill="#ffc800"/>`,
+      `<text x="32" y="61.5" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="10" fill="#fff">1</text>`,
+      `<g fill="#fff"><circle cx="32" cy="53.5" r="2"/><circle cx="35" cy="56.5" r="2"/><circle cx="32" cy="59.5" r="2"/><circle cx="29" cy="56.5" r="2"/></g><circle cx="32" cy="56.5" r="1.6" fill="#ffc800"/>`
+    ][o.print];
     return `<circle cx="32" cy="32" r="32" fill="${PARTS.bg[o.bg]}"/>${back}
-      <path d="M9 66 Q11 46 32 46 Q53 46 55 66Z" fill="${PARTS.shirt[o.shirt]}"/><path d="M26 46 Q32 52 38 46" fill="${sk}"/>
+      <path d="M9 66 Q11 46 32 46 Q53 46 55 66Z" fill="${PARTS.shirt[o.shirt]}"/><path d="M26 46 Q32 52 38 46" fill="${sk}"/>${print}
       <rect x="28" y="40" width="8" height="8" fill="${sk}"/><circle cx="16.5" cy="31" r="3.6" fill="${sk}"/><circle cx="47.5" cy="31" r="3.6" fill="${sk}"/>
       <ellipse cx="32" cy="30" rx="15.5" ry="16" fill="${sk}"/>${front}
-      <circle cx="21" cy="36" r="2.8" fill="#ff8fa3" opacity=".5"/><circle cx="43" cy="36" r="2.8" fill="#ff8fa3" opacity=".5"/>${eyes}${mouth}${acc}`;
+      <circle cx="21" cy="36" r="2.8" fill="#ff8fa3" opacity=".5"/><circle cx="43" cy="36" r="2.8" fill="#ff8fa3" opacity=".5"/>${eyes}${mouth}${extra}${acc}`;
   }
 
   const KID_AVATARS = ["fox", "panda", "lion", "frog", "cat", "bunny", "bear", "owl", "penguin", "dino", "unicorn", "octopus"];

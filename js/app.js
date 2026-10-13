@@ -1421,7 +1421,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
 
   /* ================= creador de avatar ================= */
   let avd = null; // { o: partes, from: "setup" | "profile" }
-  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo" };
+  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo", extra: "Detalles", print: "Dibujo de la camiseta" };
   function vAvatar(p) {
     const from = p.q === "setup" || !S.profile ? "setup" : "profile";
     if (!avd || avd.from !== from) { const cur = from === "setup" ? (draft && draft.avatar) : S.profile.avatar; avd = { from, o: ART.parseC(String(cur || "").startsWith("c:") ? cur : ART.randomC()) }; }
@@ -1439,7 +1439,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       <div class="av-preview card"><div class="av-big">${av(code)}</div><h2>${esc((from === "setup" ? draft && draft.name : S.profile.name) || "Mi avatar")}</h2>
         <div class="row" style="justify-content:center"><button class="btn ghost" data-act="avRandom">${I("sparkle")} Sorpresa</button><button class="btn" data-act="avSave">Usar este avatar</button></div>
         <button class="linkbtn" data-act="avCancel">Cancelar</button></div>
-      <div class="av-parts">${ART.AVKEYS.map(row).join("")}</div>
+      <div class="av-parts">${["skin", "hair", "hairColor", "eyes", "mouth", "extra", "acc", "shirt", "print", "bg"].map(row).join("")}</div>
     </section>`;
   }
 
