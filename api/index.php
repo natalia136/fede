@@ -8,7 +8,10 @@ declare(strict_types=1);
 $config = is_file(__DIR__ . '/config.php') ? (require __DIR__ . '/config.php') : [];
 $DATA_DIR = rtrim($config['data_dir'] ?? (__DIR__ . '/../data'), '/');
 $DB_FILE = $DATA_DIR . '/db.json';
-$AI_KEY = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
+$AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-opus-5-5', 'effort' => 'medium', 'max_tokens' => 16000, 'daily_limit_per_user' => 40, 'tasks' => ['course' => true, 'practice' => true, 'explain' => true]], $config['ai'] ?? []);
+if ($AI['api_key'] === '') $AI['api_key'] = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
+$AI_KEY = ($AI['enabled'] && $AI['api_key'] !== '') ? $AI['api_key'] : '';
+$AI_TASKS = $AI_KEY === '' ? [] : array_keys(array_filter($AI['tasks'] ?? []));
 const SESSION_DAYS = 30;
 const MAX_BODY = 2097152;
 
@@ -91,7 +94,7 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $ip = $_SERVER['REMOTE_ADDR'] ?? '';
 $EMAIL = '/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/';
 
-if ($method === 'GET' && ($parts[0] ?? '') === 'health') send(200, ['ok' => true, 'ai' => $AI_KEY !== '']);
+if ($method === 'GET' && ($parts[0] ?? '') === 'health') send(200, ['ok' => true, 'ai' => $AI_KEY !== '', 'aiTasks' => $AI_TASKS, 'appName' => $config['app_name'] ?? null]);
 
 if ($method === 'POST' && ($parts[0] ?? '') === 'register') {
   $b = body(); $email = strtolower(trim((string) ($b['email'] ?? ''))); $name = mb_substr(trim((string) ($b['name'] ?? '')), 0, 40); $pw = (string) ($b['password'] ?? '');
@@ -127,8 +130,42 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'login') {
   send(200, $r);
 }
 
+/* ---------- IA: tareas definidas en ai/prompts.json ---------- */
+if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
+  $b = body(); $task = (string) ($b['task'] ?? ''); $vars = is_array($b['vars'] ?? null) ? $b['vars'] : [];
+  $limit = (int) $AI['daily_limit_per_user'];
+  if ($AI_KEY === '') fail(503, 'La IA no está configurada en el servidor.');
+  if (!in_array($task, $AI_TASKS, true)) fail(400, 'Ese uso de la IA no está activado.');
+  $check = with_db(function (&$db) use ($limit) {
+    $user = &auth_user($db); if (!$user) return 'auth';
+    $day = gmdate('Y-m-d'); $used = $db['ai_usage'][$user['id']][$day] ?? 0;
+    if ($limit > 0 && $used >= $limit) return 'limit';
+    $db['ai_usage'] = [$user['id'] => [$day => $used + 1]] + array_map(fn($d) => array_intersect_key($d, [$day => 1]), $db['ai_usage'] ?? []);
+    return 'ok';
+  });
+  if ($check === 'auth') fail(401, 'Tu sesión terminó. Inicia sesión de nuevo.');
+  if ($check === 'limit') fail(429, "Llegaste al límite de $limit usos de IA por hoy. Vuelve mañana.");
+  $prompts = json_decode((string) @file_get_contents(__DIR__ . '/../ai/prompts.json'), true) ?: [];
+  $def = $prompts[$task] ?? null; if (!$def || empty($def['template'])) fail(500, 'Falta la instrucción de esa tarea en ai/prompts.json.');
+  $prompt = preg_replace_callback('/\{\{(\w+)\}\}/', function ($m) use ($vars, $def) {
+    if (!in_array($m[1], $def['vars'] ?? [], true)) return '';
+    $v = $vars[$m[1]] ?? ''; return mb_substr(is_scalar($v) ? (string) $v : '', 0, 2000);
+  }, $def['template']);
+  $ch = curl_init('https://api.anthropic.com/v1/messages');
+  curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 240,
+    CURLOPT_HTTPHEADER => ['content-type: application/json', 'x-api-key: ' . $AI_KEY, 'anthropic-version: 2023-06-01', 'anthropic-beta: server-side-fallback-2026-07-01'],
+    CURLOPT_POSTFIELDS => json_encode(['model' => $AI['model'], 'max_tokens' => (int) $AI['max_tokens'], 'output_config' => ['effort' => $AI['effort']], 'fallbacks' => 'default', 'messages' => [['role' => 'user', 'content' => $prompt]]])]);
+  $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $cerr = curl_error($ch); curl_close($ch);
+  if ($raw === false) fail(502, 'No se pudo conectar con la IA: ' . $cerr);
+  $data = json_decode((string) $raw, true) ?: [];
+  if ($code < 200 || $code >= 300) fail(502, $data['error']['message'] ?? "Error $code de la IA.");
+  if (($data['stop_reason'] ?? '') === 'refusal') fail(422, 'refusal');
+  $text = ''; foreach ($data['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $text .= $c['text'];
+  send(200, ['text' => $text]);
+}
+
 /* ---------- rutas con sesión ---------- */
-$resp = with_db(function (&$db) use ($parts, $method, $AI_KEY) {
+$resp = with_db(function (&$db) use ($parts, $method) {
   $user = &auth_user($db);
   if (!$user) return [401, ['error' => 'Tu sesión terminó. Inicia sesión de nuevo.']];
   $p0 = $parts[0] ?? ''; $p1 = $parts[1] ?? null;
@@ -166,21 +203,6 @@ $resp = with_db(function (&$db) use ($parts, $method, $AI_KEY) {
       if ($method === 'DELETE') { array_splice($db['profiles'], $i, 1); return [200, ['ok' => true]]; }
     }
     return [404, ['error' => 'Perfil no encontrado.']];
-  }
-
-  if ($method === 'POST' && $p0 === 'ai') {
-    if ($AI_KEY === '') return [503, ['error' => 'La IA no está configurada en el servidor.']];
-    $b = body(); $prompt = mb_substr((string) ($b['prompt'] ?? ''), 0, 20000);
-    $ch = curl_init('https://api.anthropic.com/v1/messages');
-    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 180,
-      CURLOPT_HTTPHEADER => ['content-type: application/json', 'x-api-key: ' . $AI_KEY, 'anthropic-version: 2023-06-01', 'anthropic-beta: server-side-fallback-2026-07-01'],
-      CURLOPT_POSTFIELDS => json_encode(['model' => 'claude-opus-5-5', 'max_tokens' => 16000, 'output_config' => ['effort' => 'medium'], 'fallbacks' => 'default', 'messages' => [['role' => 'user', 'content' => $prompt]]])]);
-    $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
-    $data = json_decode((string) $raw, true) ?: [];
-    if ($code < 200 || $code >= 300) return [502, ['error' => $data['error']['message'] ?? "Error $code de la IA."]];
-    if (($data['stop_reason'] ?? '') === 'refusal') return [422, ['error' => 'refusal']];
-    $text = ''; foreach ($data['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $text .= $c['text'];
-    return [200, ['text' => $text]];
   }
 
   if ($p0 === 'admin') {

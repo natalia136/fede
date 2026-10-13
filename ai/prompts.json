@@ -1,0 +1,39 @@
+{
+  "_info": "Instrucciones de cada uso de la IA. Cada tarea define las variables que la app le envía ({{variable}}) y la instrucción. Para agregar un uso nuevo, crea otra tarea aquí y actívala en la configuración del servidor.",
+  "course": {
+    "name": "Crear un curso completo",
+    "vars": [
+      "country",
+      "framework",
+      "grade",
+      "topic",
+      "subject",
+      "lessons",
+      "notes",
+      "kid"
+    ],
+    "template": "Eres un pedagogo experto en educación primaria de {{country}}. Diseña un curso corto, divertido y riguroso para estudiar en casa entre un niño o niña y un adulto.\n\nTema pedido: \"{{topic}}\"\nPaís: {{country}} (marco curricular de referencia: {{framework}})\nGrado: {{grade}}\nMateria: {{subject}}\nNúmero de lecciones: {{lessons}}\nNotas del adulto para personalizar: {{notes}}\nNombre del estudiante (úsalo en algunos enunciados): {{kid}}\n\nReglas:\n- Español claro para la edad. Si el tema es de inglés, las actividades pueden estar en inglés con instrucciones en español.\n- Las lecciones van de lo más fácil a lo más difícil.\n- Cada lección tiene 6 actividades. Usa mayoritariamente \"choice\" (opción múltiple con exactamente 3 respuestas incorrectas plausibles) y 1 o 2 de tipo \"order\" (ordenar pasos o palabras, de 3 a 6 elementos en el orden correcto).\n- Verifica cada cálculo: la respuesta correcta debe ser exacta y ninguna incorrecta puede ser también correcta.\n- \"explain\" es una pista breve que explica por qué la respuesta es correcta.\n- \"tip\" es una actividad práctica para hacer juntos en casa con materiales comunes.\n- Responde SOLO con JSON válido, sin texto adicional, con esta forma:\n{\"title\":\"...\",\"emoji\":\"un emoji\",\"subject\":\"mat|ing|len|cie|soc|tec\",\"summary\":\"una frase\",\"parentGuide\":\"2-3 frases para el adulto sobre cómo acompañar y errores comunes\",\"lessons\":[{\"title\":\"...\",\"explanation\":\"explicación de 2-4 frases\",\"example\":\"un ejemplo resuelto corto\",\"tip\":\"...\",\"activities\":[{\"type\":\"choice\",\"q\":\"pregunta\",\"answer\":\"respuesta correcta\",\"wrong\":[\"incorrecta 1\",\"incorrecta 2\",\"incorrecta 3\"],\"emoji\":\"emoji opcional\",\"explain\":\"...\"},{\"type\":\"order\",\"q\":\"instrucción\",\"items\":[\"primero\",\"segundo\",\"tercero\"]}]}]}"
+  },
+  "practice": {
+    "name": "Más ejercicios de refuerzo",
+    "vars": [
+      "lesson",
+      "course",
+      "grade",
+      "country",
+      "explanation"
+    ],
+    "template": "Crea 6 actividades NUEVAS y distintas de refuerzo para la lección \"{{lesson}}\" del curso \"{{course}}\" ({{grade}}, {{country}}). Explicación de la lección: {{explanation}}. El estudiante tuvo dificultades, así que empieza un poco más fácil y sube gradualmente. Verifica cada respuesta. Responde SOLO con JSON: {\"activities\":[{\"type\":\"choice\",\"q\":\"...\",\"answer\":\"...\",\"wrong\":[\"...\",\"...\",\"...\"],\"emoji\":\"\",\"explain\":\"...\"}]}"
+  },
+  "explain": {
+    "name": "Nova, explícame",
+    "vars": [
+      "grade",
+      "country",
+      "question",
+      "options",
+      "answer"
+    ],
+    "template": "Eres Nova, un tutor amable para un niño o niña de {{grade}} en {{country}}. Respondió mal esta pregunta.\nPregunta: {{question}}\nOpciones: {{options}}\nRespuesta correcta: {{answer}}\nExplica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta correcta es esa, con un truco para recordarlo. Háblale de tú. Responde SOLO con JSON: {\"explicacion\":\"...\"}"
+  }
+}

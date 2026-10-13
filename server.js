@@ -13,7 +13,11 @@ const DB_FILE = path.join(DATA_DIR, "db.json");
 const PORT = +process.env.PORT || 3000;
 const SESSION_DAYS = 30;
 const MAX_BODY = 2 * 1024 * 1024;
-const PUBLIC = new Set(["/index.html", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].map((k) => `/js/content/${k}.js`)]);
+let CONFIG = {}; try { CONFIG = JSON.parse(fs.readFileSync(path.join(ROOT, "config.json"), "utf8")); } catch (e) { /* sin config.json */ }
+const AI = Object.assign({ enabled: true, api_key: "", model: "claude-opus-5-5", effort: "medium", max_tokens: 16000, daily_limit_per_user: 40, tasks: { course: true, practice: true, explain: true } }, CONFIG.ai || {});
+const AI_KEY = AI.enabled ? (AI.api_key || process.env.ANTHROPIC_API_KEY || "") : "";
+const AI_TASKS = AI_KEY ? Object.keys(AI.tasks || {}).filter((k) => AI.tasks[k]) : [];
+const PUBLIC = new Set(["/index.html", "/ai/prompts.json", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].map((k) => `/js/content/${k}.js`)]);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 
 /* ---------- base de datos en un archivo JSON ---------- */
@@ -91,7 +95,7 @@ async function api(req, res, pathname) {
   const method = req.method, ip = req.socket.remoteAddress || "";
   const parts = pathname.split("/").filter(Boolean).slice(1); // sin "api"
 
-  if (method === "GET" && parts[0] === "health") return send(res, 200, { ok: true, ai: !!process.env.ANTHROPIC_API_KEY });
+  if (method === "GET" && parts[0] === "health") return send(res, 200, { ok: true, ai: !!AI_KEY, aiTasks: AI_TASKS, appName: CONFIG.app_name || null });
 
   if (method === "POST" && parts[0] === "register") {
     const b = await readJson(req), email = String(b.email || "").trim().toLowerCase(), name = String(b.name || "").trim().slice(0, 40), pw = String(b.password || "");
@@ -148,14 +152,22 @@ async function api(req, res, pathname) {
     if (method === "DELETE") { db.profiles = db.profiles.filter((x) => x !== p); persist(); return send(res, 200, { ok: true }); }
   }
 
-  // IA a través del servidor (la clave nunca llega al navegador)
+  // IA: tareas definidas en ai/prompts.json; la clave vive solo en config.json
   if (method === "POST" && parts[0] === "ai") {
-    const key = process.env.ANTHROPIC_API_KEY; if (!key) return fail(res, 503, "La IA no está configurada en el servidor.");
-    const b = await readJson(req), prompt = String(b.prompt || "").slice(0, 20000);
+    if (!AI_KEY) return fail(res, 503, "La IA no está configurada en el servidor.");
+    const b = await readJson(req), task = String(b.task || ""), vars = b.vars && typeof b.vars === "object" ? b.vars : {};
+    if (!AI_TASKS.includes(task)) return fail(res, 400, "Ese uso de la IA no está activado.");
+    const day = new Date().toISOString().slice(0, 10), limit = +AI.daily_limit_per_user || 0;
+    db.ai_usage = db.ai_usage || {}; const used = (db.ai_usage[user.id] || {})[day] || 0;
+    if (limit && used >= limit) return fail(res, 429, `Llegaste al límite de ${limit} usos de IA por hoy. Vuelve mañana.`);
+    db.ai_usage[user.id] = { [day]: used + 1 }; persist();
+    let prompts = {}; try { prompts = JSON.parse(fs.readFileSync(path.join(ROOT, "ai/prompts.json"), "utf8")); } catch (e) { /* */ }
+    const def = prompts[task]; if (!def || !def.template) return fail(res, 500, "Falta la instrucción de esa tarea en ai/prompts.json.");
+    const prompt = def.template.replace(/\{\{(\w+)\}\}/g, (_, k) => ((def.vars || []).includes(k) ? String(vars[k] ?? "").slice(0, 2000) : ""));
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
-      headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-beta": "server-side-fallback-2026-07-01" },
-      body: JSON.stringify({ model: "claude-opus-5-5", max_tokens: 16000, output_config: { effort: "medium" }, fallbacks: "default", messages: [{ role: "user", content: prompt }] })
+      headers: { "content-type": "application/json", "x-api-key": AI_KEY, "anthropic-version": "2023-06-01", "anthropic-beta": "server-side-fallback-2026-07-01" },
+      body: JSON.stringify({ model: AI.model, max_tokens: AI.max_tokens, output_config: { effort: AI.effort }, fallbacks: "default", messages: [{ role: "user", content: prompt }] })
     });
     const data = await r.json().catch(() => ({}));
     if (!r.ok) return fail(res, 502, (data.error && data.error.message) || `Error ${r.status} de la IA.`);

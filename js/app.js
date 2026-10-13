@@ -67,7 +67,7 @@
   let S = DEF();
   try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); S = Object.assign(DEF(), o); if (!S.xp && S.stars) S.xp = S.stars * 10; if (!("coins" in o)) S.coins = S.stars; } } catch (e) { /* sin almacenamiento */ }
 
-  const API = { on: false, ai: false, token: null, user: null, profiles: [], pid: null, timer: null };
+  const API = { on: false, ai: false, aiTasks: [], token: null, user: null, profiles: [], pid: null, timer: null };
   try { API.token = localStorage.getItem("ae-token"); API.pid = localStorage.getItem("ae-pid"); } catch (e) { /* */ }
   // Nube (dentro de claude.ai): guarda perfil, progreso y cursos por persona.
   const cloud = { db: null, uid: null, chain: Promise.resolve(), timer: null };
@@ -946,48 +946,29 @@
         <div class="row"><button class="btn big" type="submit">✨ Crear curso</button><span class="muted" id="ai-status"></span></div>
       </form></section>`;
   }
-  async function aiAvailable() { if (API.on && API.ai) return "server"; if (await cap("sample")) return "claude"; if (S.apiKey) return "key"; return null; }
-  async function askAI(prompt) {
-    if (API.on && API.ai) {
-      try { return parseJSON((await callApi("POST", "ai", { prompt })).text || ""); }
-      catch (e) { if (e.code) throw e; throw { code: e.message === "refusal" ? "refusal" : "http", message: e.message }; }
+  async function aiAvailable(task) {
+    if (API.on) return API.ai && (!task || API.aiTasks.includes(task)) ? "server" : null;
+    return (await cap("sample")) ? "claude" : null;
+  }
+  // Usos de la IA definidos en ai/prompts.json. En el servidor, la clave vive solo en su archivo de configuración.
+  let promptsCache = null;
+  async function aiTask(task, vars) {
+    if (API.on) {
+      if (!API.ai) throw { code: "no_ai" };
+      try { return parseJSON((await callApi("POST", "ai", { task, vars })).text || ""); }
+      catch (e) { if (e.code) throw e; throw { code: e.message === "refusal" ? "refusal" : e.status === 429 ? "limit" : "http", message: e.message }; }
     }
     const sample = await cap("sample");
-    if (sample) return sample.json(prompt, { modelTier: "default" });
-    if (!S.apiKey) throw { code: "no_ai" };
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-api-key": S.apiKey, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true", "anthropic-beta": "server-side-fallback-2026-07-01" },
-      body: JSON.stringify({ model: "claude-opus-5-5", max_tokens: 16000, output_config: { effort: "medium" }, fallbacks: "default", messages: [{ role: "user", content: prompt }] })
-    });
-    if (!res.ok) { let m = ""; try { m = (await res.json()).error.message; } catch (e) { /* */ } throw { code: "http", message: `${res.status} ${m}` }; }
-    const data = await res.json();
-    if (data.stop_reason === "refusal") throw { code: "refusal" };
-    const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
-    return parseJSON(text);
+    if (!sample) throw { code: "no_ai" };
+    if (!promptsCache) promptsCache = await fetch("ai/prompts.json").then((r) => r.json());
+    const def = promptsCache[task]; if (!def) throw { code: "http", message: "tarea desconocida" };
+    const prompt = def.template.replace(/\{\{(\w+)\}\}/g, (_, k) => String(vars[k] ?? ""));
+    return sample.json(prompt, { modelTier: "default" });
   }
   function parseJSON(t) { const s = t.indexOf("{"), e = t.lastIndexOf("}"); if (s < 0 || e < s) throw { code: "invalid_json" }; return JSON.parse(t.slice(s, e + 1)); }
-  function coursePrompt(f) {
+  function courseVars(f) {
     const P = S.profile, c = COUNTRIES[P.country];
-    return `Eres un pedagogo experto en educación primaria de ${c.name}. Diseña un curso corto, divertido y riguroso para estudiar en casa entre un niño o niña y un adulto.
-
-Tema pedido: "${f.topic}"
-País: ${c.name} (marco curricular de referencia: ${c.framework})
-Grado: ${gradeLabel(P.country, +f.grade)}
-Materia: ${f.subject === "auto" ? "elige la más adecuada" : subjName(f.subject)}
-Número de lecciones: ${f.lessons}
-${f.notes ? `Notas del adulto para personalizar: ${f.notes}` : ""}
-Nombre del estudiante (úsalo en algunos enunciados): ${P.name || "el estudiante"}
-
-Reglas:
-- Español claro para la edad. Si el tema es de inglés, las actividades pueden estar en inglés con instrucciones en español.
-- Las lecciones van de lo más fácil a lo más difícil.
-- Cada lección tiene 6 actividades. Usa mayoritariamente "choice" (opción múltiple con exactamente 3 respuestas incorrectas plausibles) y 1 o 2 de tipo "order" (ordenar pasos o palabras, de 3 a 6 elementos en el orden correcto).
-- Verifica cada cálculo: la respuesta correcta debe ser exacta y ninguna incorrecta puede ser también correcta.
-- "explain" es una pista breve que explica por qué la respuesta es correcta.
-- "tip" es una actividad práctica para hacer juntos en casa con materiales comunes.
-- Responde SOLO con JSON válido, sin texto adicional, con esta forma:
-{"title":"...","emoji":"un emoji","subject":"mat|ing|len|cie|soc|tec","summary":"una frase","parentGuide":"2-3 frases para el adulto sobre cómo acompañar y errores comunes","lessons":[{"title":"...","explanation":"explicación de 2-4 frases","example":"un ejemplo resuelto corto","tip":"...","activities":[{"type":"choice","q":"pregunta","answer":"respuesta correcta","wrong":["incorrecta 1","incorrecta 2","incorrecta 3"],"emoji":"emoji opcional","explain":"..."},{"type":"order","q":"instrucción","items":["primero","segundo","tercero"]}]}]}`;
+    return { country: c.name, framework: c.framework, grade: gradeLabel(P.country, +f.grade), topic: f.topic, subject: f.subject === "auto" ? "elige la más adecuada" : subjName(f.subject), lessons: String(f.lessons), notes: f.notes || "ninguna", kid: P.name || "el estudiante" };
   }
   function cleanCourse(m, f) {
     if (!m || !Array.isArray(m.lessons) || !m.lessons.length) throw { code: "invalid_json" };
@@ -1000,23 +981,24 @@ Reglas:
   }
   function aiErrorMsg(e) {
     const code = e && e.code;
-    if (code === "no_ai") return "Para crear cursos con IA abre esta app dentro de Claude (claude.ai) o agrega tu clave de API de Anthropic en ⚙️ Ajustes. Mientras tanto, prueben los cursos listos.";
+    if (code === "no_ai") return "La IA no está activada. Quien administra la app debe poner la clave de la API en el archivo de configuración del servidor (api/config.php). Mientras tanto, prueben los cursos listos.";
+    if (code === "limit") return esc(e.message || "Llegaste al límite de usos de IA por hoy.");
     if (code === "not_granted") return "No se dio permiso para usar la IA. Puedes permitirlo desde el menú de permisos del artefacto e intentarlo de nuevo.";
     if (code === "rate_limited") return "La IA está ocupada en este momento. Espera un minuto y vuelve a intentarlo.";
     if (code === "refusal") return "La IA no pudo crear este curso. Prueba a describir el tema de otra forma.";
     if (code === "invalid_json") return "La respuesta de la IA llegó incompleta. Inténtalo de nuevo.";
-    if (code === "http") return "No se pudo conectar con la IA (" + esc(e.message || "") + "). Revisa la clave en Ajustes.";
+    if (code === "http") return "No se pudo conectar con la IA (" + esc(e.message || "") + "). Revisa la clave en la configuración del servidor.";
     return "Algo salió mal al crear el curso. Revisa tu conexión e inténtalo de nuevo.";
   }
   async function runMaker() {
     const f = maker.form;
     if (!f.topic.trim()) { toast("Escribe un tema"); return; }
-    if (!(await aiAvailable())) { maker.error = aiErrorMsg({ code: "no_ai" }); render(); return; }
+    if (!(await aiAvailable("course"))) { maker.error = aiErrorMsg({ code: "no_ai" }); render(); return; }
     maker.status = "loading"; maker.error = ""; render();
     const msgs = ["Escogiendo los mejores ejemplos…", "Inventando retos divertidos…", "Revisando que las respuestas estén bien…", "Preparando la guía para el adulto…", "Poniendo estrellas y confeti…"]; let mi = 0;
     const iv = setInterval(() => { const el = $("#mk-log"); if (el) el.textContent = msgs[mi++ % msgs.length]; }, 3500);
     try {
-      const raw = await askAI(coursePrompt(f));
+      const raw = await aiTask("course", courseVars(f));
       maker.course = cleanCourse(raw, f); maker.status = "done"; sfx.win(); confetti(90); say("¡Tu curso está listo! Revísalo y guárdalo.", "happy");
     } catch (e) { maker.status = "idle"; maker.error = aiErrorMsg(e); }
     clearInterval(iv);
@@ -1024,11 +1006,11 @@ Reglas:
   }
   async function morePractice(cid, li) {
     const c = S.courses.find((x) => x.id === cid); if (!c || !c.lessons) return;
-    if (!(await aiAvailable())) { toast("Activa la IA en Ajustes para pedir más ejercicios"); return; }
+    if (!(await aiAvailable("practice"))) { toast("La IA no está activada para pedir más ejercicios"); return; }
     const l = c.lessons[li]; toast("✨ Creando ejercicios nuevos…");
-    const prompt = `Crea 6 actividades NUEVAS y distintas de refuerzo para la lección "${l.title}" del curso "${c.title}" (${gradeLabel(S.profile.country, c.grade ?? S.profile.grade)}, ${COUNTRIES[S.profile.country].name}). Explicación de la lección: ${l.explanation}. El estudiante tuvo dificultades, así que empieza un poco más fácil y sube gradualmente. Verifica cada respuesta. Responde SOLO con JSON: {"activities":[{"type":"choice","q":"...","answer":"...","wrong":["...","...","..."],"emoji":"","explain":"..."}]}`;
+    const vars = { lesson: l.title, course: c.title, grade: gradeLabel(S.profile.country, c.grade ?? S.profile.grade), country: COUNTRIES[S.profile.country].name, explanation: l.explanation };
     try {
-      const raw = await askAI(prompt);
+      const raw = await aiTask("practice", vars);
       const extra = cleanCourse({ lessons: [{ title: l.title, activities: raw.activities }] }, { topic: c.title, subject: c.subject, grade: c.grade }).lessons[0].activities;
       startPlay({ type: "course", cid, li }, null, playMode, buildQuestions({ activities: extra }));
     } catch (e) { toast(aiErrorMsg(e).replace(/<[^>]+>/g, "")); }
@@ -1059,10 +1041,8 @@ Reglas:
     back.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="set-t"><h2 id="set-t">⚙️ Ajustes</h2>
       <button class="btn ghost" data-m="profile">👤 Cambiar nombre, país o grado</button>
       <button class="btn ghost" data-m="sound">${S.sound ? "🔊 Sonido activado" : "🔇 Sonido apagado"}</button>
-      <div class="field"><label for="api-key">Clave de API de Anthropic (opcional)</label>
-        <input id="api-key" class="input" type="password" autocomplete="off" placeholder="sk-ant-…" value="${esc(S.apiKey)}">
-        <span class="muted" style="font-size:.9rem">${(await cap("sample")) ? "✅ Ya tienes IA disponible dentro de Claude; no necesitas clave." : ai ? "✅ IA activa con tu clave." : "Solo hace falta si usas la app fuera de Claude. Se guarda únicamente en este navegador."}</span></div>
-      <div class="row"><button class="btn" data-m="saveKey">Guardar</button><span class="spacer"></span><button class="btn ghost small" data-m="reset" style="--bi:var(--bad)">Borrar progreso</button></div>
+      <div class="notice">${ai ? `${I("sparkle")} <b>IA activa.</b> ${API.on ? "La clave está guardada de forma segura en el servidor." : "Funciona a través de Claude."}` : `<b>IA desactivada.</b> Se activa poniendo la clave en el archivo de configuración del servidor (<code>api/config.php</code>).`}</div>
+      <div class="row"><span class="spacer"></span><button class="btn ghost small" data-m="reset" style="--bi:var(--bad)">Borrar progreso</button></div>
       <div id="confirm"></div>
       <button class="btn ghost small" data-m="close">Cerrar</button></div>`;
     document.body.appendChild(back);
@@ -1073,7 +1053,6 @@ Reglas:
       if (k === "close") close();
       if (k === "profile") { close(); draft = null; go("setup", {}); }
       if (k === "sound") { S.sound = !S.sound; save(); m.textContent = S.sound ? "🔊 Sonido activado" : "🔇 Sonido apagado"; }
-      if (k === "saveKey") { S.apiKey = $("#api-key", back).value.trim(); save(); aiAvailable().then((v) => { aiReady = !!v; }); toast("Ajustes guardados"); close(); }
       if (k === "reset") $("#confirm", back).innerHTML = `<div class="notice err row"><span style="flex:1">¿Seguro? Se borran estrellas, progreso, plan y cursos guardados.</span><button class="btn small" data-m="resetYes" style="--b:var(--bad)">Sí, borrar</button></div>`;
       if (k === "resetYes") { const p = S.profile, key = S.apiKey; S = DEF(); S.profile = p; S.apiKey = key; save(); close(); toast("Progreso borrado"); go("home"); }
     });
@@ -1263,13 +1242,9 @@ Reglas:
   async function explainAI(btn) {
     const q = play && play.qs[play.i]; if (!q) return;
     btn.disabled = true; btn.textContent = "🤖 Pensando…";
-    const prompt = `Eres Nova, un tutor amable para un niño o niña de ${gradeLabel(S.profile.country, S.profile.grade)} en ${COUNTRIES[S.profile.country].name}. Respondió mal esta pregunta.
-Pregunta: ${q.prompt}
-Opciones: ${q.options.join(" | ")}
-Respuesta correcta: ${q.answer}
-Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta correcta es esa, con un truco para recordarlo. Háblale de tú. Responde SOLO con JSON: {"explicacion":"..."}`;
+    const vars = { grade: gradeLabel(S.profile.country, S.profile.grade), country: COUNTRIES[S.profile.country].name, question: q.prompt, options: q.options.join(" | "), answer: q.answer };
     try {
-      const r = await askAI(prompt); const txt = (r && (r.explicacion || r.explanation)) || "";
+      const r = await aiTask("explain", vars); const txt = (r && (r.explicacion || r.explanation)) || "";
       const box = document.createElement("div"); box.className = "explain ai-explain"; box.textContent = "🤖 " + (txt || "No pude explicarlo esta vez. Pregúntale a tu acompañante 😊");
       btn.replaceWith(box); speak(txt, "es-ES");
     } catch (e) { btn.textContent = "🤖 No disponible ahora"; }
@@ -1290,7 +1265,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
       const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 2500);
       const r = await fetch("api/health", { signal: ctl.signal }); clearTimeout(t);
       const d = r.ok ? await r.json() : null; if (!d || !d.ok) return false;
-      API.on = true; API.ai = !!d.ai; return true;
+      API.on = true; API.ai = !!d.ai; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true;
     } catch (e) { return false; }
   }
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
@@ -1590,7 +1565,7 @@ Explica en 2 o 3 frases cortas, claras y alentadoras por qué la respuesta corre
     }
     applySkin();
     render();
-    aiAvailable().then((v) => { aiReady = !!v; });
+    aiAvailable("explain").then((v) => { aiReady = !!v; });
     if (S.profile) setTimeout(() => say(`¡Hola de nuevo, ${S.profile.name}! ${S.streak.n > 1 ? `Llevas ${S.streak.n} días seguidos 🔥` : "¿Qué aprendemos hoy?"}`), 600);
     if (!API.on) initCloud();
   })();

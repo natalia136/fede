@@ -3,7 +3,7 @@ Options -Indexes
 DirectoryIndex index.html
 # Bloquea archivos privados: datos, herramientas, servidor Node y documentación
 RedirectMatch 404 ^/(data|tools|node_modules|\.git)(/|$)
-<FilesMatch "^(server\.js|README\.md|DEPLOY\.md|package\.json|\.gitignore)$">
+<FilesMatch "^(server\.js|README\.md|DEPLOY\.md|package\.json|\.gitignore|config\.json|config\.sample\.json)$">
   Require all denied
 </FilesMatch>
 # Fuerza HTTPS (las contraseñas viajan cifradas)

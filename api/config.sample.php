@@ -1,10 +1,24 @@
 <?php
-/* Copia este archivo como config.php (en la misma carpeta api/) y ajusta los valores.
-   config.php no se sube al repositorio. */
+/* CONFIGURACIÓN DEL SERVIDOR
+   1. Copia este archivo en la misma carpeta (api/) con el nombre config.php
+   2. Pega tu clave de la API de Anthropic en 'api_key'.
+   Este archivo nunca se envía al navegador: la clave queda solo en tu servidor. */
 return [
-  // Carpeta donde se guarda db.json. Lo más seguro es ponerla FUERA de public_html,
-  // por ejemplo: '/home/u123456789/aventura-data'. Si no se define, usa ../data (protegida con .htaccess).
+  // Carpeta donde se guardan cuentas y progreso (db.json). Lo más seguro es ponerla FUERA de public_html,
+  // por ejemplo '/home/u123456789/domains/tudominio.com/chispa-data'. Si no la cambias usa ../data (protegida).
   'data_dir' => __DIR__ . '/../data',
-  // Clave de la API de Anthropic para crear cursos con IA y "Nova, explícame". Déjala vacía para desactivar la IA.
-  'anthropic_api_key' => '',
+
+  'ai' => [
+    'enabled' => true,                 // false = apaga toda la IA
+    'api_key' => '',                   // ← PEGA AQUÍ TU CLAVE (empieza con sk-ant-)
+    'model' => 'claude-opus-5-5',      // modelo de Claude que se usa
+    'effort' => 'medium',              // low | medium | high: más alto = más pensado y más costoso
+    'max_tokens' => 16000,             // largo máximo de cada respuesta
+    'daily_limit_per_user' => 40,      // usos de IA por cuenta al día (0 = sin límite)
+    'tasks' => [                       // usos de la IA (las instrucciones están en ai/prompts.json)
+      'course' => true,                // crear cursos completos con IA
+      'practice' => true,              // "Más ejercicios" de refuerzo
+      'explain' => true,               // botón "Nova, explícame"
+    ],
+  ],
 ];

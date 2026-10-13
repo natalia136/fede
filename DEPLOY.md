@@ -14,6 +14,7 @@ public_html/
 ├── index.html
 ├── css/styles.css
 ├── js/ (app.js, art.js, curriculum.js, countries.js, content/…)
+├── ai/prompts.json
 └── api/ (index.php, .htaccess, config.sample.php)
 ```
 
@@ -23,13 +24,33 @@ public_html/
 
 En **hPanel → Seguridad → SSL**, instala el certificado gratuito para tu dominio. El `.htaccess` ya redirige todo a `https://`, para que las contraseñas viajen cifradas.
 
-## 3. Configuración (recomendado)
+## 3. Poner la clave de la IA (archivo de configuración)
 
-1. En la carpeta `api/`, copia `config.sample.php` como **`config.php`**.
-2. Edita `config.php`:
-   - **`data_dir`**: carpeta donde se guarda `db.json`. Lo más seguro es ponerla **fuera de `public_html`**. En el administrador de archivos sube un nivel desde `public_html`, crea una carpeta `aventura-data` y copia su ruta completa (se ve arriba, algo como `/home/u123456789/domains/tudominio.com/aventura-data`).
-     Si no lo cambias, se usa `public_html/data`, que queda protegida por `.htaccess`.
-   - **`anthropic_api_key`** (opcional): tu clave de la API de Anthropic para crear cursos con IA y el botón "Nova, explícame". Sin clave, todo lo demás funciona igual.
+La clave de la API de Anthropic va **solo** en un archivo del servidor. Nunca llega al navegador de quienes usan la app.
+
+1. En el Administrador de archivos entra a `public_html/api/`.
+2. Clic derecho sobre **`config.sample.php`** → *Copiar* → nómbralo **`config.php`** (en la misma carpeta).
+3. Clic derecho sobre `config.php` → *Editar*. Busca esta línea y pega tu clave entre las comillas:
+
+```php
+'api_key' => 'sk-ant-...tu clave...',
+```
+
+4. Guarda. Listo: abre `https://tudominio.com/api/health` y debe decir `"ai":true`.
+
+En ese mismo archivo puedes ajustar:
+
+| Opción | Para qué sirve |
+|---|---|
+| `enabled` | `false` apaga toda la IA sin borrar la clave. |
+| `model` / `effort` | Qué modelo de Claude se usa y cuánto "piensa" (`low`, `medium`, `high`). Más alto = mejor y más costoso. |
+| `daily_limit_per_user` | Cuántas veces al día puede usar la IA cada cuenta (protege tu saldo). `0` = sin límite. |
+| `tasks` | Activa o desactiva cada uso: `course` (crear cursos), `practice` (más ejercicios), `explain` ("Nova, explícame"). |
+| `data_dir` | Dónde se guardan las cuentas. Lo más seguro es una carpeta fuera de `public_html`, por ejemplo `/home/u123456789/domains/tudominio.com/app-data`. |
+
+Las instrucciones que recibe la IA para cada uso están en `ai/prompts.json`. Para agregar un uso nuevo se crea una tarea ahí y se activa en `tasks`.
+
+> Si alguna vez la clave se expone, revócala en la consola de Anthropic y pon una nueva en `config.php`.
 
 ## 4. Primer uso
 
@@ -48,7 +69,7 @@ Tienes dos formas:
 
 ## 6. Actualizar la app sin perder datos
 
-Para subir una versión nueva, reemplaza `index.html`, `css/`, `js/` y `api/index.php`. **No borres** `data/` (o tu `data_dir`) ni `api/config.php`: ahí están las cuentas, el progreso y tu configuración. El paquete `.zip` no incluye esas carpetas, así que no las sobrescribe.
+Para subir una versión nueva, reemplaza `index.html`, `css/`, `js/`, `ai/` y `api/index.php`. **No borres** `data/` (o tu `data_dir`) ni `api/config.php`: ahí están las cuentas, el progreso y tu configuración. El paquete `.zip` no incluye esas carpetas, así que no las sobrescribe.
 
 ## 7. Copias de seguridad
 

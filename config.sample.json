@@ -1,0 +1,12 @@
+{
+  "_info": "Copia este archivo como config.json (en la misma carpeta que server.js) y pega tu clave en ai.api_key. config.json no se sube al repositorio ni se envía al navegador.",
+  "ai": {
+    "enabled": true,
+    "api_key": "",
+    "model": "claude-opus-5-5",
+    "effort": "medium",
+    "max_tokens": 16000,
+    "daily_limit_per_user": 40,
+    "tasks": { "course": true, "practice": true, "explain": true }
+  }
+}
