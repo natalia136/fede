@@ -942,3 +942,214 @@ Object.assign(window.CURRICULUM_LESSONS, {
       ["¿Qué orden sigue el mensaje?", "Paquetes → routers → servidor → destino", ["Servidor → teclado → routers", "Destino → paquetes → inicio"]]
     ]
   },
+  /* ===== 6.º ===== */
+  "t6a": {
+    hook: "Tu celular reconoce tu cara y un traductor convierte frases a otro idioma en un instante. ¿Las máquinas piensan? 🤖",
+    steps: [
+      { title: "¿Qué es la inteligencia artificial?", text: "La inteligencia artificial (IA) es la parte de la informática que crea programas capaces de hacer tareas que parecen inteligentes: reconocer imágenes, entender voz o traducir.", example: "Asistentes de voz · traductores · filtros de fotos" },
+      { title: "Aprende de datos", text: "Muchas IA aprenden viendo muchísimos ejemplos. Si les muestras miles de fotos de gatos y de perros etiquetadas, aprenden a distinguirlos.", example: "10 000 fotos de 🐱 y 🐶 → modelo que los reconoce" },
+      { title: "Encuentra patrones", text: "La IA no entiende como una persona: busca patrones en los datos y calcula cuál es la respuesta más probable.", example: "Orejas puntiagudas + bigotes → probablemente 🐱" },
+      { title: "Puede equivocarse", text: "Si los datos son pocos, están mal o tienen errores, la IA se equivoca. A veces responde con mucha seguridad algo falso.", example: "Confunde un muffin con un perro chihuahua 🧁🐶" },
+      { title: "Úsala con criterio", text: "La IA es una herramienta útil, pero siempre debes revisar sus respuestas y no darle tus datos personales.", example: "✅ verificar · ❌ compartir tu dirección" }
+    ],
+    remember: ["La IA aprende de datos.", "Encuentra patrones, pero no entiende como las personas.", "Puede equivocarse: verifica sus respuestas."],
+    mistake: "Creer que la IA nunca se equivoca porque es una máquina. Su calidad depende de los datos con que aprendió.",
+    fun: "¿Sabías que el término «inteligencia artificial» se usó por primera vez en 1956, en una reunión de científicos en Dartmouth, Estados Unidos?",
+    check: [
+      ["¿De qué aprende la IA?", "De datos y ejemplos", ["De la nada", "Solo de la electricidad"]],
+      ["¿Puede equivocarse la IA?", "Sí, por eso hay que verificar", ["No, nunca", "Solo si está apagada"]]
+    ]
+  },
+  "t6b": {
+    hook: "Aprietas el interruptor y la luz se enciende al instante. ¿Qué pasa dentro de las paredes? ⚡",
+    steps: [
+      { title: "Elementos de un circuito", text: "Un circuito tiene una fuente de energía (pila), conductores (cables), un receptor que usa la energía (bombilla, motor) y un interruptor que controla el paso.", example: "🔋 + 〰️ + 💡 + interruptor" },
+      { title: "Circuito cerrado y abierto", text: "Si el camino está completo, el circuito está cerrado y la corriente circula. Si se corta en algún punto, está abierto y la corriente se detiene.", example: "Cerrado = 💡 encendida · Abierto = apagada" },
+      { title: "Conductores y aislantes", text: "Los conductores, como el cobre, dejan pasar la corriente. Los aislantes, como el plástico y el caucho, no la dejan pasar y nos protegen.", example: "Cable: cobre por dentro, plástico por fuera" },
+      { title: "En serie", text: "En un circuito en serie los receptores están uno tras otro en un solo camino. Si una bombilla se funde, todas se apagan.", example: "🔋 → 💡 → 💡 → 🔋" },
+      { title: "En paralelo", text: "En paralelo cada receptor tiene su propio camino. Si una bombilla se funde, las otras siguen encendidas. Así están conectadas las casas.", example: "Se daña la luz del baño y la cocina sigue encendida" }
+    ],
+    remember: ["Un circuito cerrado deja pasar la corriente.", "Conductores dejan pasar la corriente; aislantes no.", "En serie un solo camino; en paralelo varios."],
+    mistake: "Pensar que el interruptor «crea» la electricidad. Solo abre o cierra el camino por donde pasa la corriente.",
+    fun: "¿Sabías que el cobre es uno de los mejores conductores y por eso casi todos los cables de las casas lo llevan por dentro?",
+    check: [
+      ["¿Qué material es aislante?", "El plástico", ["El cobre", "El aluminio"]],
+      ["En un circuito en paralelo, si una bombilla se funde…", "Las otras siguen encendidas", ["Todas se apagan", "La pila explota"]],
+      ["¿Cuándo circula la corriente?", "Cuando el circuito está cerrado", ["Cuando el circuito está abierto", "Nunca"]]
+    ]
+  },
+  "t6c": {
+    hook: "Hay muchos caminos hasta la meta, pero solo uno es el más corto. ¿Cómo lo encuentras? 🏁",
+    steps: [
+      { title: "Analiza el reto", text: "Identifica inicio, meta, obstáculos, objetos para recoger y cualquier regla especial antes de programar.", example: "🤖 inicio · 🗝️ llave · 🚪 puerta · ⭐ meta" },
+      { title: "Compara caminos", text: "Dibuja dos o tres caminos posibles y cuenta los pasos de cada uno. El más corto es el que tiene menos movimientos.", example: "Camino A: 12 pasos · Camino B: 9 pasos ✅" },
+      { title: "Busca patrones y usa bucles", text: "Si un grupo de movimientos se repite, agrúpalo en un bucle. El programa queda más corto y claro.", example: "REPETIR 3 [ → → ↓ ]" },
+      { title: "Agrega condicionales", text: "En retos con sorpresas, usa condicionales para que el robot reaccione.", example: "SI hay muro adelante ENTONCES girar a la derecha" },
+      { title: "Prueba, depura y optimiza", text: "Ejecuta, encuentra los errores y corrígelos. Cuando funcione, intenta quitar pasos innecesarios: eso es optimizar.", example: "15 bloques → 8 bloques" }
+    ],
+    remember: ["Analiza antes de programar.", "Compara caminos y elige el más corto.", "Bucles y condicionales hacen programas más cortos y listos."],
+    mistake: "Quedarte con el primer camino que funciona. Funcionar es el primer paso; luego busca el camino más corto.",
+    fun: "¿Sabías que las aplicaciones de mapas usan algoritmos como el de Dijkstra, creado en 1956, para encontrar la ruta más corta?",
+    check: [
+      ["¿Cuál camino es mejor si ambos llegan?", "El de menos pasos", ["El de más pasos", "Cualquiera sin probar"]],
+      ["Quitar pasos innecesarios a un programa que ya funciona es…", "Optimizar", ["Romper", "Borrar todo"]]
+    ]
+  },
+  "xtec6a": {
+    hook: "Si tuvieras que calcular el doble de 50 números, ¿escribirías la misma operación 50 veces? ¡Mejor crea una función! 🧮",
+    steps: [
+      { title: "Entrada, proceso y salida", text: "Todo programa recibe entradas (datos), las procesa siguiendo instrucciones y produce salidas (resultados).", example: "entrada ⌨️ 7 → proceso ×2 → salida 🖥️ 14" },
+      { title: "¿Qué es una función?", text: "Una función es un grupo de instrucciones con nombre que hace una tarea. La escribes una vez y la usas cuantas veces quieras.", example: "función doble(n): devolver n × 2" },
+      { title: "Parámetros y resultado", text: "Lo que le das a la función se llama parámetro o argumento; lo que te devuelve es el resultado.", example: "doble(7) → 14 · doble(10) → 20" },
+      { title: "Funciones en pseudocódigo", text: "Puedes crear funciones más completas. Ejemplo: función saludar(nombre): mostrar «Hola, » + nombre. Al llamar saludar(«Ana») muestra «Hola, Ana».", example: "saludar(«Ana») → Hola, Ana" },
+      { title: "Probar y depurar", text: "Prueba la función con varios valores, incluso extremos como 0 o números negativos. Si un resultado no es el esperado, revisa línea por línea.", example: "doble(0) → 0 ✅ · doble(−3) → −6 ✅" }
+    ],
+    remember: ["Un programa recibe entradas, las procesa y da salidas.", "Una función agrupa instrucciones reutilizables.", "Probar con varios valores ayuda a encontrar errores."],
+    mistake: "Copiar y pegar el mismo código muchas veces en lugar de crear una función. Si hay un error, tendrías que corregirlo en todas las copias.",
+    fun: "¿Sabías que las calculadoras y hojas de cálculo están llenas de funciones ya hechas, como SUMA o PROMEDIO, que usamos sin ver su código?",
+    check: [
+      ["Si doble(n) devuelve n × 2, ¿cuánto es doble(7)?", "14", ["9", "72"]],
+      ["¿Para qué sirve una función?", "Para reutilizar instrucciones", ["Para apagar el computador", "Para borrar variables"]],
+      ["El teclado es un ejemplo de…", "Entrada", ["Salida", "Función"]]
+    ]
+  },
+  "xtec6b": {
+    hook: "Le preguntas algo a un chatbot de IA y te responde con mucha seguridad… pero ¿es cierto? 🤔",
+    steps: [
+      { title: "Cómo aprende", text: "La IA aprende de enormes cantidades de datos: textos, imágenes y sonidos creados por personas. Con ellos predice respuestas probables.", example: "Muchos textos → modelo que escribe" },
+      { title: "Errores e inventos", text: "La IA puede equivocarse o inventar datos que suenan creíbles, como fechas, citas o fuentes que no existen.", example: "Una cita de un libro que nunca se escribió ❌" },
+      { title: "Sesgos", text: "Si los datos con que aprendió tienen prejuicios o no representan a todas las personas, la IA puede repetir esos sesgos y ser injusta.", example: "Un sistema que reconoce peor ciertos rostros" },
+      { title: "Úsala para aprender, no para copiar", text: "Pídele que te explique un tema o te dé ideas, pero haz tú el trabajo y di cuándo usaste IA si tu profe lo pide.", example: "✅ «Explícame la fotosíntesis con un ejemplo»" },
+      { title: "Verifica y protege tus datos", text: "Compara sus respuestas con libros o fuentes confiables. No le des tu nombre completo, dirección, fotos ni contraseñas.", example: "✅ verificar respuestas · ❌ dar datos personales" }
+    ],
+    remember: ["La IA aprende de datos y puede equivocarse.", "Puede tener sesgos.", "Úsala para aprender, verifica y protege tus datos."],
+    mistake: "Copiar la respuesta de la IA sin revisarla. Puede tener errores o datos inventados; compárala siempre con otra fuente.",
+    fun: "¿Sabías que a los datos falsos que una IA presenta como reales se les llama «alucinaciones»?",
+    check: [
+      ["¿Qué debes hacer con una respuesta de la IA?", "Verificarla con otras fuentes", ["Creerla siempre", "Copiarla sin leer"]],
+      ["¿Qué dato NO debes darle a una IA?", "Tu dirección", ["Tu pregunta sobre volcanes", "Un tema de ciencias"]],
+      ["Si la IA aprendió de datos con prejuicios, puede tener…", "Sesgos", ["Más batería", "Menos errores siempre"]]
+    ]
+  },
+  "xtec6c": {
+    hook: "¿Es lo mismo que un desconocido sepa tu color favorito o tu dirección? ¡Para nada! 🔒",
+    steps: [
+      { title: "Datos personales", text: "Son los datos que te identifican o permiten encontrarte: nombre completo, dirección, teléfono, número de documento, colegio, ubicación y fotos.", example: "📍 dirección · 📞 teléfono · 🪪 documento" },
+      { title: "Datos sensibles y secretos", text: "Algunos datos son especialmente delicados: contraseñas, datos de salud o de dinero. Nunca se comparten en línea.", example: "🔒 contraseña · 💳 tarjeta de tus papás" },
+      { title: "Datos no identificables", text: "Tu color favorito o tu deporte preferido, solos, no te identifican. Aun así, piensa con quién los compartes.", example: "🌐 color favorito: azul" },
+      { title: "La ubicación", text: "Muchas apps piden saber dónde estás. Desactiva la ubicación cuando no la necesites y no publiques fotos que muestren tu casa o colegio.", example: "📍 ubicación apagada en fotos" },
+      { title: "Configura la privacidad", text: "Con un adulto, revisa quién puede ver tus perfiles. Acepta solo a personas que conoces en la vida real.", example: "Perfil privado · amigos conocidos" }
+    ],
+    remember: ["Hay datos que te identifican y deben protegerse.", "Contraseñas y datos de dinero son secretos.", "Revisa la privacidad y la ubicación con un adulto."],
+    mistake: "Pensar que una foto inocente no revela nada. El uniforme, la fachada de tu casa o la ubicación de la foto pueden decir dónde estás.",
+    fun: "¿Sabías que muchas fotos tomadas con el celular pueden guardar escondida la ubicación donde se tomaron? Esa información se llama metadatos.",
+    check: [
+      ["¿Cuál es un dato personal que debes proteger?", "Tu número de teléfono", ["Tu color favorito", "Tu fruta preferida"]],
+      ["¿Qué puedes hacer para proteger tu ubicación?", "Desactivarla cuando no la necesites", ["Publicarla siempre", "Compartirla con desconocidos"]]
+    ]
+  },
+  "xtec6d": {
+    hook: "Tu curso vendió galletas toda la semana. ¿Cómo sumas todo rápido y sin errores? 📊",
+    steps: [
+      { title: "Filas, columnas y celdas", text: "Una hoja de cálculo es una tabla. Las columnas tienen letras (A, B, C…) y las filas números (1, 2, 3…). Cada cuadro es una celda.", example: "Celda B3 = columna B, fila 3" },
+      { title: "Escribir datos", text: "En las celdas escribes textos y números. Usa la primera fila para los títulos de cada columna.", example: "A1: Día · B1: Galletas vendidas" },
+      { title: "Fórmulas con =", text: "Una fórmula siempre empieza con el signo =. Puedes sumar, restar, multiplicar (*) y dividir (/) usando nombres de celdas.", example: "=A1+A2 · =B2*500" },
+      { title: "Funciones útiles", text: "Las hojas de cálculo traen funciones listas: SUMA para sumar un rango y PROMEDIO para la media. Un rango se escribe con dos puntos.", example: "=SUMA(B2:B6) · =PROMEDIO(B2:B6)" },
+      { title: "Se actualiza sola", text: "Si cambias un número, las fórmulas recalculan el resultado automáticamente. Con los datos también puedes crear gráficos.", example: "Cambio B3 de 10 a 12 → el total cambia solo 📈" }
+    ],
+    remember: ["Una celda se nombra con columna y fila.", "Las fórmulas empiezan con =.", "SUMA y PROMEDIO ahorran trabajo."],
+    mistake: "Escribir A1+A2 sin el signo igual. Sin el =, la hoja lo toma como texto y no hace la cuenta.",
+    fun: "¿Sabías que VisiCalc, creada en 1979 por Dan Bricklin y Bob Frankston, fue la primera hoja de cálculo para computadores personales?",
+    check: [
+      ["¿Con qué signo empieza una fórmula?", "=", ["+", "#"]],
+      ["La celda de la columna C y fila 4 se llama…", "C4", ["4C", "CC4"]],
+      ["¿Qué función suma un rango de celdas?", "SUMA", ["PROMEDIO", "CELDA"]]
+    ]
+  },
+  "xtec6e": {
+    hook: "Se rompió una pieza de tu juguete. ¿Y si pudieras diseñarla en el computador e imprimirla? 🖨️",
+    steps: [
+      { title: "Cultura maker", text: "Los makers son personas que crean, reparan y comparten sus inventos. Usan herramientas, electrónica, programación e impresión 3D.", example: "🔧 reparar · 🛠️ crear · 🤝 compartir diseños" },
+      { title: "1. Diseñar el modelo 3D", text: "Primero se dibuja el objeto en un programa de diseño 3D, con su forma y medidas exactas.", example: "🖥️ modelo de un gancho de 5 cm" },
+      { title: "2. Laminar en capas", text: "Un programa llamado laminador corta el modelo en capas muy finas y prepara las instrucciones para la impresora.", example: "Gancho → 200 capas" },
+      { title: "3. Imprimir capa por capa", text: "La impresora derrite un filamento de plástico y lo deposita capa sobre capa, de abajo hacia arriba, hasta formar el objeto.", example: "🖨️ capa 1, capa 2… capa 200 → 🦾 pieza" },
+      { title: "4. Revisar y mejorar", text: "Se prueba la pieza. Si no encaja o es débil, se ajusta el diseño y se imprime de nuevo.", example: "Muy delgado → engrosar 1 mm" }
+    ],
+    remember: ["Los makers crean, reparan y comparten.", "La impresión 3D fabrica objetos capa por capa.", "Todo empieza con un diseño digital."],
+    mistake: "Pensar que la impresora 3D imprime el objeto entero de una vez. Lo construye lentamente, capa por capa, y puede tardar horas.",
+    fun: "¿Sabías que Chuck Hull inventó la estereolitografía, una de las primeras técnicas de impresión 3D, en los años 80?",
+    check: [
+      ["¿Cómo fabrica los objetos la impresora 3D?", "Capa por capa", ["Todo de una vez", "Con tinta sobre papel"]],
+      ["¿Qué se necesita antes de imprimir en 3D?", "Un modelo digital", ["Una foto borrosa", "Una carta"]]
+    ]
+  },
+  "xtec6f": {
+    hook: "¿Te gustaría proteger computadores de piratas informáticos o diseñar robots? ¡Hay profesiones para eso! 🛡️",
+    steps: [
+      { title: "Programación", text: "Los programadores escriben el código de apps, páginas web y videojuegos. Resuelven problemas paso a paso.", example: "💻 desarrollador de videojuegos" },
+      { title: "Ciberseguridad", text: "Los expertos en ciberseguridad protegen sistemas y datos de ataques, y enseñan a las personas a cuidarse en línea.", example: "🛡️ analista de ciberseguridad" },
+      { title: "Ciencia de datos e IA", text: "Los científicos de datos analizan grandes cantidades de información para encontrar patrones y crear sistemas de inteligencia artificial.", example: "📊 predecir el clima o mejorar hospitales" },
+      { title: "Robótica e ingeniería", text: "Los ingenieros en robótica diseñan máquinas con sensores, motores y programas, para fábricas, medicina o el espacio.", example: "🦾 brazo robótico para cirugías" },
+      { title: "Diseño y más", text: "También hay diseñadores de experiencia de usuario, animadores, creadores de contenido educativo y técnicos que reparan equipos.", example: "🎨 diseño de apps · 🔧 técnico" }
+    ],
+    remember: ["La tecnología ofrece muchas profesiones.", "Programación, ciberseguridad, datos, robótica y diseño son algunas.", "Curiosidad, lógica y trabajo en equipo ayudan en todas."],
+    mistake: "Creer que en tecnología solo trabajan personas que programan solas todo el día. Hay muchos roles y casi todos trabajan en equipo.",
+    fun: "¿Sabías que Katherine Johnson hizo cálculos clave para las misiones espaciales de la NASA, incluido el viaje del Apolo 11 a la Luna en 1969?",
+    check: [
+      ["¿Qué hace un experto en ciberseguridad?", "Protege sistemas y datos", ["Cocina en restaurantes", "Pinta casas"]],
+      ["¿Quién analiza grandes cantidades de información?", "Un científico de datos", ["Un panadero", "Un bombero"]]
+    ]
+  },
+  "xtec6g": {
+    hook: "Te llega un video de un famoso diciendo algo increíble. Parece real… pero ¿lo es? 🎭",
+    steps: [
+      { title: "¿Qué es una noticia falsa?", text: "Es información inventada o manipulada que se presenta como si fuera verdad. Muchas buscan asustar, enojar o ganar clics.", example: "«¡Mañana no habrá clases en todo el país!» sin fuente" },
+      { title: "¿Qué es un ultrafalso?", text: "Un ultrafalso (deepfake) es un video, audio o imagen creado con IA que imita la cara o la voz de una persona real diciendo o haciendo algo que nunca hizo.", example: "Video falso de un presidente bailando" },
+      { title: "Haz una pausa", text: "Si algo te provoca una emoción muy fuerte (miedo, rabia, risa), detente antes de compartir. Las noticias falsas juegan con las emociones.", example: "⏸️ pausa antes de reenviar" },
+      { title: "Revisa fuente y fecha", text: "¿Quién lo publica? ¿Es un medio conocido? ¿Cuándo pasó? Una noticia vieja reenviada como nueva también engaña.", example: "🔎 fuente · 📅 fecha" },
+      { title: "Compara y busca pistas", text: "Busca si otros medios confiables dicen lo mismo. En ultrafalsos mira detalles raros: labios desincronizados, parpadeo extraño, manos o bordes deformes.", example: "📚 comparar 2 o 3 medios" }
+    ],
+    remember: ["No todo lo que circula es cierto.", "Pausa, revisa fuente y fecha, y compara.", "Los ultrafalsos imitan personas usando IA."],
+    mistake: "Compartir algo porque lo envió un amigo o un familiar. Ellos también pueden ser engañados; verifica siempre.",
+    fun: "¿Sabías que hay periodistas que se dedican a verificar datos? Se les llama verificadores o «fact-checkers».",
+    check: [
+      ["¿Qué es lo primero ante una noticia sorprendente?", "Hacer una pausa", ["Compartirla de inmediato", "Creerla sin más"]],
+      ["Un video hecho con IA que imita a una persona real es un…", "Ultrafalso", ["Algoritmo", "Navegador"]],
+      ["¿Qué ayuda a verificar una noticia?", "Comparar con otros medios confiables", ["Ver cuántos «me gusta» tiene", "Mirar solo el título"]]
+    ]
+  },
+  "xtec6h": {
+    hook: "Imprimir un objeto, analizar una encuesta, verificar una noticia y arreglar un programa… ¿qué tienen en común? ¡Todos siguen pasos! 🧭",
+    steps: [
+      { title: "Imprimir en 3D", text: "Pasos: idea → modelo digital → laminar en capas → imprimir → revisar. Si la pieza falla, se ajusta el modelo.", example: "Idea → modelo → capas → imprimir → revisar" },
+      { title: "Analizar datos", text: "Pasos: hacer una pregunta → recolectar datos → organizarlos en una hoja de cálculo → calcular (SUMA, PROMEDIO) → graficar → concluir.", example: "¿Qué fruta prefiere el curso? → encuesta → gráfico" },
+      { title: "Verificar una noticia", text: "Pasos: pausa → revisar la fuente → revisar la fecha → comparar con otros medios → decidir si compartir.", example: "⏸️ → 🔎 → 📅 → 📚 → ✅ / ❌" },
+      { title: "Depurar código", text: "Pasos: reproducir el error → aislar la parte que falla → leer línea por línea → corregir → probar de nuevo.", example: "Los puntos no suben → reviso el bloque SI toca ⭐" },
+      { title: "El patrón común", text: "Todos los proyectos siguen un ciclo: planear, hacer, probar y mejorar. Si lo dominas, puedes aplicarlo a cualquier reto.", example: "Planear → hacer → probar → mejorar 🔁" }
+    ],
+    remember: ["Cada proyecto tiene pasos ordenados.", "Probar y revisar siempre está en el proceso.", "El ciclo planear, hacer, probar y mejorar sirve para todo."],
+    mistake: "Saltarse el paso de revisar o probar. Sin esa etapa no descubres los errores hasta que es tarde.",
+    fun: "¿Sabías que muchos equipos de ingeniería usan el ciclo «Planificar, Hacer, Verificar, Actuar», conocido como ciclo PDCA o ciclo de Deming?",
+    check: [
+      ["¿Qué paso va justo después de recolectar datos?", "Organizarlos", ["Concluir", "Imprimir en 3D"]],
+      ["¿Cuál es el primer paso para depurar código?", "Reproducir el error", ["Borrar el programa", "Compartirlo"]]
+    ]
+  },
+  "xtec6i": {
+    hook: "Dos historias: un video falso que engañó a un pueblo y un grupo que construyó un invento. ¿Qué pistas encontrarás? 🔍",
+    steps: [
+      { title: "Lee con preguntas", text: "Antes de leer, plantéate preguntas: ¿quién creó el contenido?, ¿con qué intención?, ¿qué pasos siguió el equipo?", example: "¿Quién publicó el video y por qué?" },
+      { title: "Busca las pistas del ultrafalso", text: "Identifica las señales que muestra el texto: fuente desconocida, emoción muy fuerte, detalles raros en la imagen, ningún otro medio lo confirma.", example: "Labios que no coinciden con la voz" },
+      { title: "Ordena los pasos del proyecto maker", text: "Reconstruye en orden lo que hizo el equipo: problema, idea, diseño, construcción, prueba y mejora.", example: "Problema → diseño → prototipo → prueba → mejora" },
+      { title: "Distingue hechos y opiniones", text: "Un hecho se puede comprobar; una opinión expresa lo que alguien piensa. Separa ambos al responder.", example: "Hecho: «midió 10 cm» · Opinión: «es el mejor invento»" },
+      { title: "Concluye con evidencia", text: "Escribe tu conclusión citando partes del texto. Pensar críticamente es dar razones, no solo opinar.", example: "«El video era falso porque ningún medio lo confirmó»" }
+    ],
+    remember: ["Lee con preguntas en mente.", "Busca pistas y separa hechos de opiniones.", "Concluye citando evidencias del texto."],
+    mistake: "Confiar en una afirmación solo porque aparece en el texto. Pregúntate quién lo dice y qué pruebas da.",
+    fun: "¿Sabías que muchas escuelas en el mundo enseñan «alfabetización mediática» para que los estudiantes aprendan a analizar lo que ven en internet?",
+    check: [
+      ["«La pieza medía 10 cm» es…", "Un hecho", ["Una opinión", "Un ultrafalso"]],
+      ["¿Qué es una pista de que un video puede ser falso?", "Ningún otro medio lo confirma", ["Lo publicó un medio confiable", "Varias fuentes coinciden"]]
+    ]
+  }
+});
