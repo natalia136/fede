@@ -148,7 +148,7 @@
     try {
       if (!("speechSynthesis" in window)) { toast("Este navegador no puede leer en voz alta"); return; }
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = lang.startsWith("en") ? 0.85 : 0.95;
+      const u = new SpeechSynthesisUtterance(lang.startsWith("en") ? String(text).replace(/\([^)]*\)/g, "").trim() : text); u.lang = lang; u.rate = lang.startsWith("en") ? 0.85 : 0.95;
       const v = speechSynthesis.getVoices().find((x) => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0, 2)));
       if (v) u.voice = v;
       speechSynthesis.speak(u);
