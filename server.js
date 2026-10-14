@@ -23,6 +23,7 @@ function applySettings() {
   AI = Object.assign({ enabled: true, api_key: "", model: "claude-haiku-5-5", effort: "low", max_tokens: 16000, daily_limit_per_user: 40, tasks: { course: true, practice: true, explain: true } }, CONFIG.ai || {}, over("ai"));
   AI_KEY = AI.enabled ? (AI.api_key || process.env.ANTHROPIC_API_KEY || "") : "";
   AI_TASKS = AI_KEY ? Object.keys(AI.tasks || {}).filter((k) => AI.tasks[k]) : [];
+  if (AI_TASKS.includes("course")) AI_TASKS.push("course_plan", "course_lesson"); // cursos por partes
   VOICE = Object.assign({ enabled: true, api_key: "", voice_id: "", voice_name: "", voice_id_en: "", voice_name_en: "", model: "eleven_flash_v2_5", stability: 0.5, similarity: 0.75, style: 0.2, speed: 0.95, daily_chars_per_user: 20000 }, CONFIG.voice || {}, over("voice"));
   VOICE_ON = !!(VOICE.enabled && VOICE.api_key && VOICE.voice_id);
 }
@@ -190,8 +191,10 @@ async function api(req, res, pathname) {
     if (!AI_TASKS.includes(task)) return fail(res, 400, "Ese uso de la IA no está activado.");
     const day = new Date().toISOString().slice(0, 10), limit = +AI.daily_limit_per_user || 0;
     db.ai_usage = db.ai_usage || {}; const used = (db.ai_usage[user.id] || {})[day] || 0;
-    if (limit && used >= limit) return fail(res, 429, `Llegaste al límite de ${limit} usos de IA por hoy. Vuelve mañana.`);
-    db.ai_usage[user.id] = { [day]: used + 1 }; persist();
+    if (task !== "course_lesson") {
+      if (limit && used >= limit) return fail(res, 429, `Llegaste al límite de ${limit} usos de IA por hoy. Vuelve mañana.`);
+      db.ai_usage[user.id] = { [day]: used + 1 }; persist();
+    }
     let prompts = {}; try { prompts = JSON.parse(fs.readFileSync(path.join(ROOT, "ai/prompts.json"), "utf8")); } catch (e) { /* */ }
     const def = prompts[task]; if (!def || !def.template) return fail(res, 500, "Falta la instrucción de esa tarea en ai/prompts.json.");
     const prompt = def.template.replace(/\{\{(\w+)\}\}/g, (_, k) => ((def.vars || []).includes(k) ? String(vars[k] ?? "").slice(0, 2000) : ""));

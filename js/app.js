@@ -1162,7 +1162,7 @@
     const P = S.profile;
     maker.form = maker.form || { topic: p.q || "", subject: "auto", grade: P.grade, lessons: 5, notes: "" };
     const f = maker.form, c = COUNTRIES[P.country];
-    if (maker.status === "loading") return `<section class="card thinking"><div class="mascot-mid think-bob">${ART.nova("think")}</div><h2>Nova está creando tu curso…</h2><p class="log" id="mk-log">Revisando lo que se estudia en ${esc(gradeLabel(P.country, f.grade))}…</p><p class="muted">Puede tardar hasta un minuto.</p></section>`;
+    if (maker.status === "loading") return `<section class="card thinking"><div class="mascot-mid think-bob">${ART.nova("think")}</div><h2>Nova está creando tu curso…</h2><p class="log" id="mk-log">Revisando lo que se estudia en ${esc(gradeLabel(P.country, f.grade))}…</p><p class="muted">Se crea lección por lección: puede tardar uno o dos minutos.</p></section>`;
     if (maker.status === "done" && maker.course) {
       const m = maker.course;
       return `<section class="stack"><div class="subject-hero" style="${sv(m.subject)}"><span class="icon">${esc(m.emoji || "📘")}</span><div><p class="eyebrow" style="color:#fff;opacity:.85">✨ Vista previa del curso</p><h1>${esc(m.title)}</h1><p>${esc(m.summary || "")}</p></div></div>
@@ -1231,6 +1231,7 @@
     if (code === "rate_limited") return "La IA está ocupada en este momento. Espera un minuto y vuelve a intentarlo.";
     if (code === "refusal") return "La IA no pudo crear este curso. Prueba a describir el tema de otra forma.";
     if (code === "invalid_json") return "La respuesta de la IA llegó incompleta. Inténtalo de nuevo.";
+    if (code === "http" && /504|502|tiempo|timeout/i.test(e.message || "")) return "El servidor tardó demasiado en responder. Intenta de nuevo; si sigue pasando, pide menos lecciones.";
     if (code === "http") return "No se pudo conectar con la IA (" + esc(e.message || "") + "). Revisa la clave en la configuración del servidor.";
     return "Algo salió mal al crear el curso. Revisa tu conexión e inténtalo de nuevo.";
   }
@@ -1239,13 +1240,29 @@
     if (!f.topic.trim()) { toast("Escribe un tema"); return; }
     if (!(await aiAvailable("course"))) { maker.error = aiErrorMsg({ code: "no_ai" }); render(); return; }
     maker.status = "loading"; maker.error = ""; render();
-    const msgs = ["Escogiendo los mejores ejemplos…", "Inventando retos divertidos…", "Revisando que las respuestas estén bien…", "Preparando la guía para el adulto…", "Poniendo estrellas y confeti…"]; let mi = 0;
-    const iv = setInterval(() => { const el = $("#mk-log"); if (el) el.textContent = msgs[mi++ % msgs.length]; }, 3500);
+    const log = (t) => { const el = $("#mk-log"); if (el) el.textContent = t; };
     try {
-      const raw = await aiTask("course", courseVars(f));
-      maker.course = cleanCourse(raw, f); maker.status = "done"; sfx.win(); confetti(90); say("¡Tu curso está listo! Revísalo y guárdalo.", "happy");
+      // 1) el plan del curso (rápido); 2) cada lección por separado, así ningún pedido tarda demasiado
+      const usePlan = !API.on || (API.aiTasks || []).includes("course_plan");
+      if (!usePlan) { maker.course = cleanCourse(await aiTask("course", courseVars(f)), f); }
+      else {
+        log("Armando el plan del curso…");
+        const plan = await aiTask("course_plan", courseVars(f));
+        const list = (Array.isArray(plan.lessons) ? plan.lessons : []).slice(0, Math.max(1, +f.lessons || 5)).map((l) => ({ title: String(l.title || "Lección"), goal: String(l.goal || "") }));
+        if (!list.length) throw { code: "invalid_json" };
+        const base = courseVars(f), lessons = new Array(list.length); let done = 0;
+        const one = async (i) => {
+          const vars = { country: base.country, framework: base.framework, grade: base.grade, subject: base.subject, course: String(plan.title || f.topic), lesson: list[i].title, goal: list[i].goal, index: String(i + 1), total: String(list.length), others: list.filter((_, k) => k !== i).map((x) => x.title).join("; "), notes: base.notes, kid: base.kid };
+          for (let tries = 0; tries < 2 && !lessons[i]; tries++) { try { const l = await aiTask("course_lesson", vars); l.title = l.title || list[i].title; lessons[i] = l; } catch (e) { if (e && (e.code === "limit" || e.code === "no_ai")) throw e; } }
+          done++; log(`Lección ${done} de ${list.length} lista…`);
+        };
+        log(`Creando ${list.length} lecciones…`);
+        for (let i = 0; i < list.length; i += 2) await Promise.all([one(i), i + 1 < list.length ? one(i + 1) : null]); // de dos en dos
+        maker.course = cleanCourse(Object.assign({}, plan, { lessons: lessons.filter(Boolean) }), f);
+        if (maker.course.lessons.length < list.length) toast(`Se crearon ${maker.course.lessons.length} de ${list.length} lecciones`);
+      }
+      maker.status = "done"; sfx.win(); confetti(90); say("¡Tu curso está listo! Revísalo y guárdalo.", "happy");
     } catch (e) { maker.status = "idle"; maker.error = aiErrorMsg(e); }
-    clearInterval(iv);
     if (view.name === "maker") render();
   }
   async function morePractice(cid, li) {

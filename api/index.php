@@ -34,6 +34,8 @@ $AI = array_merge(['enabled' => true, 'api_key' => '', 'model' => 'claude-haiku-
 if ($AI['api_key'] === '') $AI['api_key'] = $config['anthropic_api_key'] ?? (getenv('ANTHROPIC_API_KEY') ?: '');
 $AI_KEY = ($AI['enabled'] && $AI['api_key'] !== '') ? $AI['api_key'] : '';
 $AI_TASKS = $AI_KEY === '' ? [] : array_keys(array_filter($AI['tasks'] ?? []));
+// crear cursos se hace por partes (plan + una lección a la vez) para no pasar el tiempo límite del hosting
+if (in_array('course', $AI_TASKS, true)) array_push($AI_TASKS, 'course_plan', 'course_lesson');
 $VOICE = array_merge(['enabled' => true, 'api_key' => '', 'voice_id' => '', 'voice_id_en' => '', 'model' => 'eleven_flash_v2_5', 'stability' => 0.5, 'similarity' => 0.75, 'style' => 0.2, 'speed' => 0.95, 'daily_chars_per_user' => 20000], $config['voice'] ?? []);
 $VOICE_ON = $VOICE['enabled'] && $VOICE['api_key'] !== '' && $VOICE['voice_id'] !== '';
 const SESSION_DAYS = 30;
@@ -160,8 +162,11 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
   $limit = (int) $AI['daily_limit_per_user'];
   if ($AI_KEY === '') fail(503, 'La IA no está configurada en el servidor.');
   if (!in_array($task, $AI_TASKS, true)) fail(400, 'Ese uso de la IA no está activado.');
-  $check = with_db(function (&$db) use ($limit) {
+  @set_time_limit(120);
+  $free = $task === 'course_lesson'; // las lecciones de un curso cuentan como parte del mismo uso (el plan)
+  $check = with_db(function (&$db) use ($limit, $free) {
     $user = &auth_user($db); if (!$user) return 'auth';
+    if ($free) return 'ok';
     $day = gmdate('Y-m-d'); $used = $db['ai_usage'][$user['id']][$day] ?? 0;
     if ($limit > 0 && $used >= $limit) return 'limit';
     $db['ai_usage'] = [$user['id'] => [$day => $used + 1]] + array_map(fn($d) => array_intersect_key($d, [$day => 1]), $db['ai_usage'] ?? []);
@@ -178,7 +183,7 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
   // Los modelos Opus, Sonnet y Fable aceptan un modelo de respaldo automático; Haiku no.
   $fallback = (bool) preg_match('/opus|sonnet|fable/', (string) $AI['model']);
   $ch = curl_init('https://api.anthropic.com/v1/messages');
-  curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 240,
+  curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 100,
     CURLOPT_HTTPHEADER => array_merge(['content-type: application/json', 'x-api-key: ' . $AI_KEY, 'anthropic-version: 2023-06-01'], $fallback ? ['anthropic-beta: server-side-fallback-2026-07-01'] : []),
     CURLOPT_POSTFIELDS => json_encode(['model' => $AI['model'], 'max_tokens' => (int) $AI['max_tokens'], 'output_config' => ['effort' => $AI['effort']], 'messages' => [['role' => 'user', 'content' => $prompt]]] + ($fallback ? ['fallbacks' => 'default'] : []))]);
   $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $cerr = curl_error($ch); curl_close($ch);
