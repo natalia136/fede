@@ -532,7 +532,7 @@
     document.body.classList.toggle("focus", ["play", "result"].includes(view.name) || (view.name === "duel" && !!duel));
     document.body.classList.toggle("bare", ["auth", "profiles"].includes(view.name) || (!S.profile && ["setup", "avatar"].includes(view.name)));
     $("#top").innerHTML = topbar();
-    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, config: vConfig, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
+    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, config: vConfig, restore: vRestore, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
   }
@@ -674,7 +674,8 @@
   function loadLessons(subj) {
     if (lessonFiles[subj]) return lessonFiles[subj];
     const load = (src) => new Promise((ok) => { const sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
-    lessonFiles[subj] = Promise.all([load(`js/lessons/${subj}.js`), load(`js/lessons/${subj}_plus.js`)]);
+    const v = window.APP_VERSION ? "?v=" + window.APP_VERSION : "";
+    lessonFiles[subj] = Promise.all([load(`js/lessons/${subj}.js${v}`), load(`js/lessons/${subj}_plus.js${v}`)]);
     return lessonFiles[subj];
   }
   // lección completa = lección base + complemento (antes de empezar, glosario, ejemplos resueltos, práctica)
@@ -1024,6 +1025,28 @@
         ${nx ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify(nx))}'>${nt ? `Siguiente tema: ${esc(nt.t.title)}` : "Siguiente lección"} ➜</button>` : ""}
         <button class="btn ghost" data-act="back" data-ref='${esc(JSON.stringify(g.ref))}'>Volver</button>
       </div></section>`;
+  }
+
+  /* ---------- recuperar avance de días anteriores (copias diarias del servidor) ---------- */
+  let snaps = null;
+  function vRestore() {
+    if (!API.on || !API.pid) return `<p>Esta opción funciona cuando la app está en el servidor.</p>`;
+    if (!snaps) { callApi("GET", `profiles/${API.pid}/snapshots`).then((d) => { snaps = d.snapshots; if (view.name === "restore") render(); }).catch((e) => toast(e.message)); return `<section class="card"><p>Buscando copias…</p></section>`; }
+    const now = { xp: S.xp, stars: S.stars, stickers: S.stickers.length, done: Object.keys(S.progress).length };
+    const row = (x, cur) => `<span>Nivel ${levelInfo(x.xp || 0).lv}</span><span>⭐ ${x.stars}</span><span>🎴 ${x.stickers}</span><span>📚 ${x.done} lecciones</span>`;
+    return `<section class="stack">
+      <div class="section-head"><h1>${I("shield")} Recuperar avance</h1><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="home">Volver</button></div>
+      <p class="muted">El servidor guarda una copia del progreso de ${esc(S.profile.name)} cada día (los últimos 14 días). Si algo se perdió, júntalo con el avance actual: no se borra nada, se queda lo mejor de cada lección.</p>
+      <div class="card snap-row now"><b>Ahora</b>${row(now)}</div>
+      ${snaps.length ? snaps.map((x) => `<div class="card snap-row"><b>${new Date(x.date + "T12:00").toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long" })}</b>${row(x)}<button class="btn small" data-act="restoreSnap" data-v="${esc(x.date)}">Juntar con el actual</button></div>`).join("") : `<div class="card"><p style="margin:0">Todavía no hay copias. Se crean solas desde hoy, una por día.</p></div>`}
+    </section>`;
+  }
+  async function restoreSnap(date) {
+    try {
+      const d = await callApi("GET", `profiles/${API.pid}/snapshots/${date}`);
+      const merged = mergeStates(S, Object.assign(DEF(), d.state)); merged.profile = S.profile; merged.equip = S.equip;
+      S = merged; migrateStickers(S); save(); snaps = null; confetti(60); toast("¡Avance recuperado!"); go("home");
+    } catch (e) { toast(e.message); }
   }
 
   /* ---------- álbum de láminas ---------- */
@@ -1477,7 +1500,7 @@
     const r = await fetch("api/" + url, { method, headers: Object.assign({ "content-type": "application/json" }, API.token ? { authorization: "Bearer " + API.token, "x-auth-token": API.token } : {}), body: body ? JSON.stringify(body) : undefined });
     const data = await r.json().catch(() => ({}));
     if (r.status === 401 && API.user) { clearSession(); render(); }
-    if (!r.ok) throw Object.assign(new Error(data.error || `Error ${r.status}`), { status: r.status });
+    if (!r.ok) throw Object.assign(new Error(data.error || `Error ${r.status}`), { status: r.status, data });
     return data;
   }
   async function detectServer() {
@@ -1492,19 +1515,35 @@
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
   async function loadProfile(pid) {
     const d = await callApi("GET", "profiles/" + pid);
-    let st = d.state, newer = false;
-    try { const bk = JSON.parse(localStorage.getItem(bkKey(pid)) || "null"); if (bk && (bk.updatedAt || 0) > ((st && st.updatedAt) || 0)) { st = bk; newer = true; } } catch (e) { /* */ }
-    S = Object.assign(DEF(), st); migrateStickers(S); API.pid = pid; remember("ae-pid", pid); applySkin();
-    if (newer) { pushProfile(); toast("Recuperamos el progreso más reciente de este equipo"); }
+    S = Object.assign(DEF(), d.state); migrateStickers(S); API.pid = pid; API.base = d.updatedAt || 0; remember("ae-pid", pid); applySkin();
+    // si en este equipo quedó algo sin llegar al servidor, se junta (nunca se reemplaza)
+    try {
+      const bk = JSON.parse(localStorage.getItem(bkKey(pid)) || "null");
+      if (bk && (bk.updatedAt || 0) > (S.updatedAt || 0)) { const srv = S; S = Object.assign(DEF(), bk); absorbRemote(srv, API.base); pushProfile(); toast("Juntamos el progreso guardado en este equipo"); }
+    } catch (e) { /* */ }
   }
+  // al volver a la pestaña, trae lo que se haya guardado desde otro equipo
+  document.addEventListener("visibilitychange", async () => {
+    if (document.visibilityState !== "visible" || !API.on || !API.pid || !API.token || (play && view.name === "play")) return;
+    try { const d = await callApi("GET", "profiles/" + API.pid); if ((d.updatedAt || 0) > (API.base || 0)) { absorbRemote(d.state, d.updatedAt); render(); pushProfile(); } } catch (e) { /* sin conexión */ }
+  });
   // copia de seguridad en este navegador: si el servidor no recibió el último guardado, se recupera al volver
   const bkKey = (pid) => "ae-bk-" + pid;
   function backupLocal() { if (!API.pid) return; try { const c = JSON.parse(JSON.stringify(S)); delete c.apiKey; localStorage.setItem(bkKey(API.pid), JSON.stringify(c)); } catch (e) { /* sin espacio */ } }
+  // junta lo que hay en el servidor (guardado desde otro equipo o pestaña) con lo de aquí, sin perder avances
+  function absorbRemote(remote, updatedAt) {
+    const merged = mergeStates(Object.assign(DEF(), remote), S);
+    merged.profile = S.profile || merged.profile; merged.equip = S.equip || merged.equip; merged.sound = S.sound;
+    merged.updatedAt = Math.max(S.updatedAt || 0, (remote && remote.updatedAt) || 0) + 1;
+    S = merged; migrateStickers(S); API.base = updatedAt; backupLocal();
+  }
   function pushProfile(keepalive) {
     if (!API.on || !API.pid) return;
     const copy = JSON.parse(JSON.stringify(S)); delete copy.apiKey; backupLocal();
-    if (keepalive) { try { fetch("api/profiles/" + API.pid, { method: "PUT", keepalive: true, headers: { "content-type": "application/json", authorization: "Bearer " + API.token, "x-auth-token": API.token }, body: JSON.stringify({ state: copy }) }); } catch (e) { /* */ } return; }
-    callApi("PUT", "profiles/" + API.pid, { state: copy }).then(() => { API.unsaved = false; }).catch((e) => { API.unsaved = true; if (e.status !== 401) toast(e.status === 413 ? "El progreso es muy grande para guardarlo. Avísale al administrador." : "No se pudo guardar el progreso. Lo intentaremos de nuevo."); clearTimeout(API.retry); API.retry = setTimeout(() => { if (API.unsaved) pushProfile(); }, 15000); });
+    const body = JSON.stringify({ state: copy, base: API.base || 0 });
+    if (keepalive) { try { fetch("api/profiles/" + API.pid, { method: "PUT", keepalive: true, headers: { "content-type": "application/json", authorization: "Bearer " + API.token, "x-auth-token": API.token }, body }); } catch (e) { /* */ } return; }
+    callApi("PUT", "profiles/" + API.pid, { state: copy, base: API.base || 0 }).then((r) => { API.unsaved = false; if (r && r.updatedAt) API.base = r.updatedAt; }).catch((e) => {
+      if (e.status === 409 && e.data && e.data.state) { absorbRemote(e.data.state, e.data.updatedAt); render(); return pushProfile(); } API.unsaved = true; if (e.status !== 401) toast(e.status === 413 ? "El progreso es muy grande para guardarlo. Avísale al administrador." : "No se pudo guardar el progreso. Lo intentaremos de nuevo."); clearTimeout(API.retry); API.retry = setTimeout(() => { if (API.unsaved) pushProfile(); }, 15000); });
   }
   addEventListener("pagehide", () => { if (API.on && API.pid && API.timer) { clearTimeout(API.timer); API.timer = null; pushProfile(true); } });
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden" && API.on && API.pid && API.timer) { clearTimeout(API.timer); API.timer = null; pushProfile(true); } });
@@ -1559,14 +1598,16 @@
   // junta dos progresos sin perder nada: se queda con lo mejor de cada lección y con el mayor XP y monedas
   function mergeStates(base, extra) {
     const out = JSON.parse(JSON.stringify(base));
-    Object.entries(extra.progress || {}).forEach(([k, v]) => { const a = out.progress[k]; out.progress[k] = !a ? v : Object.assign({}, a, { stars: Math.max(a.stars || 0, v.stars || 0), best: Math.max(a.best || 0, v.best || 0), plays: (a.plays || 0) + (v.plays || 0) }); });
+    Object.entries(extra.progress || {}).forEach(([k, v]) => { const a = out.progress[k]; out.progress[k] = !a ? v : Object.assign({}, a, { stars: Math.max(a.stars || 0, v.stars || 0), best: Math.max(a.best || 0, v.best || 0), plays: Math.max(a.plays || 0, v.plays || 0) }); });
     ["xp", "coins", "stars", "bestCombo"].forEach((k) => { out[k] = Math.max(out[k] || 0, extra[k] || 0); });
     out.stickers = [...new Set([...(out.stickers || []), ...(extra.stickers || [])])];
     out.owned = [...new Set([...(out.owned || []), ...(extra.owned || [])])];
     const ids = new Set((out.courses || []).map((c) => c.id)); out.courses = [...(out.courses || []), ...(extra.courses || []).filter((c) => !ids.has(c.id))];
     if ((extra.streak && extra.streak.n || 0) > (out.streak && out.streak.n || 0)) out.streak = extra.streak;
-    out.history = [...(extra.history || []), ...(out.history || [])].slice(-200);
+    const hs = new Set(); out.history = [...(extra.history || []), ...(out.history || [])].filter((h) => { const k = [h.k, h.d, h.pct, h.title].join("|"); if (hs.has(k)) return false; hs.add(k); return true; }).slice(-200);
     if (!out.plan && extra.plan) out.plan = extra.plan;
+    out.seen = Object.assign({}, extra.seen || {}, out.seen || {});
+    out.bosses = Object.assign({}, extra.bosses || {}, out.bosses || {});
     return out;
   }
   async function importLocal(targetId) {
@@ -1712,6 +1753,7 @@
     back.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="acc-t"><h2 id="acc-t">👤 ${esc(API.user.name)}</h2><p class="muted" style="margin:0">${esc(API.user.email)}</p>
       <button class="btn ghost" data-m="profiles">🔄 Cambiar de perfil</button>
       ${API.user.role === "admin" ? `<button class="btn ghost" data-m="admin">🛡️ Administrar usuarios</button><button class="btn ghost" data-m="config">${I("settings")} Claves de IA y voz</button>` : ""}
+      ${API.pid ? `<button class="btn ghost" data-m="restore">${I("shield")} Recuperar avance de días anteriores</button>` : ""}
       <details class="pwd"><summary>🔑 Cambiar contraseña</summary><form data-form="pwd" class="stack" style="margin-top:12px"><input class="input" name="current" type="password" autocomplete="current-password" placeholder="Contraseña actual" required><input class="input" name="next" type="password" autocomplete="new-password" minlength="8" placeholder="Nueva contraseña (mín. 8)" required><button class="btn" type="submit">Guardar contraseña</button></form></details>
       <button class="btn ghost" data-m="logout">Cerrar sesión</button><button class="btn ghost small" data-m="close">Cerrar</button></div>`;
     document.body.appendChild(back);
@@ -1722,6 +1764,7 @@
       if (k === "profiles") { pushProfile(); go("profiles"); }
       if (k === "admin") { adminData = null; go("admin"); }
       if (k === "config") { cfg.data = null; go("config"); }
+      if (k === "restore") { snaps = null; go("restore"); }
       if (k === "logout") logout();
     });
   }
@@ -1814,6 +1857,7 @@
         return;
       }
       case "cfgTestVoice": voiceOff = false; return speak("¡Hola! Soy la voz de Aventura Escolar. Hoy vamos a aprender algo nuevo juntos.", "es-ES");
+      case "restoreSnap": b.disabled = true; return restoreSnap(b.dataset.v);
       case "albumSet": albumSet = b.dataset.v; sfx.tap(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
       case "lsnOpen": lsn.open = true; return render();
       case "lsnGo": { lsn.step = Math.max(0, +b.dataset.v); stopVoice(); sfx.step(); const y = window.scrollY; render(); const c = document.querySelector(".lsn"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); else window.scrollTo(0, y); return; }

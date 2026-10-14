@@ -77,6 +77,12 @@ const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
 
 // límite simple de intentos de inicio de sesión por IP
 const attempts = new Map();
+// copia diaria del progreso de cada perfil (últimos 14 días)
+function snapshot(dir, state) {
+  if (!state) return;
+  const d = new Date(), file = path.join(dir, `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}.json`);
+  try { if (fs.existsSync(file)) return; fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(file, JSON.stringify(state)); const all = fs.readdirSync(dir).filter((f) => f.endsWith(".json")).sort(); all.slice(0, Math.max(0, all.length - 14)).forEach((f) => fs.unlinkSync(path.join(dir, f))); } catch (e) { /* sin copia */ }
+}
 function tooMany(ip) {
   const now = Date.now(), list = (attempts.get(ip) || []).filter((t) => now - t < 15 * 60e3);
   attempts.set(ip, list);
@@ -165,8 +171,15 @@ async function api(req, res, pathname) {
     }
     const p = db.profiles.find((x) => x.id === parts[1] && x.userId === user.id);
     if (!p) return fail(res, 404, "Perfil no encontrado.");
+    const sdir = path.join(DATA_DIR, "snapshots", p.id.replace(/[^a-f0-9]/g, ""));
+    if (method === "GET" && parts[2] === "snapshots") {
+      const date = parts[3] || "";
+      if (date) { if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return fail(res, 404, "No hay copia de ese día."); try { return send(res, 200, { state: JSON.parse(fs.readFileSync(path.join(sdir, date + ".json"), "utf8")) }); } catch (e) { return fail(res, 404, "No hay copia de ese día."); } }
+      let files = []; try { files = fs.readdirSync(sdir).filter((f) => f.endsWith(".json")).sort().reverse(); } catch (e) { /* sin copias */ }
+      return send(res, 200, { snapshots: files.map((f) => { const st = JSON.parse(fs.readFileSync(path.join(sdir, f), "utf8")); return { date: f.slice(0, 10), xp: st.xp || 0, stars: st.stars || 0, coins: st.coins || 0, stickers: (st.stickers || []).length, done: Object.keys(st.progress || {}).length }; }) });
+    }
     if (method === "GET") return send(res, 200, { state: p.state, updatedAt: p.updatedAt });
-    if (method === "PUT") { const b = await readJson(req); if (!b.state || typeof b.state !== "object") return fail(res, 400, "Faltan datos."); p.state = b.state; p.updatedAt = Date.now(); persist(); return send(res, 200, { ok: true, updatedAt: p.updatedAt }); }
+    if (method === "PUT") { const b = await readJson(req); if (!b.state || typeof b.state !== "object") return fail(res, 400, "Faltan datos."); if (+b.base > 0 ? (p.updatedAt || 0) > +b.base : +(b.state.updatedAt || 0) < +((p.state || {}).updatedAt || 0)) return send(res, 409, { error: "conflict", state: p.state, updatedAt: p.updatedAt }); snapshot(sdir, p.state); p.state = b.state; p.updatedAt = Date.now(); persist(); return send(res, 200, { ok: true, updatedAt: p.updatedAt }); }
     if (method === "DELETE") { db.profiles = db.profiles.filter((x) => x !== p); persist(); return send(res, 200, { ok: true }); }
   }
 

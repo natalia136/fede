@@ -711,3 +711,7 @@ svg.avi { border-radius: 50%; }
 .sticker-won-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .sticker-won { display: grid; gap: 4px; justify-items: center; width: 150px; font-size: 1rem; }
 .sticker-won .stk-emoji { font-size: 3.6rem; }
+.snap-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.snap-row b { text-transform: capitalize; min-width: 190px; }
+.snap-row .btn { margin-left: auto; }
+.snap-row.now { border-color: var(--cyan); }

@@ -334,6 +334,18 @@ if (($parts[0] ?? '') === 'admin' && in_array($parts[1] ?? '', ['settings', 'tes
   fail(404, 'Ruta no encontrada.');
 }
 
+/* ---------- copias diarias del progreso (últimos 14 días por perfil) ---------- */
+function snap_dir(string $pid): string { global $DATA_DIR; return $DATA_DIR . '/snapshots/' . preg_replace('/[^a-f0-9]/', '', $pid); }
+function snapshot(array $p): void {
+  if (empty($p['state'])) return;
+  $dir = snap_dir($p['id']); if (!is_dir($dir)) @mkdir($dir, 0700, true);
+  $file = $dir . '/' . date('Y-m-d') . '.json';
+  if (is_file($file)) return; // una copia por día: el estado con el que empezó el día
+  @file_put_contents($file, json_encode($p['state'], JSON_UNESCAPED_UNICODE), LOCK_EX);
+  $all = glob("$dir/*.json") ?: []; sort($all);
+  foreach (array_slice($all, 0, max(0, count($all) - 14)) as $old) @unlink($old);
+}
+
 /* ---------- rutas con sesión ---------- */
 $resp = with_db(function (&$db) use ($parts, $method) {
   $user = &auth_user($db);
@@ -368,8 +380,21 @@ $resp = with_db(function (&$db) use ($parts, $method) {
     }
     foreach ($db['profiles'] as $i => $p) {
       if ($p['id'] !== $p1 || $p['userId'] !== $user['id']) continue;
+      if ($method === 'GET' && ($parts[2] ?? '') === 'snapshots') {
+        $dir = snap_dir($p['id']); $date = $parts[3] ?? '';
+        if ($date !== '') { if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) || !is_file("$dir/$date.json")) return [404, ['error' => 'No hay copia de ese día.']]; return [200, ['state' => json_decode((string) file_get_contents("$dir/$date.json"), true)]]; }
+        $out = [];
+        foreach (array_reverse(glob("$dir/*.json") ?: []) as $f) { $st = json_decode((string) file_get_contents($f), true) ?: []; $out[] = ['date' => basename($f, '.json'), 'xp' => $st['xp'] ?? 0, 'stars' => $st['stars'] ?? 0, 'coins' => $st['coins'] ?? 0, 'stickers' => count($st['stickers'] ?? []), 'done' => count($st['progress'] ?? [])]; }
+        return [200, ['snapshots' => $out]];
+      }
       if ($method === 'GET') return [200, ['state' => $p['state'], 'updatedAt' => $p['updatedAt']]];
-      if ($method === 'PUT') { $b = body(); if (!isset($b['state']) || !is_array($b['state'])) return [400, ['error' => 'Faltan datos.']]; $db['profiles'][$i]['state'] = $b['state']; $db['profiles'][$i]['updatedAt'] = now_ms(); return [200, ['ok' => true, 'updatedAt' => $db['profiles'][$i]['updatedAt']]]; }
+      if ($method === 'PUT') { $b = body(); if (!isset($b['state']) || !is_array($b['state'])) return [400, ['error' => 'Faltan datos.']];
+        // si otro equipo guardó después de que este cargó el perfil, no se pisa: se devuelve lo del servidor para juntarlo
+        $base = (int) ($b['base'] ?? 0);
+        $stale = $base > 0 ? (($p['updatedAt'] ?? 0) > $base) : ((float) ($b['state']['updatedAt'] ?? 0) < (float) ($p['state']['updatedAt'] ?? 0)); // versiones viejas de la app no envían base
+        if ($stale) return [409, ['error' => 'conflict', 'state' => $p['state'], 'updatedAt' => $p['updatedAt']]];
+        snapshot($p);
+        $db['profiles'][$i]['state'] = $b['state']; $db['profiles'][$i]['updatedAt'] = now_ms(); return [200, ['ok' => true, 'updatedAt' => $db['profiles'][$i]['updatedAt']]]; }
       if ($method === 'DELETE') { array_splice($db['profiles'], $i, 1); return [200, ['ok' => true]]; }
     }
     return [404, ['error' => 'Perfil no encontrado.']];
