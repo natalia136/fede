@@ -611,3 +611,208 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["Un trébol tiene 3 hojas. ¿Cuántas hojas tienen 10 tréboles?", "30", ["13", "27", "33"], "10 grupos de 3: 10 × 3 = 30."]
     ]
   },
+  /* ---------- 3.º primaria ---------- */
+  "m3a": {
+    before: ["Recuerda que multiplicar es sumar grupos iguales: 4 × 5 = 5 + 5 + 5 + 5.", "Ya conoces las tablas del 2, 3, 4, 5 y 10: úsalas para descubrir las demás."],
+    vocab: [["factor", "cada número que se multiplica"], ["producto", "el resultado de la multiplicación"], ["tabla", "lista ordenada de las multiplicaciones de un número"], ["propiedad conmutativa", "cambiar el orden de los factores no cambia el producto: 4 × 6 = 6 × 4"]],
+    worked: [
+      { problem: "¿Cuánto es 7 × 8?", steps: ["Separo el 7 en 5 + 2.", "5 × 8 = 40 y 2 × 8 = 16.", "40 + 16 = 56."], answer: "7 × 8 = 56" },
+      { problem: "¿Cuánto es 9 × 6?", steps: ["Uso 10 × 6 = 60.", "9 grupos de 6 es un grupo menos que 10: le quito un 6.", "60 − 6 = 54."], answer: "9 × 6 = 54" },
+      { problem: "¿Cuánto es 6 × 8?", steps: ["6 es el doble de 3.", "3 × 8 = 24.", "El doble de 24 es 48."], answer: "6 × 8 = 48" }
+    ],
+    practice: [
+      ["¿Cuánto es 2 × 9?", "18", ["11", "16", "29"], "Es el doble de 9: 9 + 9 = 18."],
+      ["¿Cuánto es 10 × 8?", "80", ["18", "800", "88"], "Multiplicar por 10 agrega un cero: 80."],
+      ["¿Cuánto es 5 × 7?", "35", ["30", "40", "12"], "De 5 en 5 siete veces: 35."],
+      ["¿Cuánto es 6 × 6?", "36", ["30", "42", "12"], "5 × 6 = 30 y 30 + 6 = 36."],
+      ["Si 6 × 9 = 54, ¿cuánto es 9 × 6?", "54", ["45", "15", "56"], "El orden de los factores no cambia el producto."],
+      ["¿Cuánto es 7 × 7?", "49", ["42", "56", "14"], "7 × 5 = 35 y 7 × 2 = 14: 35 + 14 = 49."],
+      ["¿Cuánto es 8 × 6?", "48", ["42", "54", "46"], "Es lo mismo que 6 × 8 = 48."],
+      ["¿Cuánto es 8 × 8?", "64", ["56", "72", "16"], "8 × 4 = 32 y el doble es 64."],
+      ["¿Cuánto es 7 × 9?", "63", ["56", "72", "62"], "7 × 10 = 70 y le quito un 7: 63."],
+      ["¿Cuánto es 9 × 9?", "81", ["72", "90", "18"], "9 × 10 = 90 y le quito un 9: 81."]
+    ]
+  },
+  "m3b": {
+    before: ["Para dividir necesitas las tablas de multiplicar: si sabes que 4 × 6 = 24, sabes que 24 ÷ 4 = 6.", "Recuerda que multiplicar es juntar grupos iguales; dividir es separarlos."],
+    vocab: [["dividendo", "el número que se reparte"], ["divisor", "en cuántas partes o grupos se reparte"], ["cociente", "el resultado de la división: cuánto toca a cada uno"], ["signo ÷", "se lee «dividido entre»"]],
+    worked: [
+      { problem: "¿Cuánto es 28 ÷ 7?", steps: ["Busco en la tabla del 7: 7 × ¿? = 28.", "7 × 4 = 28.", "Compruebo: 7 × 4 = 28. ✔"], answer: "28 ÷ 7 = 4" },
+      { problem: "Reparte 18 lápices entre 6 niños en partes iguales.", steps: ["Es una división: 18 ÷ 6.", "Busco 6 × ¿? = 18: 6 × 3 = 18.", "A cada niño le tocan 3."], answer: "3 lápices para cada niño." }
+    ],
+    practice: [
+      ["¿Cuánto es 10 ÷ 2?", "5", ["8", "12", "20"], "2 × 5 = 10."],
+      ["¿Cuánto es 9 ÷ 1?", "9", ["1", "0", "10"], "Si repartes entre 1, le toca todo: 9."],
+      ["¿Cuánto es 15 ÷ 3?", "5", ["3", "12", "45"], "3 × 5 = 15."],
+      ["¿Cuánto es 24 ÷ 6?", "4", ["3", "6", "18"], "6 × 4 = 24."],
+      ["30 caramelos entre 5 niños. ¿Cuántos para cada uno?", "6", ["5", "25", "35"], "30 ÷ 5 = 6 porque 5 × 6 = 30."],
+      ["¿Cuánto es 36 ÷ 9?", "4", ["3", "5", "27"], "9 × 4 = 36."],
+      ["¿Cuánto es 42 ÷ 7?", "6", ["5", "7", "35"], "7 × 6 = 42."],
+      ["¿Qué multiplicación te ayuda a resolver 63 ÷ 7?", "7 × 9 = 63", ["7 × 7 = 49", "6 × 3 = 18", "63 × 7 = 441"], "Buscamos 7 × ¿? = 63: es 9."],
+      ["¿Cuánto es 56 ÷ 8?", "7", ["6", "8", "48"], "8 × 7 = 56."],
+      ["¿Cuánto es 81 ÷ 9?", "9", ["8", "7", "72"], "9 × 9 = 81."]
+    ]
+  },
+  "m3c": {
+    before: ["Repasa qué son partes iguales: si cortas un pan en trozos iguales, todos tienen el mismo tamaño.", "Recuerda que la mitad es una de 2 partes iguales."],
+    vocab: [["fracción", "número que dice qué parte de un entero tomamos, como 3/4"], ["numerador", "el número de arriba: cuántas partes tomamos"], ["denominador", "el número de abajo: en cuántas partes iguales se dividió"], ["entero", "la cosa completa, sin cortar"]],
+    worked: [
+      { problem: "Una barra de chocolate tiene 8 trozos iguales y te comes 3. ¿Qué fracción comiste? ¿Qué fracción queda?", steps: ["El entero está dividido en 8 partes: el denominador es 8.", "Comiste 3 partes: el numerador es 3 → 3/8.", "Quedan 8 − 3 = 5 partes → 5/8."], answer: "Comiste 3/8 y quedan 5/8." },
+      { problem: "¿Qué es mayor: 2/6 o 5/6?", steps: ["Los dos tienen denominador 6: las partes son del mismo tamaño.", "Comparo los numeradores: 5 partes es más que 2 partes."], answer: "5/6 es mayor." }
+    ],
+    practice: [
+      ["¿Cómo se lee 1/2?", "Un medio", ["Un doceavo", "Uno dos", "Un tercio"], "1/2 se lee «un medio»: una de dos partes."],
+      ["¿Cómo se lee 3/4?", "Tres cuartos", ["Cuatro tercios", "Tres cuatros", "Tres medios"], "El denominador 4 se lee «cuartos»."],
+      ["En 2/7, ¿qué número es el numerador?", "2", ["7", "9", "5"], "El numerador es el número de arriba."],
+      ["¿Cuántos cuartos forman un entero?", "4", ["1", "2", "8"], "4/4 es el entero completo."],
+      ["Una torta en 6 partes iguales; comes 1. ¿Qué fracción comiste?", "1/6", ["6/1", "1/5", "5/6"], "1 parte de 6: 1/6."],
+      ["Un jardín en 5 partes iguales; 2 tienen flores. ¿Qué fracción tiene flores?", "2/5", ["5/2", "3/5", "2/3"], "2 partes de 5: 2/5."],
+      ["Una pizza en 8 trozos; comes 3. ¿Qué fracción queda?", "5/8", ["3/8", "8/5", "3/5"], "Quedan 8 − 3 = 5 trozos de 8."],
+      ["¿Qué es mayor: 3/5 o 2/5?", "3/5", ["2/5", "Son iguales", "No se puede saber"], "Mismo denominador: 3 partes es más que 2."],
+      ["¿Qué es mayor: 1/2 o 1/3?", "1/2", ["1/3", "Son iguales", "No se puede saber"], "Si cortas en menos partes, cada parte es más grande."],
+      ["¿Qué fracción es igual a un entero completo?", "4/4", ["1/4", "3/4", "2/4"], "Si tomas las 4 partes de 4, tienes el entero."]
+    ]
+  },
+  "m3d": {
+    before: ["Repasa las cuatro operaciones: sumar, restar, multiplicar y dividir.", "Recuerda las tablas de multiplicar: las usarás para repetir y para repartir."],
+    vocab: [["datos", "los números importantes del problema"], ["pregunta", "lo que debes averiguar"], ["operación", "la cuenta que eliges: +, −, × o ÷"], ["revisar", "comprobar que la respuesta tiene sentido"]],
+    worked: [
+      { problem: "En el bus hay 28 personas. Bajan 9 y suben 5. ¿Cuántas personas hay?", steps: ["Bajan, entonces resto: 28 − 9 = 19.", "Suben, entonces sumo: 19 + 5 = 24."], answer: "Hay 24 personas." },
+      { problem: "Una caja tiene 6 filas de 5 huevos. ¿Cuántos huevos hay?", steps: ["Son grupos iguales que se repiten: multiplico.", "6 × 5 = 30."], answer: "Hay 30 huevos." },
+      { problem: "Reparto 32 figuritas entre 4 amigos en partes iguales. ¿Cuántas recibe cada uno?", steps: ["Repartir en partes iguales es dividir: 32 ÷ 4.", "4 × 8 = 32, entonces 32 ÷ 4 = 8."], answer: "8 figuritas cada uno." }
+    ],
+    practice: [
+      ["Tengo 45 canicas y gano 18. ¿Cuántas tengo?", "63", ["27", "53", "62"], "Gano, entonces sumo: 45 + 18 = 63."],
+      ["Un libro tiene 90 páginas y leí 35. ¿Cuántas me faltan?", "55", ["65", "125", "45"], "90 − 35 = 55."],
+      ["5 cajas con 7 lápices cada una. ¿Cuántos lápices hay?", "35", ["12", "30", "40"], "Grupos iguales: 5 × 7 = 35."],
+      ["40 niños en 5 equipos iguales. ¿Cuántos por equipo?", "8", ["35", "45", "9"], "Repartir: 40 ÷ 5 = 8."],
+      ["Si un problema dice «cada caja tiene» y pregunta «cuántos en total», se…", "Multiplica", ["Divide", "Resta", "No se hace nada"], "Hay grupos iguales que se repiten: multiplicamos."],
+      ["Hay 27 sillas en 3 filas iguales. ¿Cuántas sillas por fila?", "9", ["24", "30", "8"], "27 ÷ 3 = 9."],
+      ["Ana tiene 12 años y su mamá el triple. ¿Cuántos años tiene su mamá?", "36", ["15", "24", "4"], "El triple es 3 veces: 3 × 12 = 36."],
+      ["Un pastel cuesta $8 y compro 3. Pago con $30. ¿Cuánto me dan de vuelto?", "$6", ["$24", "$22", "$5"], "3 × 8 = 24 y 30 − 24 = 6."],
+      ["Compro 4 paquetes de 6 jugos y me tomo 5. ¿Cuántos quedan?", "19", ["24", "29", "15"], "4 × 6 = 24 y 24 − 5 = 19."],
+      ["Juan tiene 16 dulces y Pedro el doble. ¿Cuántos tienen entre los dos?", "48", ["32", "18", "24"], "Pedro tiene 32 y 16 + 32 = 48."]
+    ]
+  },
+  "xmat3a": {
+    before: ["Recuerda que con la balanza comparamos qué pesa más y qué pesa menos.", "Repasa contar de 100 en 100 y de 250 en 250 hasta 1000."],
+    vocab: [["masa", "cuánta materia tiene un objeto; la medimos con la balanza"], ["kilogramo (kg)", "unidad de masa igual a 1000 gramos"], ["gramo (g)", "unidad pequeña de masa, como la de un clip"], ["litro (L)", "unidad de capacidad igual a 1000 mililitros"], ["mililitro (mL)", "unidad pequeña de capacidad, como unas gotas"]],
+    worked: [
+      { problem: "¿Cuántos gramos son 3 kg?", steps: ["1 kg = 1000 g.", "3 kg son 3 veces 1000 g: 3 × 1000 = 3000."], answer: "3 kg = 3000 g" },
+      { problem: "Una jarra tiene 1 L de jugo. Sirves 4 vasos de 200 mL. ¿Cuánto queda?", steps: ["4 vasos de 200 mL: 4 × 200 = 800 mL.", "1 L = 1000 mL.", "1000 − 800 = 200."], answer: "Quedan 200 mL." }
+    ],
+    practice: [
+      ["¿Qué unidad usarías para la masa de un perro?", "Kilogramos", ["Gramos", "Litros", "Mililitros"], "Un perro es pesado: usamos kilogramos."],
+      ["¿Qué unidad usarías para la masa de una pluma?", "Gramos", ["Kilogramos", "Litros", "Metros"], "Una pluma es muy liviana: usamos gramos."],
+      ["¿Qué unidad usarías para el jarabe de una cucharita?", "Mililitros", ["Litros", "Kilogramos", "Metros"], "Es muy poco líquido: usamos mililitros."],
+      ["¿Cuántos mililitros tiene 1 L?", "1000", ["100", "10", "500"], "1 L = 1000 mL."],
+      ["Medio kilo son…", "500 g", ["50 g", "5000 g", "250 g"], "La mitad de 1000 g es 500 g."],
+      ["¿Cuántos gramos son 2 kg?", "2000 g", ["200 g", "20 g", "2 g"], "2 × 1000 = 2000 g."],
+      ["Un cuarto de litro son…", "250 mL", ["25 mL", "400 mL", "500 mL"], "1000 ÷ 4 = 250 mL."],
+      ["¿Cuántos vasos de 250 mL llenas con 1 L?", "4", ["2", "3", "5"], "250 + 250 + 250 + 250 = 1000 mL."],
+      ["Una bolsa de 1 kg de arroz; usas 300 g. ¿Cuánto queda?", "700 g", ["1300 g", "600 g", "800 g"], "1 kg = 1000 g y 1000 − 300 = 700 g."],
+      ["¿Qué es más: 1500 g o 1 kg?", "1500 g", ["1 kg", "Son iguales", "No se pueden comparar"], "1 kg = 1000 g, y 1500 g es más."]
+    ]
+  },
+  "xmat3b": {
+    before: ["Recuerda leer el reloj: la aguja corta marca la hora y la larga, los minutos.", "Repasa contar de 5 en 5: 5, 10, 15, 20… hasta 60."],
+    vocab: [["minuto", "unidad de tiempo; 60 minutos forman 1 hora"], ["hora", "60 minutos; un día tiene 24 horas"], ["cuarto de hora", "15 minutos"], ["duración", "cuánto tiempo pasa desde que algo empieza hasta que termina"]],
+    worked: [
+      { problem: "Una clase empieza a las 10:20 y termina a las 11:05. ¿Cuánto dura?", steps: ["De 10:20 a 11:00 pasan 40 minutos.", "De 11:00 a 11:05 pasan 5 minutos.", "40 + 5 = 45."], answer: "Dura 45 minutos." },
+      { problem: "Son las 3:50. ¿Qué hora será en 25 minutos?", steps: ["Primero llego a la hora siguiente: de 3:50 a 4:00 son 10 minutos.", "Me quedan 25 − 10 = 15 minutos.", "4:00 + 15 minutos = 4:15."], answer: "Serán las 4:15." }
+    ],
+    practice: [
+      ["¿Cuántos minutos tiene una hora?", "60", ["100", "30", "24"], "1 hora = 60 minutos."],
+      ["¿Cuántos minutos son un cuarto de hora?", "15", ["25", "4", "30"], "60 ÷ 4 = 15 minutos."],
+      ["¿Cuántos minutos son 2 horas?", "120", ["60", "100", "200"], "60 + 60 = 120 minutos."],
+      ["De 9:00 a 9:45, ¿cuántos minutos pasan?", "45", ["30", "15", "55"], "La aguja larga avanza de 0 a 45 minutos."],
+      ["Son las 5:15. ¿Qué hora será en 30 minutos?", "5:45", ["5:30", "6:15", "5:35"], "15 + 30 = 45: son las 5:45."],
+      ["Son las 6:50. ¿Qué hora será en 20 minutos?", "7:10", ["6:70", "7:20", "7:00"], "10 minutos hasta las 7:00 y 10 más: 7:10."],
+      ["¿Cuántas horas hay en 2 días?", "48", ["24", "36", "12"], "24 + 24 = 48 horas."],
+      ["De 8:30 a 10:00, ¿cuánto tiempo pasa?", "1 hora y 30 minutos", ["2 horas", "1 hora", "1 hora y 70 minutos"], "8:30 → 9:30 es 1 hora y 9:30 → 10:00 son 30 minutos."],
+      ["Si hoy es 28 de abril, ¿qué fecha será en 3 días?", "1 de mayo", ["31 de abril", "30 de abril", "2 de mayo"], "Abril tiene 30 días: 29, 30 de abril y 1 de mayo."],
+      ["Una película dura 95 minutos. ¿Cuánto es en horas y minutos?", "1 hora y 35 minutos", ["1 hora y 95 minutos", "9 horas y 5 minutos", "2 horas y 5 minutos"], "95 − 60 = 35: 1 hora y 35 minutos."]
+    ]
+  },
+  "xmat3c": {
+    before: ["Recuerda el valor de cada cifra: en 368, el 3 son centenas, el 6 decenas y el 8 unidades.", "Repasa los números «redondos» de 10 en 10 (10, 20, 30…) y de 100 en 100 (100, 200, 300…)."],
+    vocab: [["redondear", "cambiar un número por el número redondo más cercano"], ["estimar", "calcular de forma aproximada, sin buscar el resultado exacto"], ["aproximado", "que está cerca del valor exacto; se usa el signo ≈"], ["cifra de control", "la cifra que miras para decidir si subes o bajas"]],
+    worked: [
+      { problem: "Redondea 63 a la decena.", steps: ["63 está entre 60 y 70.", "Miro la unidad: 3.", "3 es menor que 5, así que bajo."], answer: "63 → 60" },
+      { problem: "Redondea 750 a la centena.", steps: ["750 está entre 700 y 800.", "Miro la cifra de las decenas: 5.", "5 o más: subo."], answer: "750 → 800" },
+      { problem: "Estima 72 + 19.", steps: ["Redondeo: 72 ≈ 70 y 19 ≈ 20.", "Sumo los redondeados: 70 + 20 = 90.", "El resultado exacto, 91, está muy cerca."], answer: "Aproximadamente 90." }
+    ],
+    practice: [
+      ["Redondea 38 a la decena.", "40", ["30", "35", "38"], "La unidad es 8, que es 5 o más: subo a 40."],
+      ["Redondea 52 a la decena.", "50", ["60", "55", "52"], "La unidad es 2, menor que 5: bajo a 50."],
+      ["Redondea 14 a la decena.", "10", ["20", "15", "14"], "La unidad es 4, menor que 5: bajo a 10."],
+      ["Redondea 85 a la decena.", "90", ["80", "85", "100"], "La unidad es 5: subo a 90."],
+      ["Redondea 230 a la centena.", "200", ["300", "230", "250"], "La decena es 3, menor que 5: bajo a 200."],
+      ["Redondea 671 a la centena.", "700", ["600", "670", "680"], "La decena es 7: subo a 700."],
+      ["Redondea 449 a la centena.", "400", ["500", "450", "440"], "Miro solo la decena: 4, menor que 5. Bajo a 400."],
+      ["Estima 29 + 42 redondeando a la decena.", "70", ["60", "80", "71"], "29 ≈ 30 y 42 ≈ 40: 30 + 40 = 70."],
+      ["Estima 81 − 38 redondeando a la decena.", "40", ["50", "43", "30"], "81 ≈ 80 y 38 ≈ 40: 80 − 40 = 40."],
+      ["Una entrada cuesta $195. Más o menos, ¿cuánto cuestan 2?", "Unos $400", ["Unos $200", "Unos $300", "Unos $600"], "$195 ≈ $200 y 2 × 200 = 400."]
+    ]
+  },
+  "xmat3d": {
+    before: ["Recuerda que una línea recta no se dobla y que un cuadrado tiene 4 esquinas.", "Las esquinas de una hoja de papel son una buena forma de ver un ángulo recto."],
+    vocab: [["recta", "línea derecha que no se dobla"], ["paralelas", "rectas que nunca se cruzan, como los rieles del tren"], ["perpendiculares", "rectas que se cruzan formando ángulos rectos"], ["ángulo", "la abertura entre dos líneas que se juntan"], ["vértice", "el punto donde se juntan los dos lados de un ángulo"]],
+    worked: [
+      { problem: "¿Qué ángulo forman las agujas del reloj a las 3:00?", steps: ["La aguja larga apunta al 12 y la corta al 3.", "Forman una esquina igual a la de un cuadrado.", "Esa esquina es un ángulo recto."], answer: "Un ángulo recto (90°)." },
+      { problem: "¿Un ángulo de 130° es agudo, recto u obtuso?", steps: ["Comparo con el ángulo recto: 90°.", "130 es mayor que 90.", "Los ángulos mayores que 90° (y menores que 180°) son obtusos."], answer: "Es obtuso." }
+    ],
+    practice: [
+      ["Las rectas que se cruzan formando ángulos rectos son…", "Perpendiculares", ["Paralelas", "Curvas", "Iguales"], "Perpendiculares: se cortan formando esquinas de 90°."],
+      ["El borde de arriba y el de abajo de una hoja son…", "Paralelos", ["Perpendiculares", "Curvos", "Ángulos"], "Van en la misma dirección y nunca se cruzan."],
+      ["¿Qué ángulo forman las esquinas de una puerta?", "Recto", ["Agudo", "Obtuso", "Ninguno"], "Las esquinas de la puerta son como las de un rectángulo: 90°."],
+      ["Un ángulo de 60° es…", "Agudo", ["Recto", "Obtuso", "Llano"], "60 es menor que 90: agudo."],
+      ["Un ángulo de 150° es…", "Obtuso", ["Agudo", "Recto", "Llano"], "150 es mayor que 90: obtuso."],
+      ["¿Cuántos ángulos rectos tiene un rectángulo?", "4", ["2", "3", "0"], "Sus 4 esquinas son ángulos rectos."],
+      ["Una letra L forma un ángulo…", "Recto", ["Agudo", "Obtuso", "Llano"], "Sus dos trazos son perpendiculares."],
+      ["Las líneas de un cuaderno son rectas…", "Paralelas", ["Perpendiculares", "Que se cruzan", "Curvas"], "Van una al lado de la otra sin tocarse nunca."],
+      ["Un ángulo más cerrado que la esquina de un cuaderno es…", "Agudo", ["Obtuso", "Recto", "Llano"], "Si es más cerrado que 90°, es agudo."],
+      ["El punto donde se juntan los dos lados de un ángulo se llama…", "Vértice", ["Recta", "Lado", "Grado"], "El vértice es la punta del ángulo."]
+    ]
+  },
+  "xmat3e": {
+    before: ["Repasa contar de 2 en 2, de 5 en 5 y de 10 en 10.", "Recuerda comparar números: cuál es mayor y cuál es menor."],
+    vocab: [["dato", "cada información que reunimos, como un voto o una medida"], ["tabla", "cuadro con filas y columnas para ordenar datos"], ["pictograma", "gráfico que usa dibujos para mostrar cantidades"], ["clave", "indica cuánto vale cada dibujo del pictograma"], ["gráfico de barras", "gráfico con barras: la más alta es la mayor cantidad"]],
+    worked: [
+      { problem: "En un pictograma cada 🍎 vale 5. Juan tiene 🍎🍎🍎🍎. ¿Cuántas manzanas tiene?", steps: ["Cuento los dibujos: 4.", "Cada uno vale 5: 4 × 5 = 20."], answer: "Juan tiene 20 manzanas." },
+      { problem: "Tabla de mascotas favoritas: perro 8, gato 5, pez 3. ¿Cuántos más prefieren perro que pez? ¿Cuántos votaron?", steps: ["Diferencia: 8 − 3 = 5.", "Total: 8 + 5 + 3 = 16."], answer: "5 más prefieren perro; votaron 16 niños." }
+    ],
+    practice: [
+      ["Si cada ⭐ vale 5, ¿cuánto vale ⭐⭐?", "10", ["2", "7", "25"], "2 × 5 = 10."],
+      ["Si cada 🌸 vale 10, ¿cuánto vale 🌸🌸🌸🌸?", "40", ["4", "14", "30"], "4 × 10 = 40."],
+      ["Tabla: rojo 6, azul 9, verde 4. ¿Qué color tiene más votos?", "Azul", ["Rojo", "Verde", "Empate"], "9 es el número mayor."],
+      ["Lunes 3 libros, martes 7, miércoles 5. ¿Qué día se leyó menos?", "Lunes", ["Martes", "Miércoles", "Ninguno"], "3 es el número menor."],
+      ["En un gráfico de barras, dos barras de igual altura significan…", "Que tienen la misma cantidad", ["Que una tiene el doble", "Que no tienen datos", "Que una es mayor"], "La altura muestra la cantidad: igual altura, igual cantidad."],
+      ["Tabla: rojo 6, azul 9, verde 4. ¿Cuántos votos hay en total?", "19", ["15", "18", "20"], "6 + 9 + 4 = 19."],
+      ["Tabla: rojo 6, azul 9, verde 4. ¿Cuántos votos más tiene azul que verde?", "5", ["3", "13", "4"], "9 − 4 = 5."],
+      ["Una barra llega al 12 y otra al 8. ¿Cuál es la diferencia?", "4", ["20", "12", "8"], "12 − 8 = 4."],
+      ["Si cada 🐟 vale 2, ¿cuántos dibujos necesitas para mostrar 8?", "4", ["8", "16", "6"], "8 ÷ 2 = 4 dibujos."],
+      ["Si cada 🍦 vale 4, ¿cuánto valen 3 🍦 y medio 🍦?", "14", ["12", "13", "16"], "3 × 4 = 12 y medio dibujo vale 2: 12 + 2 = 14."]
+    ]
+  },
+  "xmat3f": {
+    before: ["Recuerda que 10 unidades = 1 decena y 10 decenas = 1 centena.", "Repasa los números de tres cifras: en 527, el 5 vale 500."],
+    vocab: [["unidad de mil", "un grupo de 1000 unidades o de 10 centenas"], ["valor posicional", "lo que vale una cifra según su lugar"], ["cifra", "cada signo de un número; 4528 tiene cuatro cifras"], ["descomponer", "escribir un número como suma de lo que vale cada cifra"]],
+    worked: [
+      { problem: "Descompón 6305.", steps: ["6 unidades de mil = 6000.", "3 centenas = 300.", "0 decenas = 0 y 5 unidades = 5."], answer: "6305 = 6000 + 300 + 5" },
+      { problem: "Escribe con cifras «siete mil cuarenta».", steps: ["Siete mil: 7 en las unidades de mil.", "No hay centenas: 0.", "Cuarenta: 4 decenas y 0 unidades."], answer: "7040" },
+      { problem: "¿Cuál es mayor: 5299 o 5310?", steps: ["Unidades de mil: 5 y 5, empatan.", "Centenas: 2 y 3.", "3 centenas es más que 2."], answer: "5310 es mayor." }
+    ],
+    practice: [
+      ["¿Cuántas centenas forman una unidad de mil?", "10", ["100", "1000", "1"], "10 centenas de 100 son 1000."],
+      ["En 7350, ¿cuánto vale el 3?", "300", ["3", "30", "3000"], "El 3 está en las centenas: vale 300."],
+      ["¿Cuántas unidades de mil tiene 6582?", "6", ["5", "8", "65"], "La primera cifra, 6, son las unidades de mil."],
+      ["¿Cuánto es 3000 + 5000?", "8000", ["800", "80 000", "7000"], "3 mil + 5 mil = 8 mil."],
+      ["¿Cómo se escribe 2000 + 400 + 60 + 1?", "2461", ["2416", "24601", "2641"], "2 UM, 4 C, 6 D y 1 U: 2461."],
+      ["¿Cómo se escribe nueve mil doce?", "9012", ["9120", "912", "90012"], "9 UM, 0 C, 1 D y 2 U: 9012."],
+      ["¿Qué número va después del 4999?", "5000", ["4000", "49910", "4900"], "4999 + 1 = 5000."],
+      ["¿Cuál es menor: 3870 o 3807?", "3807", ["3870", "Son iguales", "No se puede saber"], "UM y C iguales; en decenas, 0 es menor que 7."],
+      ["¿Cómo se descompone 8046?", "8000 + 40 + 6", ["800 + 40 + 6", "8000 + 400 + 6", "8000 + 46 + 6"], "8 UM, 0 C, 4 D y 6 U."],
+      ["Ordena de menor a mayor: 1200, 1020, 1002", "1002, 1020, 1200", ["1200, 1020, 1002", "1020, 1002, 1200", "1002, 1200, 1020"], "Todas tienen 1 UM; comparo centenas y luego decenas."]
+    ]
+  },
