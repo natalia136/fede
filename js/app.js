@@ -6,7 +6,26 @@
   const SUBJ_KEYS = Object.keys(SUBJECTS);
   const AVATARS = window.ART.KID_AVATARS;
   const ADULT_AVATARS = window.ART.ADULT_AVATARS;
-  const STICKERS = ["🦄", "🐉", "🦕", "🐙", "🦋", "🐳", "🦜", "🐢", "🦩", "🦔", "🐝", "🦀", "🐬", "🦒", "🦓", "🐘", "🦉", "🦚", "🌋", "🌈", "🪐", "🚀", "🛸", "🌟", "⚡", "🔮", "🎸", "🏆", "👑", "💎", "🍩", "🧁", "🍉", "🌮", "🎡", "🎢", "🏰", "🗿", "🧩", "🎨"];
+  const LEGACY_STICKERS = ["🦄", "🐉", "🦕", "🐙", "🦋", "🐳", "🦜", "🐢", "🦩", "🦔", "🐝", "🦀", "🐬", "🦒", "🦓", "🐘", "🦉", "🦚", "🌋", "🌈", "🪐", "🚀", "🛸", "🌟", "⚡", "🔮", "🎸", "🏆", "👑", "💎", "🍩", "🧁", "🍉", "🌮", "🎡", "🎢", "🏰", "🗿", "🧩", "🎨"];
+  // láminas ilustradas (js/art.js): colecciones y rarezas; las antiguas (emojis) se convierten a las nuevas
+  const NEW_STK = () => (window.ART && Array.isArray(window.ART.STICKERS) && window.ART.STICKERS.length ? window.ART.STICKERS : null);
+  const STICKERS = { get length() { const N = NEW_STK(); return N ? N.length : LEGACY_STICKERS.length; } };
+  const RARITY = { comun: ["Común", 60], rara: ["Rara", 25], epica: ["Épica", 11], legendaria: ["Legendaria", 4] };
+  function migrateStickers(st) {
+    const N = NEW_STK(), map = (window.ART && window.ART.STICKER_FROM_EMOJI) || {};
+    if (!N || !st || !Array.isArray(st.stickers)) return;
+    st.stickers = [...new Set(st.stickers.map((x) => map[x] || x).filter((x) => N.some((y) => y.id === x)))];
+  }
+  function drawSticker() {
+    const N = NEW_STK();
+    if (!N) { const free = LEGACY_STICKERS.filter((x) => !S.stickers.includes(x)); return free.length ? pick(free) : null; }
+    const free = N.filter((x) => !S.stickers.includes(x.id)); if (!free.length) return null;
+    const total = free.reduce((a, x) => a + (RARITY[x.rarity] || RARITY.comun)[1], 0); let r = Math.random() * total;
+    for (const x of free) { r -= (RARITY[x.rarity] || RARITY.comun)[1]; if (r <= 0) return x.id; }
+    return free[free.length - 1].id;
+  }
+  const stickerInfo = (id) => (NEW_STK() || []).find((x) => x.id === id) || null;
+  const stickerArt = (id) => (stickerInfo(id) && window.ART.sticker ? window.ART.sticker(id) : `<span class="stk-emoji">${esc(id)}</span>`);
   const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
   const CHEERS = ["¡Excelente!", "¡Genial!", "¡Lo lograste!", "¡Súper!", "¡Bravo!", "¡Increíble!", "¡Eres un crack!", "¡Muy bien!"];
   const OOPS = ["¡Casi!", "¡Uy, por poquito!", "¡Sigue intentando!", "¡Así se aprende!"];
@@ -65,7 +84,7 @@
   const KEY = "aventura-escolar-v1";
   const DEF = () => ({ profile: null, progress: {}, courses: [], stars: 0, stickers: [], plan: null, sound: true, streak: { n: 0, last: null }, apiKey: "", history: [], xp: 0, bestCombo: 0, coins: 0, owned: [], equip: { theme: "t-galaxia", frame: "", pet: "", title: "" }, chest: null, bosses: {}, updatedAt: 0 });
   let S = DEF();
-  try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); S = Object.assign(DEF(), o); if (!S.xp && S.stars) S.xp = S.stars * 10; if (!("coins" in o)) S.coins = S.stars; } } catch (e) { /* sin almacenamiento */ }
+  try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); S = Object.assign(DEF(), o); migrateStickers(S); if (!S.xp && S.stars) S.xp = S.stars * 10; if (!("coins" in o)) S.coins = S.stars; } } catch (e) { /* sin almacenamiento */ }
 
   const API = { on: false, ai: false, voice: false, aiTasks: [], token: null, user: null, profiles: [], pid: null, timer: null };
   try { API.token = localStorage.getItem("ae-token"); API.pid = localStorage.getItem("ae-pid"); } catch (e) { /* */ }
@@ -479,7 +498,16 @@
     const ctx = { used: new Set() }, out = [], seen = new Set(), n = /order/.test(u.gen) ? 3 + lv : Math.round(LEVELS[lv].n * (lv === 3 ? 0.7 : 1));
     const old = new Set(((S.seen || {})[seenKey(u)]) || []), later = [];
     for (let g = 0; out.length < n && g < 160; g++) { const q = GEN[u.gen](u.params || {}, ctx); const k = qKey(q); if (seen.has(k)) continue; seen.add(k); if (old.has(k)) later.push(q); else out.push(q); }
+    // preguntas de la lección completa (comprobación y práctica): se mezclan para que haya mucha más variedad
+    const L = u.tid ? richLesson(u) : null;
+    if (L) {
+      const extra = shuffle([...(L.check || []), ...(L.practice || [])]).map((q) => choice(q[0], q[1], q[2], { explain: q[3] || "", small: String(q[0]).length > 60 })).filter((q) => { const k = qKey(q); if (seen.has(k)) return false; seen.add(k); return true; });
+      const fresh = extra.filter((q) => !old.has(qKey(q))), take = Math.min(fresh.length, Math.ceil(n * 0.35));
+      const keep = out.splice(0, Math.max(0, n - take)); out.length = 0; out.push(...keep, ...fresh.slice(0, take));
+      if (out.length < n) out.push(...extra.filter((q) => old.has(qKey(q))).slice(0, n - out.length));
+    }
     while (out.length < n && later.length) out.push(later.shift()); // si ya se vieron todas, se repiten las más antiguas
+    if (L) out.splice(0, out.length, ...shuffle(out));
     if (lv === 3 && u.subj && u.g != null && !u.review) {
       // "Domina": mezcla repaso de los temas anteriores del mismo mundo
       const list = TOPICS[u.subj][u.g], idx = list.findIndex((t) => t.id === u.key.split("#")[0]);
@@ -619,7 +647,7 @@
       const doneN = [1, 2, 3].filter((lv) => prog(lkey(t.id, lv))).length;
       const stops = [1, 2, 3].map((lv) => {
         const pr = prog(lkey(t.id, lv)), isNext = open && open.id === t.id && open.lv === lv, zz = ZZ[k++ % 8];
-        return `<div class="stop" style="--zk:${zz}"><button class="node ${pr ? "done" : isNext ? "next" : "todo"}" style="${sv(s)}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id, lv })}' aria-label="${esc(t.title)}, lección ${lv}: ${LEVELS[lv].name}">${pr ? I("check") : I(LEVELS[lv].icon)}</button><div class="info"><b>${LEVELS[lv].name}</b>${pr ? `<span class="stars">${starStr(pr.stars)}</span>` : ""}</div></div>`;
+        return `<div class="stop" style="--zk:${zz}"><button class="node ${pr ? "done" : isNext ? "next" : "todo"}" style="${sv(s)}" data-act="open" data-ref='${JSON.stringify({ type: "topic", id: t.id, lv })}' aria-label="${esc(t.title)}, lección ${lv}: ${LEVELS[lv].name}">${pr ? I("done") : I(LEVELS[lv].icon)}</button><div class="info"><b>${LEVELS[lv].name}</b>${pr ? `<span class="stars">${starStr(pr.stars)}</span>` : ""}</div></div>`;
       }).join("");
       return `<section class="unit"><div class="unit-head" style="${sv(s)}"><div><p class="eyebrow">Unidad ${i + 1} · ${doneN}/3 lecciones</p><h2>${esc(t.title)}</h2></div><span class="unit-art" aria-hidden="true">${ART.unit(s, i)}</span></div><div class="path">${stops}</div></section>`;
     }).join("");
@@ -644,38 +672,75 @@
   const lessonFiles = {};
   function loadLessons(subj) {
     if (lessonFiles[subj]) return lessonFiles[subj];
-    lessonFiles[subj] = new Promise((ok) => { const sc = document.createElement("script"); sc.src = `js/lessons/${subj}.js`; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+    const load = (src) => new Promise((ok) => { const sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+    lessonFiles[subj] = Promise.all([load(`js/lessons/${subj}.js`), load(`js/lessons/${subj}_plus.js`)]);
     return lessonFiles[subj];
   }
-  const richLesson = (u) => (u && u.tid && window.CURRICULUM_LESSONS && window.CURRICULUM_LESSONS[u.tid]) || null;
-  let lsn = { key: null, step: 0, open: true, ans: {}, opts: {} };
+  // lección completa = lección base + complemento (antes de empezar, glosario, ejemplos resueltos, práctica)
+  const richLesson = (u) => {
+    const L = u && u.tid && window.CURRICULUM_LESSONS && window.CURRICULUM_LESSONS[u.tid]; if (!L) return null;
+    const X = (window.CURRICULUM_LESSONS_PLUS || {})[u.tid];
+    return X ? Object.assign({}, L, { before: X.before || [], vocab: X.vocab || [], worked: X.worked || [], practice: X.practice || [] }) : L;
+  };
+  let lsn = { key: null, step: 0, open: true, ans: {}, opts: {}, reveal: {}, prac: null };
+  // páginas de la lección: antes de empezar → pasos → ejemplos resueltos → tu turno → repaso
+  function lessonPages(L) {
+    const pg = [];
+    if ((L.before && L.before.length) || (L.vocab && L.vocab.length)) pg.push({ t: "before", label: "Antes de empezar" });
+    L.steps.forEach((_, i) => pg.push({ t: "step", i, label: `Paso ${i + 1}` }));
+    (L.worked || []).forEach((_, i) => pg.push({ t: "worked", i, label: `Ejemplo resuelto ${i + 1}` }));
+    if (L.practice && L.practice.length) pg.push({ t: "practice", label: "¡Tu turno!" });
+    pg.push({ t: "review", label: "Repaso final" });
+    return pg;
+  }
+  function qBlock(q, g, k) {
+    const id = g + k, opts = lsn.opts[id] || (lsn.opts[id] = shuffle([String(q[1]), ...q[2].map(String)])), a = lsn.ans[id], ok = a === String(q[1]);
+    return `<div class="lsn-q"><b>${esc(q[0])}</b><div class="lsn-opts">${opts.map((o) => `<button class="chip ${a != null && o === String(q[1]) ? "ok" : a === o ? "bad" : ""}" data-act="lsnAns" data-g="${g}" data-k="${k}" data-v="${esc(o)}" ${a != null ? "disabled" : ""}>${esc(o)}</button>`).join("")}</div>
+      ${a != null ? `<p class="${ok ? "good" : "muted"}">${ok ? "¡Muy bien! ✔" : `La respuesta es: <b>${esc(q[1])}</b>`}${q[3] ? ` <span class="lsn-why">${esc(q[3])}</span>` : ""}</p>` : ""}</div>`;
+  }
   function vRich(u, L, refJ) {
-    if (lsn.key !== u.key) lsn = { key: u.key, step: 0, open: u.lv === 1, ans: {}, opts: {} };
+    if (lsn.key !== u.key) lsn = { key: u.key, step: 0, open: u.lv === 1, ans: {}, opts: {}, reveal: {}, prac: null };
+    const pages = lessonPages(L);
     if (!lsn.open) {
       // en Practica y Domina mostramos otra parte de la lección para que no sea lo mismo
       const extra = u.lv === 2
         ? `<article class="lsn-card"><p class="eyebrow">Nivel 2 · Practica</p><h2>Antes de practicar, recuerda</h2><ul class="lsn-remember">${L.remember.map((r) => `<li>${I("star")}<span>${esc(r)}</span></li>`).join("")}</ul><div class="lsn-box warn"><b>${I("bulb")} ¡Ojo con este error!</b><p>${esc(L.mistake)}</p></div></article>`
         : `<article class="lsn-card"><p class="eyebrow">Nivel 3 · Domina</p><h2>Reto de campeón</h2><p>Ahora las preguntas son más difíciles y aparecen temas anteriores para repasar. ¡Demuestra todo lo que sabes!</p><div class="lsn-box fun"><b>${I("sparkle")} ¿Sabías que…?</b><p>${esc(L.fun)}</p></div></article>`;
-      return `${extra}<button class="btn ghost" data-act="lsnOpen">${I("book")} Repasar la lección completa (${L.steps.length} pasos)</button>`;
+      return `${extra}<button class="btn ghost" data-act="lsnOpen">${I("book")} Repasar la lección completa (${pages.length} partes)</button>`;
     }
-    const n = L.steps.length, i = lsn.step, done = i >= n;
-    const dots = `<div class="lsn-dots">${L.steps.map((_, k) => `<button data-act="lsnGo" data-v="${k}" aria-label="Paso ${k + 1}" class="${k < i ? "done" : k === i ? "on" : ""}"></button>`).join("")}<button data-act="lsnGo" data-v="${n}" aria-label="Repaso final" class="${done ? "on" : ""}"></button></div>`;
+    const n = pages.length, i = Math.min(lsn.step, n - 1), pg = pages[i];
+    const dots = `<div class="lsn-dots">${pages.map((x, k) => `<button data-act="lsnGo" data-v="${k}" aria-label="${esc(x.label)}" title="${esc(x.label)}" class="${k < i ? "done" : k === i ? "on" : ""} ${x.t}"></button>`).join("")}</div>`;
+    const nav = (next) => `<div class="row lsn-nav">${i ? `<button class="btn ghost small" data-act="lsnGo" data-v="${i - 1}">← Anterior</button>` : ""}<button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar</button>${i + 1 < n ? `<button class="btn small" data-act="lsnGo" data-v="${i + 1}">${next || "Siguiente →"}</button>` : ""}</div>`;
+    const nextLabel = i + 1 < n ? `${pages[i + 1].label} →` : "";
     let body;
-    if (!done) {
-      const st = L.steps[i];
-      body = `<article class="lsn-card"><p class="eyebrow">Paso ${i + 1} de ${n}</p><h2>${esc(st.title)}</h2><p>${esc(st.text)}</p>${st.example ? `<div class="example">${esc(st.example)}</div>` : ""}
-        <div class="row lsn-nav">${i ? `<button class="btn ghost small" data-act="lsnGo" data-v="${i - 1}">← Anterior</button>` : ""}<button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar</button><button class="btn small" data-act="lsnGo" data-v="${i + 1}">${i + 1 < n ? "Siguiente paso →" : "Terminar la lección →"}</button></div></article>`;
+    if (pg.t === "before") {
+      body = `<article class="lsn-card"><p class="eyebrow">Parte ${i + 1} de ${n}</p><h2>Antes de empezar</h2>
+        ${L.before.length ? `<ul class="lsn-remember">${L.before.map((r) => `<li>${I("done")}<span>${esc(r)}</span></li>`).join("")}</ul>` : ""}
+        ${L.vocab.length ? `<h3>Palabras que vas a usar</h3><dl class="lsn-vocab">${L.vocab.map(([w, d]) => `<div><dt>${esc(w)}</dt><dd>${esc(d)}</dd></div>`).join("")}</dl>` : ""}
+        ${nav("¡Empecemos! →")}</article>`;
+    } else if (pg.t === "step") {
+      const st = L.steps[pg.i];
+      body = `<article class="lsn-card"><p class="eyebrow">Paso ${pg.i + 1} de ${L.steps.length}</p><h2>${esc(st.title)}</h2><p>${esc(st.text)}</p>${st.example ? `<div class="example">${esc(st.example)}</div>` : ""}${nav(nextLabel)}</article>`;
+    } else if (pg.t === "worked") {
+      const w = L.worked[pg.i], shown = lsn.reveal[pg.i] || 0, all = shown >= w.steps.length;
+      body = `<article class="lsn-card"><p class="eyebrow">Ejemplo resuelto ${pg.i + 1} de ${L.worked.length}</p><h2>Resolvamos juntos</h2><div class="example">${esc(w.problem)}</div>
+        <ol class="lsn-worked">${w.steps.slice(0, shown).map((t) => `<li>${esc(t)}</li>`).join("")}</ol>
+        ${all ? `<div class="lsn-box good"><b>${I("done")} Respuesta:</b> ${esc(w.answer)}</div>` : `<button class="btn ghost" data-act="lsnReveal" data-i="${pg.i}">${shown ? "Ver el siguiente paso" : "Mostrar cómo se resuelve"} (${shown + 1} de ${w.steps.length})</button>`}
+        ${nav(nextLabel)}</article>`;
+    } else if (pg.t === "practice") {
+      if (!lsn.prac) lsn.prac = shuffle(L.practice.map((_, k) => k)).slice(0, 5);
+      const done = lsn.prac.filter((k) => lsn.ans["p" + k] != null).length, good = lsn.prac.filter((k) => lsn.ans["p" + k] === String(L.practice[k][1])).length;
+      body = `<article class="lsn-card"><p class="eyebrow">Parte ${i + 1} de ${n}</p><h2>¡Tu turno! Practica antes de jugar</h2>
+        ${lsn.prac.map((k) => qBlock(L.practice[k], "p", k)).join("")}
+        ${done === lsn.prac.length ? `<div class="lsn-box ${good >= 4 ? "good" : "warn"}"><b>${good} de ${lsn.prac.length} correctas.</b> ${good >= 4 ? "¡Estás listo para jugar!" : "Repasa los pasos y vuelve a intentarlo con otras preguntas."}</div>${good < 4 ? `<button class="btn ghost" data-act="lsnRetry">Otras preguntas</button>` : ""}` : ""}
+        ${nav(nextLabel)}</article>`;
     } else {
-      const check = L.check.map((q, k) => {
-        const opts = lsn.opts[k] || (lsn.opts[k] = shuffle([String(q[1]), ...q[2].map(String)])), a = lsn.ans[k];
-        return `<div class="lsn-q"><b>${esc(q[0])}</b><div class="lsn-opts">${opts.map((o) => `<button class="chip ${a != null && o === String(q[1]) ? "ok" : a === o ? "bad" : ""}" data-act="lsnAns" data-k="${k}" data-v="${esc(o)}" ${a != null ? "disabled" : ""}>${esc(o)}</button>`).join("")}</div>${a != null ? `<p class="${a === String(q[1]) ? "good" : "muted"}">${a === String(q[1]) ? "¡Muy bien! ✔" : `La respuesta es: <b>${esc(q[1])}</b>`}</p>` : ""}</div>`;
-      }).join("");
       body = `<article class="lsn-card"><p class="eyebrow">Repaso final</p><h2>Lo más importante</h2>
         <ul class="lsn-remember">${L.remember.map((r) => `<li>${I("star")}<span>${esc(r)}</span></li>`).join("")}</ul>
         <div class="lsn-box warn"><b>${I("bulb")} ¡Ojo con este error!</b><p>${esc(L.mistake)}</p></div>
         <div class="lsn-box fun"><b>${I("sparkle")} ¿Sabías que…?</b><p>${esc(L.fun)}</p></div>
-        <h3>Comprueba lo que aprendiste</h3>${check}
-        <div class="row lsn-nav"><button class="btn ghost small" data-act="lsnGo" data-v="${n - 1}">← Volver a los pasos</button><button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar el repaso</button></div></article>`;
+        <h3>Comprueba lo que aprendiste</h3>${L.check.map((q, k) => qBlock(q, "c", k)).join("")}
+        ${nav()}</article>`;
     }
     return `<div class="lsn">${dots}${body}</div>`;
   }
@@ -909,7 +974,8 @@
     S.progress[k] = { stars: Math.max(old.stars, stars), best: Math.max(old.best, pct), plays: old.plays + 1, last: todayStr(), lastPct: pct };
     S.stars += stars; S.coins += stars;
     let sticker = null;
-    if (stars >= 2) { const free = STICKERS.filter((x) => !S.stickers.includes(x)); if (free.length) { sticker = pick(free); S.stickers.push(sticker); } }
+    if (stars >= 2) { sticker = drawSticker(); if (sticker) S.stickers.push(sticker); }
+    let sticker2 = null; if (stars === 3 && Math.random() < 0.4) { sticker2 = drawSticker(); if (sticker2) S.stickers.push(sticker2); }
     const t = todayStr();
     if (S.streak.last !== t) { const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
     S.history.push({ k, d: t, pct, title: g.u.title, subj: g.u.subj }); if (S.history.length > 200) S.history = S.history.slice(-200);
@@ -918,7 +984,7 @@
     const bonus = stars * 10 + (pct === 100 ? 20 : 0), xpGain = g.xp + bonus, before = levelInfo(S.xp);
     S.xp += xpGain; S.bestCombo = Math.max(S.bestCombo || 0, g.bestCombo);
     save();
-    play.result = { pct, stars, sticker, xpGain, bonus, before, after: levelInfo(S.xp) };
+    play.result = { pct, stars, sticker, sticker2, xpGain, bonus, before, after: levelInfo(S.xp) };
     go("result");
     animateResult(play.result);
     sfx.win(); if (stars >= 2) confetti();
@@ -937,7 +1003,7 @@
   function vResult() {
     const g = play; if (!g || !g.result) return vHome();
     if (g.boss) return vBossResult();
-    const { pct, stars, sticker } = g.result, nx = nextRef(g.ref), nl = nextLevelRef(g.ref), nt = nx && nx.type === "topic" ? TOPIC_INDEX[nx.id] : null;
+    const { pct, stars, sticker, sticker2 } = g.result, nx = nextRef(g.ref), nl = nextLevelRef(g.ref), nt = nx && nx.type === "topic" ? TOPIC_INDEX[nx.id] : null;
     const winner = g.players.length > 1 ? (g.players[0].pts === g.players[1].pts ? "¡Empate! Ganó el trabajo en equipo 🤝" : `¡Ganó ${esc(g.players[0].pts > g.players[1].pts ? g.players[0].name : g.players[1].name)}! 🏆`) : "";
     return `<section class="result card">
       <p class="eyebrow">${esc(g.u.title)}</p>
@@ -949,7 +1015,7 @@
       <div class="lvlbar"><div class="top"><b id="lvlname">Nivel ${g.result.before.lv}</b><span>${g.result.bonus ? `incluye bonus de ${g.result.bonus} XP` : ""}</span></div><div class="xpbar"><i id="lvlfill" style="width:${g.result.before.pct}%"></i></div></div>
       ${g.result.after.lv > g.result.before.lv ? `<div class="levelup">⬆️ ¡Subiste a nivel ${g.result.after.lv}!${g.result.after.rank !== g.result.before.rank ? ` Nuevo rango: ${g.result.after.rank}` : ""}</div>` : ""}
       ${g.players.length > 1 ? `<div class="scoreboard">${g.players.map((p) => `<span class="player"><span class="av">${av(p.av)}</span>${esc(p.name)}: ${p.pts}</span>`).join("")}</div><b>${winner}</b>` : ""}
-      ${sticker ? `<div class="sticker-won">${sticker}</div><p style="margin:0">¡Nueva lámina para tu álbum!</p>` : ""}
+      ${sticker ? `<div class="sticker-won-row">${[sticker, sticker2].filter(Boolean).map((id) => { const x = stickerInfo(id); return `<div class="sticker-won ${x ? x.rarity : ""}">${stickerArt(id)}${x ? `<b>${esc(x.name)}</b><span class="rar ${x.rarity}">${RARITY[x.rarity] ? RARITY[x.rarity][0] : ""}</span>` : ""}</div>`; }).join("")}</div><p style="margin:0">${sticker2 ? "¡Dos láminas nuevas para tu álbum!" : "¡Nueva lámina para tu álbum!"}</p>` : ""}
       ${stars < 2 ? `<div class="parent" style="text-align:left"><b>${av(S.profile.adultAvatar)} Sugerencia:</b> repasen juntos la explicación y vuelvan a intentarlo. Equivocarse es parte de aprender.</div>` : ""}
       <div class="row" style="justify-content:center">
         <button class="btn ghost" data-act="again">🔁 Otra vez</button>
@@ -957,6 +1023,20 @@
         ${nx ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify(nx))}'>${nt ? `Siguiente tema: ${esc(nt.t.title)}` : "Siguiente lección"} ➜</button>` : ""}
         <button class="btn ghost" data-act="back" data-ref='${esc(JSON.stringify(g.ref))}'>Volver</button>
       </div></section>`;
+  }
+
+  /* ---------- álbum de láminas ---------- */
+  let albumSet = null;
+  function vAlbum() {
+    const N = NEW_STK();
+    if (!N) return `<div class="card stack"><h2>🎴 Álbum de láminas</h2><div class="album">${LEGACY_STICKERS.map((x) => `<div class="sticker ${S.stickers.includes(x) ? "got" : "locked"}">${S.stickers.includes(x) ? x : "❔"}</div>`).join("")}</div></div>`;
+    const sets = window.ART.STICKER_SETS || [...new Set(N.map((x) => x.set))].map((id) => ({ id, name: id }));
+    const cur = albumSet && sets.some((x) => x.id === albumSet) ? albumSet : sets[0].id;
+    const got = (x) => S.stickers.includes(x.id), inSet = N.filter((x) => x.set === cur);
+    return `<div class="card stack album-card"><div class="section-head"><h2>🎴 Álbum de láminas</h2><span class="spacer"></span><span class="pill">${N.filter(got).length} / ${N.length}</span></div>
+      <div class="album-tabs">${sets.map((x) => { const all = N.filter((y) => y.set === x.id), have = all.filter(got).length; return `<button class="chip ${have === all.length ? "full" : ""}" data-act="albumSet" data-v="${x.id}" aria-pressed="${x.id === cur}">${esc(x.name)} <small>${have}/${all.length}</small></button>`; }).join("")}</div>
+      <div class="album">${inSet.map((x) => got(x) ? `<figure class="stk-card got ${x.rarity}">${stickerArt(x.id)}<figcaption>${esc(x.name)}<span class="rar ${x.rarity}">${RARITY[x.rarity] ? RARITY[x.rarity][0] : ""}</span></figcaption></figure>` : `<figure class="stk-card locked ${x.rarity}"><div class="stk-lock">?</div><figcaption>???<span class="rar ${x.rarity}">${RARITY[x.rarity] ? RARITY[x.rarity][0] : ""}</span></figcaption></figure>`).join("")}</div>
+      <p class="muted" style="margin:0">Ganas una lámina con 2 o más estrellas, y a veces dos con 3 estrellas. Las legendarias son muy difíciles de conseguir. ¡Completa cada colección!</p></div>`;
   }
 
   /* ---------- plan de estudio ---------- */
@@ -1168,7 +1248,7 @@
         ${SUBJ_KEYS.map((s) => `<div class="row"><span style="width:2rem;font-size:1.4rem">${SUBJECTS[s].icon}</span><b style="font-family:var(--f-display);min-width:150px">${esc(subjName(s))}</b><div class="bar" style="flex:1;min-width:120px"><i style="width:${subjPct(s)}%;background:${SUBJECTS[s].color}"></i></div><span class="muted" style="min-width:3.5ch;text-align:right">${subjPct(s)}%</span></div>`).join("")}
       </div>
       ${weak.length ? `<div class="card stack"><h2>🎯 Para reforzar</h2><div class="mission">${weak.map((k) => taskCard(refOfKey(k))).join("")}</div></div>` : ""}
-      <div class="card stack"><h2>🎴 Álbum de láminas</h2><div class="album">${STICKERS.map((x) => `<div class="sticker ${S.stickers.includes(x) ? "got" : "locked"}" aria-label="${S.stickers.includes(x) ? "Lámina conseguida" : "Lámina bloqueada"}">${S.stickers.includes(x) ? x : "❔"}</div>`).join("")}</div><p class="muted" style="margin:0">Gana una lámina cada vez que consigas 2 o más estrellas.</p></div>
+      ${vAlbum()}
       ${recent.length ? `<div class="card stack"><h2>🕒 Últimas sesiones</h2>${recent.map((h) => `<div class="row"><span>${SUBJECTS[h.subj] ? SUBJECTS[h.subj].icon : "📘"}</span><b style="font-family:var(--f-display);flex:1">${esc(h.title)}</b><span class="muted">${h.d}</span><span class="pill">${h.pct}%</span></div>`).join("")}</div>` : ""}
     </section>`;
   }
@@ -1410,7 +1490,7 @@
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
   async function loadProfile(pid) {
     const d = await callApi("GET", "profiles/" + pid);
-    S = Object.assign(DEF(), d.state); API.pid = pid; remember("ae-pid", pid); applySkin();
+    S = Object.assign(DEF(), d.state); migrateStickers(S); API.pid = pid; remember("ae-pid", pid); applySkin();
   }
   function pushProfile() {
     if (!API.on || !API.pid) return;
@@ -1701,13 +1781,18 @@
       case "quick": return startPlay(dailySuggestions()[0], null, "solo");
       case "readLesson": {
         const u = unit(ref), L = richLesson(u);
-        if (L && lsn.key === u.key && lsn.step < L.steps.length) {
-          const st = L.steps[lsn.step];
-          return speak(sayParts(lsn.step === 0 ? L.hook : "", `Paso ${lsn.step + 1}: ${st.title}`, st.text, st.example ? `Por ejemplo: ${st.example}` : ""), "es-ES");
+        if (L && lsn.key === u.key && lsn.open) {
+          const pages = lessonPages(L), pg = pages[Math.min(lsn.step, pages.length - 1)];
+          if (pg.t === "before") return speak(sayParts(L.hook, "Antes de empezar", ...L.before, L.vocab.length ? "Palabras que vas a usar" : "", ...L.vocab.map(([w, d]) => `${w}: ${d}`)), "es-ES");
+          if (pg.t === "step") { const st = L.steps[pg.i]; return speak(sayParts(pg.i === 0 && !(L.before || []).length ? L.hook : "", `Paso ${pg.i + 1}: ${st.title}`, st.text, st.example ? `Por ejemplo: ${st.example}` : ""), "es-ES"); }
+          if (pg.t === "worked") { const w = L.worked[pg.i]; return speak(sayParts("Resolvamos juntos", w.problem, ...w.steps.slice(0, Math.max(1, lsn.reveal[pg.i] || 0)), (lsn.reveal[pg.i] || 0) >= w.steps.length ? `La respuesta es: ${w.answer}` : ""), "es-ES"); }
+          if (pg.t === "practice") return speak("¡Tu turno! Responde estas preguntas antes de jugar.", "es-ES");
+          return speak(sayParts("Lo más importante", ...L.remember, "¡Ojo con este error!", L.mistake, "¿Sabías que...?", L.fun.replace(/^¿?Sabías que\s*/i, "")), "es-ES");
         }
-        if (L && lsn.key === u.key) return speak(sayParts("Lo más importante", ...L.remember, "¡Ojo con este error!", L.mistake, "¿Sabías que...?", L.fun.replace(/^¿?Sabías que\s*/i, "")), "es-ES");
         return speak(sayParts(u.title, u.lesson, u.example ? `Por ejemplo: ${u.example}` : ""), "es-ES");
       }
+      case "lsnReveal": { const k = +b.dataset.i; lsn.reveal[k] = (lsn.reveal[k] || 0) + 1; sfx.step(); const y = window.scrollY; render(); window.scrollTo(0, y); const L = richLesson(unit(view.p.ref)), w = L && L.worked[k]; if (w) speak(lsn.reveal[k] >= w.steps.length ? sayParts(w.steps[lsn.reveal[k] - 1], `La respuesta es: ${w.answer}`) : w.steps[lsn.reveal[k] - 1], "es-ES"); return; }
+      case "lsnRetry": { const L = richLesson(unit(view.p.ref)); if (L) { (lsn.prac || []).forEach((k) => { delete lsn.ans["p" + k]; delete lsn.opts["p" + k]; }); const rest = L.practice.map((_, k) => k).filter((k) => !(lsn.prac || []).includes(k)); lsn.prac = shuffle(rest.length >= 3 ? rest : L.practice.map((_, k) => k)).slice(0, 5); } return render(); }
       case "cfgTestAI": { cfg.msg.ai = { ok: true, text: "Probando…" }; render(); callApi("POST", "admin/test-ai").then((d) => { cfg.msg.ai = { ok: true, text: `¡Funciona! La IA respondió: «${d.text.trim()}»` }; render(); }).catch((e) => { cfg.msg.ai = { ok: false, text: e.message }; render(); }); return; }
       case "cfgClear": { const sec = b.dataset.sec; return cfgSave(sec, sec === "voice" ? { api_key: "-", voice_id: "", voice_id_en: "" } : { api_key: "-" }, "Clave quitada."); }
       case "cfgMine": return cfgSearch(true);
@@ -1718,9 +1803,10 @@
         return;
       }
       case "cfgTestVoice": voiceOff = false; return speak("¡Hola! Soy la voz de Aventura Escolar. Hoy vamos a aprender algo nuevo juntos.", "es-ES");
+      case "albumSet": albumSet = b.dataset.v; sfx.tap(); { const y = window.scrollY; render(); window.scrollTo(0, y); } return;
       case "lsnOpen": lsn.open = true; return render();
       case "lsnGo": { lsn.step = Math.max(0, +b.dataset.v); stopVoice(); sfx.step(); const y = window.scrollY; render(); const c = document.querySelector(".lsn"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); else window.scrollTo(0, y); return; }
-      case "lsnAns": { const k = +b.dataset.k, L = richLesson(unit(view.p.ref)); if (!L || lsn.ans[k] != null) return; lsn.ans[k] = b.dataset.v; if (b.dataset.v === String(L.check[k][1])) sfx.right(); else sfx.wrong(); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
+      case "lsnAns": { const g = b.dataset.g || "c", k = +b.dataset.k, L = richLesson(unit(view.p.ref)); if (!L || lsn.ans[g + k] != null) return; const q = (g === "p" ? L.practice : L.check)[k]; lsn.ans[g + k] = b.dataset.v; if (b.dataset.v === String(q[1])) { sfx.right(); S.xp = (S.xp || 0) + 1; save(); } else sfx.wrong(); const y = window.scrollY; render(); window.scrollTo(0, y); return; }
       case "answer": return onAnswer(b);
       case "select": return selectOpt(b);
       case "check": return checkSel();

@@ -869,7 +869,8 @@
 
   /* Paquetes de contenido adicional (js/content/*.js) llaman a CURRICULUM.extend({...}):
      { subject, banks: { Q, SORT, ORDER, READ, VOCAB }, extendBanks: { Q, SORT, ORDER, VOCAB }, topics: { 0: [...], ..., 6: [...] } } */
-  const STORES = { Q, SORT, ORDER, READ, VOCAB };
+  const STORES = { Q, SORT, ORDER, READ, VOCAB, SYNANT, SPELL };
+  const LISTS = { SYLL, VOWELS, INITIAL }; // listas simples: se amplían con extendBanks: { SYLL: [...] }
   function extend(pack) {
     const where = `contenido de ${pack.subject || "?"}`;
     Object.entries(pack.banks || {}).forEach(([kind, banks]) => Object.entries(banks).forEach(([k, v]) => {
@@ -877,7 +878,7 @@
       if (STORES[kind][k]) throw new Error(`${where}: el banco ${kind}.${k} ya existe`);
       STORES[kind][k] = v;
     }));
-    Object.entries(pack.extendBanks || {}).forEach(([kind, banks]) => Object.entries(banks).forEach(([k, v]) => {
+    Object.entries(pack.extendBanks || {}).forEach(([kind, banks]) => LISTS[kind] ? LISTS[kind].push(...banks) : Object.entries(banks).forEach(([k, v]) => {
       const cur = STORES[kind] && STORES[kind][k];
       if (!cur) throw new Error(`${where}: no existe el banco ${kind}.${k} para ampliar`);
       if (kind === "SORT") cur.items.push(...v.items); else cur.push(...v);

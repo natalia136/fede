@@ -682,3 +682,32 @@ svg.avi { border-radius: 50%; }
 .rescue h2 .ico { width: 28px; height: 28px; }
 .rescue .row { flex-wrap: wrap; gap: 8px; align-items: center; }
 .pp-av.small { width: 44px; height: 44px; display: inline-block; border-radius: 50%; overflow: hidden; }
+.lsn-dots button.before { background: color-mix(in srgb, var(--gold) 55%, var(--stroke)); }
+.lsn-dots button.worked, .lsn-dots button.practice { background: color-mix(in srgb, #ce82ff 45%, var(--stroke)); }
+.lsn-dots button.done { background: #58cc02; }
+.lsn-dots button.on { background: var(--cyan); }
+.lsn-vocab { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 8px; margin: 0; }
+.lsn-vocab div { border: 2px solid var(--stroke); border-radius: 12px; padding: 10px 12px; background: var(--panel-2); }
+.lsn-vocab dt { font-weight: 900; color: var(--cyan-ink); }
+.lsn-vocab dd { margin: 4px 0 0; line-height: 1.4; }
+.lsn-worked { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; font-size: 1.05rem; line-height: 1.5; }
+.lsn-worked li { animation: pop .3s; }
+.lsn-box.good { background: var(--good-bg); border-color: color-mix(in srgb, #58cc02 55%, var(--stroke)); color: var(--good-ink); }
+.lsn-why { display: block; font-weight: 600; color: var(--ink-soft); margin-top: 4px; }
+/* álbum de láminas ilustradas */
+.album-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.album-tabs .chip[aria-pressed="true"] { border-color: var(--cyan); background: var(--sel-bg); color: var(--cyan-ink); }
+.album-tabs .chip.full { border-color: var(--gold); }
+.album-tabs small { font-weight: 800; opacity: .75; }
+.album-card .album { grid-template-columns: repeat(auto-fill, minmax(min(120px, 44%), 1fr)); gap: 12px; }
+.stk-card { margin: 0; display: grid; gap: 6px; justify-items: center; text-align: center; }
+.stk-card svg, .sticker-won svg { width: 100%; max-width: 140px; height: auto; aspect-ratio: 1; display: block; }
+.stk-card figcaption { font-weight: 800; font-size: .82rem; line-height: 1.2; display: grid; gap: 2px; }
+.stk-card.got svg { animation: pop .35s; }
+.stk-card.legendaria.got svg { filter: drop-shadow(0 0 8px color-mix(in srgb, var(--gold) 70%, transparent)); }
+.stk-lock { width: 100%; max-width: 140px; aspect-ratio: 1; border-radius: 18px; border: 3px dashed var(--stroke); background: var(--panel-2); display: grid; place-items: center; font-size: 2.2rem; font-weight: 900; color: var(--ink-soft); }
+.rar { font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; color: var(--ink-soft); }
+.rar.rara { color: #1899d6; } .rar.epica { color: #a568cc; } .rar.legendaria { color: #e5a000; }
+.sticker-won-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.sticker-won { display: grid; gap: 4px; justify-items: center; width: 150px; font-size: 1rem; }
+.sticker-won .stk-emoji { font-size: 3.6rem; }

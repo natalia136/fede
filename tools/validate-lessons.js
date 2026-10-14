@@ -39,6 +39,33 @@ for (const s of subjects) {
     ok++;
   });
   console.log(`${s}: ${ok}/${ids.size} lecciones`);
+  // complemento opcional: js/lessons/<materia>_plus.js (antes de empezar, glosario, ejemplos resueltos, práctica)
+  const plusFile = path.join(ROOT, "js/lessons", s + "_plus.js");
+  if (fs.existsSync(plusFile)) {
+    window.CURRICULUM_LESSONS_PLUS = {};
+    try { (0, eval)(fs.readFileSync(plusFile, "utf8")); } catch (e) { errors.push(`${s}_plus.js: ${e.message}`); continue; }
+    const P = window.CURRICULUM_LESSONS_PLUS; let okp = 0;
+    Object.keys(P).forEach((id) => { if (!ids.has(id)) errors.push(`${s}_plus: "${id}" no es un tema de esta materia`); });
+    ids.forEach((id) => {
+      const x = P[id], w = `${s}_plus/${id}`;
+      if (!x) return errors.push(`${w}: falta`);
+      if (!Array.isArray(x.before) || x.before.length < 2 || !x.before.every((b) => isStr(b, 15))) errors.push(`${w}: before necesita 2+ frases`);
+      if (!Array.isArray(x.vocab) || x.vocab.length < 3 || !x.vocab.every((v) => Array.isArray(v) && isStr(v[0]) && isStr(v[1], 8))) errors.push(`${w}: vocab necesita 3+ [palabra, significado]`);
+      if (!Array.isArray(x.worked) || x.worked.length < 2) errors.push(`${w}: worked necesita 2+ ejemplos`);
+      (x.worked || []).forEach((e, i) => { if (!e || !isStr(e.problem, 10) || !Array.isArray(e.steps) || e.steps.length < 2 || !e.steps.every((t) => isStr(t, 5)) || !isStr(String(e.answer ?? ""))) errors.push(`${w}: worked[${i}] {problem, steps: 2+, answer}`); });
+      if (!Array.isArray(x.practice) || x.practice.length < 8) errors.push(`${w}: practice necesita 8+ preguntas`);
+      const seen = new Set();
+      (x.practice || []).forEach((q, i) => {
+        if (!Array.isArray(q) || !isStr(q[0]) || !isStr(String(q[1] ?? "")) || !Array.isArray(q[2]) || q[2].length < 2) return errors.push(`${w}: practice[${i}] formato ["pregunta", "correcta", ["incorrecta", ...], "explicación"]`);
+        const all = [String(q[1]), ...q[2].map(String)];
+        if (new Set(all).size !== all.length) errors.push(`${w}: practice[${i}] opciones repetidas`);
+        if (!isStr(q[3], 10)) errors.push(`${w}: practice[${i}] falta la explicación`);
+        if (seen.has(q[0])) errors.push(`${w}: practice[${i}] pregunta repetida`); seen.add(q[0]);
+      });
+      okp++;
+    });
+    console.log(`${s}_plus: ${okp}/${ids.size} temas`);
+  }
 }
 if (errors.length) { console.log(`\n${errors.length} problema(s):`); errors.slice(0, 300).forEach((e) => console.log("  - " + e)); process.exit(1); }
 console.log("\nLecciones correctas ✔");
