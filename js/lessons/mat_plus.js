@@ -816,3 +816,212 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["Ordena de menor a mayor: 1200, 1020, 1002", "1002, 1020, 1200", ["1200, 1020, 1002", "1020, 1002, 1200", "1002, 1200, 1020"], "Todas tienen 1 UM; comparo centenas y luego decenas."]
     ]
   },
+  /* ---------- 4.º primaria ---------- */
+  "m4a": {
+    before: ["Necesitas las tablas de multiplicar de memoria, del 1 al 10.", "Recuerda multiplicar por 10: 7 × 10 = 70, solo agregas un cero."],
+    vocab: [["factor", "cada número que se multiplica"], ["producto", "el resultado final de la multiplicación"], ["producto parcial", "cada resultado que obtienes antes de sumar todo"], ["descomponer", "separar un número en decenas y unidades: 23 = 20 + 3"]],
+    worked: [
+      { problem: "¿Cuánto es 32 × 6?", steps: ["Separo 32 en 30 + 2.", "30 × 6 = 180 y 2 × 6 = 12.", "180 + 12 = 192."], answer: "32 × 6 = 192" },
+      { problem: "¿Cuánto es 25 × 13?", steps: ["Separo 13 en 10 + 3.", "25 × 3 = 75.", "25 × 10 = 250.", "75 + 250 = 325."], answer: "25 × 13 = 325" },
+      { problem: "¿Cuánto es 47 × 21?", steps: ["Separo 21 en 20 + 1.", "47 × 1 = 47.", "47 × 20 = 940 (47 × 2 = 94 y agrego un cero).", "47 + 940 = 987."], answer: "47 × 21 = 987" }
+    ],
+    practice: [
+      ["¿Cuánto es 12 × 3?", "36", ["15", "32", "39"], "10 × 3 = 30 y 2 × 3 = 6: 36."],
+      ["¿Cuánto es 15 × 10?", "150", ["105", "15", "1500"], "Multiplicar por 10 agrega un cero: 150."],
+      ["¿Cuánto es 41 × 5?", "205", ["200", "45", "210"], "40 × 5 = 200 y 1 × 5 = 5: 205."],
+      ["¿Cuánto es 26 × 3?", "78", ["68", "618", "29"], "20 × 3 = 60 y 6 × 3 = 18: 60 + 18 = 78."],
+      ["¿Cuánto es 13 × 12?", "156", ["146", "36", "166"], "13 × 2 = 26 y 13 × 10 = 130: 26 + 130 = 156."],
+      ["En 18 × 14, ¿cuáles son los productos parciales?", "72 y 180", ["72 y 18", "32 y 180", "18 y 14"], "18 × 4 = 72 y 18 × 10 = 180. Luego 72 + 180 = 252."],
+      ["¿Cuánto es 21 × 15?", "315", ["305", "36", "325"], "21 × 5 = 105 y 21 × 10 = 210: 105 + 210 = 315."],
+      ["¿Cuánto es 45 × 11?", "495", ["450", "485", "505"], "45 × 1 = 45 y 45 × 10 = 450: 45 + 450 = 495."],
+      ["¿Cuánto es 32 × 25?", "800", ["750", "850", "57"], "32 × 5 = 160 y 32 × 20 = 640: 160 + 640 = 800."],
+      ["Una caja tiene 24 lápices. ¿Cuántos hay en 15 cajas?", "360", ["340", "39", "370"], "24 × 5 = 120 y 24 × 10 = 240: 120 + 240 = 360."]
+    ]
+  },
+  "m4b": {
+    before: ["Repasa las tablas: para dividir 23 ÷ 4 buscas el número de la tabla del 4 más cercano sin pasarte (4 × 5 = 20).", "Recuerda que dividir es repartir en partes iguales."],
+    vocab: [["dividendo", "el número que se reparte"], ["divisor", "el número entre el que se reparte"], ["cociente", "cuánto le toca a cada parte"], ["residuo", "lo que sobra; siempre es menor que el divisor"], ["división exacta", "la que tiene residuo 0"]],
+    worked: [
+      { problem: "¿Cuánto es 29 ÷ 6?", steps: ["Busco en la tabla del 6: 6 × 4 = 24 y 6 × 5 = 30 (se pasa).", "El cociente es 4.", "Residuo: 29 − 24 = 5.", "Compruebo: 6 × 4 + 5 = 29. ✔"], answer: "29 ÷ 6 = 4, residuo 5" },
+      { problem: "Hay 38 huevos y se guardan en cajas de 6. ¿Cuántas cajas se llenan y cuántos huevos sobran?", steps: ["Divido 38 ÷ 6.", "6 × 6 = 36 y 6 × 7 = 42 (se pasa).", "Se llenan 6 cajas y sobran 38 − 36 = 2."], answer: "6 cajas llenas y sobran 2 huevos." }
+    ],
+    practice: [
+      ["¿Cuál es el residuo de 13 ÷ 4?", "1", ["3", "2", "0"], "4 × 3 = 12 y 13 − 12 = 1."],
+      ["¿Cuál es el residuo de 20 ÷ 5?", "0", ["5", "4", "1"], "5 × 4 = 20: es una división exacta."],
+      ["¿Cuánto es 19 ÷ 3?", "6, residuo 1", ["6, residuo 3", "5, residuo 4", "7, residuo 1"], "3 × 6 = 18 y 19 − 18 = 1."],
+      ["¿Cuánto es 35 ÷ 8?", "4, residuo 3", ["4, residuo 5", "5, residuo 3", "3, residuo 11"], "8 × 4 = 32 y 35 − 32 = 3."],
+      ["¿Cuánto es 50 ÷ 7?", "7, residuo 1", ["7, residuo 3", "6, residuo 8", "8, residuo 1"], "7 × 7 = 49 y 50 − 49 = 1."],
+      ["¿Cuánto es 44 ÷ 9?", "4, residuo 8", ["5, residuo 1", "4, residuo 4", "3, residuo 17"], "9 × 4 = 36 y 44 − 36 = 8."],
+      ["En una división entre 6, ¿qué residuo es imposible?", "7", ["0", "3", "5"], "El residuo siempre es menor que el divisor: puede ser de 0 a 5."],
+      ["Si 47 ÷ 5 da 9 y residuo 2, ¿cómo lo compruebas?", "5 × 9 + 2 = 47", ["5 × 2 + 9 = 19", "9 × 2 + 5 = 23", "5 × 9 − 2 = 43"], "Divisor × cociente + residuo = dividendo."],
+      ["Reparto 60 dulces entre 7 niños por igual. ¿Cuántos sobran?", "4", ["3", "8", "0"], "7 × 8 = 56 y 60 − 56 = 4."],
+      ["30 alumnos se sientan en mesas de 4. ¿Cuántas mesas se necesitan para que todos se sienten?", "8", ["7", "6", "9"], "30 ÷ 4 = 7, residuo 2: los 2 que sobran necesitan otra mesa."]
+    ]
+  },
+  "m4c": {
+    before: ["Recuerda las partes de una fracción: el numerador (arriba) y el denominador (abajo).", "Repasa las tablas: para encontrar equivalentes multiplicas o divides arriba y abajo por el mismo número."],
+    vocab: [["fracciones equivalentes", "fracciones que valen lo mismo aunque se escriban distinto"], ["amplificar", "multiplicar numerador y denominador por el mismo número"], ["simplificar", "dividir numerador y denominador por el mismo número"], ["fracción irreducible", "la que ya no se puede simplificar más"]],
+    worked: [
+      { problem: "Encuentra dos fracciones equivalentes a 3/5.", steps: ["Amplifico por 2: (3 × 2)/(5 × 2) = 6/10.", "Amplifico por 3: (3 × 3)/(5 × 3) = 9/15."], answer: "6/10 y 9/15" },
+      { problem: "¿Son equivalentes 4/6 y 6/9?", steps: ["Simplifico 4/6 dividiendo entre 2: 2/3.", "Simplifico 6/9 dividiendo entre 3: 2/3.", "Las dos dan 2/3."], answer: "Sí, son equivalentes." },
+      { problem: "Completa: 2/5 = __/20", steps: ["¿Por cuánto multiplico 5 para obtener 20? 5 × 4 = 20.", "Hago lo mismo arriba: 2 × 4 = 8."], answer: "2/5 = 8/20" }
+    ],
+    practice: [
+      ["¿Qué fracción es equivalente a 1/3?", "2/6", ["2/3", "1/6", "3/6"], "Multiplico arriba y abajo por 2: 2/6."],
+      ["¿Qué fracción es equivalente a 3/4?", "6/8", ["3/8", "4/3", "6/4"], "Multiplico arriba y abajo por 2: 6/8."],
+      ["Simplifica 5/10.", "1/2", ["1/5", "5/2", "2/10"], "Divido arriba y abajo entre 5: 1/2."],
+      ["¿Son equivalentes 2/5 y 4/10?", "Sí", ["No", "Solo a veces", "No se puede saber"], "2/5 amplificada por 2 da 4/10."],
+      ["Completa: 1/4 = __/12", "3", ["4", "1", "8"], "4 × 3 = 12, así que 1 × 3 = 3."],
+      ["Completa: 2/3 = 8/__", "12", ["9", "11", "6"], "2 × 4 = 8, así que 3 × 4 = 12."],
+      ["Amplifica 2/7 por 3.", "6/21", ["6/7", "2/21", "5/10"], "2 × 3 = 6 y 7 × 3 = 21."],
+      ["¿Cuál NO es equivalente a 1/2?", "3/5", ["2/4", "4/8", "5/10"], "En 3/5 el numerador no es la mitad del denominador."],
+      ["Simplifica 9/12.", "3/4", ["1/3", "9/4", "2/3"], "Divido arriba y abajo entre 3: 3/4."],
+      ["Completa: 10/15 = 2/__", "3", ["5", "7", "1"], "10 ÷ 5 = 2, así que 15 ÷ 5 = 3."]
+    ]
+  },
+  "m4d": {
+    before: ["Repasa sumar varios números seguidos, como 4 + 7 + 4 + 7.", "Recuerda las figuras: el cuadrado tiene 4 lados iguales y el rectángulo, 2 pares de lados iguales."],
+    vocab: [["perímetro", "la medida de todo el borde de una figura"], ["lado", "cada segmento que forma el borde"], ["contorno", "la línea que rodea una figura"], ["unidad de longitud", "lo que usamos para medir el borde: cm, m"]],
+    worked: [
+      { problem: "Perímetro de un rectángulo de 8 cm de largo y 5 cm de ancho.", steps: ["Tiene 2 lados de 8 cm y 2 lados de 5 cm.", "8 + 5 + 8 + 5 = 26.", "Otra forma: 2 × 8 + 2 × 5 = 16 + 10 = 26."], answer: "26 cm" },
+      { problem: "Un cuadrado tiene perímetro 36 cm. ¿Cuánto mide cada lado?", steps: ["El cuadrado tiene 4 lados iguales.", "Reparto el perímetro entre 4: 36 ÷ 4 = 9."], answer: "Cada lado mide 9 cm." },
+      { problem: "¿Cuántos metros de cerca rodean un jardín rectangular de 12 m por 7 m?", steps: ["Sumo los 4 lados: 12 + 7 + 12 + 7.", "12 + 12 = 24 y 7 + 7 = 14.", "24 + 14 = 38."], answer: "38 m de cerca." }
+    ],
+    practice: [
+      ["Perímetro de un cuadrado de lado 3 cm:", "12 cm", ["9 cm", "6 cm", "7 cm"], "3 + 3 + 3 + 3 = 12 cm."],
+      ["Perímetro de un rectángulo de 4 cm y 2 cm:", "12 cm", ["8 cm", "6 cm", "10 cm"], "4 + 2 + 4 + 2 = 12 cm."],
+      ["Perímetro de un triángulo de lados 5, 5 y 5 cm:", "15 cm", ["10 cm", "25 cm", "20 cm"], "5 + 5 + 5 = 15 cm."],
+      ["¿Cuántos metros de cinta rodean una mesa de 2 m por 1 m?", "6 m", ["3 m", "2 m", "4 m"], "2 + 1 + 2 + 1 = 6 m."],
+      ["Perímetro de un cuadrado de lado 9 cm:", "36 cm", ["18 cm", "81 cm", "27 cm"], "4 × 9 = 36 cm."],
+      ["Perímetro de un rectángulo de 10 m y 6 m:", "32 m", ["16 m", "60 m", "26 m"], "10 + 6 + 10 + 6 = 32 m."],
+      ["Un cuadrado tiene perímetro 20 cm. ¿Cuánto mide su lado?", "5 cm", ["4 cm", "10 cm", "80 cm"], "20 ÷ 4 = 5 cm."],
+      ["Perímetro de un pentágono con todos sus lados de 7 cm:", "35 cm", ["28 cm", "42 cm", "12 cm"], "Tiene 5 lados: 5 × 7 = 35 cm."],
+      ["Una figura tiene lados de 2, 4, 3, 5 y 6 cm. ¿Perímetro?", "20 cm", ["18 cm", "19 cm", "21 cm"], "2 + 4 + 3 + 5 + 6 = 20 cm."],
+      ["Un rectángulo tiene perímetro 18 cm y largo 6 cm. ¿Cuánto mide de ancho?", "3 cm", ["12 cm", "6 cm", "9 cm"], "Los dos largos suman 12; quedan 18 − 12 = 6 para los dos anchos: 6 ÷ 2 = 3."]
+    ]
+  },
+  "m4e": {
+    before: ["Repasa las fracciones con 10 y 100 abajo: 3/10 es tres décimos y 25/100 es veinticinco centésimos.", "Recuerda que la coma separa la parte entera de la parte decimal."],
+    vocab: [["número decimal", "número con coma que tiene parte entera y parte decimal"], ["coma decimal", "separa los enteros de las partes de la unidad"], ["décimo", "una de 10 partes iguales de la unidad: 0,1"], ["centésimo", "una de 100 partes iguales de la unidad: 0,01"]],
+    worked: [
+      { problem: "Escribe 7/10 como decimal.", steps: ["7/10 son 7 décimos.", "Los décimos van en el primer lugar después de la coma.", "No hay enteros, así que escribo 0 antes de la coma."], answer: "0,7" },
+      { problem: "¿Qué es mayor: 0,6 o 0,58?", steps: ["Igualo las cifras decimales: 0,6 = 0,60.", "Comparo 60 centésimos con 58 centésimos.", "60 es mayor que 58."], answer: "0,6 es mayor." },
+      { problem: "¿Qué significa cada cifra de 2,35?", steps: ["El 2 está antes de la coma: 2 enteros.", "El 3 está en los décimos: 0,3.", "El 5 está en los centésimos: 0,05."], answer: "2,35 = 2 + 0,3 + 0,05" }
+    ],
+    practice: [
+      ["¿Cómo se escribe 3/10 como decimal?", "0,3", ["3,0", "0,03", "3,10"], "3 décimos: 0,3."],
+      ["¿Cuántos décimos forman 1 entero?", "10", ["100", "1", "5"], "10 décimos = 10/10 = 1."],
+      ["¿Cómo se escribe 9/100 como decimal?", "0,09", ["0,9", "9,0", "0,009"], "9 centésimos: el 9 va en el segundo lugar decimal."],
+      ["¿Qué es 0,25 en fracción?", "25/100", ["25/10", "2/5", "1/25"], "0,25 son 25 centésimos."],
+      ["En 4,72, ¿qué cifra está en los décimos?", "7", ["4", "2", "72"], "La primera cifra después de la coma son los décimos."],
+      ["¿Cuál es igual a 0,50?", "0,5", ["0,05", "5,0", "50"], "Un cero al final de la parte decimal no cambia el valor."],
+      ["¿Cuál es mayor: 0,3 o 0,29?", "0,3", ["0,29", "Son iguales", "No se puede saber"], "0,3 = 0,30 y 30 centésimos > 29 centésimos."],
+      ["¿Cuál es menor: 1,5 o 1,05?", "1,05", ["1,5", "Son iguales", "No se puede saber"], "1,5 = 1,50 y 5 centésimos < 50 centésimos."],
+      ["¿Cuánto es 0,5 + 0,5?", "1", ["0,10", "0,55", "10"], "5 décimos + 5 décimos = 10 décimos = 1 entero."],
+      ["Ordena de menor a mayor: 0,8; 0,08; 0,18", "0,08; 0,18; 0,8", ["0,8; 0,18; 0,08", "0,18; 0,08; 0,8", "0,08; 0,8; 0,18"], "En centésimos: 8, 18 y 80."]
+    ]
+  },
+  "xmat4a": {
+    before: ["Necesitas las tablas de multiplicar: los múltiplos de 4 son justo la tabla del 4.", "Recuerda la división exacta: si el residuo es 0, el reparto es exacto."],
+    vocab: [["múltiplo", "resultado de multiplicar un número por 1, 2, 3…: 6, 12 y 18 son múltiplos de 6"], ["divisor", "número que divide a otro exactamente, sin residuo"], ["divisible", "que se puede dividir exacto, con residuo 0"], ["factor", "otro nombre para divisor: 3 es factor de 12"]],
+    worked: [
+      { problem: "Escribe los 5 primeros múltiplos de 7.", steps: ["Multiplico 7 por 1, 2, 3, 4 y 5.", "7 × 1 = 7, 7 × 2 = 14, 7 × 3 = 21, 7 × 4 = 28, 7 × 5 = 35."], answer: "7, 14, 21, 28, 35" },
+      { problem: "Encuentra todos los divisores de 18.", steps: ["Busco parejas que multiplicadas den 18: 1 × 18, 2 × 9, 3 × 6.", "4 y 5 no dividen a 18 exactamente.", "Después del 6 las parejas se repiten."], answer: "1, 2, 3, 6, 9, 18" },
+      { problem: "¿Es 45 múltiplo de 6?", steps: ["Busco en la tabla del 6: 6 × 7 = 42 y 6 × 8 = 48.", "45 está entre los dos: no aparece en la tabla.", "45 ÷ 6 = 7, residuo 3."], answer: "No, 45 no es múltiplo de 6." }
+    ],
+    practice: [
+      ["¿Cuál es múltiplo de 5?", "35", ["32", "41", "53"], "5 × 7 = 35."],
+      ["¿Cuál es múltiplo de 4?", "28", ["18", "30", "34"], "4 × 7 = 28."],
+      ["¿Cuál es divisor de 15?", "5", ["2", "4", "10"], "15 ÷ 5 = 3 exacto."],
+      ["¿Cuál es el primer múltiplo de 9 después del 9?", "18", ["19", "27", "10"], "9 × 2 = 18."],
+      ["¿Cuántos divisores tiene el 10?", "4", ["2", "3", "10"], "Son 1, 2, 5 y 10."],
+      ["¿Cuál de estos números NO es múltiplo de 3?", "25", ["21", "24", "27"], "25 ÷ 3 = 8, residuo 1."],
+      ["¿Cuáles son los divisores de 16?", "1, 2, 4, 8, 16", ["2, 4, 8", "1, 2, 4, 6, 8, 16", "1, 4, 16"], "1 × 16, 2 × 8 y 4 × 4."],
+      ["El 1 es divisor de…", "Todos los números", ["Solo los pares", "Ningún número", "Solo el 1"], "Cualquier número dividido entre 1 da exacto."],
+      ["Si 6 es divisor de 30, entonces 30 es… de 6.", "Múltiplo", ["Divisor", "Residuo", "Mitad"], "6 × 5 = 30: 30 es múltiplo de 6."],
+      ["¿Qué número es múltiplo de 2 y también de 5?", "40", ["25", "12", "35"], "40 = 2 × 20 = 5 × 8. Los múltiplos de 2 y 5 terminan en 0."]
+    ]
+  },
+  "xmat4b": {
+    before: ["Repasa sumar y restar números pequeños como 10 + 5 o 10 − 1.", "Recuerda el valor de unidades, decenas y centenas: 49 = 40 + 9."],
+    vocab: [["número romano", "número escrito con las letras I, V, X, L, C, D y M"], ["regla de la suma", "una letra igual o menor a la derecha se suma: VI = 6"], ["regla de la resta", "I, X o C antes de una letra mayor se restan: IV = 4"], ["regla de repetición", "I, X, C y M se pueden repetir hasta 3 veces seguidas"]],
+    worked: [
+      { problem: "¿Cuánto vale LXVIII?", steps: ["L = 50, X = 10, V = 5, III = 3.", "Todas van de mayor a menor: se suman.", "50 + 10 + 5 + 3 = 68."], answer: "68" },
+      { problem: "Escribe 49 en números romanos.", steps: ["Separo: 49 = 40 + 9.", "40 = XL (50 − 10).", "9 = IX (10 − 1)."], answer: "XLIX" },
+      { problem: "¿Cuánto vale MCMXC?", steps: ["Separo en grupos: M · CM · XC.", "M = 1000, CM = 1000 − 100 = 900, XC = 100 − 10 = 90.", "1000 + 900 + 90 = 1990."], answer: "1990" }
+    ],
+    practice: [
+      ["¿Cuánto vale VI?", "6", ["4", "7", "15"], "V + I = 5 + 1 = 6."],
+      ["¿Cuánto vale IV?", "4", ["6", "3", "5"], "I antes de V se resta: 5 − 1 = 4."],
+      ["¿Cómo se escribe 12?", "XII", ["IIX", "XI", "VVII"], "10 + 2 = X + II."],
+      ["¿Cuánto vale XIX?", "19", ["21", "18", "29"], "X + IX = 10 + 9 = 19."],
+      ["¿Cómo se escribe 30?", "XXX", ["IIIX", "LX", "XXXX"], "X + X + X = 30."],
+      ["¿Cuánto vale LV?", "55", ["45", "60", "105"], "L + V = 50 + 5 = 55."],
+      ["¿Cómo se escribe 90?", "XC", ["LXL", "XXC", "CX"], "X antes de C se resta: 100 − 10 = 90."],
+      ["¿Cuánto vale CD?", "400", ["600", "500", "150"], "C antes de D se resta: 500 − 100 = 400."],
+      ["¿Por qué no se escribe IIII para el 4?", "Porque una letra no se repite más de 3 veces", ["Porque IIII vale 5", "Porque la I no existe", "Porque se escribe VI"], "Por eso el 4 se escribe IV."],
+      ["¿Cómo se escribe 2024?", "MMXXIV", ["MMXXVI", "MMXIV", "MMXXIIII"], "2000 = MM, 20 = XX y 4 = IV."]
+    ]
+  },
+  "xmat4c": {
+    before: ["Recuerda el ángulo recto: es la esquina de una hoja y mide 90°.", "Repasa comparar números: 70 es menor que 90 y 110 es mayor que 90."],
+    vocab: [["ángulo", "abertura entre dos semirrectas que salen del mismo punto"], ["grado (°)", "unidad para medir ángulos"], ["transportador", "instrumento con forma de media luna para medir ángulos"], ["vértice", "el punto donde empieza el ángulo"], ["ángulo llano", "el que mide 180°, como una línea recta"]],
+    worked: [
+      { problem: "Clasifica un ángulo de 89°.", steps: ["Comparo con 90°.", "89 es menor que 90."], answer: "Es agudo." },
+      { problem: "Un ángulo llano se divide en dos: uno mide 70°. ¿Cuánto mide el otro y cómo se llama?", steps: ["Un ángulo llano mide 180°.", "180 − 70 = 110.", "110° es mayor que 90° y menor que 180°."], answer: "Mide 110° y es obtuso." }
+    ],
+    practice: [
+      ["Un ángulo de 10° es…", "Agudo", ["Recto", "Obtuso", "Llano"], "10° es menor que 90°."],
+      ["Un ángulo de 180° es…", "Llano", ["Recto", "Agudo", "Obtuso"], "180° forma una línea recta: es llano."],
+      ["Un ángulo de 95° es…", "Obtuso", ["Agudo", "Recto", "Llano"], "95° es mayor que 90° y menor que 180°."],
+      ["¿Con qué instrumento se miden los ángulos?", "Transportador", ["Regla", "Balanza", "Termómetro"], "El transportador tiene marcados los grados."],
+      ["¿Qué ángulo es mayor: 100° o 80°?", "100°", ["80°", "Son iguales", "No se pueden comparar"], "Más grados es un ángulo más abierto."],
+      ["¿Cuántos ángulos rectos forman un ángulo llano?", "2", ["1", "3", "4"], "90° + 90° = 180°."],
+      ["¿Qué ángulo forman las agujas del reloj a las 6:00?", "Llano (180°)", ["Recto (90°)", "Agudo", "Ninguno"], "Una aguja apunta al 12 y la otra al 6: forman una línea recta."],
+      ["¿Cuánto mide una vuelta completa?", "360°", ["180°", "90°", "100°"], "Una vuelta son 4 ángulos rectos: 4 × 90° = 360°."],
+      ["Un ángulo recto se parte en dos iguales. ¿Cuánto mide cada uno?", "45°", ["90°", "30°", "180°"], "90 ÷ 2 = 45°."],
+      ["Un ángulo recto se divide en dos y una parte mide 30°. ¿Cuánto mide la otra?", "60°", ["70°", "120°", "30°"], "90 − 30 = 60°."]
+    ]
+  },
+  "xmat4d": {
+    before: ["Repasa multiplicar y dividir por 10, 100 y 1000: agregas o quitas ceros, o mueves la coma.", "Recuerda las equivalencias básicas: 1 m = 100 cm, 1 kg = 1000 g y 1 L = 1000 mL."],
+    vocab: [["convertir", "cambiar una medida a otra unidad sin cambiar su tamaño"], ["kilómetro (km)", "unidad para distancias largas: 1 km = 1000 m"], ["equivalencia", "dos medidas que valen lo mismo: 1 kg = 1000 g"], ["unidad mayor", "la más grande: para pasar a una menor, multiplicamos"]],
+    worked: [
+      { problem: "¿Cuántos metros son 4 km?", steps: ["Paso de una unidad grande (km) a una pequeña (m): multiplico.", "1 km = 1000 m.", "4 × 1000 = 4000."], answer: "4 km = 4000 m" },
+      { problem: "¿Cuántos metros son 350 cm?", steps: ["Paso de una unidad pequeña (cm) a una grande (m): divido.", "1 m = 100 cm.", "350 ÷ 100 = 3,5."], answer: "350 cm = 3,5 m" },
+      { problem: "¿Cuántos gramos son 1,2 kg?", steps: ["De kg a g: multiplico por 1000.", "1,2 × 1000 = 1200 (muevo la coma 3 lugares a la derecha)."], answer: "1,2 kg = 1200 g" }
+    ],
+    practice: [
+      ["¿Cuántos metros son 2 km?", "2000 m", ["200 m", "20 m", "20 000 m"], "2 × 1000 = 2000 m."],
+      ["¿Cuántos centímetros son 7 m?", "700 cm", ["70 cm", "7000 cm", "107 cm"], "7 × 100 = 700 cm."],
+      ["¿Cuántos gramos son 5 kg?", "5000 g", ["500 g", "50 g", "50 000 g"], "5 × 1000 = 5000 g."],
+      ["¿Cuántos mililitros son 2 L?", "2000 mL", ["200 mL", "20 mL", "2 mL"], "2 × 1000 = 2000 mL."],
+      ["¿Cuántos metros son 600 cm?", "6 m", ["60 m", "0,6 m", "6000 m"], "600 ÷ 100 = 6 m."],
+      ["¿Cuántos kilogramos son 3000 g?", "3 kg", ["30 kg", "300 kg", "0,3 kg"], "3000 ÷ 1000 = 3 kg."],
+      ["Para pasar de gramos a kilogramos debes…", "Dividir entre 1000", ["Multiplicar por 1000", "Dividir entre 100", "Multiplicar por 10"], "De una unidad pequeña a una grande se divide; 1 kg = 1000 g."],
+      ["¿Qué es más largo: 1 km o 900 m?", "1 km", ["900 m", "Son iguales", "No se puede saber"], "1 km = 1000 m, que es más que 900 m."],
+      ["¿Cuántos kilómetros son 1500 m?", "1,5 km", ["15 km", "150 km", "0,15 km"], "1500 ÷ 1000 = 1,5 km."],
+      ["¿Cuántos metros son 250 cm?", "2,5 m", ["25 m", "0,25 m", "2500 m"], "250 ÷ 100 = 2,5 m."]
+    ]
+  },
+  "xmat4e": {
+    before: ["Recuerda las figuras: cuadrado, rectángulo, triángulo y círculo.", "Repasa contar casillas en una cuadrícula hacia la derecha y hacia arriba."],
+    vocab: [["eje de simetría", "línea que divide una figura en dos mitades iguales, como un espejo"], ["simétrico", "que tiene sus dos mitades iguales"], ["plano cartesiano", "cuadrícula con una recta horizontal (x) y una vertical (y)"], ["coordenadas", "par de números (x, y) que dice dónde está un punto"], ["origen", "el punto (0, 0), donde se cruzan los ejes"]],
+    worked: [
+      { problem: "¿Cuántos ejes de simetría tiene un triángulo equilátero (3 lados iguales)?", steps: ["Trazo una línea desde un vértice hasta el medio del lado de enfrente: las mitades son iguales.", "Puedo hacer lo mismo desde cada uno de los 3 vértices."], answer: "Tiene 3 ejes de simetría." },
+      { problem: "Ubica el punto (4, 2).", steps: ["Parto del origen (0, 0).", "El primer número (x = 4): avanzo 4 a la derecha.", "El segundo número (y = 2): subo 2."], answer: "4 a la derecha y 2 hacia arriba." },
+      { problem: "Un punto está en (2, 3) y se mueve 3 casillas a la derecha. ¿Dónde queda?", steps: ["Moverse a la derecha cambia solo la x: 2 + 3 = 5.", "La y no cambia: sigue en 3."], answer: "(5, 3)" }
+    ],
+    practice: [
+      ["¿Cuántos ejes de simetría tiene un círculo?", "Infinitos", ["1", "2", "4"], "Cualquier línea que pase por el centro lo divide en dos mitades iguales."],
+      ["¿Cuál de estas letras tiene un eje de simetría vertical?", "A", ["F", "G", "J"], "Una línea por el medio de la A deja dos mitades iguales."],
+      ["¿Cuántos ejes de simetría tiene la letra H?", "2", ["0", "1", "4"], "Uno vertical y uno horizontal."],
+      ["¿Cuáles son las coordenadas del origen?", "(0, 0)", ["(1, 1)", "(0, 1)", "(1, 0)"], "El origen es donde se cruzan los dos ejes."],
+      ["En (6, 1), ¿cuántos pasos avanzas a la derecha?", "6", ["1", "7", "5"], "El primer número (x) indica cuánto avanzar a la derecha."],
+      ["¿Qué punto está 2 a la derecha y 4 arriba?", "(2, 4)", ["(4, 2)", "(2, 2)", "(6, 0)"], "Primero va la x (derecha) y luego la y (arriba)."],
+      ["El punto (5, 3) sube 2 casillas. ¿A dónde llega?", "(5, 5)", ["(7, 3)", "(5, 1)", "(3, 3)"], "Subir cambia solo la y: 3 + 2 = 5."],
+      ["El punto (0, 4) está sobre…", "El eje vertical (y)", ["El eje horizontal (x)", "El origen", "Ningún eje"], "Si x = 0, no avanzas a la derecha: quedas sobre el eje y."],
+      ["Las alas de una mariposa son iguales a cada lado. Decimos que tiene…", "Simetría", ["Perímetro", "Volumen", "Residuo"], "Su cuerpo funciona como eje de simetría."],
+      ["¿Cuántos ejes de simetría tiene un triángulo de lados 3, 4 y 5 cm?", "0", ["1", "2", "3"], "Todos sus lados son distintos: no se puede doblar en dos mitades iguales."]
+    ]
+  },
