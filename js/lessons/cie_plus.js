@@ -526,7 +526,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
     ],
     practice: [
       ["¿Cuál es una fuente de luz artificial?", "Una linterna", ["El Sol", "Un rayo", "Una luciérnaga"], "La linterna la fabrican las personas."],
-      ["¿Cuál es una fuente de luz natural?", "Un rayo en una tormenta", ["Un bombillo", "Una vela", "Un semáforo"], "El rayo se produce en la naturaleza."],
+      ["Además del Sol, ¿qué otra luz viene de la naturaleza?", "Un rayo en una tormenta", ["Un bombillo", "Una vela", "Un semáforo"], "El rayo se produce en la naturaleza."],
       ["¿La vela es una fuente de luz…?", "Artificial", ["Natural", "No da luz", "Solar"], "La vela la hacen las personas y su llama da luz."],
       ["¿Qué estrella nos da luz de día?", "El Sol", ["La Luna", "Marte", "Una nube"], "El Sol es una estrella y nuestra principal fuente de luz."],
       ["¿Las estrellas de la noche producen luz propia?", "Sí, son como soles lejanos", ["No, la reflejan", "Solo algunas noches", "No, son bombillos"], "Las estrellas son fuentes de luz natural."],
@@ -850,8 +850,8 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       { problem: "Las abejas toman néctar y llevan polen de flor en flor. ¿Qué relación es?", steps: ["La abeja gana alimento.", "La planta gana polinización para hacer frutos.", "Ambos se benefician."], answer: "Una relación en la que ambos ganan (mutualismo)." }
     ],
     practice: [
-      ["¿Cuál es un factor abiótico?", "La luz del Sol", ["Un árbol", "Una abeja", "Una bacteria"], "La luz no tiene vida."],
-      ["¿Cuál es un factor biótico?", "Un pájaro", ["La temperatura", "Una roca", "El viento"], "El pájaro es un ser vivo."],
+      ["¿Qué elemento de un bosque NO tiene vida?", "La luz del Sol", ["Un árbol", "Una abeja", "Una bacteria"], "La luz no tiene vida."],
+      ["En una pradera, ¿qué elemento es biótico?", "Un pájaro", ["La temperatura", "Una roca", "El viento"], "El pájaro es un ser vivo."],
       ["¿Qué es un ecosistema?", "Seres vivos y su ambiente relacionándose", ["Solo los animales de un lugar", "Solo las piedras", "Una ciudad sin seres vivos"], "Incluye lo vivo y lo no vivo."],
       ["Un grupo de peces de la misma especie en un lago es una…", "Población", ["Comunidad de especies distintas", "Roca", "Factor abiótico"], "Población: misma especie en un mismo lugar."],
       ["¿Qué tipo de relación hay entre el león y la cebra?", "Depredación", ["Ayuda mutua", "Ninguna", "Fotosíntesis"], "El león caza a la cebra."],
@@ -1023,7 +1023,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
     practice: [
       ["¿Qué energía usan los paneles solares?", "Solar", ["Eólica", "Hidráulica", "Fósil"], "Transforman la luz del Sol en electricidad."],
       ["¿Cómo se llaman los molinos modernos que producen electricidad con viento?", "Aerogeneradores", ["Paneles solares", "Represas", "Pozos petroleros"], "Sus aspas giran con el viento."],
-      ["¿Cuál es un combustible fósil?", "El petróleo", ["El viento", "La luz solar", "Las olas"], "El petróleo se formó hace millones de años."],
+      ["¿Qué fuente de energía se formó con restos de seres vivos de hace millones de años?", "El petróleo", ["El viento", "La luz solar", "Las olas"], "El petróleo se formó hace millones de años."],
       ["¿Qué energía se obtiene quemando leña o restos de plantas?", "Biomasa", ["Eólica", "Solar", "Geotérmica"], "La biomasa viene de materia orgánica."],
       ["¿Qué tienen en común el carbón, el petróleo y el gas natural?", "Son fósiles y se agotan", ["Son renovables", "No contaminan", "Vienen del viento"], "Son no renovables y contaminan al quemarse."],
       ["¿Qué energía es limpia y renovable?", "La eólica", ["El carbón", "La gasolina", "El diésel"], "El viento no se agota ni echa humo."],
@@ -1304,7 +1304,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
     before: ["La Tierra no es igual por dentro que por fuera: tiene capas, como una cebolla o un durazno.", "Nadie ha viajado al centro de la Tierra; lo sabemos estudiando cómo viajan las ondas de los sismos."],
     vocab: [["corteza", "capa externa y delgada, de roca sólida"], ["manto", "capa intermedia, muy caliente, de roca que fluye muy lentamente"], ["núcleo", "centro de la Tierra, de hierro y níquel"], ["atmósfera", "capa de gases que rodea la Tierra"], ["litosfera", "la corteza y la parte más rígida del manto superior"]],
     worked: [
-      { problem: "¿Cuál es la capa más gruesa de la Tierra?", steps: ["La corteza es muy delgada (de 5 a 70 km).", "El núcleo tiene un radio de unos 3 500 km.", "El manto mide unos 2 900 km de grosor y tiene la mayor parte del volumen."], answer: "El manto." },
+      { problem: "¿Qué capa ocupa la mayor parte del volumen de la Tierra?", steps: ["La corteza es muy delgada: de 5 a 70 km.", "El manto mide unos 2 900 km de grosor y rodea al núcleo.", "Como es una capa gruesa y externa al núcleo, ocupa más de las cuatro quintas partes del volumen."], answer: "El manto." },
       { problem: "El núcleo interno es muy caliente. ¿Por qué es sólido?", steps: ["Está a temperaturas parecidas a la superficie del Sol.", "Pero soporta una presión enorme.", "La presión mantiene sus átomos apretados."], answer: "Por la enorme presión." }
     ],
     practice: [
@@ -1367,7 +1367,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
     practice: [
       ["¿Dónde está el ADN en una célula humana?", "Principalmente en el núcleo", ["En la membrana", "Solo en la sangre", "En el pelo solamente"], "El núcleo guarda los cromosomas."],
       ["¿Qué porcentaje de genes recibes de tu madre?", "La mitad", ["Todos", "Ninguno", "Una cuarta parte"], "La otra mitad viene de tu padre."],
-      ["¿Cuántos pares de cromosomas tiene una célula humana?", "23 pares", ["46 pares", "10 pares", "100 pares"], "23 pares = 46 cromosomas."],
+      ["¿Qué cromosomas sexuales tienen normalmente las personas de sexo femenino?", "XX", ["XY", "YY", "ZW"], "Las mujeres suelen tener XX y los hombres XY; el padre aporta X o Y."],
       ["Un gen dominante se manifiesta cuando…", "Hay al menos una copia", ["Hay cero copias", "Solo hay copias recesivas", "Nunca"], "Una sola copia basta."],
       ["¿Qué forma tiene la molécula de ADN?", "Doble hélice", ["Cuadrado", "Triángulo", "Línea recta simple"], "Es como una escalera retorcida."],
       ["¿Qué rasgo NO se hereda por los genes?", "Una cicatriz por una caída", ["El grupo sanguíneo", "El color natural de ojos", "El tipo de cabello"], "Las cicatrices son adquiridas, no heredadas."],
@@ -1376,3 +1376,137 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["La estatura depende de los genes y también de…", "La alimentación y la salud", ["El signo zodiacal", "El color de la ropa", "Nada más"], "Herencia y ambiente actúan juntos."]
     ]
   },
+  "xcie6d": {
+    before: ["Toda la materia, desde el aire hasta tu cuerpo, está formada por partículas diminutas.", "Esas partículas son tan pequeñas que en un granito de sal hay billones de ellas."],
+    vocab: [["átomo", "partícula muy pequeña que forma la materia"], ["protón", "partícula con carga positiva en el núcleo del átomo"], ["neutrón", "partícula sin carga en el núcleo del átomo"], ["electrón", "partícula con carga negativa que gira alrededor del núcleo"], ["molécula", "grupo de átomos unidos"]],
+    worked: [
+      { problem: "El carbono tiene 6 protones. ¿Cuántos electrones tiene un átomo neutro de carbono?", steps: ["Un átomo neutro tiene igual carga positiva y negativa.", "Los protones son positivos; los electrones, negativos.", "Por eso tiene tantos electrones como protones."], answer: "6 electrones." },
+      { problem: "¿El dióxido de carbono (CO₂) es elemento o compuesto?", steps: ["Tiene átomos de carbono (C) y de oxígeno (O).", "Son dos tipos distintos de átomos.", "Unir elementos distintos forma un compuesto."], answer: "Es un compuesto." }
+    ],
+    practice: [
+      ["¿Qué partícula tiene carga positiva?", "El protón", ["El electrón", "El neutrón", "La molécula"], "Los protones están en el núcleo y son positivos."],
+      ["¿Qué partícula no tiene carga?", "El neutrón", ["El protón", "El electrón", "El ion"], "Neutrón viene de neutro."],
+      ["¿Dónde están los protones y neutrones?", "En el núcleo del átomo", ["Girando lejos del núcleo", "Fuera del átomo", "En la membrana celular"], "Los electrones están alrededor del núcleo."],
+      ["¿Qué es un elemento químico?", "Una sustancia formada por un solo tipo de átomo", ["Una mezcla de sustancias", "Un compuesto de muchos átomos distintos", "Un ser vivo"], "Por ejemplo, el oro solo tiene átomos de oro."],
+      ["¿Dónde se ordenan todos los elementos conocidos?", "En la tabla periódica", ["En un mapa", "En un calendario", "En un diccionario"], "La tabla periódica los ordena por número atómico."],
+      ["¿Cuál de estos es un elemento?", "El oxígeno (O)", ["El agua (H₂O)", "La sal (NaCl)", "El azúcar"], "El oxígeno tiene un solo tipo de átomo."],
+      ["El número atómico indica…", "La cantidad de protones", ["El tamaño del átomo en metros", "Cuántas moléculas hay", "El color del elemento"], "Cada elemento tiene un número de protones propio."],
+      ["Un grupo de átomos unidos se llama…", "Molécula", ["Célula", "Órgano", "Tejido"], "Por ejemplo, H₂O es una molécula de agua."],
+      ["¿Qué elemento tiene 1 protón?", "El hidrógeno", ["El oxígeno", "El carbono", "El hierro"], "El hidrógeno es el elemento número 1."]
+    ]
+  },
+  "xcie6e": {
+    before: ["Cada elemento tiene un símbolo de una o dos letras; la primera siempre en mayúscula.", "Una fórmula química muestra qué átomos forman una sustancia y cuántos hay de cada uno."],
+    vocab: [["símbolo químico", "abreviatura de un elemento, como Fe para hierro"], ["fórmula", "escritura con símbolos que muestra la composición"], ["subíndice", "número pequeño que indica cuántos átomos hay"], ["compuesto", "sustancia con dos o más elementos distintos unidos"]],
+    worked: [
+      { problem: "¿Qué es CH₄ (metano)?", steps: ["Busco los símbolos: C (carbono) y H (hidrógeno).", "Hay dos elementos distintos.", "Entonces es un compuesto: 1 carbono y 4 hidrógenos."], answer: "Un compuesto con 1 átomo de C y 4 de H." },
+      { problem: "¿Co y CO son lo mismo?", steps: ["Co: una mayúscula y una minúscula = un solo símbolo (cobalto).", "CO: dos mayúsculas = dos símbolos (C y O).", "CO es monóxido de carbono, un compuesto."], answer: "No: Co es el elemento cobalto y CO es un compuesto." }
+    ],
+    practice: [
+      ["¿Qué es Fe?", "Un elemento (hierro)", ["Un compuesto", "Una mezcla", "Una molécula de agua"], "Un solo símbolo: es un elemento."],
+      ["¿Qué es CO₂?", "Un compuesto", ["Un elemento", "Un metal puro", "Un átomo solo"], "Tiene carbono y oxígeno."],
+      ["¿Cuántos átomos de oxígeno hay en CO₂?", "2", ["1", "3", "0"], "El subíndice 2 va con el O."],
+      ["¿Qué símbolo tiene el oro?", "Au", ["Or", "O", "Ag"], "Viene del latín aurum."],
+      ["¿Qué es N₂?", "Un elemento", ["Un compuesto", "Una mezcla", "Un ion de sodio"], "Solo tiene átomos de nitrógeno, aunque estén unidos de a dos."],
+      ["¿Cuántos elementos distintos hay en C₆H₁₂O₆ (glucosa)?", "3", ["24", "6", "12"], "Carbono, hidrógeno y oxígeno."],
+      ["¿Cuántos átomos en total hay en H₂O?", "3", ["2", "1", "4"], "2 de hidrógeno + 1 de oxígeno."],
+      ["¿Qué símbolo tiene el sodio?", "Na", ["So", "S", "Sd"], "Viene del latín natrium."],
+      ["¿Qué es CaCO₃ (piedra caliza)?", "Un compuesto de calcio, carbono y oxígeno", ["Un elemento", "Solo calcio", "Una mezcla de gases"], "Tiene tres elementos distintos: Ca, C y O."]
+    ]
+  },
+  "xcie6f": {
+    before: ["La materia cambia todo el tiempo: el hielo se derrite, el pan se tuesta, el hierro se oxida.", "La pregunta clave es: ¿después del cambio sigue siendo la misma sustancia?"],
+    vocab: [["cambio físico", "la sustancia cambia de forma o estado pero sigue siendo la misma"], ["cambio químico", "se forma una sustancia nueva"], ["reacción química", "proceso en que unas sustancias se transforman en otras"], ["oxidación", "reacción con el oxígeno, como el óxido del hierro"], ["combustión", "reacción de quemar algo con oxígeno"]],
+    worked: [
+      { problem: "Rompes una hoja de papel. ¿Qué tipo de cambio es?", steps: ["El papel queda en trozos.", "Cada trozo sigue siendo papel.", "No aparece una sustancia nueva."], answer: "Cambio físico." },
+      { problem: "Un clavo de hierro al aire libre se pone rojizo. ¿Qué cambio es?", steps: ["Aparece una capa rojiza: el óxido.", "El óxido es una sustancia distinta al hierro.", "Se formó por reacción con oxígeno y agua."], answer: "Cambio químico (oxidación)." }
+    ],
+    practice: [
+      ["¿Qué tipo de cambio es disolver azúcar en agua?", "Físico", ["Químico", "Nuclear", "Ninguno"], "El azúcar sigue siendo azúcar; si evaporas el agua, lo recuperas."],
+      ["¿Qué tipo de cambio es freír un huevo?", "Químico", ["Físico", "Ninguno", "Magnético"], "Las proteínas cambian y no se puede volver atrás."],
+      ["¿Qué tipo de cambio es que el agua hierva?", "Físico", ["Químico", "Biológico", "Nuclear"], "El vapor sigue siendo agua."],
+      ["¿Qué tipo de cambio es que una manzana cortada se ponga café?", "Químico", ["Físico", "Ninguno", "Eléctrico"], "La pulpa reacciona con el oxígeno del aire."],
+      ["¿Cuál es una señal de cambio químico?", "Cambio de color con una sustancia nueva", ["Cambio de tamaño al cortar", "Cambio de forma al doblar", "Cambio de estado al derretir"], "Color nuevo, gas, luz o calor indican reacción."],
+      ["¿Qué tipo de cambio es moldear plastilina?", "Físico", ["Químico", "Nuclear", "De combustión"], "Sigue siendo plastilina."],
+      ["¿Qué gas forma burbujas al mezclar bicarbonato y vinagre?", "Dióxido de carbono", ["Oxígeno puro", "Helio", "Vapor de agua solamente"], "Es una reacción química que produce CO₂."],
+      ["¿Qué tipo de cambio es la digestión de los alimentos?", "Químico", ["Físico solamente", "Ninguno", "Magnético"], "Las enzimas transforman los alimentos en sustancias nuevas."],
+      ["¿Por qué un cambio químico suele ser difícil de revertir?", "Porque se formaron sustancias nuevas", ["Porque la sustancia es la misma", "Porque solo cambió la forma", "Porque es un cambio de estado"], "No basta con enfriar o calentar para recuperar lo original."]
+    ]
+  },
+  "xcie6g": {
+    before: ["La corteza terrestre no es una sola pieza: está partida como un rompecabezas.", "Debajo, el manto caliente se mueve muy lentamente y arrastra esas piezas."],
+    vocab: [["placa tectónica", "gran pieza de la litosfera que se mueve"], ["subducción", "cuando una placa se hunde bajo otra"], ["falla", "fractura en la corteza donde se mueven los bloques de roca"], ["epicentro", "punto de la superficie justo encima del origen de un sismo"], ["magma", "roca fundida bajo la superficie; al salir se llama lava"]],
+    worked: [
+      { problem: "¿Por qué hay tantos volcanes en los Andes?", steps: ["La placa de Nazca se hunde bajo la Sudamericana (subducción).", "Al hundirse, se calienta y se forma magma.", "El magma sube y forma volcanes."], answer: "Por la subducción de la placa de Nazca." },
+      { problem: "Hay un sismo fuerte en la escuela. ¿Qué haces?", steps: ["Mantener la calma.", "Agacharte, cubrirte la cabeza y sujetarte, lejos de ventanas.", "Cuando pare, evacuar con calma por la ruta señalada."], answer: "Agacharse, cubrirse y sujetarse; luego evacuar en orden." }
+    ],
+    practice: [
+      ["¿Cómo se llama el punto de la superficie justo sobre el origen de un sismo?", "Epicentro", ["Hipocentro", "Cráter", "Falla"], "El hipocentro está en profundidad; el epicentro, encima."],
+      ["¿Cómo se llama la roca fundida que sale de un volcán?", "Lava", ["Humus", "Arena", "Granizo"], "Bajo tierra es magma y al salir es lava."],
+      ["¿Qué ocurre cuando dos placas se separan bajo el océano?", "Sube magma y se forma nuevo fondo marino", ["Se forma una montaña de hielo", "Desaparece el océano", "Nada"], "Así se forman las dorsales oceánicas."],
+      ["¿Cómo se llama la zona con muchos volcanes y sismos alrededor del océano Pacífico?", "Cinturón de Fuego del Pacífico", ["Línea del ecuador", "Trópico de Cáncer", "Cinturón de asteroides"], "Allí se concentran muchos volcanes activos."],
+      ["¿Qué instrumento registra los sismos?", "El sismógrafo", ["El barómetro", "El pluviómetro", "El telescopio"], "Dibuja las vibraciones del suelo."],
+      ["¿Qué ola gigante puede provocar un sismo bajo el mar?", "Un tsunami", ["Una marea baja normal", "Un tornado", "Un huracán"], "El movimiento del fondo marino empuja enormes volúmenes de agua."],
+      ["¿Cómo se formó el Himalaya?", "Por el choque de dos placas continentales", ["Por un volcán solo", "Por la lluvia", "Por el viento"], "La placa India choca con la Euroasiática y eleva montañas."],
+      ["¿Qué tan rápido se mueven las placas?", "Unos pocos centímetros por año", ["Varios kilómetros por hora", "Metros por segundo", "No se mueven"], "Más o menos lo que crecen tus uñas en un año."],
+      ["¿Qué es una falla?", "Una fractura donde se mueven bloques de roca", ["Un río subterráneo", "Un volcán apagado", "Un tipo de nube"], "La falla de San Andrés es un ejemplo famoso."]
+    ]
+  },
+  "xcie6h": {
+    before: ["La atmósfera tiene gases que guardan parte del calor del Sol; sin ellos la Tierra sería muy fría.", "El problema empieza cuando esos gases aumentan demasiado por actividades humanas."],
+    vocab: [["efecto invernadero", "los gases de la atmósfera retienen calor y calientan el planeta"], ["gases de efecto invernadero", "gases como el dióxido de carbono y el metano"], ["calentamiento global", "aumento de la temperatura media de la Tierra"], ["huella de carbono", "cantidad de gases que produce una persona o actividad"], ["deforestación", "tala de bosques"]],
+    worked: [
+      { problem: "¿Por qué la deforestación empeora el cambio climático?", steps: ["Los árboles absorben dióxido de carbono para la fotosíntesis.", "Al talarlos, se absorbe menos CO₂.", "Si se queman, además liberan el carbono que guardaban."], answer: "Porque hay menos árboles para absorber CO₂ y se libera más." },
+      { problem: "¿Cómo puede tu familia reducir su huella de carbono?", steps: ["Usar menos el carro: caminar, bicicleta o transporte público.", "Ahorrar electricidad apagando lo que no se usa.", "Reducir residuos y desperdicio de comida."], answer: "Transporte limpio, ahorrar energía y reducir residuos." }
+    ],
+    practice: [
+      ["¿El efecto invernadero natural es malo?", "No, mantiene la Tierra habitable", ["Sí, siempre es malo", "No existe", "Solo ocurre en invernaderos"], "Sin él la Tierra tendría una temperatura media muy por debajo de 0 °C."],
+      ["¿Qué gas de efecto invernadero produce el ganado al digerir?", "Metano", ["Oxígeno", "Nitrógeno", "Helio"], "Las vacas eructan metano."],
+      ["¿Qué pasa con el nivel del mar si se derrite el hielo de los glaciares?", "Sube", ["Baja", "No cambia", "Se congela"], "El agua del hielo terrestre llega al mar."],
+      ["¿Cuál es una fuente principal de CO₂?", "Quemar combustibles fósiles", ["Sembrar árboles", "Usar paneles solares", "Caminar"], "Carros, fábricas y centrales de carbón emiten CO₂."],
+      ["¿Qué acción reduce las emisiones?", "Usar la bicicleta", ["Dejar el carro encendido sin moverse", "Quemar basura", "Talar bosques"], "La bicicleta no quema combustible."],
+      ["¿Qué fenómeno puede volverse más frecuente con el calentamiento global?", "Olas de calor y sequías", ["Que el Sol se apague", "Que la Luna se aleje", "Que no haya estaciones nunca más"], "El clima se vuelve más extremo."],
+      ["¿Qué les pasa a los arrecifes de coral con el mar más caliente?", "Se blanquean y pueden morir", ["Crecen más rápido", "Se vuelven de piedra", "No les pasa nada"], "El calor rompe su relación con las algas que les dan color y alimento."],
+      ["¿Qué es la huella de carbono?", "Los gases de efecto invernadero que produce una actividad", ["La marca de un zapato", "Un tipo de roca", "Carbón en el suelo"], "Sirve para medir nuestro impacto en el clima."],
+      ["¿Cuál es la diferencia entre tiempo y cambio climático?", "El cambio climático es una tendencia de muchos años", ["Son exactamente lo mismo", "El tiempo dura siglos", "El cambio climático es un día de calor"], "Un día caluroso no es cambio climático; el aumento de la temperatura promedio durante décadas, sí."]
+    ]
+  },
+  "xcie6i": {
+    before: ["La ciencia busca respuestas que se puedan comprobar con evidencia.", "Para no dejarse engañar, los científicos siguen un método ordenado y repiten sus pruebas."],
+    vocab: [["hipótesis", "posible respuesta que se puede poner a prueba"], ["variable independiente", "lo que tú cambias en el experimento"], ["variable dependiente", "lo que mides para ver el efecto"], ["grupo control", "el grupo que no recibe el cambio, para comparar"], ["conclusión", "lo que se aprende al analizar los resultados"]],
+    worked: [
+      { problem: "Quieres saber si la luz afecta el crecimiento del frijol. Diseña el experimento.", steps: ["Hipótesis: con luz los frijoles crecerán más.", "Pones dos macetas iguales, con igual agua y tierra.", "Una con luz y otra en la oscuridad (solo cambias la luz).", "Mides la altura cada día y comparas."], answer: "Variable independiente: la luz · dependiente: la altura." },
+      { problem: "Tu hipótesis era que el agua tibia disuelve más rápido el azúcar, y así pasó. ¿Qué haces ahora?", steps: ["Analizas los datos: el tiempo fue menor en agua tibia.", "Concluyes que la hipótesis se apoya.", "Repites el experimento y comunicas los resultados."], answer: "Escribir la conclusión, repetir y compartir los resultados." }
+    ],
+    practice: [
+      ["¿Cuál es el primer paso del método científico?", "Observar", ["Concluir", "Experimentar", "Publicar"], "Todo empieza al observar algo curioso."],
+      ["¿Qué paso va después de la observación?", "Hacer una pregunta", ["Concluir", "Comunicar", "Analizar datos"], "La observación lleva a preguntarse por qué."],
+      ["¿Qué es la variable dependiente?", "Lo que se mide", ["Lo que se cambia a propósito", "Lo que se deja igual", "El título del experimento"], "Depende del cambio que hiciste."],
+      ["¿Para qué sirve un grupo control?", "Para comparar con el grupo que sí recibe el cambio", ["Para decorar", "Para no hacer el experimento", "Para cambiar varias cosas"], "Sin control no sabes si el cambio causó el efecto."],
+      ["Si el experimento no confirma tu hipótesis, ¿qué haces?", "Aceptar los resultados y proponer una nueva hipótesis", ["Cambiar los datos", "Esconder los resultados", "Decir que funcionó"], "En ciencia, un resultado negativo también enseña."],
+      ["¿Por qué se repite un experimento varias veces?", "Para comprobar que los resultados son confiables", ["Para gastar materiales", "Porque es divertido solamente", "No hace falta repetir"], "Si se repite y da lo mismo, el resultado es más confiable."],
+      ["¿Cuál es una hipótesis bien escrita?", "Si riego más la planta, crecerá más alta", ["Las plantas son bonitas", "Me gustan las plantas", "¿Qué es una planta?"], "Una hipótesis es comprobable y predice un resultado."],
+      ["¿Qué se hace en el análisis?", "Organizar e interpretar los datos", ["Inventar datos", "Hacer la pregunta", "Comprar materiales"], "Se usan tablas y gráficas para ver patrones."],
+      ["¿Qué paso cierra el método científico?", "Comunicar los resultados", ["Observar", "Hacer la hipótesis", "Preguntar"], "Compartir permite que otros revisen y repitan el trabajo."]
+    ]
+  },
+  "xcie6j": {
+    before: ["Los textos científicos usan datos, nombres técnicos y relaciones de causa y efecto.", "Leer bien es distinguir lo que dice el texto con evidencia de lo que alguien opina."],
+    vocab: [["evidencia", "dato u observación que apoya una idea"], ["conclusión", "idea final que se desprende de la evidencia"], ["inferencia", "deducir algo que no está escrito pero se apoya en el texto"], ["fuente", "de dónde viene la información"]],
+    worked: [
+      { problem: "Lee: \"En los Andes hay muchos sismos porque la placa de Nazca se hunde bajo la Sudamericana a unos 7 cm por año.\" ¿Cuál es la causa y cuál el dato?", steps: ["\"Porque\" introduce la causa: la placa de Nazca se hunde bajo la Sudamericana.", "El dato numérico es unos 7 cm por año.", "La consecuencia es que hay muchos sismos en los Andes."], answer: "Causa: el hundimiento de la placa de Nazca · Dato: unos 7 cm por año." },
+      { problem: "Lee: \"En una familia, ambos padres tienen ojos oscuros pero una hija tiene ojos claros.\" ¿Qué puedes inferir con el modelo de genes dominantes y recesivos?", steps: ["El rasgo claro es recesivo en este modelo sencillo.", "La hija necesita dos copias del gen recesivo.", "Cada padre debe llevar una copia oculta."], answer: "Ambos padres llevan el gen recesivo de ojos claros." }
+    ],
+    practice: [
+      ["¿Qué es una inferencia?", "Deducir algo apoyado en el texto aunque no esté escrito", ["Copiar una oración", "Inventar sin pruebas", "Leer solo el título"], "Se infiere uniendo pistas del texto."],
+      ["Lee: \"El volcán Nevado del Ruiz entró en erupción en 1985.\" ¿Qué dato aparece?", "El año 1985", ["La altura del volcán", "El nombre del científico", "La temperatura de la lava"], "Busca las cifras y los nombres propios."],
+      ["¿Qué es la evidencia en un texto científico?", "Datos u observaciones que apoyan una idea", ["La opinión del lector", "Un chiste", "Una pregunta sin respuesta"], "La evidencia se puede comprobar."],
+      ["¿Qué fuente es más confiable para un dato científico?", "Una institución científica o un libro de texto", ["Un rumor en redes", "Un comentario anónimo", "Lo que dijo un desconocido"], "Las fuentes científicas revisan sus datos."],
+      ["Lee: \"Desde 1900, la temperatura media del planeta ha subido más de 1 °C.\" ¿Qué tipo de información es?", "Un dato con cifra y fecha", ["Una opinión", "Un poema", "Una pregunta"], "Tiene un número verificable y un periodo."],
+      ["¿Qué conector introduce una conclusión?", "En conclusión", ["Por ejemplo", "Además", "Sin embargo"], "\"En conclusión\" resume lo aprendido."],
+      ["¿Qué conector indica una idea contraria?", "Sin embargo", ["Por lo tanto", "Además", "Porque"], "\"Sin embargo\" marca contraste."],
+      ["Lee: \"Las placas se mueven y por eso hay sismos en Chile.\" ¿Cuál es la consecuencia?", "Hay sismos en Chile", ["Las placas se mueven", "Chile es largo", "La Tierra es redonda"], "Lo que va después de \"por eso\" es la consecuencia."],
+      ["¿Qué preguntas ayudan a resumir un texto científico?", "¿Qué pasó? ¿Por qué pasó? ¿Qué se concluyó?", ["¿Quién imprimió el libro?", "¿Cuántas páginas tiene?", "¿De qué color es la portada?"], "Esas tres preguntas recogen lo esencial."]
+    ]
+  }
+});
