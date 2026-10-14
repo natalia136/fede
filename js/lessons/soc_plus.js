@@ -464,14 +464,14 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       { problem: "Si un niño no hizo su tarea, ¿pierde su derecho a la educación?", steps: ["Recordamos: los derechos no se ganan ni se pierden por cumplir deberes.", "Los derechos son de todos los niños siempre.", "Pero cumplir los deberes ayuda a aprovechar mejor esos derechos."], answer: "No, el derecho a la educación sigue siendo suyo." }
     ],
     practice: [
-      ["¿Cuál es un derecho de los niños?", "Recibir atención médica", ["Trabajar en una mina", "No tener nombre", "Vivir con miedo"], "Todos los niños tienen derecho a la salud."],
+      ["Un niño enfermo recibe atención en el centro de salud. ¿Qué derecho se cumple?", "El derecho a la salud", ["El derecho al voto", "El deber de estudiar", "El deber de ordenar"], "Todos los niños tienen derecho a la salud."],
       ["¿Cuál es un deber en casa?", "Ayudar con las tareas del hogar", ["Romper los platos", "Gritarle a la familia", "Dejar todo desordenado"], "Colaborar en casa es un deber de todos."],
       ["¿Cuál es un deber con el ambiente?", "No botar basura en la calle", ["Cortar todos los árboles", "Contaminar los ríos", "Dejar la luz prendida"], "Cuidar el ambiente es responsabilidad de todos."],
       ["Tener un nombre y una nacionalidad es…", "Un derecho", ["Un deber", "Un premio", "Un castigo"], "Todo niño tiene derecho a un nombre y a una nacionalidad."],
       ["¿Qué deber acompaña al derecho a opinar?", "Escuchar con respeto a los demás", ["Gritar más fuerte", "No dejar hablar a nadie", "Burlarse de otras ideas"], "Si quiero que me escuchen, también escucho."],
       ["¿Cuál es un derecho?", "Ser protegido contra el maltrato", ["Lavar los platos", "Hacer la tarea", "Cuidar los útiles"], "La protección es un derecho; las otras opciones son deberes."],
       ["¿Pueden los derechos de un niño depender de si es rico o pobre?", "No, todos los niños tienen los mismos derechos", ["Sí, los ricos tienen más", "Sí, los pobres tienen más", "Solo algunos tienen derechos"], "Los derechos son para todos, sin discriminación."],
-      ["¿Cuál es un deber en la escuela?", "Cuidar los materiales", ["Rayar los pupitres", "Llegar tarde siempre", "Interrumpir al profesor"], "Cuidar lo que es de todos es un deber."]
+      ["Si usas los libros de la biblioteca escolar, ¿qué deber tienes?", "Cuidarlos y devolverlos a tiempo", ["Rayarlos", "Quedártelos para siempre", "Arrancarles páginas"], "Cuidar lo que es de todos es un deber."]
     ]
   },
   "s3c": {
@@ -1054,7 +1054,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["¿Por qué conviene comparar varias fuentes?", "Para conocer distintos puntos de vista", ["Para copiar más rápido", "Porque todas dicen lo mismo", "No conviene"], "Cada fuente puede ver los hechos de forma distinta."],
       ["¿Qué cambio llegó con el ferrocarril?", "Transportar personas y productos más rápido", ["Que no hubiera comercio", "Que desaparecieran las ciudades", "Que se dejara de cultivar"], "El tren conectó regiones y puertos."],
       ["¿Cuál es una consecuencia de la abolición de la esclavitud?", "Miles de personas recuperaron su libertad", ["Se fundaron los virreinatos", "Llegó Colón", "Empezó la colonia"], "La abolición puso fin legal a la esclavitud."],
-      ["¿Qué fue una dictadura en el siglo XX?", "Un gobierno que tomó el poder sin elecciones libres y limitó derechos", ["Un gobierno elegido por todos", "Una fiesta nacional", "Un tipo de constitución democrática"], "Varias dictaduras hubo en el siglo XX y luego se recuperó la democracia."]
+      ["¿Qué fue una dictadura en el siglo XX?", "Un gobierno que tomó el poder sin elecciones libres y limitó derechos", ["Un gobierno elegido por todos", "Una fiesta nacional", "Un tipo de constitución democrática"], "En el siglo XX hubo varias dictaduras; después se recuperó la democracia."]
     ]
   },
   "xsoc6a": {
@@ -1171,3 +1171,80 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["Si tus gastos son mayores que tus ingresos, ¿qué ocurre?", "Te falta dinero y puedes endeudarte", ["Ahorras más", "Ganas más", "No pasa nada"], "Gastar más de lo que ganas lleva a deudas."]
     ]
   },
+  "xsoc6g": {
+    before: ["Los derechos humanos son de todas las personas por el solo hecho de ser personas, sin importar su origen, sexo, religión u opinión.", "Después de la Segunda Guerra Mundial, la ONU aprobó en 1948 la Declaración Universal de los Derechos Humanos."],
+    vocab: [["dignidad", "valor que tiene toda persona y merece respeto"], ["universal", "que es para todos, en todo el mundo"], ["inalienable", "que no se puede quitar ni vender"], ["discriminación", "tratar peor a alguien por ser diferente"], ["Defensoría del Pueblo", "institución que protege los derechos de las personas en un país"]],
+    worked: [
+      { problem: "Un restaurante no deja entrar a una persona por su color de piel. ¿Qué derecho se viola?", steps: ["La persona es tratada peor por ser diferente: eso es discriminación.", "La Declaración dice que todos somos iguales en dignidad y derechos.", "Se viola el derecho a la igualdad y a no ser discriminado."], answer: "El derecho a la igualdad y a no ser discriminado." },
+      { problem: "¿Por qué se creó la Declaración Universal justo en 1948?", steps: ["Entre 1939 y 1945 ocurrió la Segunda Guerra Mundial, con millones de víctimas.", "Los países querían evitar que algo así se repitiera.", "La ONU, creada en 1945, redactó un acuerdo de derechos para todos."], answer: "Para evitar los horrores de la Segunda Guerra Mundial." }
+    ],
+    practice: [
+      ["¿Qué dice el artículo 1 de la Declaración?", "Que todos nacemos libres e iguales en dignidad y derechos", ["Que solo los adultos tienen derechos", "Que cada país decide quién tiene derechos", "Que los derechos se compran"], "Es la base de todos los demás artículos."],
+      ["¿Qué significa que los derechos humanos son universales?", "Que son para todas las personas del mundo", ["Que solo valen en un país", "Que solo los tienen los ricos", "Que cambian cada año"], "No dependen del lugar donde vivas."],
+      ["¿Qué significa que son inalienables?", "Que nadie te los puede quitar", ["Que se pueden vender", "Que caducan", "Que solo duran un año"], "Son parte de tu dignidad como persona."],
+      ["¿Qué día se celebra el Día de los Derechos Humanos?", "El 10 de diciembre", ["El 12 de octubre", "El 20 de julio", "El 1 de mayo"], "Recuerda la aprobación de la Declaración."],
+      ["¿Qué mujer presidió la comisión que redactó la Declaración?", "Eleanor Roosevelt", ["Juana Azurduy", "Cleopatra", "Marie Curie"], "Eleanor Roosevelt lideró la comisión de derechos humanos de la ONU."],
+      ["¿En qué año se creó la ONU?", "1945", ["1948", "1914", "1989"], "La ONU se fundó al terminar la Segunda Guerra Mundial."],
+      ["¿Qué tribunal protege los derechos humanos en el continente americano?", "La Corte Interamericana de Derechos Humanos", ["La FIFA", "La Corte de Roma antigua", "El Senado de Atenas"], "Tiene su sede en San José, Costa Rica."],
+      ["¿Cuál es un ejemplo de discriminación?", "Negar un trabajo a alguien por su religión", ["Elegir el sabor de helado favorito", "Votar en elecciones", "Pedir ayuda a un profesor"], "Tratar peor a alguien por su religión va contra los derechos humanos."],
+      ["¿Qué puedes hacer en tu escuela por los derechos humanos?", "Rechazar el acoso y tratar a todos con respeto", ["Burlarte de quien es diferente", "Ignorar el acoso", "Excluir a los nuevos"], "Respetar los derechos empieza por cómo tratamos a los demás."]
+    ]
+  },
+  "xsoc6h": {
+    before: ["Una noticia falsa es información inventada o engañosa que parece real.", "Antes de compartir revisa autor, fecha y fuente, distingue hechos de opiniones y compara con medios confiables."],
+    vocab: [["fuente", "de dónde viene la información"], ["hecho", "algo que se puede comprobar"], ["opinión", "lo que alguien piensa o siente"], ["verificar", "comprobar si algo es cierto"], ["titular sensacionalista", "título exagerado que busca llamar la atención"]],
+    worked: [
+      { problem: "Te llega un mensaje: «¡URGENTE! Mañana no habrá clases en todo el país. Compártelo ya». No tiene autor ni fuente. ¿Qué haces?", steps: ["Señales de alerta: mayúsculas, urgencia y pide compartir.", "No dice quién lo publicó ni de dónde sale.", "Revisamos la página oficial del Ministerio de Educación o de la escuela."], answer: "No lo compartes hasta verificarlo en una fuente oficial." },
+      { problem: "Ves una foto de una inundación con el texto «pasó hoy en tu ciudad». ¿Cómo la verificas?", steps: ["Buscamos la imagen en un buscador de imágenes para ver dónde apareció antes.", "Revisamos si medios confiables hablan de esa inundación hoy.", "Si la foto es de otro año o lugar, es engañosa."], answer: "Buscando el origen de la foto y comparando con medios confiables." }
+    ],
+    practice: [
+      ["¿Cuál de estas frases es una opinión?", "El fútbol es el deporte más divertido", ["El agua hierve a 100 °C al nivel del mar", "Bogotá es la capital de Colombia", "La semana tiene siete días"], "Es lo que alguien piensa; no se puede comprobar."],
+      ["¿Qué debes revisar primero en una noticia?", "Quién la publicó y cuándo", ["El color de las letras", "Cuántos emojis tiene", "Si tiene música"], "Autor, fuente y fecha indican si es confiable."],
+      ["Una noticia de hace cinco años circula como si fuera de hoy. ¿Qué problema tiene?", "Está fuera de contexto por la fecha", ["Ninguno", "Es demasiado corta", "Tiene muchas fotos"], "Las noticias viejas compartidas como nuevas engañan."],
+      ["¿Qué es verificar?", "Comprobar si algo es cierto", ["Compartir rápido", "Inventar datos", "Borrar mensajes"], "Verificar es contrastar con fuentes confiables."],
+      ["¿Cuál es una fuente más confiable para datos de población?", "El instituto oficial de estadística del país", ["Un audio anónimo", "Un meme", "Un comentario sin autor"], "Las instituciones oficiales publican datos comprobables."],
+      ["¿Qué es un titular sensacionalista?", "Un título exagerado para llamar la atención", ["Un título breve y exacto", "El nombre del periodista", "La fecha de la noticia"], "Suele usar palabras como «increíble» o «no vas a creer»."],
+      ["¿Por qué se difunden noticias falsas?", "Para engañar, ganar visitas o influir en opiniones", ["Para informar con exactitud", "Porque siempre son ciertas", "Para enseñar matemáticas"], "Algunas buscan dinero o confundir a la gente."],
+      ["Una página de humor publica una noticia inventada a propósito. ¿Cómo se llama eso?", "Sátira", ["Fuente primaria", "Dato oficial", "Censo"], "La sátira es humor, pero puede confundir si se comparte sin aclarar."],
+      ["¿Qué hacer si compartiste algo que resultó falso?", "Avisar que era falso y borrarlo", ["Seguir compartiéndolo", "Culpar a otros", "No decir nada"], "Corregir ayuda a frenar la desinformación."]
+    ]
+  },
+  "xsoc6i": {
+    before: ["Los historiadores dividen el pasado en edades para estudiarlo mejor.", "Las edades son: Prehistoria, Edad Antigua, Edad Media, Edad Moderna y Edad Contemporánea."],
+    vocab: [["Paleolítico", "etapa de la piedra tallada; los humanos eran nómadas"], ["Neolítico", "etapa de la piedra pulida; aparecen la agricultura y las aldeas"], ["Edad de los Metales", "etapa en que se empezó a trabajar el cobre, el bronce y el hierro"], ["nómada", "que se traslada de un lugar a otro"], ["periodización", "división de la historia en etapas"]],
+    worked: [
+      { problem: "¿En qué edad ocurrió la llegada de Colón a América (1492)?", steps: ["La Edad Media terminó en el siglo XV.", "Muchos historiadores usan 1492 como inicio de la Edad Moderna.", "La Edad Moderna dura hasta 1789."], answer: "Marca el inicio de la Edad Moderna." },
+      { problem: "Los primeros humanos cazaban y se movían siguiendo a los animales. ¿En qué etapa estaban?", steps: ["Se movían de un lugar a otro: eran nómadas.", "Usaban piedra tallada.", "Eso es propio del Paleolítico, la primera etapa de la Prehistoria."], answer: "En el Paleolítico." }
+    ],
+    practice: [
+      ["¿Qué hecho marca el inicio de la Edad Media?", "La caída del Imperio romano de Occidente (476)", ["La Revolución francesa", "La invención de la escritura", "La llegada de Colón"], "En 476 cayó Roma en Occidente."],
+      ["¿En qué etapa de la Prehistoria aparecieron la agricultura y las aldeas?", "En el Neolítico", ["En el Paleolítico", "En la Edad Media", "En la Edad Contemporánea"], "Neolítico significa «piedra nueva» (pulida)."],
+      ["¿Qué etapa de la Prehistoria es la más antigua?", "El Paleolítico", ["El Neolítico", "La Edad de los Metales", "La Edad Moderna"], "Es la etapa más larga, la de la piedra tallada."],
+      ["¿En qué edad se construyeron las pirámides de Egipto?", "En la Edad Antigua", ["En la Edad Media", "En la Edad Moderna", "En la Edad Contemporánea"], "Las pirámides de Guiza tienen unos 4.500 años."],
+      ["¿En qué edad ocurrieron las independencias de América Latina?", "En la Edad Contemporánea", ["En la Edad Media", "En la Edad Antigua", "En la Prehistoria"], "Ocurrieron después de 1789, en el siglo XIX."],
+      ["¿En qué edad vivieron los señores feudales y sus castillos?", "En la Edad Media", ["En la Prehistoria", "En la Edad Contemporánea", "En la Edad Antigua"], "El feudalismo es típico de la Edad Media."],
+      ["¿Qué edad va de finales del siglo XV a 1789?", "La Edad Moderna", ["La Edad Media", "La Edad Antigua", "La Prehistoria"], "Incluye la llegada de los europeos a América y la colonia."],
+      ["¿Qué metal, mezcla de cobre y estaño, dio nombre a una etapa?", "El bronce", ["El oro", "El aluminio", "El acero"], "La Edad del Bronce es parte de la Edad de los Metales."],
+      ["¿Por qué en América la división en edades se usa con cuidado?", "Porque se pensó desde la historia de Europa", ["Porque en América no hay historia", "Porque América no tuvo pueblos antiguos", "Porque no hay fechas"], "América tiene su propia periodización: prehispánica, colonia, república."]
+    ]
+  },
+  "xsoc6j": {
+    before: ["La idea principal es lo más importante que quiere decir un texto; las ideas secundarias la explican con detalles.", "Los datos (fechas, números, lugares) son la evidencia que sostiene la idea principal."],
+    vocab: [["idea principal", "lo más importante del texto, dicho en una frase"], ["idea secundaria", "detalle o ejemplo que apoya la idea principal"], ["evidencia", "dato que demuestra algo"], ["texto informativo", "texto que explica hechos reales"], ["inferir", "deducir algo que el texto no dice directamente"]],
+    worked: [
+      { problem: "Lee: «Hoy un mensaje cruza el planeta en segundos. Internet conecta a más de 5.000 millones de personas, que comparten noticias, música y videos». ¿Cuál es la idea principal?", steps: ["Preguntamos: ¿de qué trata todo el texto?", "Habla de la rapidez y del alcance de internet.", "Los números y ejemplos son ideas secundarias."], answer: "Internet conecta rápidamente a gran parte de la humanidad." },
+      { problem: "En el mismo texto, ¿qué dato sostiene la idea principal?", steps: ["Buscamos números, fechas o lugares.", "Encontramos «más de 5.000 millones de personas».", "Ese dato muestra que la conexión es enorme."], answer: "Que más de 5.000 millones de personas usan internet." }
+    ],
+    practice: [
+      ["Lee: «El café se cultiva en Colombia, se tuesta en Italia y se bebe en Japón». ¿Qué idea muestra?", "Un producto conecta a varios países", ["El café solo se toma en Colombia", "Italia no tiene cafeterías", "Japón cultiva café"], "Es un ejemplo de producción y comercio globalizado."],
+      ["¿Qué es una idea secundaria?", "Un detalle que apoya la idea principal", ["El título del libro", "La idea más importante", "Una opinión del lector"], "Las ideas secundarias explican o dan ejemplos."],
+      ["Lee: «En 1948 la ONU aprobó la Declaración Universal; hoy está traducida a más de 500 idiomas». ¿Qué dato muestra que se difundió mucho?", "Está traducida a más de 500 idiomas", ["La aprobó la ONU", "Se aprobó en 1948", "Es una declaración"], "El número de idiomas muestra su gran difusión."],
+      ["Lee: «Una noticia falsa se comparte seis veces más rápido que una verdadera, según algunos estudios». ¿Qué se puede inferir?", "Que hay que verificar antes de compartir", ["Que las noticias falsas son ciertas", "Que nunca hay que leer noticias", "Que los estudios son inventados"], "Si lo falso se propaga rápido, conviene comprobar primero."],
+      ["¿Dónde suele estar la idea principal en un texto informativo?", "Al comienzo o al final del párrafo", ["Solo en las notas al pie", "En el número de página", "En ningún lugar"], "Muchas veces la primera o la última oración la resumen."],
+      ["Lee: «Por la Ruta de la Seda llegó a Europa el papel, inventado en China». ¿Qué tipo de cosa circuló aquí?", "Un invento", ["Una enfermedad", "Una religión", "Una batalla"], "El papel fue un invento chino que viajó a Europa."],
+      ["¿Qué hace creíble un texto informativo?", "Que tenga datos y fuentes comprobables", ["Que use muchas mayúsculas", "Que sea muy corto", "Que no diga quién lo escribió"], "Los datos y las fuentes permiten comprobarlo."],
+      ["Lee: «Gracias a los satélites, podemos ver un partido jugado en otro continente en vivo». ¿Qué relación hay entre satélites y partido?", "Los satélites permiten la transmisión en vivo", ["Los satélites juegan el partido", "El partido crea satélites", "No hay relación"], "«Gracias a» indica la causa que lo hace posible."],
+      ["¿Qué pregunta te ayuda a encontrar la idea principal?", "¿De qué trata todo el texto?", ["¿Cuántas palabras tiene?", "¿Qué color tiene la portada?", "¿Quién lo imprimió?"], "La idea principal resume el texto completo."]
+    ]
+  }
+});

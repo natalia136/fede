@@ -861,7 +861,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["¿Cuál está bien escrita? (lo contrario de difícil)", "fácil", ["facil", "facíl", "fácíl"], "Llana terminada en l: lleva tilde."],
       ["¿Cuál está bien escrita? (objeto que da luz)", "lámpara", ["lampara", "lampára", "lámpára"], "Las esdrújulas siempre llevan tilde."],
       ["¿Por qué NO lleva tilde «papel»?", "es aguda y termina en l", ["es llana y termina en l", "es esdrújula", "es monosílaba"], "Agudas solo llevan tilde si terminan en n, s o vocal."],
-      ["¿Por qué NO lleva tilde «zapato»?", "es llana y termina en vocal", ["es aguda y termina en vocal", "es esdrújula", "nunca lleva tilde nada"], "Llanas terminadas en vocal no llevan tilde."],
+      ["¿Por qué NO lleva tilde «zapato»?", "es llana y termina en vocal", ["es aguda y termina en vocal", "es esdrújula", "es monosílaba"], "Llanas terminadas en vocal no llevan tilde."],
       ["¿Cuál de estas llanas lleva tilde?", "azúcar", ["examen", "joven", "libro"], "Azúcar es llana y termina en r."],
       ["¿Cuál de estas agudas lleva tilde?", "compás", ["amor", "pared", "feliz"], "Compás es aguda terminada en s."],
       ["¿Cuál está bien escrita? (prueba escolar)", "examen", ["exámen", "exámén", "examén"], "Llana terminada en n: no lleva tilde."],
@@ -1279,7 +1279,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
   },
   "xlen6d": {
     before: ["Ya conoces el punto, la coma y los signos de interrogación y exclamación.", "Hay otros signos que ayudan a citar, aclarar, dialogar o dejar algo sin terminar."],
-    vocab: [["comillas", "« » o \" \": citan palabras textuales o marcan un uso especial"], ["raya", "guion largo (—) que introduce lo que dice cada personaje en un diálogo"], ["paréntesis", "( ): encierran aclaraciones o datos extra"], ["puntos suspensivos", "…: tres puntos que indican algo incompleto, duda o suspenso"], ["guion", "raya corta (-) que une palabras o separa sílabas"]],
+    vocab: [["comillas", "« » (latinas) o las inglesas: citan palabras textuales o marcan un uso especial"], ["raya", "guion largo (—) que introduce lo que dice cada personaje en un diálogo"], ["paréntesis", "( ): encierran aclaraciones o datos extra"], ["puntos suspensivos", "…: tres puntos que indican algo incompleto, duda o suspenso"], ["guion", "raya corta (-) que une palabras o separa sílabas"]],
     worked: [
       { problem: "Puntúa el diálogo: Tengo hambre dijo Sara.", steps: ["Lo que dice el personaje empieza con raya: —Tengo hambre.", "La aclaración del narrador también va con raya: —dijo Sara.", "Se cierra con punto."], answer: "—Tengo hambre —dijo Sara." },
       { problem: "Agrega una aclaración: «Simón Bolívar nació en 1783».", steps: ["Queremos aclarar dónde nació.", "Las aclaraciones pueden ir entre paréntesis.", "Las ponemos justo después del nombre."], answer: "Simón Bolívar (Caracas) nació en 1783." }

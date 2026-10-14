@@ -1261,3 +1261,118 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["¿Cómo se llama la persona que estudia el tiempo atmosférico?", "Meteorólogo", ["Geólogo", "Astrónomo", "Biólogo marino"], "Los meteorólogos hacen los pronósticos."]
     ]
   },
+  /* ===== 6.º primaria ===== */
+  "c6a": {
+    before: ["Hay millones de especies de seres vivos; para estudiarlas, los científicos las agrupan según sus características.", "Algunas pistas para clasificar son: si tienen núcleo, cuántas células tienen y cómo se alimentan."],
+    vocab: [["reino", "uno de los grandes grupos de seres vivos"], ["procariota", "célula sin núcleo, como las bacterias"], ["eucariota", "célula con núcleo"], ["autótrofo", "fabrica su propio alimento"], ["heterótrofo", "obtiene su alimento de otros seres"]],
+    worked: [
+      { problem: "Un ser tiene muchas células con núcleo, no hace fotosíntesis y se alimenta absorbiendo restos. ¿De qué reino es?", steps: ["Tiene núcleo: no es monera.", "No hace fotosíntesis: no es planta.", "Absorbe restos, no come como los animales: es un hongo."], answer: "Reino Fungi." },
+      { problem: "La ameba tiene una sola célula con núcleo. ¿En qué reino va?", steps: ["Tiene núcleo: es eucariota.", "Es unicelular y no es hongo ni bacteria.", "Los eucariotas unicelulares como la ameba van en Protista."], answer: "Reino Protista." }
+    ],
+    practice: [
+      ["¿A qué reino pertenece el champiñón?", "Fungi", ["Plantae", "Animalia", "Monera"], "Los champiñones son hongos."],
+      ["¿Qué reino agrupa seres sin núcleo en sus células?", "Monera", ["Animalia", "Plantae", "Fungi"], "Las bacterias son procariotas."],
+      ["¿A qué reino pertenece el helecho?", "Plantae", ["Fungi", "Protista", "Animalia"], "El helecho hace fotosíntesis."],
+      ["¿A qué reino pertenece la ameba?", "Protista", ["Monera", "Animalia", "Plantae"], "Es unicelular con núcleo."],
+      ["¿Qué significa heterótrofo?", "Que obtiene su alimento de otros seres", ["Que fabrica su alimento", "Que no come", "Que vive en el agua"], "Animales y hongos son heterótrofos."],
+      ["¿Qué tienen en común plantas y algas?", "Hacen fotosíntesis", ["Comen insectos", "No tienen células", "Son hongos"], "Ambas tienen clorofila."],
+      ["La levadura del pan pertenece al reino…", "Fungi", ["Monera", "Plantae", "Animalia"], "La levadura es un hongo unicelular."],
+      ["¿Qué reino es pluricelular, heterótrofo y la mayoría se desplaza?", "Animalia", ["Plantae", "Fungi", "Monera"], "Los animales comen y suelen moverse."],
+      ["¿Por qué los hongos ya no se clasifican como plantas?", "No tienen clorofila y sus paredes son de quitina", ["Porque se mueven", "Porque no tienen células", "Porque comen carne"], "Los hongos no hacen fotosíntesis y su pared celular es distinta a la de las plantas."]
+    ]
+  },
+  "c6b": {
+    before: ["La flor es la parte de la planta encargada de la reproducción sexual.", "Algunas plantas también pueden formar plantas nuevas a partir de un trozo de su cuerpo."],
+    vocab: [["estambre", "parte masculina de la flor que produce el polen"], ["pistilo", "parte femenina de la flor con el ovario"], ["polinización", "paso del polen al pistilo"], ["germinación", "cuando la semilla empieza a crecer"], ["dispersión", "transporte de semillas lejos de la planta madre"]],
+    worked: [
+      { problem: "Ordena: fruto, polinización, germinación, fecundación.", steps: ["Primero el polen llega al pistilo: polinización.", "Se unen las células: fecundación.", "El ovario forma el fruto con semillas.", "La semilla cae y crece: germinación."], answer: "Polinización → fecundación → fruto → germinación." },
+      { problem: "¿Cómo se dispersan las semillas del diente de león?", steps: ["Sus semillas son livianas.", "Tienen pelitos como paracaídas.", "El viento las lleva lejos."], answer: "Por el viento." }
+    ],
+    practice: [
+      ["¿Qué parte de la flor es femenina?", "El pistilo", ["El estambre", "El pétalo", "El sépalo"], "El pistilo contiene el ovario con los óvulos."],
+      ["¿Qué animales ayudan a polinizar?", "Abejas, colibríes y murciélagos", ["Solo peces", "Solo lombrices", "Ninguno"], "Llevan polen de una flor a otra."],
+      ["¿En qué se convierten los óvulos fecundados?", "En semillas", ["En pétalos", "En raíces", "En hojas"], "Cada óvulo fecundado forma una semilla."],
+      ["¿Qué necesita una semilla para germinar?", "Agua, aire y temperatura adecuada", ["Solo oscuridad total y frío extremo", "Sal", "Nada"], "Con humedad y calor la semilla despierta."],
+      ["¿Para qué sirven los pétalos de colores?", "Para atraer polinizadores", ["Para absorber agua del suelo", "Para hacer raíces", "Para fabricar polen"], "Colores y olores atraen insectos y aves."],
+      ["¿Cómo dispersan muchos animales las semillas?", "Comen frutos y las sueltan en sus heces", ["Las entierran en el mar", "Las convierten en flores", "No las dispersan"], "Las semillas viajan dentro del animal."],
+      ["¿Cómo se reproduce asexualmente la caña de azúcar?", "Por trozos de tallo", ["Por huevos", "Por polen solamente", "Por esporas de hongo"], "Se siembran trozos de tallo con yemas."],
+      ["¿Qué ventaja tiene que las semillas se dispersen lejos?", "Evitan competir con la planta madre", ["Crecen sin agua", "Así no germinan", "Para que se pierdan"], "Lejos tienen más luz, agua y espacio."],
+      ["Los helechos no tienen flores. ¿Cómo se reproducen?", "Por esporas", ["Por semillas en frutos", "Por huevos", "Por bulbos de cebolla"], "Las esporas se forman bajo las hojas del helecho."]
+    ]
+  },
+  "c6c": {
+    before: ["La Tierra no es igual por dentro que por fuera: tiene capas, como una cebolla o un durazno.", "Nadie ha viajado al centro de la Tierra; lo sabemos estudiando cómo viajan las ondas de los sismos."],
+    vocab: [["corteza", "capa externa y delgada, de roca sólida"], ["manto", "capa intermedia, muy caliente, de roca que fluye muy lentamente"], ["núcleo", "centro de la Tierra, de hierro y níquel"], ["atmósfera", "capa de gases que rodea la Tierra"], ["litosfera", "la corteza y la parte más rígida del manto superior"]],
+    worked: [
+      { problem: "¿Cuál es la capa más gruesa de la Tierra?", steps: ["La corteza es muy delgada (de 5 a 70 km).", "El núcleo tiene un radio de unos 3 500 km.", "El manto mide unos 2 900 km de grosor y tiene la mayor parte del volumen."], answer: "El manto." },
+      { problem: "El núcleo interno es muy caliente. ¿Por qué es sólido?", steps: ["Está a temperaturas parecidas a la superficie del Sol.", "Pero soporta una presión enorme.", "La presión mantiene sus átomos apretados."], answer: "Por la enorme presión." }
+    ],
+    practice: [
+      ["¿Cuál es la capa más externa de la Tierra sólida?", "La corteza", ["El manto", "El núcleo", "La atmósfera"], "Sobre la corteza vivimos."],
+      ["¿Qué capa está entre la corteza y el núcleo?", "El manto", ["La atmósfera", "La hidrosfera", "La corteza oceánica"], "El manto está en el medio."],
+      ["¿Cómo se llama la capa de gases que rodea la Tierra?", "Atmósfera", ["Hidrosfera", "Litosfera", "Núcleo"], "La atmósfera contiene el aire que respiramos."],
+      ["¿Qué gas abunda más en la atmósfera?", "Nitrógeno", ["Oxígeno", "Dióxido de carbono", "Helio"], "Cerca del 78 % del aire es nitrógeno."],
+      ["¿Cómo es el núcleo externo?", "Líquido", ["Sólido", "Gaseoso", "De hielo"], "Es hierro y níquel fundidos."],
+      ["¿Qué es la biosfera?", "La parte del planeta donde hay vida", ["El centro de la Tierra", "Solo el océano", "Las nubes"], "Incluye tierra, agua y aire donde viven seres vivos."],
+      ["¿Qué capa es más delgada?", "La corteza", ["El manto", "El núcleo", "Todas iguales"], "Comparada con el planeta, es como la cáscara de una manzana."],
+      ["¿Qué porcentaje aproximado de la superficie de la Tierra está cubierta de agua?", "Cerca del 71 %", ["Cerca del 10 %", "Cerca del 30 %", "El 100 %"], "Por eso la llaman el planeta azul."],
+      ["¿De dónde sale el magma de los volcanes?", "Del manto superior o de la corteza profunda", ["Del núcleo interno sólido", "De la atmósfera", "Del océano"], "La roca se funde en zonas profundas y sube a la superficie."]
+    ]
+  },
+  "xcie6a": {
+    before: ["Los seres vivos se agrupan en reinos, pero dentro de cada reino hay grupos más pequeños.", "Cuanto más pequeño es el grupo, más se parecen entre sí sus miembros."],
+    vocab: [["taxonomía", "ciencia que clasifica a los seres vivos"], ["especie", "grupo de individuos que pueden reproducirse y tener crías fértiles"], ["género", "grupo de especies muy parecidas"], ["nombre científico", "nombre en latín de dos palabras: género y especie"], ["Linneo", "científico sueco que creó este sistema de nombres"]],
+    worked: [
+      { problem: "Ordena de más general a más específica: familia, reino, especie, clase.", steps: ["Recuerdo: reino, filo, clase, orden, familia, género, especie.", "Reino es la más general.", "Especie es la más específica."], answer: "Reino → clase → familia → especie." },
+      { problem: "El perro se llama Canis lupus familiaris y el lobo Canis lupus. ¿Qué indica eso?", steps: ["Ambos comparten el género Canis.", "Comparten también la especie lupus.", "El perro es una subespecie domesticada del lobo."], answer: "Que son parientes muy cercanos: el perro es una forma domesticada del lobo." }
+    ],
+    practice: [
+      ["¿Cuál es la categoría más general?", "Reino", ["Especie", "Género", "Familia"], "El reino agrupa a la mayor cantidad de seres."],
+      ["¿Qué categoría va después de reino?", "Filo", ["Clase", "Especie", "Familia"], "Reino, filo, clase, orden, familia, género, especie."],
+      ["En el nombre Panthera onca (jaguar), ¿cuál es el género?", "Panthera", ["onca", "Felidae", "Mammalia"], "La primera palabra, con mayúscula, es el género."],
+      ["¿En qué idioma se escriben los nombres científicos?", "En latín (o latinizado)", ["En inglés", "En español", "En chino"], "El latín permite que todos los científicos usen el mismo nombre."],
+      ["¿Qué categoría está entre orden y género?", "Familia", ["Clase", "Reino", "Filo"], "Orden, familia, género."],
+      ["¿Por qué se usa nombre científico y no el nombre común?", "Porque el nombre común cambia según el país", ["Porque es más corto", "Porque es más divertido", "No hay razón"], "Por ejemplo, el mismo animal puede llamarse puma o león de montaña."],
+      ["¿Quién propuso el sistema de nombres de dos palabras?", "Carlos Linneo", ["Isaac Newton", "Galileo Galilei", "Marie Curie"], "Linneo lo propuso en el siglo XVIII."],
+      ["El león (Panthera leo) y el tigre (Panthera tigris) comparten…", "El mismo género", ["La misma especie", "Solo el reino", "Nada"], "Ambos son del género Panthera."],
+      ["¿Qué tienen los miembros de una misma especie?", "Pueden reproducirse y tener crías fértiles", ["Viven en el mismo país", "Tienen el mismo color", "Son del mismo tamaño siempre"], "Esa es la definición biológica de especie."]
+    ]
+  },
+  "xcie6b": {
+    before: ["El cuerpo humano cambia a lo largo de toda la vida: infancia, adolescencia, adultez y vejez.", "La pubertad es la etapa en que el cuerpo empieza a madurar para poder reproducirse en el futuro."],
+    vocab: [["hormonas", "sustancias químicas que envían mensajes y producen cambios en el cuerpo"], ["pubertad", "etapa de cambios físicos y emocionales hacia la adultez"], ["menstruación", "sangrado mensual normal del útero"], ["óvulo", "célula sexual femenina"], ["espermatozoide", "célula sexual masculina"]],
+    worked: [
+      { problem: "Lucía tiene 10 años y ya creció mucho; su amiga de la misma edad aún no. ¿Algo anda mal?", steps: ["La pubertad empieza en edades distintas.", "Suele empezar entre los 8 y los 14 años.", "Cada cuerpo tiene su propio ritmo."], answer: "No, es normal: cada persona tiene su ritmo." },
+      { problem: "¿Por qué en la pubertad es importante bañarse a diario?", steps: ["Las hormonas aumentan el sudor.", "El sudor con bacterias produce olor.", "El baño y el desodorante ayudan a mantener la higiene."], answer: "Porque aumenta el sudor y hay que cuidar la higiene." }
+    ],
+    practice: [
+      ["¿En qué etapa ocurre la pubertad?", "En la transición de la niñez a la adolescencia", ["En la vejez", "Al nacer", "Solo en la adultez"], "Suele empezar entre los 8 y 14 años."],
+      ["¿Cuál es un cambio común en chicas y chicos en la pubertad?", "Aparece vello en las axilas", ["Se encogen", "Se caen todos los dientes", "Dejan de crecer de golpe"], "El vello axilar y púbico aparece en ambos."],
+      ["¿Qué es el \"estirón\"?", "Un crecimiento rápido en estatura", ["Un ejercicio", "Una enfermedad", "Un tipo de pelo"], "Durante la pubertad se crece rápido en poco tiempo."],
+      ["¿Qué cambio en la voz es común en los chicos?", "Se vuelve más grave", ["Se vuelve más aguda siempre", "Desaparece", "No cambia nunca"], "La laringe crece y la voz se hace más grave."],
+      ["¿Qué es la menstruación?", "Un sangrado normal del útero cada mes", ["Una herida", "Una enfermedad contagiosa", "Algo que solo pasa una vez"], "Indica que el cuerpo está madurando."],
+      ["¿Qué emociones pueden ser frecuentes en la pubertad?", "Cambios de ánimo", ["Ninguna emoción", "Solo alegría", "Solo enojo"], "Las hormonas también influyen en las emociones; hablar con adultos de confianza ayuda."],
+      ["¿Qué ocurre en la fecundación humana?", "Se unen un óvulo y un espermatozoide", ["Se divide una célula sola", "Crece una semilla", "Se forma un huevo con cascarón"], "De esa unión se forma la primera célula del nuevo ser."],
+      ["¿Cuánto dura aproximadamente el embarazo humano?", "Unos 9 meses", ["1 mes", "3 meses", "2 años"], "Cerca de 40 semanas."],
+      ["¿Qué hacer si tienes dudas sobre los cambios de tu cuerpo?", "Preguntar a un adulto de confianza o al médico", ["Quedarte callado siempre", "Burlarte de otros", "Creer cualquier rumor"], "Los adultos de confianza y los profesionales de salud dan información correcta."]
+    ]
+  },
+  "xcie6c": {
+    before: ["Te pareces a tus padres en algunas cosas, como el color del pelo o la forma de la nariz.", "Esas características pasan de una generación a otra gracias a la información que guardan las células."],
+    vocab: [["ADN", "molécula que guarda las instrucciones de un ser vivo"], ["gen", "parte del ADN que da instrucciones para un rasgo"], ["cromosoma", "estructura del núcleo formada por ADN enrollado"], ["dominante", "gen que se manifiesta aunque haya una sola copia"], ["recesivo", "gen que solo se manifiesta si hay dos copias"]],
+    worked: [
+      { problem: "En un ejemplo sencillo, el gen de ojos oscuros (O) es dominante sobre el de ojos claros (o). Un niño tiene Oo. ¿De qué color tiene los ojos?", steps: ["Tiene una copia dominante (O) y una recesiva (o).", "El dominante se manifiesta con una sola copia.", "Entonces se ve el rasgo dominante."], answer: "Ojos oscuros (aunque lleva el gen de ojos claros)." },
+      { problem: "Dos padres Oo, ¿pueden tener un hijo de ojos claros (oo)?", steps: ["Cada padre puede pasar O u o.", "Si ambos pasan o, el hijo es oo.", "Esto ocurre en 1 de cada 4 combinaciones posibles."], answer: "Sí, con una probabilidad de 1 entre 4." }
+    ],
+    practice: [
+      ["¿Dónde está el ADN en una célula humana?", "Principalmente en el núcleo", ["En la membrana", "Solo en la sangre", "En el pelo solamente"], "El núcleo guarda los cromosomas."],
+      ["¿Qué porcentaje de genes recibes de tu madre?", "La mitad", ["Todos", "Ninguno", "Una cuarta parte"], "La otra mitad viene de tu padre."],
+      ["¿Cuántos pares de cromosomas tiene una célula humana?", "23 pares", ["46 pares", "10 pares", "100 pares"], "23 pares = 46 cromosomas."],
+      ["Un gen dominante se manifiesta cuando…", "Hay al menos una copia", ["Hay cero copias", "Solo hay copias recesivas", "Nunca"], "Una sola copia basta."],
+      ["¿Qué forma tiene la molécula de ADN?", "Doble hélice", ["Cuadrado", "Triángulo", "Línea recta simple"], "Es como una escalera retorcida."],
+      ["¿Qué rasgo NO se hereda por los genes?", "Una cicatriz por una caída", ["El grupo sanguíneo", "El color natural de ojos", "El tipo de cabello"], "Las cicatrices son adquiridas, no heredadas."],
+      ["¿Cómo se llama la ciencia que estudia la herencia?", "Genética", ["Geología", "Astronomía", "Meteorología"], "La genética estudia genes y herencia."],
+      ["¿Quién hizo los primeros experimentos de herencia con plantas de arveja?", "Gregor Mendel", ["Charles Darwin", "Isaac Newton", "Louis Pasteur"], "Mendel es considerado el padre de la genética."],
+      ["La estatura depende de los genes y también de…", "La alimentación y la salud", ["El signo zodiacal", "El color de la ropa", "Nada más"], "Herencia y ambiente actúan juntos."]
+    ]
+  },
