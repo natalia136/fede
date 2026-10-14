@@ -1031,7 +1031,8 @@
     const N = NEW_STK();
     if (!N) return `<div class="card stack"><h2>🎴 Álbum de láminas</h2><div class="album">${LEGACY_STICKERS.map((x) => `<div class="sticker ${S.stickers.includes(x) ? "got" : "locked"}">${S.stickers.includes(x) ? x : "❔"}</div>`).join("")}</div></div>`;
     const sets = window.ART.STICKER_SETS || [...new Set(N.map((x) => x.set))].map((id) => ({ id, name: id }));
-    const cur = albumSet && sets.some((x) => x.id === albumSet) ? albumSet : sets[0].id;
+    const firstWith = sets.find((x) => N.some((y) => y.set === x.id && S.stickers.includes(y.id)));
+    const cur = albumSet && sets.some((x) => x.id === albumSet) ? albumSet : (firstWith || sets[0]).id;
     const got = (x) => S.stickers.includes(x.id), inSet = N.filter((x) => x.set === cur);
     return `<div class="card stack album-card"><div class="section-head"><h2>🎴 Álbum de láminas</h2><span class="spacer"></span><span class="pill">${N.filter(got).length} / ${N.length}</span></div>
       <div class="album-tabs">${sets.map((x) => { const all = N.filter((y) => y.set === x.id), have = all.filter(got).length; return `<button class="chip ${have === all.length ? "full" : ""}" data-act="albumSet" data-v="${x.id}" aria-pressed="${x.id === cur}">${esc(x.name)} <small>${have}/${all.length}</small></button>`; }).join("")}</div>
