@@ -565,7 +565,7 @@
     if (rar === "legendaria") {
       let rays = ""; for (let i = 0; i < 12; i++) { const a1 = (i * 30 - 6) * Math.PI / 180, a2 = (i * 30 + 6) * Math.PI / 180; rays += `M50 52 L${fx(50 + 38 * Math.cos(a1))} ${fx(52 + 38 * Math.sin(a1))} L${fx(50 + 38 * Math.cos(a2))} ${fx(52 + 38 * Math.sin(a2))}Z `; }
       return [`<path d="${CARD}" fill="#ffc800"/><rect x="10" y="10" width="80" height="80" rx="11" fill="#fff1b8"/><path d="${rays}" fill="#ffe27a"/><path d="M12 34 L34 12 H44 L12 44Z M88 66 L66 88 H56 L88 56Z" fill="#fff" opacity=".6"/><path d="M12 50 L50 12 H54 L12 54Z" fill="#fff" opacity=".45"/>`,
-        `<rect x="10" y="10" width="80" height="80" rx="11" fill="none" stroke="#e5a000" stroke-width="1.6"/><path d="${CARD}" fill="none" stroke="#e5a000" stroke-width="1.4"/>${sSpark(10, 10, 4.5, "#fff")}${sSpark(90, 10, 4.5, "#fff")}${sSpark(10, 90, 4.5, "#fff")}${sSpark(90, 90, 4.5, "#fff")}<circle cx="50" cy="7" r="2.4" fill="#ff4b9b"/><circle cx="50" cy="93" r="2.4" fill="#ff4b9b"/>`];
+        `<rect x="10" y="10" width="80" height="80" rx="11" fill="none" stroke="#e5a000" stroke-width="1.6"/><path d="${CARD}" fill="none" stroke="#e5a000" stroke-width="1.4"/>${sSpark(15, 15, 4, "#fff")}${sSpark(85, 15, 3, "#fff")}${sSpark(15, 85, 3, "#fff")}${sSpark(85, 85, 4, "#fff")}<circle cx="50" cy="7" r="2.4" fill="#ff4b9b"/><circle cx="50" cy="93" r="2.4" fill="#ff4b9b"/>`];
     }
     return [`<path d="${CARD}" fill="${bg}"/><circle cx="50" cy="52" r="36" fill="#fff" opacity=".35"/>`, `<rect x="8" y="8" width="84" height="84" rx="14" fill="none" stroke="#fff" stroke-width="2.4" opacity=".85"/>`];
   }
