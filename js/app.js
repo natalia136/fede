@@ -68,7 +68,7 @@
   const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   const gcd = (a, b) => (b ? gcd(b, a % b) : a);
   const dec = (x, d = 2) => x.toFixed(d).replace(".", ",");
-  const todayStr = () => new Date().toISOString().slice(0, 10);
+  const todayStr = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; // fecha local, no UTC
   const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
   function numOpts(ans, spread = 5, n = 4, min = 0) {
     const s = new Set([ans]); let g = 0;
@@ -109,7 +109,7 @@
   }
   function save() {
     S.updatedAt = Date.now();
-    if (API.on) { if (API.pid) { clearTimeout(API.timer); API.timer = setTimeout(pushProfile, 700); } return; }
+    if (API.on) { if (API.pid) { backupLocal(); clearTimeout(API.timer); API.timer = setTimeout(() => { API.timer = null; pushProfile(); }, 700); } return; }
     try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* lleno o bloqueado */ }
     if (cloud.db && cloud.uid) {
       clearTimeout(cloud.timer);
@@ -477,22 +477,23 @@
   }
   // memoria de preguntas ya vistas por tema, para no repetirlas en la siguiente partida
   const seenKey = (u) => (u.tid || u.key || "").split("#")[0];
-  const qKey = (q) => q.prompt + "|" + (q.visual || "") + "|" + (q.answer || (q.items || []).join());
+  const qKey = (q) => { const t = q.prompt + "|" + (q.visual || "") + "|" + (q.answer || (q.items || []).join()); let h = 5381; for (let i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) | 0; return (h >>> 0).toString(36) + t.length.toString(36); }
   function rememberQs(u, qs) {
     S.seen = S.seen || {}; const k = seenKey(u); if (!k) return;
-    S.seen[k] = [...(S.seen[k] || []).filter((x) => !qs.some((q) => qKey(q) === x)), ...qs.map(qKey)].slice(-80);
+    const keys = qs.map(qKey).concat(qs.filter((q) => q.readTitle).map((q) => "r:" + q.readTitle));
+    S.seen[k] = [...(S.seen[k] || []).filter((x) => !keys.includes(x)), ...keys].slice(-80);
     const ks = Object.keys(S.seen); if (ks.length > 300) delete S.seen[ks[0]];
   }
   function buildQuestions(u) {
     if (u.activities && u.activities.length) {
-      const old = ((S.seen || {})[seenKey(u)]) || [];
-      return shuffle(u.activities).sort((a, b) => (old.some((x) => x.startsWith(a.q + "|")) ? 1 : 0) - (old.some((x) => x.startsWith(b.q + "|")) ? 1 : 0)).slice(0, 8).map((a) => {
+      const old = new Set(((S.seen || {})[seenKey(u)]) || []), wasSeen = (a) => old.has(qKey({ prompt: a.q, visual: a.emoji ? esc(a.emoji) : "", answer: String(a.answer) }));
+      return shuffle(u.activities).sort((a, b) => (wasSeen(a) ? 1 : 0) - (wasSeen(b) ? 1 : 0)).slice(0, 8).map((a) => {
         if (a.type === "order" && Array.isArray(a.items) && a.items.length > 1) return { kind: "order", prompt: a.q || "Ordena", items: a.items.map(String), vertical: a.items.some((x) => String(x).length > 14) };
         const wrong = (a.wrong || a.o || []).map(String).filter((w) => w !== String(a.answer)).slice(0, 3);
         return choice(a.q, a.answer, wrong.length ? wrong : ["—"], { visual: a.emoji ? esc(a.emoji) : "", explain: a.explain || "", small: String(a.q).length > 70 });
       });
     }
-    if (u.gen === "read") { const old = ((S.seen || {})[seenKey(u)]) || [], fresh = READ[u.params.level].filter((st) => !old.some((x) => x.includes(esc(st.title)))), story = pick(fresh.length ? fresh : READ[u.params.level]); return shuffle(story.qs).map((q) => choice(q[0], q[1], q[2], { visual: `<h4>${esc(story.title)}</h4>${esc(story.text)}`, visualClass: "text", small: true, readText: story.text })); }
+    if (u.gen === "read") { const old = ((S.seen || {})[seenKey(u)]) || [], fresh = READ[u.params.level].filter((st) => !old.includes("r:" + st.title)), story = pick(fresh.length ? fresh : READ[u.params.level]); return shuffle(story.qs).map((q) => choice(q[0], q[1], q[2], { visual: `<h4>${esc(story.title)}</h4>${esc(story.text)}`, visualClass: "text", small: true, readText: story.text, readTitle: story.title })); }
     const lv = u.lv || 1;
     if (u.gen === "robot") return Array.from({ length: lv + 1 }, () => ({ kind: "robot", level: Math.min(5, (u.params.level || 0) + (lv === 3 ? 1 : 0)) }));
     const ctx = { used: new Set() }, out = [], seen = new Set(), n = /order/.test(u.gen) ? 3 + lv : Math.round(LEVELS[lv].n * (lv === 3 ? 0.7 : 1));
@@ -977,7 +978,7 @@
     if (stars >= 2) { sticker = drawSticker(); if (sticker) S.stickers.push(sticker); }
     let sticker2 = null; if (stars === 3 && Math.random() < 0.4) { sticker2 = drawSticker(); if (sticker2) S.stickers.push(sticker2); }
     const t = todayStr();
-    if (S.streak.last !== t) { const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
+    if (S.streak.last !== t) { const y = todayStr(new Date(Date.now() - 864e5)); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
     S.history.push({ k, d: t, pct, title: g.u.title, subj: g.u.subj }); if (S.history.length > 200) S.history = S.history.slice(-200);
     if (g.planIdx != null && S.plan) { const day = S.plan.days[(new Date().getDay() + 6) % 7]; if (day && day.items[g.planIdx]) day.items[g.planIdx].done = true; }
     if (g.ref.type === "course") { const c = S.courses.find((x) => x.id === g.ref.cid); if (c) { c.lastStudied = t; } }
@@ -1373,7 +1374,7 @@
     let unlocked = null;
     if (win) { S.bosses[key] = true; if (!S.owned.includes("ti-cazador")) { S.owned.push("ti-cazador"); unlocked = "ti-cazador"; } }
     const t = todayStr();
-    if (S.streak.last !== t) { const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
+    if (S.streak.last !== t) { const y = todayStr(new Date(Date.now() - 864e5)); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
     S.history.push({ k: "boss:" + key, d: t, pct: Math.round((g.correct / Math.max(1, g.i + 1)) * 100), title: `Jefe: ${b.name}`, subj: b.s });
     save();
     g.result = { win, xpGain, coins, unlocked, before, after: levelInfo(S.xp), bonus: 0 };
@@ -1491,13 +1492,22 @@
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
   async function loadProfile(pid) {
     const d = await callApi("GET", "profiles/" + pid);
-    S = Object.assign(DEF(), d.state); migrateStickers(S); API.pid = pid; remember("ae-pid", pid); applySkin();
+    let st = d.state, newer = false;
+    try { const bk = JSON.parse(localStorage.getItem(bkKey(pid)) || "null"); if (bk && (bk.updatedAt || 0) > ((st && st.updatedAt) || 0)) { st = bk; newer = true; } } catch (e) { /* */ }
+    S = Object.assign(DEF(), st); migrateStickers(S); API.pid = pid; remember("ae-pid", pid); applySkin();
+    if (newer) { pushProfile(); toast("Recuperamos el progreso más reciente de este equipo"); }
   }
-  function pushProfile() {
+  // copia de seguridad en este navegador: si el servidor no recibió el último guardado, se recupera al volver
+  const bkKey = (pid) => "ae-bk-" + pid;
+  function backupLocal() { if (!API.pid) return; try { const c = JSON.parse(JSON.stringify(S)); delete c.apiKey; localStorage.setItem(bkKey(API.pid), JSON.stringify(c)); } catch (e) { /* sin espacio */ } }
+  function pushProfile(keepalive) {
     if (!API.on || !API.pid) return;
-    const copy = JSON.parse(JSON.stringify(S)); delete copy.apiKey;
-    callApi("PUT", "profiles/" + API.pid, { state: copy }).catch((e) => { if (e.status !== 401) toast("No se pudo guardar el progreso. Revisa la conexión."); });
+    const copy = JSON.parse(JSON.stringify(S)); delete copy.apiKey; backupLocal();
+    if (keepalive) { try { fetch("api/profiles/" + API.pid, { method: "PUT", keepalive: true, headers: { "content-type": "application/json", authorization: "Bearer " + API.token, "x-auth-token": API.token }, body: JSON.stringify({ state: copy }) }); } catch (e) { /* */ } return; }
+    callApi("PUT", "profiles/" + API.pid, { state: copy }).then(() => { API.unsaved = false; }).catch((e) => { API.unsaved = true; if (e.status !== 401) toast(e.status === 413 ? "El progreso es muy grande para guardarlo. Avísale al administrador." : "No se pudo guardar el progreso. Lo intentaremos de nuevo."); clearTimeout(API.retry); API.retry = setTimeout(() => { if (API.unsaved) pushProfile(); }, 15000); });
   }
+  addEventListener("pagehide", () => { if (API.on && API.pid && API.timer) { clearTimeout(API.timer); API.timer = null; pushProfile(true); } });
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden" && API.on && API.pid && API.timer) { clearTimeout(API.timer); API.timer = null; pushProfile(true); } });
   function clearSession() { API.token = null; API.user = null; API.pid = null; API.profiles = []; remember("ae-token", null); remember("ae-pid", null); S = DEF(); applySkin(); view = { name: "auth", p: {} }; }
   async function logout() { clearTimeout(API.timer); pushProfile(); try { await callApi("POST", "logout"); } catch (e) { /* */ } clearSession(); render(); toast("Sesión cerrada"); }
   async function pickProfile(pid) {
