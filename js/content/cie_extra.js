@@ -131,7 +131,7 @@ CURRICULUM.extend({
         ["Te pica un ojo. ¿Qué haces?", "No me lo froto y le aviso a un adulto", ["Me lo froto con las manos sucias", "Me echo arena", "Me pongo jabón"], "👁️", "Frotarlo con las manos sucias puede irritarlo más."],
         ["¿Para qué sirve el hilo dental?", "Para limpiar entre los dientes", ["Para coser ropa", "Para amarrar zapatos", "Para peinarse"], "🦷", "El cepillo no llega a todos los rincones."],
         ["Antes de dormir es bueno…", "Apagar las pantallas y leer un cuento", ["Ver videos hasta tarde", "Comer muchos dulces", "Saltar en la cama"], "📚", "Sin pantallas, el cuerpo se prepara para dormir."],
-        ["¿Qué alimento es más sano?", "🥕 Una zanahoria", ["🍩 Una rosquilla", "🍬 Un caramelo", "🍟 Papas fritas"], "🥗", "Las verduras te ayudan a crecer sano."],
+        ["¿Qué verdura te ayuda a crecer sano?", "🥕 Una zanahoria", ["🍩 Una rosquilla", "🍬 Un caramelo", "🍟 Papas fritas"], "🥗", "Las verduras te ayudan a crecer sano."],
         ["¿Qué limpia mejor las manos?", "Agua con jabón", ["Agua sola", "Un trapo seco", "Arena"], "🧼", "El jabón quita gérmenes que el agua sola no quita."],
         ["¿Por qué nos cepillamos los dientes?", "Para quitar restos de comida y gérmenes", ["Para que se pongan amarillos", "Para que se caigan", "Para tener más hambre"], "🪥", "Así evitamos las caries y el mal aliento."],
         ["Te sientes caliente y con fiebre. ¿Qué haces?", "Le aviso a un adulto", ["Me quedo callado", "Tomo cualquier remedio solo", "Me voy a correr"], "🤒", "Un adulto sabrá cómo cuidarte."],
@@ -1108,3 +1108,90 @@ CURRICULUM.extend({
         ["¿Qué es el desarrollo sostenible?", "Cubrir nuestras necesidades sin dañar las de las futuras generaciones", ["Gastar todos los recursos ya", "Construir sin pensar", "No usar ningún recurso"], "🌍", "Busca equilibrio entre personas, economía y naturaleza."]
       ]
     },
+
+    SORT: {
+      alive: { items: [["🐌 Caracol", 0], ["🌿 Helecho", 0], ["🐸 Rana", 0], ["🪱 Lombriz", 0], ["🦋 Mariposa", 0], ["🌽 Planta de maíz", 0], ["🌬️ Viento", 1], ["🔥 Fuego", 1], ["☁️ Nube", 1], ["🪑 Silla", 1], ["📱 Celular", 1], ["🤖 Robot de juguete", 1]] },
+      cie_g0_casa: { items: [["🐠 Pez payaso", 0], ["🦑 Calamar", 0], ["🦞 Langosta", 0], ["🐡 Pez globo", 0], ["🐋 Orca", 0], ["🪸 Coral", 0], ["🐒 Mono", 1], ["🦓 Cebra", 1], ["🐑 Oveja", 1], ["🐿️ Ardilla", 1], ["🐫 Camello", 1], ["🐻 Oso pardo", 1], ["🦔 Erizo de tierra", 1]] },
+      cie_g0_dianoche: { items: [["🌅 Amanece", 0], ["🍽️ Almuerzo al mediodía", 0], ["🐝 Las abejas visitan las flores", 0], ["😎 Uso gafas de sol", 0], ["🦋 Vuelan las mariposas", 0], ["🌈 Sale el arcoíris", 0], ["🪲 Brillan las luciérnagas", 1], ["🦗 Cantan los grillos", 1], ["🌠 Pasa una estrella fugaz", 1], ["💡 Encendemos las luces de la casa", 1], ["🛌 Me pongo la pijama", 1], ["🦊 El zorro sale a buscar comida", 1]] },
+      pets: { items: [["🐴 Caballo", 0], ["🐑 Oveja", 0], ["🐐 Cabra", 0], ["🐰 Conejo de mascota", 0], ["🦙 Llama", 0], ["🐠 Pez de pecera", 0], ["🦜 Periquito", 0], ["🐷 Cerdo", 0], ["🐆 Jaguar", 1], ["🦥 Perezoso", 1], ["🦅 Cóndor", 1], ["🐒 Mono aullador", 1], ["🦩 Flamenco", 1], ["🦓 Cebra", 1], ["🐻 Oso de anteojos", 1]] },
+      cie_g1_cubierta: { items: [["🐴 Caballo", 0], ["🦁 León", 0], ["🐒 Mono", 0], ["🐭 Ratón", 0], ["🦩 Flamenco", 1], ["🐧 Pingüino", 1], ["🦅 Águila", 1], ["🦚 Pavo real", 1], ["🦈 Tiburón", 2], ["🐠 Pez payaso", 2], ["🦎 Iguana", 2], ["🐍 Anaconda", 2]] },
+      cie_g1_movimiento: { items: [["🦜 Loro", 0], ["🦟 Mosquito", 0], ["🐞 Mariquita", 0], ["🦉 Búho", 0], ["🐋 Ballena", 1], ["🐠 Pez payaso", 1], ["🦑 Calamar", 1], ["🐡 Pez globo", 1], ["🐌 Babosa", 2], ["🐍 Boa", 2]] },
+      cie_g1_materiales: { items: [["🔨 Martillo", 0], ["🪙 Moneda", 0], ["🦴 Hueso", 0], ["🧊 Cubo de hielo", 0], ["🥜 Cáscara de nuez", 0], ["🏛️ Bloque de mármol", 0], ["🍞 Miga de pan", 1], ["🧻 Papel higiénico", 1], ["🪶 Pluma", 1], ["🧤 Guante de lana", 1], ["🍮 Gelatina", 1], ["🧦 Media de algodón", 1]] },
+      states: { items: [["🧱 Ladrillo", 0], ["🪙 Moneda", 0], ["🧀 Queso", 0], ["🍫 Barra de chocolate", 0], ["🧈 Mantequilla fría", 0], ["🫒 Aceite", 1], ["☕ Café", 1], ["🩸 Sangre", 1], ["🍋 Jugo de limón", 1], ["🌧️ Gotas de lluvia", 1], ["🫧 Oxígeno", 2], ["🎈 Helio de un globo", 2], ["🔥 Gas de la estufa", 2], ["🫁 Aire que exhalamos", 2]] },
+      healthy: { items: [["🥗 Ensalada", 0], ["🍊 Naranja", 0], ["🫘 Fríjoles", 0], ["🥚 Huevo", 0], ["🐟 Pescado", 0], ["🥑 Aguacate", 0], ["🍚 Arroz", 0], ["🥭 Mango", 0], ["🍰 Torta", 1], ["🍭 Chupetín", 1], ["🌭 Salchicha", 1], ["🍔 Hamburguesa de comida rápida", 1], ["🧁 Ponqué con crema", 1], ["🥓 Tocineta", 1]] },
+      cie_g2_vert: { items: [["🦥 Perezoso", 0], ["🐋 Manatí", 0], ["🦜 Guacamaya", 1], ["🦅 Cóndor", 1], ["🐡 Pez globo", 2], ["🌊 Caballito de mar", 2], ["🐍 Anaconda", 3], ["🐊 Caimán", 3], ["🦎 Ajolote", 4]] },
+      cie_g2_fuentes: { items: [["🌌 Aurora polar", 0], ["🐟 Pez abisal luminoso", 0], ["🌠 Estrella fugaz", 0], ["🍄 Hongo luminoso", 0], ["🌊 Plancton que brilla en el mar", 0], ["🏮 Farol de la calle", 1], ["📺 Televisor encendido", 1], ["🔆 Lámpara de escritorio", 1], ["🎆 Fuegos artificiales", 1], ["🗼 Faro de la costa", 1], ["🖥️ Pantalla del computador", 1], ["🚨 Luz de la ambulancia", 1]] },
+      cie_g2_reciclaje: { items: [["📄 Hojas de papel usadas", 0], ["🥚 Cubeta de huevos de cartón", 0], ["🛍️ Bolsa de papel", 0], ["🧴 Envase de champú", 1], ["🥡 Tapa plástica", 1], ["🛍️ Bolsa plástica", 1], ["🫙 Frasco de salsa de vidrio", 2], ["🧪 Frasco de perfume de vidrio", 2], ["☕ Restos de café", 3], ["🥕 Cáscaras de zanahoria", 3], ["🍉 Cáscara de sandía", 3]] },
+      diet: { items: [["🦙 Llama", 0], ["🦥 Perezoso", 0], ["🐘 Elefante", 0], ["🦫 Capibara", 0], ["🐢 Tortuga de Galápagos", 0], ["🐆 Jaguar", 1], ["🦉 Búho", 1], ["🐊 Cocodrilo", 1], ["🐍 Serpiente", 1], ["🐺 Lobo", 1], ["🐒 Mono capuchino", 2], ["🐔 Gallina", 2], ["🦝 Mapache", 2], ["🐀 Rata", 2]] },
+      cie_g3_atrae: { items: [["🔧 Llave inglesa de acero", 0], ["🪛 Punta de destornillador de acero", 0], ["🧷 Gancho nodriza", 0], ["🔗 Cadena de hierro", 0], ["🪝 Gancho de hierro", 0], ["🪙 Moneda de cobre", 1], ["🧱 Ladrillo", 1], ["🪵 Trozo de madera", 1], ["🧵 Hilo de algodón", 1], ["🥢 Palillos de bambú", 1], ["🍃 Hoja seca", 1]] },
+      cie_g3_invert: { items: [["🐝 Abeja", 0], ["🦗 Grillo", 0], ["🐞 Mariquita", 0], ["🦟 Mosquito", 0], ["🕷️ Tarántula", 1], ["🕸️ Ácaro", 1], ["🦑 Calamar", 2], ["🐌 Babosa", 2], ["🐚 Caracol de mar", 2], ["🪨 Cochinilla de humedad", 3], ["🦐 Kril", 3]] },
+      renew: { items: [["🌊 Energía de las olas", 0], ["🐄 Biogás", 0], ["🔆 Paneles solares en el techo", 0], ["💧 Represa hidroeléctrica", 0], ["🪵 Leña de bosques que se replantan", 0], ["☀️ Calentador solar de agua", 0], ["🌴 Bioetanol de caña de azúcar", 0], ["🌻 Biodiésel de aceite vegetal", 0], ["⛽ Diésel", 1], ["🔥 Gas propano", 1], ["🛢️ Queroseno", 1], ["🏭 Combustóleo", 1], ["🪨 Lignito (un tipo de carbón)", 1]] },
+      cie_g4_calor: { items: [["☕ Taza caliente que calienta tus manos", 0], ["🍳 Mango metálico de la olla que se calienta", 0], ["🪨 Piedra caliente que quema el pie", 0], ["🧊 Hielo que enfría la bebida", 0], ["🛏️ Bolsa de agua caliente en la cama", 0], ["🛣️ Aire caliente que sube sobre el asfalto", 1], ["🏭 Humo caliente que sube por la chimenea", 1], ["🌡️ Calefactor que calienta el aire del cuarto", 1], ["🦅 Aves que planean en corrientes de aire caliente", 1], ["🔥 Calor de la estufa que sientes en la cara", 2], ["🌋 Calor que sientes cerca de la lava", 2], ["🍞 Tostadora con resistencias rojas", 2], ["🌞 Carro que se calienta al sol", 2]] },
+      conduct: { items: [["🧷 Gancho de metal", 0], ["🍳 Sartén de aluminio", 0], ["🔑 Llave de metal", 0], ["📎 Clip metálico", 0], ["✏️ Grafito de un lápiz", 0], ["🌊 Agua salada", 0], ["🥇 Medalla de oro", 0], ["🧤 Guante de caucho", 1], ["📏 Regla de plástico", 1], ["🏺 Cerámica", 1], ["🍾 Corcho", 1], ["🧵 Hilo de algodón seco", 1], ["🎈 Globo de látex", 1]] },
+      vertebr: { items: [["🦅 Cóndor", 0], ["🐬 Delfín", 0], ["🦎 Iguana", 0], ["🦥 Perezoso", 0], ["🦈 Tiburón", 0], ["🐝 Abeja", 1], ["🪼 Medusa", 1], ["⭐ Estrella de mar", 1], ["🦑 Calamar", 1], ["🦂 Escorpión", 1]] },
+      cie_g5_ovi: { items: [["🦜 Guacamaya", 0], ["🐟 Salmón", 0], ["🦎 Iguana", 0], ["🐜 Hormiga", 0], ["🦅 Cóndor", 0], ["🐌 Caracol", 0], ["🐒 Mono", 1], ["🦥 Perezoso", 1], ["🐄 Vaca", 1], ["🐱 Gato", 1], ["🦫 Capibara", 1]] },
+      cie_g6_elem: { items: [["🥈 Plata (Ag)", 0], ["⚪ Aluminio (Al)", 0], ["💡 Neón (Ne)", 0], ["🌡️ Mercurio (Hg)", 0], ["🫧 Hidrógeno (H₂)", 0], ["🟡 Azufre (S)", 0], ["🧴 Agua oxigenada (H₂O₂)", 1], ["🐚 Carbonato de calcio (CaCO₃)", 1], ["🔥 Propano (C₃H₈)", 1], ["🧪 Amoníaco (NH₃)", 1], ["🍋 Ácido cítrico (C₆H₈O₇)", 1], ["🔩 Óxido de hierro (Fe₂O₃)", 1]] },
+      cie_g6_cambios: { items: [["🪚 Madera que se corta para hacer una mesa", 0], ["🧈 Mantequilla que se derrite", 0], ["🥤 Lata que se aplasta", 0], ["🧂 Sal que se disuelve en agua", 0], ["🪞 Vapor que se condensa en el espejo", 0], ["🕯️ Mecha de la vela que arde", 1], ["🍇 Jugo de uva que fermenta", 1], ["🍂 Hojas que se pudren en el compost", 1], ["🫃 Digestión de los alimentos", 1], ["💊 Tableta efervescente que burbujea en agua", 1]] }
+    },
+
+    ORDER: {
+      life: [
+        ["🥚 Huevo de tortuga en la arena", "🐢 La tortuguita sale del huevo", "🌊 Corre hacia el mar", "🐢 Tortuga marina adulta"],
+        ["🥚 Huevo de mariquita", "🐛 Larva", "⚪ Pupa", "🐞 Mariquita adulta"],
+        ["🌽 Grano de maíz", "🌱 Plántula", "🌿 Planta con hojas", "🌽 Planta con mazorcas"],
+        ["🐄 Ternero recién nacido", "🐂 Novillo joven", "🐄 Vaca adulta"],
+        ["🫘 Fríjol en algodón húmedo", "🌱 Sale la raíz", "🌿 Salen las primeras hojas", "🌸 La planta florece", "🫛 Da vainas con fríjoles"],
+        ["🥚 Huevo de salmón en el río", "🐟 Alevín", "🌊 Salmón joven en el mar", "🐟 Salmón adulto que regresa al río"],
+        ["🍎 Semilla de manzana", "🌱 Brote", "🌳 Árbol joven", "🌸 Árbol en flor", "🍎 Árbol con manzanas"],
+        ["🥚 Huevo de pato", "🐣 Patito", "🦆 Pato joven", "🦆 Pato adulto"],
+        ["🌸 Flor de mango", "🐝 Polinización", "🥭 Mango verde", "🥭 Mango maduro", "🌱 La semilla germina"]
+      ],
+      chain: [
+        ["🌿 Hojas", "🦥 Perezoso", "🦅 Águila arpía"],
+        ["🌾 Pasto", "🦫 Capibara", "🐆 Jaguar"],
+        ["🌸 Néctar de las flores", "🦋 Mariposa", "🕷️ Araña", "🐦 Pájaro"],
+        ["🌊 Fitoplancton", "🦐 Zooplancton", "🐟 Anchoveta", "🐧 Pingüino de Humboldt"],
+        ["🌿 Plantas acuáticas", "🐌 Caracol", "🐟 Pez", "🐦 Garza"],
+        ["🍌 Frutas", "🐒 Mono", "🦅 Águila arpía"],
+        ["🌽 Maíz", "🐁 Ratón", "🦉 Lechuza"],
+        ["🌳 Hojas de acacia", "🦒 Jirafa", "🦁 León"],
+        ["🌊 Algas del arrecife", "🐠 Pez loro", "🦈 Tiburón de arrecife"]
+      ],
+      cie_g4_cuerpo: [
+        ["El aire entra por la nariz", "Baja por la tráquea", "Pasa a los bronquios", "Llega a los alvéolos", "El oxígeno pasa a la sangre"],
+        ["Corazón (ventrículo derecho)", "Arteria pulmonar", "Pulmones", "Venas pulmonares", "Corazón (aurícula izquierda)"],
+        ["La luz entra por la pupila", "Atraviesa el cristalino", "Forma la imagen en la retina", "El nervio óptico lleva la señal", "El cerebro interpreta la imagen"],
+        ["El sonido entra por la oreja", "Viaja por el conducto auditivo", "Hace vibrar el tímpano", "Los huesecillos transmiten la vibración", "La cóclea la convierte en señal nerviosa", "El nervio auditivo la lleva al cerebro"],
+        ["Tocas algo muy caliente", "Los receptores de la piel lo detectan", "Un nervio lleva el mensaje a la médula", "La médula ordena retirar la mano", "Los músculos del brazo se contraen"],
+        ["Masticas y mezclas la comida con saliva", "Tragas el bolo alimenticio", "El estómago lo deshace con jugos", "El intestino delgado absorbe los nutrientes", "El intestino grueso absorbe el agua", "Se eliminan los desechos"],
+        ["Inhalas aire con oxígeno", "El oxígeno pasa a la sangre en los pulmones", "El corazón bombea la sangre", "La sangre lleva oxígeno a los músculos", "La sangre recoge dióxido de carbono", "Exhalas el dióxido de carbono"],
+        ["Bebes agua", "El intestino absorbe el agua", "La sangre la lleva a los riñones", "Los riñones forman la orina", "La orina se guarda en la vejiga", "Sale por la uretra"],
+        ["Ves la pelota venir", "Los ojos envían la señal al cerebro", "El cerebro decide atraparla", "Los nervios llevan la orden a los músculos", "Los músculos mueven el brazo"],
+        ["Te cortas un dedo", "Sale un poco de sangre", "Las plaquetas forman un tapón", "Se forma una costra", "La piel nueva cierra la herida"]
+      ],
+      cie_g5_planetas: [
+        ["☀️ Sol", "☿️ Mercurio", "♀️ Venus", "🌍 Tierra"],
+        ["🔴 Marte", "🟠 Júpiter", "🪐 Saturno", "🩵 Urano"],
+        ["☿️ Mercurio", "🔴 Marte", "🪐 Saturno", "🔵 Neptuno"],
+        ["♀️ Venus", "🌍 Tierra", "🟠 Júpiter", "🩵 Urano"],
+        ["🌍 Tierra", "🔴 Marte", "☄️ Cinturón de asteroides", "🟠 Júpiter"],
+        ["🩵 Urano", "🔵 Neptuno", "🪨 Plutón (planeta enano)"],
+        ["🌑 Luna nueva", "🌒 Luna creciente", "🌓 Cuarto creciente", "🌔 Gibosa creciente", "🌕 Luna llena"],
+        ["🌕 Luna llena", "🌖 Gibosa menguante", "🌗 Cuarto menguante", "🌘 Luna menguante", "🌑 Luna nueva"],
+        ["☿️ Mercurio", "♀️ Venus", "🔴 Marte", "🟠 Júpiter", "🔵 Neptuno"]
+      ],
+      cie_g6_metodo: [
+        ["Observo que las plantas de la sombra crecen menos", "Pregunto: ¿la luz influye en el crecimiento?", "Hipótesis: con más luz crecerán más", "Siembro plantas iguales con distinta luz", "Mido su altura cada semana", "Concluyo si la luz influye"],
+        ["Observar", "Investigar lo que ya se sabe", "Formular una hipótesis", "Experimentar", "Registrar los datos", "Comunicar las conclusiones"],
+        ["Noto que mi bicicleta frena distinto en el pasto", "Pregunto: ¿la superficie cambia la fricción?", "Hipótesis: en el pasto frena en menos distancia", "Mido la distancia de frenado en pasto y en cemento", "Comparo las distancias", "Concluyo y explico el resultado"],
+        ["Veo que el agua tarda en hervir", "Pregunto: ¿con tapa hierve más rápido?", "Hipótesis: con tapa hervirá antes", "Caliento dos ollas iguales, una con tapa", "Mido el tiempo de cada una", "Saco una conclusión"],
+        ["Observo que algunas semillas no germinan", "Pregunto: ¿necesitan agua para germinar?", "Hipótesis: sin agua no germinarán", "Pongo unas semillas con agua y otras sin agua", "Anoto cuántas germinan", "Concluyo si el agua es necesaria"],
+        ["Hacer una pregunta", "Plantear una hipótesis", "Probarla con un experimento", "Analizar los datos", "Aceptar o rechazar la hipótesis"],
+        ["Noto que las manzanas cortadas se ponen cafés", "Pregunto: ¿el limón lo evita?", "Hipótesis: con limón tardarán más en ponerse cafés", "Corto dos manzanas y a una le pongo limón", "Observo el color cada 15 minutos", "Concluyo y comparto los resultados"],
+        ["Observo que el hielo se derrite más rápido en algunos vasos", "Pregunto: ¿influye el material del vaso?", "Hipótesis: en el vaso metálico se derretirá antes", "Pongo hielo igual en vasos de metal, vidrio y plástico", "Registro los tiempos en una tabla", "Concluyo qué material conduce mejor el calor"],
+        ["Elegir la pregunta", "Decidir qué variable voy a cambiar", "Mantener iguales las demás condiciones", "Medir los resultados", "Repetir el experimento", "Sacar conclusiones"],
+        ["Observo que el pan crece más en días calurosos", "Pregunto: ¿la temperatura afecta a la levadura?", "Hipótesis: con calor la masa subirá más", "Dejo una masa en un lugar tibio y otra en la nevera", "Mido cuánto crece cada una", "Concluyo cómo influye la temperatura"]
+      ]
+    }
+  }
+});
