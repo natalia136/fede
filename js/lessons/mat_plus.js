@@ -92,7 +92,7 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
     ],
     practice: [
       ["¿Qué es más pequeño?", "🐜 hormiga", ["🐄 vaca", "🐎 caballo", "🐻 oso"], "La hormiga es muy pequeña comparada con los otros animales."],
-      ["¿Qué es más grande?", "🏠 casa", ["⚽ pelota", "🍎 manzana", "🔑 llave"], "Una casa es mucho más grande: ¡caben personas adentro!"],
+      ["¿Cuál de estas cosas es más grande?", "🏠 casa", ["⚽ pelota", "🍎 manzana", "🔑 llave"], "Una casa es mucho más grande: ¡caben personas adentro!"],
       ["¿Qué es más alto?", "🌳 árbol", ["🌷 flor", "🍄 hongo", "🐢 tortuga"], "El árbol llega mucho más arriba que los demás."],
       ["¿Qué pesa menos?", "🍃 hoja", ["🧱 ladrillo", "🎃 calabaza", "🛋️ sofá"], "Una hoja es muy liviana: ¡el viento se la lleva!"],
       ["¿Qué es más largo?", "🐍 serpiente", ["🐞 mariquita", "🐜 hormiga", "🐌 caracol"], "La serpiente es larga; los otros son cortitos."],
@@ -335,8 +335,8 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       { problem: "¿Es par o impar el 15?", steps: ["Miro la última cifra: es 5.", "Los números que terminan en 1, 3, 5, 7 o 9 son impares.", "15 termina en 5."], answer: "El 15 es impar." }
     ],
     practice: [
-      ["¿Cuál es par?", "4", ["3", "5", "7"], "4 forma 2 parejas sin que sobre ninguno."],
-      ["¿Cuál es impar?", "5", ["2", "6", "10"], "Con 5 se forman 2 parejas y sobra 1."],
+      ["¿Qué número es par?", "4", ["3", "5", "7"], "4 forma 2 parejas sin que sobre ninguno."],
+      ["¿Qué número es impar?", "5", ["2", "6", "10"], "Con 5 se forman 2 parejas y sobra 1."],
       ["¿El 10 es par o impar?", "Par", ["Impar", "Las dos", "Ninguna"], "10 termina en 0: es par."],
       ["Cuenta de 2 en 2: 2, 4, 6, __", "8", ["7", "10", "9"], "De 2 en 2: después del 6 viene el 8."],
       ["¿El 13 es par o impar?", "Impar", ["Par", "Las dos", "Ninguna"], "13 termina en 3: es impar."],
@@ -477,8 +477,8 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       { problem: "¿5 + 4 da un número par o impar?", steps: ["5 es impar y 4 es par.", "5 + 4 = 9.", "9 termina en 9: es impar."], answer: "Da un número impar (9)." }
     ],
     practice: [
-      ["¿Cuál es par?", "34", ["35", "37", "39"], "34 termina en 4, que es par."],
-      ["¿Cuál es impar?", "81", ["80", "82", "84"], "81 termina en 1, que es impar."],
+      ["¿Cuál de estos números de dos cifras es par?", "34", ["35", "37", "39"], "34 termina en 4, que es par."],
+      ["¿Cuál de estos números de dos cifras es impar?", "81", ["80", "82", "84"], "81 termina en 1, que es impar."],
       ["¿El 100 es par o impar?", "Par", ["Impar", "Las dos", "Ninguna"], "100 termina en 0: es par."],
       ["¿Cuál es el número par que viene después del 28?", "30", ["29", "31", "32"], "Los pares van de 2 en 2: 28, 30."],
       ["¿Cuál es el número impar que viene antes del 50?", "49", ["48", "51", "47"], "Justo antes del 50 está el 49, que es impar."],
@@ -1025,3 +1025,420 @@ Object.assign(window.CURRICULUM_LESSONS_PLUS, {
       ["¿Cuántos ejes de simetría tiene un triángulo de lados 3, 4 y 5 cm?", "0", ["1", "2", "3"], "Todos sus lados son distintos: no se puede doblar en dos mitades iguales."]
     ]
   },
+  /* ---------- 5.º primaria ---------- */
+  "m5a": {
+    before: ["Recuerda el valor de las cifras decimales: en 3,45 el 4 son décimos y el 5 centésimos.", "Repasa sumar y restar llevando y pidiendo prestado: con decimales se hace igual."],
+    vocab: [["coma decimal", "separa la parte entera de la parte decimal"], ["alinear", "poner las comas una debajo de la otra"], ["décimos y centésimos", "la primera y la segunda cifra después de la coma"], ["ceros a la derecha", "agregar ceros después de la última cifra decimal no cambia el valor: 2,5 = 2,50"]],
+    worked: [
+      { problem: "¿Cuánto es 3,6 + 2,75?", steps: ["Completo con un cero: 3,60 + 2,75.", "Alineo las comas y sumo como siempre: 360 + 275 = 635.", "Bajo la coma en su lugar: 6,35."], answer: "3,6 + 2,75 = 6,35" },
+      { problem: "¿Cuánto es 8,2 − 3,47?", steps: ["Completo con un cero: 8,20 − 3,47.", "Resto pidiendo prestado: 820 − 347 = 473.", "Pongo la coma: 4,73.", "Compruebo: 4,73 + 3,47 = 8,20. ✔"], answer: "8,2 − 3,47 = 4,73" },
+      { problem: "¿Cuánto es 2,4 × 3?", steps: ["Multiplico sin la coma: 24 × 3 = 72.", "2,4 tiene 1 cifra decimal: el resultado también tendrá 1.", "72 → 7,2."], answer: "2,4 × 3 = 7,2" }
+    ],
+    practice: [
+      ["¿Cuánto es 1,2 + 3,4?", "4,6", ["4,5", "46", "3,6"], "Sumo décimos: 2 + 4 = 6; enteros: 1 + 3 = 4."],
+      ["¿Cuánto es 0,8 + 0,7?", "1,5", ["0,15", "1,6", "15"], "8 décimos + 7 décimos = 15 décimos = 1,5."],
+      ["¿Cuánto es 6,5 − 2,3?", "4,2", ["4,8", "3,2", "8,8"], "5 − 3 = 2 décimos y 6 − 2 = 4 enteros."],
+      ["¿Cuánto es 0,6 × 5?", "3", ["0,3", "30", "3,5"], "6 décimos × 5 = 30 décimos = 3."],
+      ["¿Cuánto es 2,5 × 4?", "10", ["1,0", "8,5", "100"], "25 × 4 = 100 y con 1 decimal: 10,0 = 10."],
+      ["¿Cuánto es 4,25 + 1,5?", "5,75", ["4,40", "5,30", "4,75"], "Alineo las comas: 4,25 + 1,50 = 5,75."],
+      ["¿Cuánto es 10 − 3,6?", "6,4", ["7,4", "6,6", "3,4"], "10,0 − 3,6 = 6,4. Compruebo: 6,4 + 3,6 = 10."],
+      ["¿Cuánto es 12,4 + 0,08?", "12,48", ["12,12", "13,2", "12,32"], "12,40 + 0,08 = 12,48: alineo las comas."],
+      ["¿Cuánto es 7,3 − 4,85?", "2,45", ["3,55", "2,55", "3,45"], "7,30 − 4,85 = 2,45. Compruebo: 2,45 + 4,85 = 7,30."],
+      ["Compras un lápiz de $1,25 y una goma de $0,80. Pagas con $5. ¿Cuánto es el vuelto?", "$2,95", ["$3,05", "$2,05", "$3,95"], "1,25 + 0,80 = 2,05 y 5,00 − 2,05 = 2,95."]
+    ]
+  },
+  "m5b": {
+    before: ["Recuerda las fracciones equivalentes: 1/2 = 2/4 = 3/6, porque se multiplica arriba y abajo por el mismo número.", "Repasa los múltiplos: para sumar 1/3 + 1/4 buscas un número que esté en la tabla del 3 y en la del 4 (el 12)."],
+    vocab: [["numerador", "el número de arriba: cuántas partes tomamos"], ["denominador", "el número de abajo: en cuántas partes se divide el entero"], ["denominador común", "un mismo denominador para las dos fracciones"], ["simplificar", "dividir arriba y abajo por el mismo número para escribir la fracción más corta"]],
+    worked: [
+      { problem: "¿Cuánto es 3/8 + 4/8?", steps: ["Los denominadores son iguales: las partes son del mismo tamaño.", "Sumo los numeradores: 3 + 4 = 7.", "El denominador se queda igual: 8."], answer: "3/8 + 4/8 = 7/8" },
+      { problem: "¿Cuánto es 1/3 + 1/4?", steps: ["Busco un denominador común: 12 está en la tabla del 3 y del 4.", "1/3 = 4/12 (multiplico por 4) y 1/4 = 3/12 (multiplico por 3).", "4/12 + 3/12 = 7/12."], answer: "1/3 + 1/4 = 7/12" },
+      { problem: "¿Cuánto es 1/6 + 1/3?", steps: ["6 es múltiplo de 3: uso denominador 6.", "1/3 = 2/6.", "1/6 + 2/6 = 3/6.", "Simplifico dividiendo entre 3: 3/6 = 1/2."], answer: "1/6 + 1/3 = 1/2" }
+    ],
+    practice: [
+      ["¿Cuánto es 1/9 + 4/9?", "5/9", ["5/18", "4/9", "6/9"], "Mismo denominador: 1 + 4 = 5 y el 9 se queda."],
+      ["¿Cuánto es 3/10 + 4/10?", "7/10", ["7/20", "1/10", "12/10"], "3 + 4 = 7; el denominador no se suma."],
+      ["¿Cuánto es 2/8 + 3/8?", "5/8", ["5/16", "6/8", "1/8"], "2 + 3 = 5 y el 8 se queda."],
+      ["¿Cuánto es 1/2 + 1/2?", "1", ["2/4", "1/4", "2"], "1/2 + 1/2 = 2/2 = 1 entero."],
+      ["¿Cuál es el menor denominador común de 1/4 y 1/6?", "12", ["24", "10", "6"], "12 es el menor número que está en la tabla del 4 y en la del 6."],
+      ["¿Cuánto es 1/3 + 1/6?", "1/2", ["2/9", "2/6", "1/9"], "1/3 = 2/6; 2/6 + 1/6 = 3/6 = 1/2."],
+      ["¿Cuánto es 1/2 + 1/3?", "5/6", ["2/5", "2/6", "1/6"], "1/2 = 3/6 y 1/3 = 2/6: 3/6 + 2/6 = 5/6."],
+      ["¿Cuánto es 3/4 + 1/8?", "7/8", ["4/12", "4/8", "5/8"], "3/4 = 6/8; 6/8 + 1/8 = 7/8."],
+      ["¿Cuánto es 1/4 + 1/4, simplificado?", "1/2", ["2/8", "1/8", "1"], "1/4 + 1/4 = 2/4 y simplificando entre 2: 1/2."],
+      ["¿Cuánto es 2/3 + 1/4?", "11/12", ["3/7", "3/12", "9/12"], "2/3 = 8/12 y 1/4 = 3/12: 8/12 + 3/12 = 11/12."]
+    ]
+  },
+  "m5c": {
+    before: ["Repasa las tablas de multiplicar: el área del rectángulo es una multiplicación.", "No confundas área con perímetro: el perímetro es el borde; el área es todo lo de adentro."],
+    vocab: [["área", "la medida de la superficie que ocupa una figura"], ["base", "el lado sobre el que se apoya la figura"], ["altura", "la distancia recta desde la base hasta el punto más alto"], ["unidad cuadrada", "un cuadradito de 1 × 1; por ejemplo, 1 cm²"]],
+    worked: [
+      { problem: "Área de un rectángulo de 9 cm de base y 5 cm de altura.", steps: ["Área del rectángulo = base × altura.", "9 × 5 = 45."], answer: "45 cm²" },
+      { problem: "Área de un triángulo de base 10 cm y altura 7 cm.", steps: ["El triángulo es la mitad de un rectángulo: (base × altura) ÷ 2.", "10 × 7 = 70.", "70 ÷ 2 = 35."], answer: "35 cm²" },
+      { problem: "Un piso cuadrado mide 8 m de lado. ¿Cuántas baldosas de 1 m² se necesitan?", steps: ["Área del cuadrado = lado × lado.", "8 × 8 = 64 m².", "Cada baldosa cubre 1 m²."], answer: "64 baldosas." }
+    ],
+    practice: [
+      ["¿En qué unidad se mide el área?", "cm²", ["cm", "cm³", "kg"], "El área se mide en unidades cuadradas, como cm² o m²."],
+      ["Área de un rectángulo de base 4 cm y altura 2 cm:", "8 cm²", ["6 cm²", "12 cm²", "16 cm²"], "4 × 2 = 8 cm²."],
+      ["Área de un cuadrado de lado 3 m:", "9 m²", ["6 m²", "12 m²", "27 m²"], "3 × 3 = 9 m²."],
+      ["Área de un rectángulo de base 10 cm y altura 6 cm:", "60 cm²", ["16 cm²", "32 cm²", "600 cm²"], "10 × 6 = 60 cm²."],
+      ["Área de un cuadrado de lado 7 cm:", "49 cm²", ["28 cm²", "14 cm²", "56 cm²"], "7 × 7 = 49 cm²."],
+      ["Área de un triángulo de base 8 cm y altura 5 cm:", "20 cm²", ["40 cm²", "13 cm²", "26 cm²"], "8 × 5 = 40 y 40 ÷ 2 = 20 cm²."],
+      ["Área de un triángulo de base 12 m y altura 3 m:", "18 m²", ["36 m²", "15 m²", "9 m²"], "12 × 3 = 36 y 36 ÷ 2 = 18 m²."],
+      ["Un rectángulo tiene área 36 cm² y base 9 cm. ¿Cuál es su altura?", "4 cm", ["27 cm", "6 cm", "45 cm"], "9 × ¿? = 36: 36 ÷ 9 = 4 cm."],
+      ["Una pared mide 5 m por 3 m. Un tarro de pintura cubre 5 m². ¿Cuántos tarros se necesitan?", "3", ["15", "5", "2"], "Área: 5 × 3 = 15 m². 15 ÷ 5 = 3 tarros."],
+      ["Un cuadrado tiene perímetro 24 cm. ¿Cuál es su área?", "36 cm²", ["24 cm²", "576 cm²", "16 cm²"], "Lado: 24 ÷ 4 = 6 cm. Área: 6 × 6 = 36 cm²."]
+    ]
+  },
+  "m5d": {
+    before: ["Necesitas las tablas y multiplicar por 2 cifras, como 15 × 6 = 90.", "Recuerda la división con residuo: el residuo siempre es menor que el divisor."],
+    vocab: [["dividendo", "el número que se reparte"], ["divisor", "el número entre el que se divide"], ["cociente", "el resultado de la división"], ["residuo", "lo que sobra; debe ser menor que el divisor"], ["estimar", "probar con números redondos para adivinar el cociente"]],
+    worked: [
+      { problem: "¿Cuánto es 84 ÷ 14?", steps: ["Estimo: 14 × 5 = 70, todavía falta.", "Pruebo 14 × 6 = 84. ¡Exacto!", "Residuo: 84 − 84 = 0."], answer: "84 ÷ 14 = 6" },
+      { problem: "¿Cuánto es 275 ÷ 25?", steps: ["25 × 10 = 250.", "Me quedan 275 − 250 = 25, y 25 × 1 = 25.", "En total 10 + 1 = 11 veces."], answer: "275 ÷ 25 = 11" },
+      { problem: "¿Cuánto es 200 ÷ 32?", steps: ["Estimo con 30: 200 ÷ 30 da unas 6 veces.", "32 × 6 = 192 y 32 × 7 = 224 (se pasa).", "Cociente 6. Residuo: 200 − 192 = 8.", "Compruebo: 32 × 6 + 8 = 200. ✔"], answer: "200 ÷ 32 = 6, residuo 8" }
+    ],
+    practice: [
+      ["¿Cuánto es 60 ÷ 15?", "4", ["3", "5", "45"], "15 × 4 = 60."],
+      ["¿Cuánto es 88 ÷ 11?", "8", ["7", "9", "77"], "11 × 8 = 88."],
+      ["¿Cuánto es 75 ÷ 25?", "3", ["4", "5", "2"], "25 × 3 = 75."],
+      ["¿Cuánto es 300 ÷ 20?", "15", ["150", "10", "60"], "20 × 15 = 300."],
+      ["¿Cuánto es 126 ÷ 21?", "6", ["5", "7", "8"], "21 × 6 = 126."],
+      ["¿Cuánto es 144 ÷ 16?", "9", ["8", "12", "7"], "16 × 9 = 144."],
+      ["Para 168 ÷ 24, ¿cuál es una buena estimación?", "Unas 7 veces, porque 24 ≈ 25 y 25 × 7 = 175", ["Unas 2 veces", "Unas 70 veces", "Unas 20 veces"], "De hecho, 24 × 7 = 168 exacto."],
+      ["¿Cuánto es 100 ÷ 13?", "7, residuo 9", ["7, residuo 3", "8, residuo 4", "6, residuo 22"], "13 × 7 = 91 y 100 − 91 = 9."],
+      ["¿Cuánto es 250 ÷ 18?", "13, residuo 16", ["14, residuo 2", "13, residuo 6", "12, residuo 34"], "18 × 13 = 234 y 250 − 234 = 16 (menor que 18)."],
+      ["Un bus lleva 45 personas. ¿Cuántos buses se necesitan para 200 personas?", "5", ["4", "44", "6"], "200 ÷ 45 = 4, residuo 20: esas 20 personas necesitan otro bus."]
+    ]
+  },
+  "m5e": {
+    before: ["Repasa las cuatro operaciones y cuándo usar cada una: juntar, quitar, repetir o repartir.", "Recuerda escribir el resultado de cada paso para no olvidarlo."],
+    vocab: [["paso", "cada parte pequeña en que separas el problema"], ["dato", "un número que entrega el problema"], ["resultado parcial", "lo que obtienes en un paso y usas en el siguiente"], ["comprobar", "revisar que la respuesta tenga sentido"]],
+    worked: [
+      { problem: "Compras 3 cuadernos de $1200 y pagas con $5000. ¿Cuánto es el vuelto?", steps: ["Paso 1: total de la compra: 3 × 1200 = 3600.", "Paso 2: vuelto: 5000 − 3600 = 1400.", "Compruebo: 3600 + 1400 = 5000. ✔"], answer: "El vuelto es $1400." },
+      { problem: "Una escuela tiene 4 cursos de 32 alumnos. Van de paseo en buses de 40 asientos. ¿Cuántos buses necesitan?", steps: ["Paso 1: total de alumnos: 4 × 32 = 128.", "Paso 2: 128 ÷ 40 = 3, residuo 8.", "Los 8 que sobran también necesitan bus: 3 + 1 = 4."], answer: "Necesitan 4 buses." }
+    ],
+    practice: [
+      ["Tienes 50 láminas, regalas 12 y compras 20. ¿Cuántas tienes?", "58", ["38", "82", "62"], "50 − 12 = 38 y 38 + 20 = 58."],
+      ["4 paquetes de 8 galletas; se comen 10. ¿Cuántas quedan?", "22", ["32", "42", "18"], "4 × 8 = 32 y 32 − 10 = 22."],
+      ["2 entradas de $3500 y una bebida de $1200. ¿Total?", "$8200", ["$4700", "$7000", "$8700"], "2 × 3500 = 7000 y 7000 + 1200 = 8200."],
+      ["Pagas $10 000 por 3 libros de $2500. ¿Vuelto?", "$2500", ["$7500", "$7000", "$3500"], "3 × 2500 = 7500 y 10 000 − 7500 = 2500."],
+      ["Hay 3 cajas de 15 lápices y 2 cajas de 12. ¿Cuántos lápices hay?", "69", ["57", "27", "72"], "3 × 15 = 45, 2 × 12 = 24 y 45 + 24 = 69."],
+      ["Ahorras $600 por semana. ¿En cuántas semanas juntas $4200 para un juego?", "7", ["6", "8", "70"], "4200 ÷ 600 = 7 semanas."],
+      ["24 manzanas se reparten en 4 bolsas y luego se agregan 3 a cada bolsa. ¿Cuántas hay en cada bolsa?", "9", ["6", "27", "7"], "24 ÷ 4 = 6 y 6 + 3 = 9."],
+      ["Un tren lleva 5 vagones de 40 personas. Bajan 37. ¿Cuántas quedan?", "163", ["200", "173", "237"], "5 × 40 = 200 y 200 − 37 = 163."],
+      ["María tiene $3000. Gasta la mitad y luego $400. ¿Cuánto le queda?", "$1100", ["$1500", "$2600", "$1900"], "La mitad de 3000 es 1500; 1500 − 400 = 1100."],
+      ["6 amigos pagan $18 000 de pizzas y $6000 de bebidas en partes iguales. ¿Cuánto paga cada uno?", "$4000", ["$3000", "$24 000", "$1000"], "18 000 + 6000 = 24 000 y 24 000 ÷ 6 = 4000."]
+    ]
+  },
+  "xmat5a": {
+    before: ["Recuerda qué es un divisor: un número que divide a otro exactamente, sin residuo.", "Repasa las pistas de divisibilidad: por 2 si termina en cifra par, por 5 si termina en 0 o 5, y por 3 si sus cifras suman un múltiplo de 3."],
+    vocab: [["número primo", "tiene exactamente 2 divisores: el 1 y él mismo"], ["número compuesto", "tiene más de 2 divisores"], ["divisor", "número que divide a otro sin dejar residuo"], ["descomponer en factores primos", "escribir un número como multiplicación de primos: 12 = 2 × 2 × 3"]],
+    worked: [
+      { problem: "¿Es primo el 29?", steps: ["¿Divisible por 2? No, es impar.", "¿Por 3? 2 + 9 = 11, que no es múltiplo de 3: no.", "¿Por 5? No termina en 0 ni en 5.", "Ya no hace falta seguir: 7 × 7 = 49 es mayor que 29."], answer: "Sí, 29 es primo." },
+      { problem: "¿Es primo el 51?", steps: ["Sumo sus cifras: 5 + 1 = 6, que es múltiplo de 3.", "Entonces 51 se divide por 3: 51 ÷ 3 = 17.", "51 = 3 × 17: tiene más de dos divisores."], answer: "No, 51 es compuesto." },
+      { problem: "Descompón 30 en factores primos.", steps: ["30 es par: 30 = 2 × 15.", "15 = 3 × 5.", "2, 3 y 5 son primos."], answer: "30 = 2 × 3 × 5" }
+    ],
+    practice: [
+      ["¿Cuál de estos números es primo?", "7", ["9", "15", "21"], "7 solo se divide entre 1 y 7."],
+      ["¿Cuál de estos números es compuesto?", "9", ["2", "5", "11"], "9 = 3 × 3: tiene los divisores 1, 3 y 9."],
+      ["¿Cuántos divisores tiene un número primo?", "2", ["1", "3", "Ninguno"], "Solo el 1 y el mismo número."],
+      ["¿El 1 es primo?", "No, porque solo tiene un divisor", ["Sí, es el primer primo", "Sí, porque es impar", "No, porque es par"], "Un primo necesita exactamente 2 divisores; el 1 tiene solo uno."],
+      ["¿Cuántos primos hay entre 1 y 10?", "4", ["3", "5", "6"], "Son 2, 3, 5 y 7."],
+      ["¿Cuál es primo: 27, 31, 33 o 39?", "31", ["27", "33", "39"], "27 = 3 × 9, 33 = 3 × 11 y 39 = 3 × 13; 31 no tiene otros divisores."],
+      ["¿Cuál es compuesto: 17, 19, 23 o 25?", "25", ["17", "19", "23"], "25 = 5 × 5."],
+      ["¿Cómo se descompone 18 en factores primos?", "2 × 3 × 3", ["2 × 9", "3 × 6", "2 × 3 × 4"], "18 = 2 × 9 y 9 = 3 × 3. El 9 y el 6 no son primos."],
+      ["¿Cuál es el menor número primo mayor que 40?", "41", ["43", "42", "47"], "41 no se divide entre 2, 3 ni 5."],
+      ["¿Es primo el 91?", "No, porque 91 = 7 × 13", ["Sí, no tiene divisores", "No, porque es par", "Sí, porque termina en 1"], "91 ÷ 7 = 13 exacto: es compuesto."]
+    ]
+  },
+  "xmat5b": {
+    before: ["Repasa cómo encontrar múltiplos (la tabla del número) y divisores (los números que lo dividen exacto).", "Recuerda los números primos: 2, 3, 5, 7, 11… ayudan a descomponer."],
+    vocab: [["múltiplo común", "número que es múltiplo de dos números a la vez"], ["divisor común", "número que divide exactamente a dos números a la vez"], ["MCM", "mínimo común múltiplo: el menor múltiplo común"], ["MCD", "máximo común divisor: el mayor divisor común"]],
+    worked: [
+      { problem: "Calcula el MCM de 6 y 8.", steps: ["Múltiplos de 6: 6, 12, 18, 24, 30…", "Múltiplos de 8: 8, 16, 24, 32…", "El primero que se repite es 24."], answer: "MCM(6, 8) = 24" },
+      { problem: "Calcula el MCD de 16 y 24.", steps: ["Divisores de 16: 1, 2, 4, 8, 16.", "Divisores de 24: 1, 2, 3, 4, 6, 8, 12, 24.", "Comunes: 1, 2, 4, 8. El mayor es 8."], answer: "MCD(16, 24) = 8" },
+      { problem: "Un bus pasa cada 10 minutos y otro cada 15. Si pasan juntos a las 8:00, ¿cuándo vuelven a coincidir?", steps: ["Busco cuándo coinciden: es un múltiplo común, uso el MCM.", "Múltiplos de 10: 10, 20, 30…; de 15: 15, 30…", "MCM = 30 minutos. 8:00 + 30 minutos = 8:30."], answer: "A las 8:30." }
+    ],
+    practice: [
+      ["MCM de 2 y 3:", "6", ["5", "1", "12"], "Múltiplos de 2: 2, 4, 6; de 3: 3, 6. El primero común es 6."],
+      ["MCD de 8 y 12:", "4", ["2", "24", "8"], "Divisores comunes: 1, 2, 4. El mayor es 4."],
+      ["MCM de 5 y 10:", "10", ["50", "5", "15"], "10 ya es múltiplo de 5."],
+      ["MCM de 4 y 10:", "20", ["40", "14", "2"], "Múltiplos de 10: 10, 20; 20 también es múltiplo de 4."],
+      ["MCD de 15 y 25:", "5", ["3", "75", "25"], "Divisores comunes: 1 y 5. El mayor es 5."],
+      ["MCM de 6 y 9:", "18", ["54", "3", "36"], "Múltiplos de 9: 9, 18; 18 también es múltiplo de 6."],
+      ["MCD de 20 y 30:", "10", ["5", "60", "2"], "10 divide a 20 y a 30, y no hay uno mayor que lo haga."],
+      ["MCD de 7 y 9:", "1", ["63", "3", "7"], "7 y 9 no comparten ningún divisor aparte del 1."],
+      ["Ana va a natación cada 4 días y Luis cada 6. Hoy fueron juntos. ¿En cuántos días vuelven a coincidir?", "12", ["24", "10", "2"], "MCM(4, 6) = 12."],
+      ["Tienes 12 rosas y 18 claveles. ¿Cuál es el mayor número de ramos iguales que puedes armar sin que sobre ninguna flor?", "6", ["3", "12", "36"], "MCD(12, 18) = 6: cada ramo lleva 2 rosas y 3 claveles."]
+    ]
+  },
+  "xmat5c": {
+    before: ["Repasa la división: para encontrar 1/5 de 40 divides 40 ÷ 5 = 8.", "Recuerda qué dice cada parte de la fracción: el denominador en cuántas partes divides y el numerador cuántas tomas."],
+    vocab: [["fracción de un número", "una parte de una cantidad, como 3/4 de 20"], ["entero", "la cantidad completa"], ["parte que queda", "lo que sobra después de quitar una fracción"], ["unidad fraccionaria", "una sola parte, como 1/4 o 1/5"]],
+    worked: [
+      { problem: "¿Cuánto es 2/3 de 27?", steps: ["Divido entre el denominador: 27 ÷ 3 = 9 (eso es 1/3).", "Multiplico por el numerador: 9 × 2 = 18."], answer: "2/3 de 27 = 18" },
+      { problem: "Un libro tiene 120 páginas y ya leíste 3/8. ¿Cuántas páginas te faltan?", steps: ["1/8 de 120: 120 ÷ 8 = 15.", "3/8: 15 × 3 = 45 páginas leídas.", "Faltan: 120 − 45 = 75."], answer: "Te faltan 75 páginas." }
+    ],
+    practice: [
+      ["¿Cuánto es 1/2 de 18?", "9", ["6", "36", "16"], "18 ÷ 2 = 9."],
+      ["¿Cuánto es 1/4 de 28?", "7", ["4", "14", "24"], "28 ÷ 4 = 7."],
+      ["¿Cuánto es 2/3 de 12?", "8", ["4", "6", "9"], "12 ÷ 3 = 4 y 4 × 2 = 8."],
+      ["¿Cuánto es 3/5 de 25?", "15", ["5", "10", "20"], "25 ÷ 5 = 5 y 5 × 3 = 15."],
+      ["¿Cuánto es 5/6 de 36?", "30", ["6", "25", "35"], "36 ÷ 6 = 6 y 6 × 5 = 30."],
+      ["¿Cuánto es 3/10 de 200?", "60", ["20", "30", "70"], "200 ÷ 10 = 20 y 20 × 3 = 60."],
+      ["Tienes $800 y gastas 1/4. ¿Cuánto gastaste?", "$200", ["$400", "$600", "$100"], "800 ÷ 4 = 200."],
+      ["Tienes $800 y gastas 1/4. ¿Cuánto te queda?", "$600", ["$200", "$400", "$700"], "Gastaste 200: 800 − 200 = 600 (son 3/4)."],
+      ["En un curso de 32 alumnos, 5/8 son niñas. ¿Cuántos son niños?", "12", ["20", "8", "27"], "32 ÷ 8 = 4; niñas: 4 × 5 = 20; niños: 32 − 20 = 12."],
+      ["Un tanque de 60 L está lleno hasta los 2/3. ¿Cuántos litros faltan para llenarlo?", "20 L", ["40 L", "30 L", "10 L"], "Tiene 60 ÷ 3 × 2 = 40 L; faltan 60 − 40 = 20 L."]
+    ]
+  },
+  "xmat5d": {
+    before: ["Repasa sumar varios números y dividir: el promedio usa las dos operaciones.", "Recuerda ordenar números de menor a mayor: lo necesitas para la mediana."],
+    vocab: [["dato", "cada valor que se anota, como una nota o una edad"], ["promedio", "la suma de los datos dividida entre cuántos datos hay"], ["moda", "el dato que más se repite"], ["mediana", "el dato que queda en el medio cuando los ordenas"]],
+    worked: [
+      { problem: "Notas: 5, 7, 6, 4, 8. ¿Cuál es el promedio?", steps: ["Sumo: 5 + 7 + 6 + 4 + 8 = 30.", "Hay 5 datos: 30 ÷ 5 = 6."], answer: "El promedio es 6." },
+      { problem: "Datos: 2, 7, 3, 7, 1. ¿Cuál es la mediana y cuál la moda?", steps: ["Ordeno: 1, 2, 3, 7, 7.", "El del medio (el tercero) es 3: mediana.", "El que más se repite es 7: moda."], answer: "Mediana 3 y moda 7." },
+      { problem: "¿Cuál es la mediana de 4, 10, 6, 8?", steps: ["Ordeno: 4, 6, 8, 10.", "Hay dos datos en el medio: 6 y 8.", "Saco su promedio: (6 + 8) ÷ 2 = 7."], answer: "La mediana es 7." }
+    ],
+    practice: [
+      ["Promedio de 4 y 10:", "7", ["14", "6", "5"], "4 + 10 = 14 y 14 ÷ 2 = 7."],
+      ["Promedio de 3, 5 y 7:", "5", ["15", "3", "7"], "3 + 5 + 7 = 15 y 15 ÷ 3 = 5."],
+      ["Moda de 2, 4, 4, 6, 8:", "4", ["2", "6", "8"], "El 4 aparece dos veces."],
+      ["Mediana de 1, 3, 9:", "3", ["1", "9", "13"], "Ya están ordenados; el del medio es 3."],
+      ["En un gráfico de barras, la moda es la barra…", "Más alta", ["Más baja", "Del medio", "Más ancha"], "La barra más alta muestra el dato que más se repite."],
+      ["Promedio de 10, 20, 30 y 40:", "25", ["100", "20", "30"], "Suma 100 y 100 ÷ 4 = 25."],
+      ["Mediana de 7, 2, 5, 9, 1:", "5", ["9", "2", "7"], "Ordenados: 1, 2, 5, 7, 9. El del medio es 5."],
+      ["Moda de 1, 3, 3, 5, 5, 5, 7:", "5", ["3", "7", "4"], "El 5 aparece 3 veces, más que ningún otro."],
+      ["Las notas de Ana son 6, 6 y 9. ¿Cuál es su promedio?", "7", ["6", "9", "21"], "6 + 6 + 9 = 21 y 21 ÷ 3 = 7."],
+      ["El promedio de edad de 3 niños es 10 años. ¿Cuánto suman sus edades?", "30", ["10", "13", "3"], "Suma = promedio × cantidad: 10 × 3 = 30."]
+    ]
+  },
+  "xmat5e": {
+    before: ["Repasa el área del rectángulo: largo × ancho. El volumen agrega una multiplicación más: la altura.", "Recuerda multiplicar tres números: primero dos y luego el resultado por el tercero."],
+    vocab: [["volumen", "el espacio que ocupa un cuerpo"], ["centímetro cúbico (cm³)", "un cubito de 1 cm por cada lado"], ["prisma rectangular", "cuerpo con forma de caja"], ["arista", "cada borde del cubo o de la caja"], ["capacidad", "lo que cabe dentro de un recipiente; 1 dm³ = 1 L"]],
+    worked: [
+      { problem: "Volumen de una caja de 6 cm × 3 cm × 4 cm.", steps: ["Volumen = largo × ancho × alto.", "6 × 3 = 18.", "18 × 4 = 72."], answer: "72 cm³" },
+      { problem: "Una pecera mide 50 cm × 20 cm × 30 cm. ¿Cuántos litros de agua le caben?", steps: ["50 × 20 = 1000.", "1000 × 30 = 30 000 cm³.", "1 L = 1 dm³ = 1000 cm³: 30 000 ÷ 1000 = 30."], answer: "Le caben 30 L." }
+    ],
+    practice: [
+      ["¿En qué unidad se mide el volumen?", "cm³", ["cm²", "cm", "g"], "El volumen se mide en unidades cúbicas."],
+      ["Volumen de un cubo de arista 2 cm:", "8 cm³", ["6 cm³", "4 cm³", "12 cm³"], "2 × 2 × 2 = 8 cm³."],
+      ["Volumen de una caja de 3 × 2 × 1 cm:", "6 cm³", ["5 cm³", "12 cm³", "9 cm³"], "3 × 2 × 1 = 6 cm³."],
+      ["¿Cuántos cubitos de 1 cm³ caben en una caja de 4 × 3 × 2 cm?", "24", ["9", "12", "20"], "4 × 3 = 12 por capa y 2 capas: 24."],
+      ["Volumen de una caja de 10 × 5 × 2 cm:", "100 cm³", ["17 cm³", "50 cm³", "200 cm³"], "10 × 5 = 50 y 50 × 2 = 100 cm³."],
+      ["Volumen de un cubo de arista 4 cm:", "64 cm³", ["16 cm³", "12 cm³", "48 cm³"], "4 × 4 × 4 = 64 cm³."],
+      ["Volumen de una caja de 7 × 3 × 5 cm:", "105 cm³", ["15 cm³", "35 cm³", "95 cm³"], "7 × 3 = 21 y 21 × 5 = 105 cm³."],
+      ["Una caja tiene una base de 20 cm² y 6 cm de alto. ¿Qué volumen tiene?", "120 cm³", ["26 cm³", "100 cm³", "140 cm³"], "Área de la base × altura: 20 × 6 = 120 cm³."],
+      ["¿Cuántos litros caben en un recipiente de 5 dm³?", "5 L", ["50 L", "500 L", "0,5 L"], "1 dm³ = 1 L, así que 5 dm³ = 5 L."],
+      ["Una caja tiene 60 cm³ de volumen, 5 cm de largo y 4 cm de ancho. ¿Cuánto mide de alto?", "3 cm", ["4 cm", "51 cm", "6 cm"], "5 × 4 = 20 y 60 ÷ 20 = 3 cm."]
+    ]
+  },
+  /* ---------- 6.º primaria ---------- */
+  "m6a": {
+    before: ["Repasa las fracciones de un número: 1/4 de 80 = 80 ÷ 4 = 20.", "Recuerda dividir entre 10 y entre 100: 350 ÷ 10 = 35 y 400 ÷ 100 = 4."],
+    vocab: [["porcentaje (%)", "una parte de cada 100"], ["por ciento", "«de cada cien»: 30 % son 30 de cada 100"], ["descuento", "lo que se rebaja de un precio"], ["100 %", "el total completo"]],
+    worked: [
+      { problem: "¿Cuánto es el 30 % de 250?", steps: ["Calculo el 10 %: 250 ÷ 10 = 25.", "El 30 % es 3 veces el 10 %: 3 × 25 = 75."], answer: "75" },
+      { problem: "Un juego cuesta $12 000 y tiene 15 % de descuento. ¿Cuánto pagas?", steps: ["10 % de 12 000 = 1200.", "5 % es la mitad del 10 %: 600.", "15 % = 1200 + 600 = 1800.", "Precio final: 12 000 − 1800 = 10 200."], answer: "Pagas $10 200." },
+      { problem: "De 40 alumnos, 10 usan lentes. ¿Qué porcentaje usa lentes?", steps: ["La fracción es 10/40 = 1/4.", "1/4 de 100 es 25."], answer: "El 25 %." }
+    ],
+    practice: [
+      ["¿Cuánto es el 50 % de 60?", "30", ["50", "10", "120"], "El 50 % es la mitad: 60 ÷ 2 = 30."],
+      ["¿Cuánto es el 10 % de 90?", "9", ["90", "10", "19"], "El 10 % es dividir entre 10: 9."],
+      ["¿Cuánto es el 100 % de 37?", "37", ["100", "0", "3,7"], "El 100 % es el total."],
+      ["¿Qué porcentaje es 1/2?", "50 %", ["12 %", "20 %", "2 %"], "La mitad de 100 es 50."],
+      ["¿Cuánto es el 25 % de 200?", "50", ["25", "100", "40"], "El 25 % es la cuarta parte: 200 ÷ 4 = 50."],
+      ["¿Cuánto es el 20 % de 150?", "30", ["20", "15", "75"], "10 % = 15, así que 20 % = 30."],
+      ["¿Cuánto es el 75 % de 40?", "30", ["10", "75", "35"], "25 % = 10, así que 75 % = 3 × 10 = 30."],
+      ["Un libro de $5000 tiene 10 % de descuento. ¿Cuánto pagas?", "$4500", ["$500", "$4900", "$5500"], "10 % de 5000 = 500 y 5000 − 500 = 4500."],
+      ["En un curso de 25 alumnos faltaron 5. ¿Qué porcentaje faltó?", "20 %", ["5 %", "25 %", "10 %"], "5/25 = 1/5 = 20/100 = 20 %."],
+      ["Un precio de $800 sube un 5 %. ¿Cuál es el nuevo precio?", "$840", ["$805", "$850", "$760"], "10 % = 80, 5 % = 40 y 800 + 40 = 840."]
+    ]
+  },
+  "m6b": {
+    before: ["Repasa la recta numérica: los números aumentan hacia la derecha.", "Recuerda sumar y restar contando pasos hacia adelante y hacia atrás."],
+    vocab: [["número negativo", "número menor que cero; lleva el signo −"], ["número positivo", "número mayor que cero"], ["recta numérica", "línea donde los números se ordenan de izquierda (menores) a derecha (mayores)"], ["cero", "el punto que separa los negativos de los positivos"]],
+    worked: [
+      { problem: "¿Cuánto es −6 + 4?", steps: ["Me ubico en −6 en la recta.", "Sumar 4 es avanzar 4 pasos a la derecha: −5, −4, −3, −2."], answer: "−6 + 4 = −2" },
+      { problem: "¿Cuánto es 2 − 5?", steps: ["Me ubico en 2.", "Restar 5 es retroceder 5 pasos: 1, 0, −1, −2, −3."], answer: "2 − 5 = −3" },
+      { problem: "Ordena de menor a mayor: −1, −7, 3, 0", steps: ["El que está más a la izquierda en la recta es −7.", "Después −1, luego 0 y al final 3."], answer: "−7, −1, 0, 3" }
+    ],
+    practice: [
+      ["¿Qué número es menor: −4 o 1?", "−4", ["1", "Son iguales", "No se puede saber"], "Todo negativo es menor que un positivo."],
+      ["¿Qué número está justo antes del 0 en la recta?", "−1", ["1", "0", "−10"], "A la izquierda del 0 está el −1."],
+      ["¿Cuánto es −2 + 6?", "4", ["−4", "8", "−8"], "Desde −2 avanzo 6: −1, 0, 1, 2, 3, 4."],
+      ["¿Cuánto es 3 − 8?", "−5", ["5", "11", "−11"], "Desde 3 retrocedo 8: llego a −5."],
+      ["¿Cuánto es −4 + 4?", "0", ["8", "−8", "4"], "Desde −4 avanzo 4 y llego al 0."],
+      ["¿Cuánto es −5 − 3?", "−8", ["−2", "8", "2"], "Desde −5 retrocedo 3 más: −8."],
+      ["¿Qué número es mayor: −9 o −3?", "−3", ["−9", "Son iguales", "No se puede saber"], "−3 está más cerca del 0, más a la derecha."],
+      ["Ordena de menor a mayor: 2, −6, 0, −1", "−6, −1, 0, 2", ["−1, −6, 0, 2", "0, −1, 2, −6", "2, 0, −1, −6"], "De izquierda a derecha en la recta: −6, −1, 0, 2."],
+      ["Un buzo está a −12 m y sube 5 m. ¿A qué profundidad queda?", "−7 m", ["−17 m", "7 m", "−5 m"], "Subir es sumar: −12 + 5 = −7."],
+      ["En la mañana hacía −2 °C y a mediodía 9 °C. ¿Cuántos grados subió?", "11 °C", ["7 °C", "9 °C", "−11 °C"], "De −2 a 0 sube 2 y de 0 a 9 sube 9: 2 + 9 = 11."]
+    ]
+  },
+  "m6c": {
+    before: ["Repasa las tablas y las divisiones exactas: las usarás en cada paso.", "Recuerda que un paréntesis agrupa lo que se debe calcular primero."],
+    vocab: [["expresión", "una cuenta con varias operaciones, como 3 + 4 × 2"], ["jerarquía", "el orden en que se hacen las operaciones"], ["paréntesis", "signos ( ) que indican qué calcular primero"], ["de izquierda a derecha", "si dos operaciones tienen la misma prioridad, se hace primero la de la izquierda"]],
+    worked: [
+      { problem: "¿Cuánto es 5 + 6 × 3 − 4?", steps: ["Primero la multiplicación: 6 × 3 = 18.", "Queda 5 + 18 − 4.", "De izquierda a derecha: 5 + 18 = 23 y 23 − 4 = 19."], answer: "19" },
+      { problem: "¿Cuánto es (12 − 4) ÷ 2 + 3?", steps: ["Primero el paréntesis: 12 − 4 = 8.", "Luego la división: 8 ÷ 2 = 4.", "Al final la suma: 4 + 3 = 7."], answer: "7" },
+      { problem: "¿Cuánto es 18 ÷ 3 × 2?", steps: ["División y multiplicación tienen la misma prioridad.", "Voy de izquierda a derecha: 18 ÷ 3 = 6.", "6 × 2 = 12."], answer: "12" }
+    ],
+    practice: [
+      ["¿Cuánto es 2 + 3 × 4?", "14", ["20", "24", "9"], "Primero 3 × 4 = 12 y luego 2 + 12 = 14."],
+      ["¿Cuánto es (2 + 3) × 4?", "20", ["14", "24", "9"], "Primero el paréntesis: 5 × 4 = 20."],
+      ["¿Cuánto es 10 − 2 × 3?", "4", ["24", "5", "6"], "Primero 2 × 3 = 6 y luego 10 − 6 = 4."],
+      ["¿Cuánto es 8 ÷ 2 + 6?", "10", ["1", "8", "14"], "Primero 8 ÷ 2 = 4 y luego 4 + 6 = 10."],
+      ["¿Cuánto es 7 × (5 − 2)?", "21", ["33", "14", "12"], "Paréntesis: 5 − 2 = 3; luego 7 × 3 = 21."],
+      ["¿Cuánto es 30 − 6 ÷ 3?", "28", ["8", "9", "24"], "Primero 6 ÷ 3 = 2 y luego 30 − 2 = 28."],
+      ["¿Cuánto es 24 ÷ 4 × 2?", "12", ["3", "8", "48"], "De izquierda a derecha: 24 ÷ 4 = 6 y 6 × 2 = 12."],
+      ["¿Cuánto es 4 × 5 + 3 × 2?", "26", ["46", "52", "29"], "4 × 5 = 20, 3 × 2 = 6 y 20 + 6 = 26."],
+      ["¿Cuánto es (9 + 6) ÷ (8 − 3)?", "3", ["5", "13", "11"], "Paréntesis: 15 y 5. Luego 15 ÷ 5 = 3."],
+      ["¿Cuánto es 50 − (4 + 6) × 3?", "20", ["120", "56", "32"], "Paréntesis: 10; 10 × 3 = 30; 50 − 30 = 20."]
+    ]
+  },
+  "m6d": {
+    before: ["Repasa los divisores comunes y el MCD: el MCD de 12 y 18 es 6.", "Recuerda las fracciones equivalentes: 3/4 y 6/8 valen lo mismo."],
+    vocab: [["simplificar", "dividir numerador y denominador por el mismo número"], ["divisor común", "número que divide exactamente al numerador y al denominador"], ["fracción irreducible", "fracción que ya no se puede simplificar más"], ["MCD", "el mayor divisor común; permite simplificar en un solo paso"]],
+    worked: [
+      { problem: "Simplifica 18/24.", steps: ["Ambos son pares: divido entre 2 → 9/12.", "9 y 12 están en la tabla del 3: divido entre 3 → 3/4.", "3 y 4 ya no tienen divisores comunes (aparte del 1)."], answer: "18/24 = 3/4" },
+      { problem: "Simplifica 20/45 usando el MCD.", steps: ["Divisores de 20: 1, 2, 4, 5, 10, 20. Divisores de 45: 1, 3, 5, 9, 15, 45.", "El MCD es 5.", "20 ÷ 5 = 4 y 45 ÷ 5 = 9."], answer: "20/45 = 4/9" }
+    ],
+    practice: [
+      ["Simplifica 2/4.", "1/2", ["1/4", "2/1", "1/3"], "Divido arriba y abajo entre 2."],
+      ["Simplifica 3/9.", "1/3", ["1/6", "3/3", "1/9"], "Divido arriba y abajo entre 3."],
+      ["Simplifica 10/20.", "1/2", ["1/10", "2/1", "1/20"], "Divido arriba y abajo entre 10."],
+      ["¿Cuál de estas fracciones es irreducible?", "5/7", ["4/6", "9/12", "10/15"], "5 y 7 solo comparten el divisor 1."],
+      ["Simplifica 8/12.", "2/3", ["3/4", "1/3", "4/3"], "El MCD de 8 y 12 es 4: 8 ÷ 4 = 2 y 12 ÷ 4 = 3."],
+      ["Simplifica 14/21.", "2/3", ["7/3", "1/3", "2/7"], "Divido entre 7: 14 ÷ 7 = 2 y 21 ÷ 7 = 3."],
+      ["Simplifica 16/40.", "2/5", ["4/5", "1/5", "2/3"], "El MCD es 8: 16 ÷ 8 = 2 y 40 ÷ 8 = 5."],
+      ["Para simplificar 24/32 en un solo paso hasta la irreducible, ¿entre qué número divides?", "8", ["2", "4", "6"], "MCD(24, 32) = 8: queda 3/4."],
+      ["Simplifica 27/36.", "3/4", ["1/3", "2/3", "4/3"], "El MCD es 9: 27 ÷ 9 = 3 y 36 ÷ 9 = 4."],
+      ["Simplifica 45/60.", "3/4", ["1/4", "4/5", "2/3"], "El MCD es 15: 45 ÷ 15 = 3 y 60 ÷ 15 = 4."]
+    ]
+  },
+  "xmat6a": {
+    before: ["Repasa multiplicar y dividir: para reducir a la unidad divides; para escalar, multiplicas.", "Recuerda simplificar fracciones: una razón como 12 : 18 se simplifica igual que 12/18."],
+    vocab: [["razón", "comparación de dos cantidades por división, como 2 : 3"], ["proporción", "igualdad entre dos razones: 2 : 3 = 4 : 6"], ["proporción directa", "si una cantidad aumenta, la otra aumenta en la misma medida"], ["proporción inversa", "si una cantidad aumenta, la otra disminuye en la misma medida"], ["reducir a la unidad", "calcular cuánto corresponde a 1 para luego multiplicar"]],
+    worked: [
+      { problem: "4 kg de manzanas cuestan $3600. ¿Cuánto cuestan 7 kg?", steps: ["Es directa: más kilos, más dinero.", "Reduzco a la unidad: 3600 ÷ 4 = 900 por kilo.", "7 × 900 = 6300."], answer: "$6300" },
+      { problem: "6 llaves llenan un estanque en 4 horas. ¿Cuánto tardan 3 llaves iguales?", steps: ["Es inversa: menos llaves, más tiempo.", "Con 1 llave tardaría 6 × 4 = 24 horas.", "Con 3 llaves: 24 ÷ 3 = 8 horas."], answer: "8 horas." },
+      { problem: "En un curso hay 12 niñas y 18 niños. ¿Cuál es la razón niñas : niños simplificada?", steps: ["La razón es 12 : 18.", "Divido ambos entre 6 (su MCD): 2 : 3."], answer: "2 : 3" }
+    ],
+    practice: [
+      ["2 lápices cuestan $400. ¿Cuánto cuestan 6?", "$1200", ["$800", "$2400", "$600"], "1 lápiz cuesta 200; 6 × 200 = 1200."],
+      ["5 entradas cuestan $10 000. ¿Cuánto cuesta 1?", "$2000", ["$5000", "$50 000", "$1000"], "10 000 ÷ 5 = 2000."],
+      ["La razón entre 4 perros y 8 gatos, simplificada, es…", "1 : 2", ["2 : 1", "4 : 2", "1 : 4"], "Divido ambos entre 4: 1 : 2."],
+      ["Más horas de trabajo, más dinero ganado. Es una proporción…", "Directa", ["Inversa", "No es proporción", "Negativa"], "Las dos cantidades aumentan juntas."],
+      ["Un auto recorre 60 km en 1 hora. ¿Cuánto recorre en 3 horas a la misma velocidad?", "180 km", ["63 km", "20 km", "120 km"], "Directa: 3 × 60 = 180 km."],
+      ["Una receta lleva 2 tazas de harina por cada 3 huevos. Con 6 huevos, ¿cuántas tazas?", "4", ["3", "5", "9"], "Los huevos se duplican: la harina también, 2 × 2 = 4."],
+      ["3 obreros hacen un muro en 8 días. ¿Cuánto tardan 6 obreros?", "4 días", ["16 días", "8 días", "2 días"], "Inversa: el doble de obreros, la mitad de días."],
+      ["Un grifo llena un balde en 12 min. ¿Cuánto tardan 3 grifos iguales?", "4 min", ["36 min", "9 min", "15 min"], "Inversa: 12 ÷ 3 = 4 min."],
+      ["Con $5000 compro 4 cuadernos. ¿Cuántos compro con $12 500?", "10", ["8", "12", "16"], "Cada uno cuesta 5000 ÷ 4 = 1250; 12 500 ÷ 1250 = 10."],
+      ["Un viaje dura 6 horas a 80 km/h. ¿Cuánto dura a 120 km/h?", "4 horas", ["9 horas", "3 horas", "5 horas"], "La distancia es 6 × 80 = 480 km; 480 ÷ 120 = 4 horas."]
+    ]
+  },
+  "xmat6b": {
+    before: ["Repasa las fracciones y cómo simplificarlas: 3/6 = 1/2.", "Recuerda contar todos los resultados posibles sin olvidar ninguno."],
+    vocab: [["experimento aleatorio", "algo cuyo resultado no se puede saber antes, como lanzar un dado"], ["casos posibles", "todos los resultados que pueden salir"], ["casos favorables", "los resultados que nos interesan"], ["suceso imposible", "no puede ocurrir; su probabilidad es 0"], ["suceso seguro", "ocurre siempre; su probabilidad es 1"]],
+    worked: [
+      { problem: "En una bolsa hay 4 bolitas rojas, 3 azules y 1 verde. ¿Cuál es la probabilidad de sacar una azul?", steps: ["Casos posibles: 4 + 3 + 1 = 8.", "Casos favorables (azules): 3.", "P = 3/8."], answer: "3/8" },
+      { problem: "Al lanzar un dado, ¿cuál es la probabilidad de sacar un número mayor que 4?", steps: ["Casos posibles: 1, 2, 3, 4, 5, 6 → 6.", "Mayores que 4: el 5 y el 6 → 2.", "P = 2/6 = 1/3."], answer: "1/3" }
+    ],
+    practice: [
+      ["Probabilidad de sacar cara al lanzar una moneda:", "1/2", ["1", "1/3", "2"], "Hay 2 casos posibles y 1 favorable."],
+      ["Probabilidad de sacar un 7 con un dado normal:", "0", ["1/6", "1/7", "1"], "El dado no tiene 7: es imposible."],
+      ["Probabilidad de sacar un número menor que 7 con un dado:", "1", ["6/7", "1/6", "0"], "Todos los resultados son menores que 7: es seguro."],
+      ["Un suceso con probabilidad 1 es…", "Seguro", ["Imposible", "Poco probable", "Igual de probable"], "Probabilidad 1 significa que ocurre siempre."],
+      ["Probabilidad de sacar un 1 o un 2 con un dado:", "1/3", ["1/6", "2/3", "1/2"], "2 casos favorables de 6: 2/6 = 1/3."],
+      ["5 bolitas verdes y 5 blancas. P(blanca):", "1/2", ["1/5", "5", "1/10"], "5 de 10: 5/10 = 1/2."],
+      ["Bolsa con 2 rojas, 3 azules y 5 verdes. P(roja):", "1/5", ["2/5", "1/2", "2/8"], "2 de 10: 2/10 = 1/5."],
+      ["Probabilidad de sacar un múltiplo de 3 con un dado:", "1/3", ["1/2", "1/6", "3/6"], "Son el 3 y el 6: 2/6 = 1/3."],
+      ["Una ruleta tiene 8 partes iguales y 3 son azules. P(no azul):", "5/8", ["3/8", "3/5", "1/8"], "Hay 8 − 3 = 5 partes que no son azules."],
+      ["Se venden 20 boletos para un solo premio y compras 4. ¿Qué probabilidad tienes de ganar?", "1/5", ["4/5", "1/4", "1/20"], "4 de 20: 4/20 = 1/5."]
+    ]
+  },
+  "xmat6c": {
+    before: ["Repasa multiplicar decimales: 3,14 × 6 = 18,84.", "Recuerda elevar al cuadrado: r² es r × r, por ejemplo 4² = 16."],
+    vocab: [["radio", "distancia del centro al borde del círculo"], ["diámetro", "segmento que cruza el círculo pasando por el centro; mide el doble del radio"], ["circunferencia", "la línea curva que forma el borde del círculo"], ["π (pi)", "número que vale aproximadamente 3,14"], ["área del círculo", "π × r × r"]],
+    worked: [
+      { problem: "Longitud de una circunferencia de radio 3 cm.", steps: ["El diámetro es el doble del radio: 2 × 3 = 6 cm.", "Longitud = π × d = 3,14 × 6 = 18,84."], answer: "18,84 cm" },
+      { problem: "Área de un círculo de radio 4 cm.", steps: ["r² = 4 × 4 = 16.", "Área = π × r² = 3,14 × 16 = 50,24."], answer: "50,24 cm²" },
+      { problem: "Una rueda tiene 50 cm de diámetro. ¿Cuánto avanza en una vuelta?", steps: ["En una vuelta avanza la longitud de su borde.", "π × d = 3,14 × 50 = 157."], answer: "157 cm" }
+    ],
+    practice: [
+      ["El radio va desde el centro hasta…", "El borde del círculo", ["El otro lado, pasando por el centro", "El centro de nuevo", "Fuera del círculo"], "El radio une el centro con cualquier punto del borde."],
+      ["¿Cuánto vale aproximadamente π?", "3,14", ["3,41", "1,34", "31,4"], "π vale 3,14159…; usamos 3,14 para calcular."],
+      ["Si el diámetro es 12 cm, el radio es…", "6 cm", ["24 cm", "12 cm", "3 cm"], "El radio es la mitad del diámetro: 12 ÷ 2 = 6."],
+      ["Si el radio es 7 cm, el diámetro es…", "14 cm", ["3,5 cm", "7 cm", "49 cm"], "El diámetro es el doble del radio: 2 × 7 = 14."],
+      ["Longitud de una circunferencia de diámetro 2 cm:", "6,28 cm", ["3,14 cm", "12,56 cm", "4 cm"], "3,14 × 2 = 6,28 cm."],
+      ["Longitud de una circunferencia de radio 2 cm:", "12,56 cm", ["6,28 cm", "25,12 cm", "4 cm"], "d = 4 cm y 3,14 × 4 = 12,56 cm."],
+      ["Área de un círculo de radio 1 cm:", "3,14 cm²", ["6,28 cm²", "1 cm²", "2 cm²"], "3,14 × 1 × 1 = 3,14 cm²."],
+      ["Área de un círculo de radio 3 cm:", "28,26 cm²", ["18,84 cm²", "9,42 cm²", "9 cm²"], "r² = 9 y 3,14 × 9 = 28,26 cm²."],
+      ["Área de un círculo de diámetro 10 cm:", "78,5 cm²", ["314 cm²", "31,4 cm²", "15,7 cm²"], "El radio es 5: 3,14 × 25 = 78,5 cm²."],
+      ["Una rueda de 70 cm de diámetro, ¿cuánto avanza en una vuelta?", "219,8 cm", ["109,9 cm", "70 cm", "439,6 cm"], "3,14 × 70 = 219,8 cm."]
+    ]
+  },
+  "xmat6d": {
+    before: ["Repasa las tablas de multiplicar: una potencia es una multiplicación repetida.", "Recuerda que puedes multiplicar por partes: 2 × 2 × 2 × 2 = 4 × 4 = 16."],
+    vocab: [["potencia", "multiplicación de un número por sí mismo varias veces"], ["base", "el número que se multiplica"], ["exponente", "el número pequeño de arriba: cuántas veces se multiplica la base"], ["cuadrado perfecto", "número que es el cuadrado de otro: 1, 4, 9, 16, 25…"], ["raíz cuadrada", "el número que multiplicado por sí mismo da el número dado: √25 = 5"]],
+    worked: [
+      { problem: "¿Cuánto es 3⁴?", steps: ["La base 3 se multiplica 4 veces: 3 × 3 × 3 × 3.", "3 × 3 = 9; 9 × 3 = 27; 27 × 3 = 81."], answer: "3⁴ = 81" },
+      { problem: "¿Cuánto es √144?", steps: ["Busco un número que multiplicado por sí mismo dé 144.", "10 × 10 = 100 es poco; 12 × 12 = 144."], answer: "√144 = 12" },
+      { problem: "¿Cuánto es 10³?", steps: ["10 × 10 × 10.", "10 × 10 = 100 y 100 × 10 = 1000."], answer: "10³ = 1000" }
+    ],
+    practice: [
+      ["¿Cuánto es 3²?", "9", ["6", "5", "27"], "3 × 3 = 9 (no 3 × 2)."],
+      ["¿Cuánto es 4²?", "16", ["8", "6", "64"], "4 × 4 = 16."],
+      ["¿Cuánto es 10²?", "100", ["20", "12", "1000"], "10 × 10 = 100."],
+      ["¿Cuánto es 1⁹?", "1", ["9", "10", "0"], "1 multiplicado por sí mismo siempre da 1."],
+      ["¿Cuánto es 2⁴?", "16", ["8", "6", "32"], "2 × 2 × 2 × 2 = 16."],
+      ["¿Cuánto es √36?", "6", ["18", "12", "9"], "6 × 6 = 36."],
+      ["¿Cuánto es √81?", "9", ["8", "40,5", "27"], "9 × 9 = 81. La raíz no es la mitad."],
+      ["¿Cuál es un cuadrado perfecto?", "64", ["50", "20", "32"], "64 = 8 × 8."],
+      ["¿Cuánto es 5³?", "125", ["15", "25", "53"], "5 × 5 = 25 y 25 × 5 = 125."],
+      ["¿Cuánto es √100 + 2³?", "18", ["13", "16", "108"], "√100 = 10 y 2³ = 8: 10 + 8 = 18."]
+    ]
+  },
+  "xmat6e": {
+    before: ["Repasa las operaciones contrarias: la suma se deshace restando y la multiplicación, dividiendo.", "Recuerda la jerarquía de operaciones: en 2x + 3, primero se multiplica y después se suma."],
+    vocab: [["ecuación", "igualdad que tiene un número desconocido"], ["incógnita", "el número desconocido; casi siempre se llama x"], ["operación inversa", "la que deshace a otra: + y −, × y ÷"], ["solución", "el valor de x que hace verdadera la igualdad"], ["comprobar", "reemplazar x por la solución para ver si se cumple"]],
+    worked: [
+      { problem: "Resuelve x − 9 = 14.", steps: ["A x le restaron 9; para deshacerlo, sumo 9 a ambos lados.", "x = 14 + 9 = 23.", "Compruebo: 23 − 9 = 14. ✔"], answer: "x = 23" },
+      { problem: "Resuelve 4x + 5 = 29.", steps: ["Primero deshago la suma: resto 5 a ambos lados → 4x = 24.", "Luego deshago la multiplicación: divido entre 4 → x = 6.", "Compruebo: 4 × 6 + 5 = 24 + 5 = 29. ✔"], answer: "x = 6" },
+      { problem: "Resuelve x ÷ 3 = 7.", steps: ["A x la dividieron entre 3; lo deshago multiplicando por 3.", "x = 7 × 3 = 21.", "Compruebo: 21 ÷ 3 = 7. ✔"], answer: "x = 21" }
+    ],
+    practice: [
+      ["Resuelve x + 5 = 9.", "x = 4", ["x = 14", "x = 5", "x = 45"], "Resto 5: x = 9 − 5 = 4."],
+      ["Resuelve x − 3 = 10.", "x = 13", ["x = 7", "x = 30", "x = 3"], "Sumo 3: x = 10 + 3 = 13."],
+      ["Resuelve 10 + x = 25.", "x = 15", ["x = 35", "x = 2,5", "x = 10"], "Resto 10: x = 25 − 10 = 15."],
+      ["Resuelve 5x = 35.", "x = 7", ["x = 30", "x = 40", "x = 175"], "Divido entre 5: x = 35 ÷ 5 = 7."],
+      ["Resuelve x ÷ 4 = 6.", "x = 24", ["x = 2", "x = 10", "x = 1,5"], "Multiplico por 4: x = 6 × 4 = 24."],
+      ["¿Cuál es la solución de 6x = 0?", "x = 0", ["x = 6", "x = 1", "x = −6"], "6 × 0 = 0: x = 0 ÷ 6 = 0."],
+      ["Resuelve 2x + 1 = 9.", "x = 4", ["x = 5", "x = 3", "x = 8"], "2x = 9 − 1 = 8, entonces x = 8 ÷ 2 = 4."],
+      ["Resuelve 3x − 4 = 11.", "x = 5", ["x = 7", "x = 3", "x = 15"], "3x = 11 + 4 = 15, entonces x = 15 ÷ 3 = 5."],
+      ["Si x = 5, ¿qué ecuación se cumple?", "4x − 2 = 18", ["4x + 2 = 18", "2x − 4 = 18", "x + 18 = 4"], "4 × 5 − 2 = 20 − 2 = 18. ✔"],
+      ["Pienso un número, lo multiplico por 3 y le sumo 2: obtengo 20. ¿Qué número pensé?", "6", ["7", "18", "22"], "3x + 2 = 20 → 3x = 18 → x = 6."]
+    ]
+  },
+  "xmat6f": {
+    before: ["Repasa la jerarquía de operaciones: primero paréntesis, luego × y ÷, al final + y −.", "Recuerda las cuatro operaciones y cuándo usar cada una en un problema."],
+    vocab: [["plan", "la lista de pasos que vas a seguir antes de calcular"], ["paso", "cada operación que usa el resultado del anterior"], ["expresión", "cuenta escrita con números, signos y paréntesis"], ["comprobar", "revisar el resultado al final, por ejemplo con la operación contraria"]],
+    worked: [
+      { problem: "La entrada al zoológico cuesta $4500 para adultos y $2500 para niños. Una familia de 2 adultos y 3 niños paga con $20 000. ¿Cuánto es el vuelto?", steps: ["Adultos: 2 × 4500 = 9000.", "Niños: 3 × 2500 = 7500.", "Total: 9000 + 7500 = 16 500.", "Vuelto: 20 000 − 16 500 = 3500.", "Compruebo: 16 500 + 3500 = 20 000. ✔"], answer: "El vuelto es $3500." },
+      { problem: "¿Cuánto es (15 − 3) ÷ 4 + 2 × 5?", steps: ["Paréntesis: 15 − 3 = 12.", "División y multiplicación: 12 ÷ 4 = 3 y 2 × 5 = 10.", "Suma final: 3 + 10 = 13."], answer: "13" }
+    ],
+    practice: [
+      ["¿Qué haces primero para resolver un problema largo?", "Leerlo y entender qué te preguntan", ["Hacer la primera operación que veas", "Escribir la respuesta", "Comprobar el resultado"], "Antes de calcular hay que entender el problema y hacer un plan."],
+      ["¿Cuánto es (8 + 2) × 5 − 10?", "40", ["0", "45", "60"], "Paréntesis: 10; 10 × 5 = 50; 50 − 10 = 40."],
+      ["¿Cuánto es 36 ÷ (4 + 2) + 1?", "7", ["10", "5", "8"], "Paréntesis: 6; 36 ÷ 6 = 6; 6 + 1 = 7."],
+      ["¿Cuánto es 3 × (7 − 2) + 4 × 2?", "23", ["38", "34", "18"], "Paréntesis: 5; 3 × 5 = 15; 4 × 2 = 8; 15 + 8 = 23."],
+      ["Compras 4 cuadernos de $1500 y pagas con $10 000. ¿Vuelto?", "$4000", ["$6000", "$8500", "$5000"], "4 × 1500 = 6000 y 10 000 − 6000 = 4000."],
+      ["5 amigos juntan $2000 cada uno y gastan $7500. ¿Cuánto les sobra?", "$2500", ["$5500", "$500", "$9500"], "5 × 2000 = 10 000 y 10 000 − 7500 = 2500."],
+      ["Un ciclista recorre 18 km cada día durante 5 días y luego 12 km más. ¿Cuántos km recorre en total?", "102 km", ["90 km", "35 km", "150 km"], "18 × 5 = 90 y 90 + 12 = 102."],
+      ["Un huerto tiene 6 filas de 9 plantas. Se secan 8 y se plantan 15 nuevas. ¿Cuántas plantas hay?", "61", ["54", "47", "69"], "6 × 9 = 54; 54 − 8 = 46; 46 + 15 = 61."],
+      ["Un tanque tiene 500 L. Se usan 35 L al día durante 8 días. ¿Cuánto queda?", "220 L", ["280 L", "465 L", "240 L"], "35 × 8 = 280 y 500 − 280 = 220."],
+      ["Calcula el doble de (12 − 5), réstale 4 y divide el resultado entre 2.", "5", ["7", "3", "10"], "12 − 5 = 7; 2 × 7 = 14; 14 − 4 = 10; 10 ÷ 2 = 5."]
+    ]
+  }
+});
