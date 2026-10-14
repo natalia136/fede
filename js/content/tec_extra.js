@@ -236,7 +236,7 @@ CURRICULUM.extend({
         ["¿Qué vehículo lleva a los enfermos al hospital con sirena?", "La ambulancia", ["El carro de bomberos", "El bus escolar", "El tractor"], "🚑", "Con la sirena, los demás carros le abren paso."],
         ["¿Qué vehículo trabaja en el campo arando la tierra?", "El tractor", ["El submarino", "El avión", "El metro"], "🚜", "El tractor es fuerte y tiene ruedas grandes."],
         ["¿Qué debemos usar siempre en el carro?", "El cinturón de seguridad", ["Un casco de bicicleta", "Unas aletas", "Un paraguas"], "🚗", "El cinturón nos protege si el carro frena de golpe."],
-        ["¿Por dónde cruzamos la calle?", "Por el paso de cebra, mirando a ambos lados", ["Por cualquier lado, corriendo", "Entre los carros parados", "Por la mitad de la cuadra"], "🦓", "El paso de cebra es el lugar seguro para cruzar."],
+        ["¿Por dónde es más seguro cruzar la calle?", "Por el paso de cebra, mirando a ambos lados", ["Por cualquier lado, corriendo", "Entre los carros parados", "Por la mitad de la cuadra"], "🦓", "El paso de cebra es el lugar seguro para cruzar."],
         ["¿Qué significa la luz amarilla del semáforo?", "Precaución: va a cambiar a rojo", ["Acelerar mucho", "Que el semáforo está dañado", "Que pueden pasar todos a la vez"], "🚦", "El amarillo avisa que hay que prepararse para parar."],
         ["¿Qué transporte tiene motor y dos ruedas?", "La motocicleta", ["La bicicleta", "El tren", "El velero"], "🏍️", "La moto tiene motor; la bicicleta, pedales."],
         ["¿Qué tipo de transporte es el barco?", "Acuático", ["Aéreo", "Terrestre", "Espacial"], "⛴️", "Los transportes acuáticos van por ríos, lagos y mares."],
