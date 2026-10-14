@@ -1031,13 +1031,14 @@
   let snaps = null;
   function vRestore() {
     if (!API.on || !API.pid) return `<p>Esta opción funciona cuando la app está en el servidor.</p>`;
-    if (!snaps) { callApi("GET", `profiles/${API.pid}/snapshots`).then((d) => { snaps = d.snapshots; if (view.name === "restore") render(); }).catch((e) => toast(e.message)); return `<section class="card"><p>Buscando copias…</p></section>`; }
+    if (!snaps) { Promise.all([callApi("GET", `profiles/${API.pid}/snapshots`), callApi("GET", `profiles/${API.pid}/log`).catch(() => ({ log: [] }))]).then(([d, l]) => { snaps = d.snapshots; snaps.log = l.log || []; if (view.name === "restore") render(); }).catch((e) => toast(e.message)); return `<section class="card"><p>Buscando copias…</p></section>`; }
     const now = { xp: S.xp, stars: S.stars, stickers: S.stickers.length, done: Object.keys(S.progress).length };
     const row = (x, cur) => `<span>Nivel ${levelInfo(x.xp || 0).lv}</span><span>⭐ ${x.stars}</span><span>🎴 ${x.stickers}</span><span>📚 ${x.done} lecciones</span>`;
     return `<section class="stack">
       <div class="section-head"><h1>${I("shield")} Recuperar avance</h1><span class="spacer"></span><button class="btn ghost small" data-act="go" data-to="home">Volver</button></div>
       <p class="muted">El servidor guarda una copia del progreso de ${esc(S.profile.name)} cada día (los últimos 14 días). Si algo se perdió, júntalo con el avance actual: no se borra nada, se queda lo mejor de cada lección.</p>
       <div class="card snap-row now"><b>Ahora</b>${row(now)}</div>
+      ${(snaps.log || []).length ? `<details class="card"><summary><b>Últimos guardados</b> <span class="muted">(qué equipo guardó y cuándo)</span></summary><div class="table-wrap"><table class="users"><thead><tr><th>Fecha</th><th>Equipo</th><th>Nivel</th><th>Lecciones</th><th>Grado</th><th>Resultado</th></tr></thead><tbody>${snaps.log.map((x) => `<tr><td>${esc(x.t)}</td><td>${esc(x.dev)}</td><td>${levelInfo(x.xp || 0).lv}</td><td>${x.done}</td><td>${x.grade != null ? esc(gradeLabel(S.profile.country, x.grade)) : "—"}</td><td>${esc(x.res)}</td></tr>`).join("")}</tbody></table></div></details>` : ""}
       ${snaps.length ? snaps.map((x) => `<div class="card snap-row"><b>${new Date(x.date + "T12:00").toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long" })}</b>${row(x)}<button class="btn small" data-act="restoreSnap" data-v="${esc(x.date)}">Juntar con el actual</button></div>`).join("") : `<div class="card"><p style="margin:0">Todavía no hay copias. Se crean solas desde hoy, una por día.</p></div>`}
     </section>`;
   }

@@ -20,6 +20,7 @@ foreach (read_config(__DIR__ . '/config.php', $CONFIG_ERROR) as $k => $v) {
   if (is_array($v) && is_array($config[$k] ?? null)) { foreach ($v as $kk => $vv) if ($vv !== '' && $vv !== null) $config[$k][$kk] = $vv; }
   elseif ($v !== '' && $v !== null) $config[$k] = $v;
 }
+@date_default_timezone_set((string) ($config['timezone'] ?? 'America/Bogota')); // fechas de copias y registros en hora local
 $DATA_DIR = rtrim($config['data_dir'] ?? (__DIR__ . '/../data'), '/');
 $DB_FILE = $DATA_DIR . '/db.json';
 // Claves y opciones guardadas desde la pantalla "Configuración" de la app (solo administradores).
@@ -341,6 +342,15 @@ if (($parts[0] ?? '') === 'admin' && in_array($parts[1] ?? '', ['settings', 'tes
 
 /* ---------- copias diarias del progreso (últimos 14 días por perfil) ---------- */
 function snap_dir(string $pid): string { global $DATA_DIR; return $DATA_DIR . '/snapshots/' . preg_replace('/[^a-f0-9]/', '', $pid); }
+// registro de los últimos guardados de cada perfil (para saber qué equipo guardó qué)
+function save_log(string $pid, array $st, string $result): void {
+  $dir = snap_dir($pid); if (!is_dir($dir)) @mkdir($dir, 0700, true);
+  $ua = (string) ($_SERVER['HTTP_USER_AGENT'] ?? '');
+  $dev = preg_match('/iPhone|iPad/i', $ua) ? 'iPhone/iPad' : (preg_match('/Android/i', $ua) ? 'Android' : (preg_match('/Windows/i', $ua) ? 'Windows' : (preg_match('/Mac/i', $ua) ? 'Mac' : 'Otro')));
+  $line = json_encode(['t' => date('Y-m-d H:i'), 'dev' => $dev, 'xp' => $st['xp'] ?? 0, 'done' => count($st['progress'] ?? []), 'grade' => $st['profile']['grade'] ?? null, 'res' => $result], JSON_UNESCAPED_UNICODE);
+  $f = "$dir/saves.log"; @file_put_contents($f, $line . "\n", FILE_APPEND | LOCK_EX);
+  if (@filesize($f) > 60000) { $all = file($f); @file_put_contents($f, implode('', array_slice($all, -200)), LOCK_EX); }
+}
 function snapshot(array $p): void {
   if (empty($p['state'])) return;
   $dir = snap_dir($p['id']); if (!is_dir($dir)) @mkdir($dir, 0700, true);
@@ -385,6 +395,10 @@ $resp = with_db(function (&$db) use ($parts, $method) {
     }
     foreach ($db['profiles'] as $i => $p) {
       if ($p['id'] !== $p1 || $p['userId'] !== $user['id']) continue;
+      if ($method === 'GET' && ($parts[2] ?? '') === 'log') {
+        $f = snap_dir($p['id']) . '/saves.log'; $lines = is_file($f) ? array_reverse(file($f, FILE_IGNORE_NEW_LINES) ?: []) : [];
+        return [200, ['log' => array_values(array_filter(array_map(fn($l) => json_decode($l, true), array_slice($lines, 0, 60))))]];
+      }
       if ($method === 'GET' && ($parts[2] ?? '') === 'snapshots') {
         $dir = snap_dir($p['id']); $date = $parts[3] ?? '';
         if ($date !== '') { if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) || !is_file("$dir/$date.json")) return [404, ['error' => 'No hay copia de ese día.']]; return [200, ['state' => json_decode((string) file_get_contents("$dir/$date.json"), true)]]; }
@@ -397,6 +411,7 @@ $resp = with_db(function (&$db) use ($parts, $method) {
         // si otro equipo guardó después de que este cargó el perfil, no se pisa: se devuelve lo del servidor para juntarlo
         $base = (int) ($b['base'] ?? 0);
         $stale = $base > 0 ? (($p['updatedAt'] ?? 0) > $base) : ((float) ($b['state']['updatedAt'] ?? 0) < (float) ($p['state']['updatedAt'] ?? 0)); // versiones viejas de la app no envían base
+        save_log($p['id'], $b['state'], $stale ? 'rechazado (datos viejos de otro equipo)' : 'guardado');
         if ($stale) return [409, ['error' => 'conflict', 'state' => $p['state'], 'updatedAt' => $p['updatedAt']]];
         snapshot($p);
         $db['profiles'][$i]['state'] = $b['state']; $db['profiles'][$i]['updatedAt'] = now_ms(); return [200, ['ok' => true, 'updatedAt' => $db['profiles'][$i]['updatedAt']]]; }
