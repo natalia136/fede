@@ -1871,7 +1871,7 @@
 
   /* ================= creador de avatar ================= */
   let avd = null; // { o: partes, from: "setup" | "profile" }
-  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Camiseta", bg: "Fondo", extra: "Detalles", print: "Dibujo de la camiseta", streak: "Mechas de color" };
+  const AV_LABELS = { skin: "Piel", hair: "Peinado", hairColor: "Color de pelo", eyes: "Ojos", mouth: "Boca", acc: "Accesorio", shirt: "Color de la ropa", bg: "Fondo", extra: "Detalles", print: "Dibujo de la camiseta", streak: "Mechas de color", outfit: "Ropa", glasses: "Gafas", earrings: "Aretes", facepaint: "Pintura de cara", beard: "Barba y bigote", bgPattern: "Diseño del fondo", pet: "Mascota" };
   function vAvatar(p) {
     const q = p.q || "profile", from = q.startsWith("setup") || !S.profile ? "setup" : "profile", target = q.endsWith("adult") ? "adultAvatar" : "avatar";
     if (!avd || avd.from !== from || avd.target !== target) { const src = from === "setup" ? draft || {} : S.profile, cur = src[target]; avd = { from, target, o: ART.parseC(String(cur || "").startsWith("c:") ? cur : ART.randomC()) }; }
@@ -1895,7 +1895,7 @@
       <div class="av-preview card"><div class="av-big">${av(code)}</div><p class="eyebrow">${target === "adultAvatar" ? "Avatar del adulto" : "Mi avatar"}</p><h2>${esc((from === "setup" ? draft && (target === "adultAvatar" ? draft.adult : draft.name) : S.profile[target === "adultAvatar" ? "adult" : "name"]) || "Mi avatar")}</h2>
         <div class="row" style="justify-content:center"><button class="btn ghost" data-act="avRandom">${I("sparkle")} Sorpresa</button><button class="btn" data-act="avSave">Usar este avatar</button></div>
         <button class="linkbtn" data-act="avCancel">Cancelar</button></div>
-      <div class="av-parts">${["skin", "hair", "hairColor", "streak", "eyes", "mouth", "extra", "acc", "shirt", "print", "bg"].map(row).join("")}</div>
+      <div class="av-parts">${["skin", "hair", "hairColor", "streak", "eyes", "mouth", "extra", "facepaint", "beard", "glasses", "earrings", "acc", "outfit", "shirt", "print", "bg", "bgPattern", "pet"].map(row).join("")}</div>
     </section>`;
   }
 
