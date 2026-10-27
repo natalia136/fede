@@ -36,7 +36,7 @@ async function extErr(r, who) {
   return typeof m === "string" ? `${who}: ${m}` : `${who} respondió con error ${r.status}.`;
 }
 const mask = (k) => (k ? "…" + String(k).slice(-4) : "");
-const PUBLIC = new Set(["/index.html", "/ai/prompts.json", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].flatMap((k) => [`/js/content/${k}.js`, `/js/content/${k}_extra.js`, `/js/lessons/${k}.js`, `/js/lessons/${k}_plus.js`])]);
+const PUBLIC = new Set(["/index.html", "/ai/prompts.json", "/css/styles.css", "/js/app.js", "/js/art.js", "/js/curriculum.js", "/js/countries.js", ...["mat", "ing", "len", "cie", "soc", "tec"].flatMap((k) => [`/js/content/${k}.js`, `/js/content/${k}_extra.js`, `/js/lessons/${k}.js`, `/js/lessons/${k}_plus.js`, `/js/explore/${k}.js`]), "/js/content/courses_extra.js"]);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 
 /* ---------- base de datos en un archivo JSON ---------- */

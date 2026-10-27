@@ -44,7 +44,7 @@ if (!only) {
     if (!isStr(c.title) || !C.SUBJECTS[c.subject] || !Array.isArray(c.grades) || !Array.isArray(c.lessons) || c.lessons.length < 3) return errors.push(`${w}: {id, title, subject, grades: [min, max], lessons: 3+}`);
     c.lessons.forEach((l, i) => {
       const wl = `${w}.lessons[${i}]`;
-      if (!isStr(l.title) || !isStr(l.explanation || l.lesson, 20)) errors.push(`${wl}: falta title o explanation`);
+      if (!isStr(l.title) || !isStr(l.explanation || l.lesson, l.activities ? 40 : 8)) errors.push(`${wl}: falta title o explanation`);
       if (l.activities) {
         if (l.activities.length < 6) errors.push(`${wl}: 6+ actividades`);
         l.activities.forEach((a, j) => {

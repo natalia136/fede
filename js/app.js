@@ -512,8 +512,20 @@
       const keep = out.splice(0, Math.max(0, n - take)); out.length = 0; out.push(...keep, ...fresh.slice(0, take));
       if (out.length < n) out.push(...extra.filter((q) => old.has(qKey(q))).slice(0, n - out.length));
     }
+    // preguntas con dibujos del explorador: "¿qué es esto?" y preguntas sobre lo que mostró cada tarjeta
+    const X = u.tid ? explorerOf(u) : null;
+    if (X) {
+      const names = X.items.map((x) => x.name), pool = [];
+      X.items.forEach((it) => {
+        pool.push(choice(lv === 1 ? "¿Qué es esto? Recuerda lo que exploraste" : "¿Qué es esto?", it.name, shuffle(names.filter((x) => x !== it.name)).slice(0, 3), { visual: it.art, visualClass: "art", explain: it.facts[0] }));
+        if (it.q) pool.push(choice(it.q[0], it.q[1], it.q[2], { explain: it.facts.join(" "), visual: lv === 1 ? it.art : "", visualClass: "art" }));
+      });
+      const fresh = shuffle(pool).filter((q) => { const k = qKey(q); if (seen.has(k)) return false; seen.add(k); return !old.has(k); });
+      const take = Math.min(fresh.length, Math.ceil(n * 0.4));
+      if (take) { out.splice(0, out.length, ...shuffle(out).slice(0, Math.max(0, n - take)), ...fresh.slice(0, take)); }
+    }
     while (out.length < n && later.length) out.push(later.shift()); // si ya se vieron todas, se repiten las más antiguas
-    if (L) out.splice(0, out.length, ...shuffle(out));
+    if (L || X) out.splice(0, out.length, ...shuffle(out));
     if (lv === 3 && u.subj && u.g != null && !u.review) {
       // "Domina": mezcla repaso de los temas anteriores del mismo mundo
       const list = TOPICS[u.subj][u.g], idx = list.findIndex((t) => t.id === u.key.split("#")[0]);
@@ -701,7 +713,7 @@
     if (lessonFiles[subj]) return lessonFiles[subj];
     const load = (src) => new Promise((ok) => { const sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
     const v = window.APP_VERSION ? "?v=" + window.APP_VERSION : "";
-    lessonFiles[subj] = Promise.all([load(`js/lessons/${subj}.js${v}`), load(`js/lessons/${subj}_plus.js${v}`)]);
+    lessonFiles[subj] = Promise.all([load(`js/lessons/${subj}.js${v}`), load(`js/lessons/${subj}_plus.js${v}`), load(`js/explore/${subj}.js${v}`)]);
     return lessonFiles[subj];
   }
   // lección completa = lección base + complemento (antes de empezar, glosario, ejemplos resueltos, práctica)
@@ -710,10 +722,12 @@
     const X = (window.CURRICULUM_LESSONS_PLUS || {})[u.tid];
     return X ? Object.assign({}, L, { before: X.before || [], vocab: X.vocab || [], worked: X.worked || [], practice: X.practice || [] }) : L;
   };
-  let lsn = { key: null, step: 0, open: true, ans: {}, opts: {}, reveal: {}, prac: null };
+  let lsn = { key: null, step: 0, open: true, ans: {}, opts: {}, reveal: {}, prac: null, seenItems: {}, item: null };
+  const explorerOf = (u) => (u && u.tid && window.EXPLORERS && window.EXPLORERS[u.tid]) || null;
   // páginas de la lección: antes de empezar → pasos → ejemplos resueltos → tu turno → repaso
-  function lessonPages(L) {
+  function lessonPages(L, X) {
     const pg = [];
+    if (X) pg.push({ t: "explore", label: "¡Explora!" });
     if ((L.before && L.before.length) || (L.vocab && L.vocab.length)) pg.push({ t: "before", label: "Antes de empezar" });
     L.steps.forEach((_, i) => pg.push({ t: "step", i, label: `Paso ${i + 1}` }));
     (L.worked || []).forEach((_, i) => pg.push({ t: "worked", i, label: `Ejemplo resuelto ${i + 1}` }));
@@ -727,8 +741,8 @@
       ${a != null ? `<p class="${ok ? "good" : "muted"}">${ok ? "¡Muy bien! ✔" : `La respuesta es: <b>${esc(q[1])}</b>`}${q[3] ? ` <span class="lsn-why">${esc(q[3])}</span>` : ""}</p>` : ""}</div>`;
   }
   function vRich(u, L, refJ) {
-    if (lsn.key !== u.key) lsn = { key: u.key, step: 0, open: u.lv === 1, ans: {}, opts: {}, reveal: {}, prac: null };
-    const pages = lessonPages(L);
+    if (lsn.key !== u.key) lsn = { key: u.key, step: 0, open: u.lv === 1, ans: {}, opts: {}, reveal: {}, prac: null, seenItems: {}, item: null };
+    const X = explorerOf(u), pages = lessonPages(L, X);
     if (!lsn.open) {
       // en Practica y Domina mostramos otra parte de la lección para que no sea lo mismo
       const extra = u.lv === 2
@@ -741,7 +755,15 @@
     const nav = (next) => `<div class="row lsn-nav">${i ? `<button class="btn ghost small" data-act="lsnGo" data-v="${i - 1}">← Anterior</button>` : ""}<button class="btn ghost small" data-act="readLesson" data-ref='${refJ}'>🔊 Escuchar</button>${i + 1 < n ? `<button class="btn small" data-act="lsnGo" data-v="${i + 1}">${next || "Siguiente →"}</button>` : ""}</div>`;
     const nextLabel = i + 1 < n ? `${pages[i + 1].label} →` : "";
     let body;
-    if (pg.t === "before") {
+    if (pg.t === "explore") {
+      const seenN = X.items.filter((_, k) => lsn.seenItems[k]).length, it = lsn.item != null ? X.items[lsn.item] : null;
+      body = `<article class="lsn-card explore"><p class="eyebrow">¡Explora! · ${seenN} de ${X.items.length} tarjetas</p><h2>${esc(X.title)}</h2><p>${esc(X.intro)}</p>
+        ${it ? `<div class="exp-detail"><div class="exp-big">${it.art}</div><div class="exp-info"><h3>${esc(it.name)}</h3><ul>${it.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+          <div class="row"><button class="btn ghost small" data-act="expSpeak">🔊 Escuchar</button>${lsn.item + 1 < X.items.length ? `<button class="btn small" data-act="expItem" data-i="${lsn.item + 1}">Siguiente tarjeta →</button>` : ""}<button class="linkbtn" data-act="expItem" data-i="-1">Ver todas</button></div></div></div>` : ""}
+        <div class="exp-grid">${X.items.map((x, k) => `<button class="exp-card ${lsn.seenItems[k] ? "seen" : ""} ${lsn.item === k ? "on" : ""}" data-act="expItem" data-i="${k}" aria-label="${esc(x.name)}">${x.art}<span>${esc(x.name)}</span>${lsn.seenItems[k] ? `<i class="exp-ok">${I("done")}</i>` : ""}</button>`).join("")}</div>
+        ${seenN === X.items.length ? `<div class="lsn-box good"><b>${I("star")} ¡Explorador completo!</b> Ya conoces todas las tarjetas. Ahora aprende los detalles.</div>` : ""}
+        ${nav(nextLabel)}</article>`;
+    } else if (pg.t === "before") {
       body = `<article class="lsn-card"><p class="eyebrow">Parte ${i + 1} de ${n}</p><h2>Antes de empezar</h2>
         ${L.before.length ? `<ul class="lsn-remember">${L.before.map((r) => `<li>${I("done")}<span>${esc(r)}</span></li>`).join("")}</ul>` : ""}
         ${L.vocab.length ? `<h3>Palabras que vas a usar</h3><dl class="lsn-vocab">${L.vocab.map(([w, d]) => `<div><dt>${esc(w)}</dt><dd>${esc(d)}</dd></div>`).join("")}</dl>` : ""}
@@ -1910,7 +1932,8 @@
       case "readLesson": {
         const u = unit(ref), L = richLesson(u);
         if (L && lsn.key === u.key && lsn.open) {
-          const pages = lessonPages(L), pg = pages[Math.min(lsn.step, pages.length - 1)];
+          const X = explorerOf(u), pages = lessonPages(L, X), pg = pages[Math.min(lsn.step, pages.length - 1)];
+          if (pg.t === "explore") { const it = lsn.item != null ? X.items[lsn.item] : null; return speak(it ? sayParts(it.name, ...it.facts) : sayParts(L.hook, X.title, X.intro), "es-ES"); }
           if (pg.t === "before") return speak(sayParts(L.hook, "Antes de empezar", ...L.before, L.vocab.length ? "Palabras que vas a usar" : "", ...L.vocab.map(([w, d]) => `${w}: ${d}`)), "es-ES");
           if (pg.t === "step") { const st = L.steps[pg.i]; return speak(sayParts(pg.i === 0 && !(L.before || []).length ? L.hook : "", `Paso ${pg.i + 1}: ${st.title}`, st.text, st.example ? `Por ejemplo: ${st.example}` : ""), "es-ES"); }
           if (pg.t === "worked") { const w = L.worked[pg.i]; return speak(sayParts("Resolvamos juntos", w.problem, ...w.steps.slice(0, Math.max(1, lsn.reveal[pg.i] || 0)), (lsn.reveal[pg.i] || 0) >= w.steps.length ? `La respuesta es: ${w.answer}` : ""), "es-ES"); }
@@ -1919,6 +1942,16 @@
         }
         return speak(sayParts(u.title, u.lesson, u.example ? `Por ejemplo: ${u.example}` : ""), "es-ES");
       }
+      case "expItem": {
+        const k = +b.dataset.i, X = explorerOf(unit(view.p.ref)); if (!X) return;
+        if (k < 0) { lsn.item = null; return render(); }
+        const first = !lsn.seenItems[k]; lsn.item = k; lsn.seenItems[k] = true; sfx.step();
+        const all = X.items.every((_, j) => lsn.seenItems[j]);
+        if (first && all) { S.xp = (S.xp || 0) + 5; save(); confetti(60); say("¡Exploraste todo! +5 XP", "cheer"); }
+        render(); const d = document.querySelector(".exp-detail"); if (d) d.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        const it = X.items[k]; speak(sayParts(it.name, ...it.facts), "es-ES"); return;
+      }
+      case "expSpeak": { const X = explorerOf(unit(view.p.ref)), it = X && lsn.item != null && X.items[lsn.item]; if (it) speak(sayParts(it.name, ...it.facts), "es-ES"); return; }
       case "lsnReveal": { const k = +b.dataset.i; lsn.reveal[k] = (lsn.reveal[k] || 0) + 1; sfx.step(); const y = window.scrollY; render(); window.scrollTo(0, y); const L = richLesson(unit(view.p.ref)), w = L && L.worked[k]; if (w) speak(lsn.reveal[k] >= w.steps.length ? sayParts(w.steps[lsn.reveal[k] - 1], `La respuesta es: ${w.answer}`) : w.steps[lsn.reveal[k] - 1], "es-ES"); return; }
       case "lsnRetry": { const L = richLesson(unit(view.p.ref)); if (L) { (lsn.prac || []).forEach((k) => { delete lsn.ans["p" + k]; delete lsn.opts["p" + k]; }); const rest = L.practice.map((_, k) => k).filter((k) => !(lsn.prac || []).includes(k)); lsn.prac = shuffle(rest.length >= 3 ? rest : L.practice.map((_, k) => k)).slice(0, 5); } return render(); }
       case "cfgTestAI": { cfg.msg.ai = { ok: true, text: "Probando…" }; render(); callApi("POST", "admin/test-ai").then((d) => { cfg.msg.ai = { ok: true, text: `¡Funciona para todas las cuentas! La IA (${d.model}) respondió en ${d.seconds} s: «${d.text.trim()}»` }; render(); }).catch((e) => { cfg.msg.ai = { ok: false, text: e.message }; render(); }); return; }

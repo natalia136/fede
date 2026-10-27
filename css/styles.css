@@ -721,3 +721,20 @@ svg.avi { border-radius: 50%; }
 .write-ans .input { max-width: 260px; text-align: center; font-size: 2rem; font-weight: 900; font-family: var(--f-display); padding: 14px; }
 .write-ans .input.right { border-color: #58cc02; background: var(--good-bg); color: var(--good-ink); }
 .write-ans .input.wrong { border-color: #ff4b4b; background: var(--bad-bg); color: var(--bad-ink); }
+/* ¡Explora!: tarjetas ilustradas */
+.exp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(130px, 42%), 1fr)); gap: 10px; }
+.exp-card { position: relative; display: grid; gap: 4px; justify-items: center; padding: 10px 8px; border: 2px solid var(--stroke); border-bottom-width: 4px; border-radius: 16px; background: var(--panel); cursor: pointer; font-weight: 800; font-size: .9rem; color: var(--ink); transition: transform .15s; }
+.exp-card:hover { transform: translateY(-3px) rotate(-1deg); }
+.exp-card svg { width: 100%; max-width: 110px; height: auto; aspect-ratio: 1; }
+.exp-card.seen { border-color: color-mix(in srgb, #58cc02 50%, var(--stroke)); }
+.exp-card.on { border-color: var(--cyan); background: var(--sel-bg); }
+.exp-ok { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; }
+.exp-ok .ico { width: 22px; height: 22px; }
+.exp-detail { display: grid; grid-template-columns: minmax(0, 220px) 1fr; gap: 16px; align-items: center; padding: 14px; border-radius: 18px; background: var(--panel-2); border: 2px solid var(--stroke); animation: pop .3s; }
+.exp-big svg { width: 100%; height: auto; aspect-ratio: 1; }
+.exp-info h3 { margin: 0 0 6px; font-size: 1.4rem; }
+.exp-info ul { margin: 0 0 10px; padding-left: 1.2em; display: grid; gap: 6px; line-height: 1.5; font-size: 1.05rem; }
+.exp-info .row { flex-wrap: wrap; gap: 8px; align-items: center; }
+@media (max-width: 560px) { .exp-detail { grid-template-columns: 1fr; justify-items: center; } .exp-big { max-width: 200px; } }
+.visual.art svg { width: min(200px, 60vw); height: auto; aspect-ratio: 1; }
+.lsn-dots button.explore { background: color-mix(in srgb, var(--cyan) 45%, var(--stroke)); }
