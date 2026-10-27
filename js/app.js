@@ -450,7 +450,7 @@
   const gradeLabel = (cc, g) => { const c = COUNTRIES[cc] || COUNTRIES.xx; return `${c.grades[g]} ${c.gradeSuffix[g] || ""}`.trim(); };
   const findCourse = (id) => S.courses.find((c) => c.id === id) || COURSES.find((c) => c.id === id);
   function courseLessons(c) { if (!c) return []; if (c.source === "ai" || c.lessons) return c.lessons || []; const pc = COURSES.find((x) => x.id === (c.ref || c.id)); return pc ? pc.lessons : []; }
-  const LEVELS = [null, { name: "Aprende", icon: "book", n: 6 }, { name: "Practica", icon: "dumbbell", n: 8 }, { name: "Domina", icon: "crown", n: 10 }];
+  const LEVELS = [null, { name: "Aprende", icon: "book", n: 6 }, { name: "Practica", icon: "dumbbell", n: 9 }, { name: "Domina", icon: "crown", n: 12 }];
   const lkey = (id, lv) => (lv > 1 ? `${id}#${lv}` : id);
   const refOfKey = (k) => (k.includes(":") ? { type: "course", cid: k.split(":")[0], li: +k.split(":")[1] } : { type: "topic", id: k.split("#")[0], lv: +(k.split("#")[1] || 1) });
   function firstOpen(s, g) { for (const t of TOPICS[s][g]) for (let lv = 1; lv <= 3; lv++) if (!prog(lkey(t.id, lv))) return { type: "topic", id: t.id, lv }; return null; }
@@ -496,13 +496,18 @@
     if (u.gen === "read") { const old = ((S.seen || {})[seenKey(u)]) || [], fresh = READ[u.params.level].filter((st) => !old.includes("r:" + st.title)), story = pick(fresh.length ? fresh : READ[u.params.level]); return shuffle(story.qs).map((q) => choice(q[0], q[1], q[2], { visual: `<h4>${esc(story.title)}</h4>${esc(story.text)}`, visualClass: "text", small: true, readText: story.text, readTitle: story.title })); }
     const lv = u.lv || 1;
     if (u.gen === "robot") return Array.from({ length: lv + 1 }, () => ({ kind: "robot", level: Math.min(5, (u.params.level || 0) + (lv === 3 ? 1 : 0)) }));
-    const ctx = { used: new Set() }, out = [], seen = new Set(), n = /order/.test(u.gen) ? 3 + lv : Math.round(LEVELS[lv].n * (lv === 3 ? 0.7 : 1));
-    const old = new Set(((S.seen || {})[seenKey(u)]) || []), later = [];
-    for (let g = 0; out.length < n && g < 160; g++) { const q = GEN[u.gen](u.params || {}, ctx); const k = qKey(q); if (seen.has(k)) continue; seen.add(k); if (old.has(k)) later.push(q); else out.push(q); }
+    const ctx = { used: new Set() }, out = [], seen = new Set(), n = /order/.test(u.gen) ? 3 + lv : Math.round(LEVELS[lv].n * (lv === 3 ? 0.75 : 1));
+    const old = new Set(((S.seen || {})[seenKey(u)]) || []), later = [], otherLevel = [];
+    // cada nivel tiene su propio grupo de preguntas del banco (así no se repiten entre Aprende, Practica y Domina)
+    const banked = BANK_GENS.has(u.gen), mine = (k) => !banked || levelOf(k) === lv;
+    const params = levelParams(u.gen, u.params || {}, lv);
+    for (let g = 0; out.length < n && g < 220; g++) { const q = GEN[u.gen](params, ctx); const k = qKey(q); if (seen.has(k)) continue; seen.add(k); if (old.has(k)) later.push(q); else if (!mine(k)) otherLevel.push(q); else out.push(q); }
+    while (out.length < n && otherLevel.length) out.push(otherLevel.shift());
     // preguntas de la lección completa (comprobación y práctica): se mezclan para que haya mucha más variedad
     const L = u.tid ? richLesson(u) : null;
     if (L) {
-      const extra = shuffle([...(L.check || []), ...(L.practice || [])]).map((q) => choice(q[0], q[1], q[2], { explain: q[3] || "", small: String(q[0]).length > 60 })).filter((q) => { const k = qKey(q); if (seen.has(k)) return false; seen.add(k); return true; });
+      const extra = shuffle([...(L.check || []), ...(L.practice || [])]).map((q) => choice(q[0], q[1], q[2], { explain: q[3] || "", small: String(q[0]).length > 60 })).filter((q) => { const k = qKey(q); if (seen.has(k)) return false; seen.add(k); return true; })
+        .sort((a, b) => (levelOf(qKey(a)) === lv ? 0 : 1) - (levelOf(qKey(b)) === lv ? 0 : 1));
       const fresh = extra.filter((q) => !old.has(qKey(q))), take = Math.min(fresh.length, Math.ceil(n * 0.35));
       const keep = out.splice(0, Math.max(0, n - take)); out.length = 0; out.push(...keep, ...fresh.slice(0, take));
       if (out.length < n) out.push(...extra.filter((q) => old.has(qKey(q))).slice(0, n - out.length));
@@ -513,10 +518,31 @@
       // "Domina": mezcla repaso de los temas anteriores del mismo mundo
       const list = TOPICS[u.subj][u.g], idx = list.findIndex((t) => t.id === u.key.split("#")[0]);
       const prev = shuffle(list.slice(0, Math.max(0, idx)).filter((t) => !["robot", "read"].includes(t.gen))).slice(0, 3);
-      prev.forEach((t) => { const r = unit({ type: "topic", id: t.id, lv: 1 }); r.review = true; const q = buildQuestions(r).find((x) => x.kind !== "robot"); if (q) out.push(Object.assign(q, { review: true })); });
-      return shuffle(out);
+      prev.forEach((t) => { const r = unit({ type: "topic", id: t.id, lv: 2 }); r.review = true; const q = buildQuestions(r).find((x) => x.kind !== "robot"); if (q) out.push(Object.assign(q, { review: true })); });
+      return levelFormat(shuffle(out), lv);
     }
-    return out;
+    return levelFormat(out, lv);
+  }
+  // dificultad por nivel: Aprende = 3 opciones; Practica = 4 opciones; Domina = 4 opciones y las cuentas se escriben
+  const BANK_GENS = new Set(["quiz", "sort", "order", "orderSteps", "vocab", "country", "spell", "synant", "syll", "vowel", "initial"]);
+  const levelOf = (k) => (parseInt(String(k).slice(0, 5), 36) % 3) + 1;
+  function levelParams(gen, p, lv) {
+    if (lv === 1) return p;
+    const q = Object.assign({}, p), f = lv === 2 ? 2 : 5;
+    if (typeof q.max === "number") q.max = Math.round(q.max * f);
+    if (Array.isArray(q.tables)) q.tables = lv === 2 ? [...new Set([...q.tables, 6, 7, 8, 9])] : [6, 7, 8, 9, 11, 12];
+    if (typeof q.level === "number" && !["robot"].includes(gen)) q.level = q.level + (lv - 1);
+    if (gen === "div2" && lv === 3) q.big = true;
+    return q;
+  }
+  function levelFormat(qs, lv) {
+    return qs.map((q) => {
+      if (q.kind !== "choice" || q.keepOrder) return q;
+      const wrong = q.options.filter((o) => o !== q.answer);
+      if (lv === 1 && wrong.length > 2) q.options = shuffle([q.answer, ...shuffle(wrong).slice(0, 2)]);
+      if (lv === 3 && /^-?\d{1,7}([.,]\d{1,3})?$/.test(q.answer) && !q.emojiOpts) q.write = true; // en Domina las cuentas se escriben
+      return q;
+    });
   }
 
   /* ================= navegación y render ================= */
@@ -775,13 +801,17 @@
     play = { ref, u, planIdx, players, qs, mode, timed: mode === "reloj", i: 0, correct: 0, answered: false, hinted: false, combo: 0, bestCombo: 0, xp: 0, tLeft: 0 };
     go("play");
   }
-  const qTime = (q) => (q.kind === "order" ? 45 : q.small ? 30 : 20);
+  const qTime = (q) => (q.kind === "order" ? 45 : q.write ? 35 : q.small ? 30 : 20);
   const nextBtn = () => `<button class="btn" data-act="next">${play.i + 1 < play.qs.length ? "Continuar" : "Ver resultado"}</button>`;
   function vPlay() {
     const g = play, q = g.qs[g.i], turn = g.players.length > 1 ? g.i % 2 : 0, P = S.profile;
     const turnMsg = g.players.length > 1 ? (turn === 0 ? `Turno de ${esc(g.players[0].name)} ${av(g.players[0].av)}. ${esc(P.adult)}: ¡solo pistas!` : `Turno de ${esc(g.players[1].name)} ${av(g.players[1].av)}. Explica en voz alta cómo lo piensas.`) : "";
     let body = "";
-    if (q.kind === "choice") {
+    if (q.kind === "choice" && q.write) {
+      body = `${q.visual ? `<div class="visual ${q.visualClass || ""}">${q.visual}</div>` : ""}
+        <div class="write-ans"><label for="wans">Escribe tu respuesta</label><input id="wans" class="input" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="?"></div>
+        <p class="kbd-hint">Nivel Domina: aquí no hay opciones, ¡escribe el resultado! · Enter para comprobar</p>`;
+    } else if (q.kind === "choice") {
       const opts = q.keepOrder ? q.keepOrder.filter((o) => q.options.includes(o)) : q.options;
       body = `${q.visual ? `<div class="visual ${q.visualClass || ""}">${q.visual}</div>` : ""}
         <div class="opts" id="opts">${opts.map((o, i) => `<button class="opt" data-act="select" data-v="${esc(o)}" style="${q.emojiOpts ? "font-size:2.2rem" : ""}"><span class="k" aria-hidden="true">${i + 1}</span>${esc(o)}</button>`).join("")}</div>
@@ -804,13 +834,14 @@
         ${body}
       </div>
       <div class="checkbar" id="checkbar"><div class="cb-inner">
-        <div class="cb-left"><span class="cb-icon" aria-hidden="true"></span><div><div class="feedback" id="fb" role="status"></div><div id="fbx"></div></div>${q.kind === "choice" && q.options.length > 2 ? `<button class="btn ghost" id="hintbtn" data-act="hint">${I("bulb")} Pista</button>` : ""}</div>
+        <div class="cb-left"><span class="cb-icon" aria-hidden="true"></span><div><div class="feedback" id="fb" role="status"></div><div id="fbx"></div></div>${q.kind === "choice" && !q.write && q.options.length > 2 ? `<button class="btn ghost" id="hintbtn" data-act="hint">${I("bulb")} Pista</button>` : ""}</div>
         <div id="after">${q.kind === "choice" ? '<button class="btn" id="checkbtn" data-act="check" disabled>Comprobar</button>' : ""}</div>
       </div></div></section>`;
   }
   function mountPlay() {
     const q = play.qs[play.i];
     if (q.kind === "order") mountOrder(q);
+    if (q.write) { const inp = $("#wans"), cb = $("#checkbtn"); if (inp) { inp.addEventListener("input", () => { if (cb) cb.disabled = !inp.value.trim(); }); setTimeout(() => inp.focus(), 50); } }
     if (q.kind === "robot") mountRobot(q);
     if (q.speak && q.speakFirst) setTimeout(() => speak(q.speak, "en-US"), 350);
     if (play.timed && q.kind !== "robot") startTimer(qTime(q));
@@ -828,7 +859,8 @@
   function timeUp() {
     const g = play, q = g.qs[g.i]; if (!g || g.answered) return; g.answered = true; g.tLeft = 0;
     award(false); const fb = $("#fb"); fb.className = "feedback bad";
-    if (q.kind === "choice") { $("#opts").classList.add("locked"); document.querySelectorAll("#opts .opt").forEach((b) => b.classList.add(b.dataset.v === q.answer ? "right" : "dim")); fb.textContent = `⏰ ¡Se acabó el tiempo! Era: ${q.answer}`; }
+    if (q.write) { const inp = $("#wans"); if (inp) inp.disabled = true; fb.textContent = `⏰ ¡Se acabó el tiempo! Era: ${q.answer}`; }
+    else if (q.kind === "choice") { $("#opts").classList.add("locked"); document.querySelectorAll("#opts .opt").forEach((b) => b.classList.add(b.dataset.v === q.answer ? "right" : "dim")); fb.textContent = `⏰ ¡Se acabó el tiempo! Era: ${q.answer}`; }
     else { $("#slots").classList.add("no"); $("#after").onclick = null; fb.textContent = `⏰ ¡Se acabó el tiempo! Orden correcto: ${q.items.join(q.vertical ? " → " : " ")}`; }
     if (q.explain) $("#fbx").innerHTML = `<div class="explain">${esc(q.explain)}</div>`; $("#after").innerHTML = nextBtn(); const h = $("#hintbtn"); if (h) h.remove();
   }
@@ -845,7 +877,7 @@
     const card = $("#qcard"); if (card) { card.classList.remove("flash-good", "flash-bad"); void card.offsetWidth; card.classList.add(ok ? "flash-good" : "flash-bad"); }
     if (ok) {
       g.correct++; g.players[turn].pts++; g.combo++; g.bestCombo = Math.max(g.bestCombo, g.combo);
-      const gain = 10 + (g.combo >= 3 ? 5 : 0) + (g.timed ? Math.ceil(g.tLeft / 2) : 0); g.xp += gain;
+      const gain = 10 + ((g.u && g.u.lv) === 3 ? 10 : (g.u && g.u.lv) === 2 ? 5 : 0) + (g.combo >= 3 ? 5 : 0) + (g.timed ? Math.ceil(g.tLeft / 2) : 0); g.xp += gain; // niveles más difíciles dan más XP
       floatText(`+${gain} XP${g.combo >= 3 ? " 🔥" : ""}`, el); sfx.right();
       say(g.combo >= 3 ? `¡Combo x${g.combo}! Sigue así 🔥` : pick(CHEERS), "happy");
       if (g.combo >= 3) burst(el);
@@ -860,7 +892,20 @@
     document.querySelectorAll("#opts .opt").forEach((b) => b.classList.toggle("sel", b === btn));
     play.sel = btn.dataset.v; const c = $("#checkbtn"); if (c) c.disabled = false; sfx.tap();
   }
+  const numNorm = (x) => String(x).trim().replace(/\s/g, "").replace(",", ".").replace(/^\+/, "").replace(/^(-?)0+(\d)/, "$1$2");
+  function checkWrite() {
+    const g = play, q = g.qs[g.i], inp = $("#wans"); if (!g || g.answered || !inp || !inp.value.trim()) return;
+    g.answered = true; inp.disabled = true;
+    const ok = numNorm(inp.value) === numNorm(q.answer) || (+numNorm(inp.value) === +numNorm(q.answer) && !isNaN(+numNorm(inp.value)));
+    inp.classList.add(ok ? "right" : "wrong");
+    award(ok, inp);
+    const fb = $("#fb"); fb.className = "feedback " + (ok ? "good" : "bad");
+    fb.textContent = ok ? pick(CHEERS) : `Respuesta correcta: ${q.answer}`;
+    $("#fbx").innerHTML = `${q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ""}${!ok && aiReady ? '<button class="linkbtn" data-act="explainAI">🤖 Nova, explícame</button>' : ""}`;
+    $("#after").innerHTML = nextBtn();
+  }
   function checkSel() {
+    if (play && play.qs[play.i] && play.qs[play.i].write) return checkWrite();
     if (!play || play.answered || play.sel == null) return;
     const b = [...document.querySelectorAll("#opts .opt")].find((x) => x.dataset.v === play.sel); if (b) onAnswer(b);
   }
@@ -1970,7 +2015,8 @@
     }
     if (view.name !== "play" || !play || e.target.closest("input, textarea, select")) return;
     const q = play.qs[play.i];
-    if (q.kind === "choice" && !play.answered && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll("#opts .opt")[+e.key - 1]; if (b && !b.disabled) { e.preventDefault(); selectOpt(b); } }
+    if (q.kind === "choice" && !q.write && !play.answered && /^[1-4]$/.test(e.key)) { const b = document.querySelectorAll("#opts .opt")[+e.key - 1]; if (b && !b.disabled) { e.preventDefault(); selectOpt(b); } }
+    else if (e.key === "Enter" && q.write && !play.answered) { e.preventDefault(); checkWrite(); }
     else if (e.key === "Enter" && q.kind === "choice" && !play.answered && play.sel != null) { e.preventDefault(); checkSel(); }
     else if ((e.key === "Enter" || e.key === "ArrowRight") && play.answered) { const n = $('[data-act="next"]'); if (n) { e.preventDefault(); nextQ(); } }
   });

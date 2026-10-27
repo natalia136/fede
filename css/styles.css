@@ -715,3 +715,9 @@ svg.avi { border-radius: 50%; }
 .snap-row b { text-transform: capitalize; min-width: 190px; }
 .snap-row .btn { margin-left: auto; }
 .snap-row.now { border-color: var(--cyan); }
+/* respuesta escrita (nivel Domina) */
+.write-ans { display: grid; gap: 8px; justify-items: center; margin: 8px 0; }
+.write-ans label { font-weight: 800; color: var(--ink-soft); }
+.write-ans .input { max-width: 260px; text-align: center; font-size: 2rem; font-weight: 900; font-family: var(--f-display); padding: 14px; }
+.write-ans .input.right { border-color: #58cc02; background: var(--good-bg); color: var(--good-ink); }
+.write-ans .input.wrong { border-color: #ff4b4b; background: var(--bad-bg); color: var(--bad-ink); }

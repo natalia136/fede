@@ -883,6 +883,10 @@
       if (!cur) throw new Error(`${where}: no existe el banco ${kind}.${k} para ampliar`);
       if (kind === "SORT") cur.items.push(...v.items); else cur.push(...v);
     }));
+    (pack.courses || []).forEach((c) => {
+      if (COURSES.some((x) => x.id === c.id)) throw new Error(`${where}: el curso ${c.id} ya existe`);
+      COURSES.push(c);
+    });
     Object.entries(pack.topics || {}).forEach(([g, list]) => {
       const grade = TOPICS[pack.subject] && TOPICS[pack.subject][+g];
       if (!grade) throw new Error(`${where}: grado ${g} no válido`);
