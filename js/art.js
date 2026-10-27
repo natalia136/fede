@@ -251,27 +251,41 @@
     skin: ["#ffdbb4", "#f1c27d", "#e0ac69", "#c68642", "#8d5524", "#5c3a21", "#fde7d6", "#3b2219"],
     hair: ["Calvo", "Corto", "Puntas", "Largo", "Afro", "Coletas", "Moño", "Cresta", "Rizado", "Trenza",
       "Rapado", "Raya al lado", "Hongo", "Copete", "Despeinado", "Lado rapado", "Melena", "Largo con flequillo", "Cola de caballo", "Dos moños",
-      "Dos trenzas", "Rastas", "Ondas largas", "Rizos largos", "Trenzas africanas", "Pixie", "Coleta de lado", "Media cola", "Mini rizos", "Melena rizada"],
+      "Dos trenzas", "Rastas", "Ondas largas", "Rizos largos", "Trenzas africanas", "Pixie", "Coleta de lado", "Media cola", "Mini rizos", "Melena rizada",
+      "Cola alta", "Trenzas con cuentas", "Afro con diadema", "Fade", "Puntas de colores", "Moño despeinado"],
     hairColor: ["#2b2b2b", "#7a4a2a", "#f2c14e", "#c0392b", "#1cb0f6", "#ff4b9b", "#a568cc", "#58cc02",
-      "#4a2c17", "#a0673a", "#d9a441", "#f6e3a1", "#e0662c", "#9e9e9e", "#f4f1ea", "#ff9600", "#2ec4b6", "#1e3a8a"],
+      "#4a2c17", "#a0673a", "#d9a441", "#f6e3a1", "#e0662c", "#9e9e9e", "#f4f1ea", "#ff9600", "#2ec4b6", "#1e3a8a",
+      "#b5651d", "#e8b98a", "#ff8fc8", "#8fd3ff"],
     streak: ["Sin mechas", "Doradas", "Rosadas", "Azules", "Moradas", "Verdes", "Naranjas", "Blancas"],
-    eyes: ["Puntos", "Felices", "Brillantes", "Guiño", "Estrellas", "Dormilones", "Corazones", "Pestañas", "Sorprendidos", "De reojo"],
-    mouth: ["Sonrisa", "Carcajada", "Lengua", "Sorpresa", "Pícara", "Dientón", "Gatito", "Silbando"],
-    acc: ["Nada", "Gafas", "Gafas de sol", "Gorra", "Corona", "Audífonos", "Moño", "Flor", "Gorro de fiesta", "Gorro de lana", "Diadema", "Casco espacial", "Pinzas de estrella", "Bandana", "Visera", "Gorro de gatito", "Corona de flores", "Pañuelo pirata"],
-    extra: ["Nada", "Pecas", "Curita", "Rayo", "Corazón", "Bigote", "Corazones rosados", "Estrellita", "Bigotes de gato", "Lunar"],
-    print: ["Nada", "Estrella", "Corazón", "Rayo", "Número 1", "Flor", "Cohete", "Planeta", "Nota musical", "Huella"],
-    shirt: ["#58cc02", "#1cb0f6", "#ff4b4b", "#ffc800", "#ce82ff", "#ff9600", "#ff4b9b", "#3c3c3c", "#2ec4b6", "#1e3a8a", "#ff8fab", "#8fa4ae"],
-    bg: ["#ddf4ff", "#d7ffb8", "#fff5cc", "#ffdfe0", "#f1d4ff", "#ffe8cc", "#e5e5e5", "#c9f2ff", "#d4f5ef", "#fde2f3", "#2b2b3a", "#ffd6a5"]
+    eyes: ["Puntos", "Felices", "Brillantes", "Guiño", "Estrellas", "Dormilones", "Corazones", "Pestañas", "Sorprendidos", "De reojo", "Decididos", "Brillitos", "Mareados", "De gato"],
+    mouth: ["Sonrisa", "Carcajada", "Lengua", "Sorpresa", "Pícara", "Dientón", "Gatito", "Silbando", "Feliz grande", "Nervioso", "Vampiro", "Beso"],
+    acc: ["Nada", "Gafas", "Gafas de sol", "Gorra", "Corona", "Audífonos", "Moño", "Flor", "Gorro de fiesta", "Gorro de lana", "Diadema", "Casco espacial", "Pinzas de estrella", "Bandana", "Visera", "Gorro de gatito", "Corona de flores", "Pañuelo pirata",
+      "Corona de princesa", "Gorro de chef", "Sombrero vueltiao", "Gorra hacia atrás", "Orejas de conejo", "Antenas"],
+    extra: ["Nada", "Pecas", "Curita", "Rayo", "Corazón", "Bigote", "Corazones rosados", "Estrellita", "Bigotes de gato", "Lunar", "Gotita", "Rubor", "Destellos", "Curita en la nariz"],
+    print: ["Nada", "Estrella", "Corazón", "Rayo", "Número 1", "Flor", "Cohete", "Planeta", "Nota musical", "Huella", "Balón", "Arcoíris", "Dinosaurio", "Carita feliz", "Luna", "Corona"],
+    shirt: ["#58cc02", "#1cb0f6", "#ff4b4b", "#ffc800", "#ce82ff", "#ff9600", "#ff4b9b", "#3c3c3c", "#2ec4b6", "#1e3a8a", "#ff8fab", "#8fa4ae",
+      "#c0392b", "#2b7a3d", "#6d28d9", "#0e7490", "#d4a373", "#a5d8ff"],
+    bg: ["#ddf4ff", "#d7ffb8", "#fff5cc", "#ffdfe0", "#f1d4ff", "#ffe8cc", "#e5e5e5", "#c9f2ff", "#d4f5ef", "#fde2f3", "#2b2b3a", "#ffd6a5",
+      "#b8e1ff", "#c3f0ca", "#ffe066", "#ffc4b8", "#d0c4ff", "#1e3a8a"],
+    // claves nuevas (se agregan al final de KEYS; el 0 siempre es "nada"/lo de antes)
+    outfit: ["Camiseta", "Buzo con capucha", "Vestido", "Overol", "Camiseta de fútbol", "Chaqueta", "Uniforme escolar", "Traje de astronauta",
+      "Capa de superhéroe", "Kimono de karate", "Camisa con corbatín", "Suéter navideño", "Camiseta a rayas", "Bata de científico"],
+    glasses: ["Nada", "Redondas", "Cuadradas", "De corazón", "De estrella", "De natación", "Monóculo", "Aviador", "Gafas 3D", "Ojo de gato"],
+    earrings: ["Nada", "Botones", "Aros", "Estrellas", "Corazones", "Perlas", "Gotas"],
+    facepaint: ["Nada", "Mariposa", "Tigre", "Bandera de hincha", "Arcoíris", "Estrellas", "Antifaz", "Puntos de colores", "Flores"],
+    beard: ["Nada", "Bigote", "Candado", "Barba corta", "Barba larga", "Chivo", "Patillas"],
+    bgPattern: ["Nada", "Puntos", "Estrellas", "Rayas", "Corazones", "Nubes", "Confeti", "Cuadros", "Arcoíris", "Burbujas", "Zigzag"],
+    pet: ["Nada", "Perrito", "Gatito", "Pollito", "Loro", "Conejito", "Dinosaurio", "Ajolote", "Pandita"]
   };
-  const KEYS = ["skin", "hair", "hairColor", "eyes", "mouth", "acc", "shirt", "bg", "extra", "print", "streak"];
+  const KEYS = ["skin", "hair", "hairColor", "eyes", "mouth", "acc", "shirt", "bg", "extra", "print", "streak", "outfit", "glasses", "earrings", "facepaint", "beard", "bgPattern", "pet"];
   // grupos de peinados (para filtrar en el creador) y orden de colores (naturales primero, luego fantasía)
   const HAIR_GROUPS = [
-    ["Cortos", [0, 1, 2, 7, 10, 11, 12, 13, 14, 15, 25, 28]],
-    ["Largos", [3, 16, 17, 22, 29]],
-    ["Recogidos", [5, 6, 9, 18, 19, 20, 26, 27]],
-    ["Rizos y trenzas", [4, 8, 21, 23, 24, 28, 29]]
+    ["Cortos", [0, 1, 2, 7, 10, 11, 12, 13, 14, 15, 25, 28, 33, 34]],
+    ["Largos", [3, 16, 17, 22, 29, 31]],
+    ["Recogidos", [5, 6, 9, 18, 19, 20, 26, 27, 30, 35]],
+    ["Rizos y trenzas", [4, 8, 21, 23, 24, 28, 29, 31, 32]]
   ];
-  const ORDERS = { skin: [6, 0, 1, 2, 3, 4, 5, 7], hairColor: [0, 8, 1, 9, 10, 2, 11, 12, 3, 13, 14, 15, 5, 6, 4, 17, 16, 7] };
+  const ORDERS = { skin: [6, 0, 1, 2, 3, 4, 5, 7], hairColor: [0, 8, 1, 9, 10, 2, 11, 19, 12, 18, 3, 13, 14, 15, 5, 20, 6, 4, 21, 17, 16, 7] };
   const STREAK = [null, "#ffe27a", "#ff7ab8", "#58c8ff", "#c38bff", "#7be04a", "#ffb04a", "#ffffff"];
   const parseC = (v) => { const n = String(v).slice(2).split(".").map(Number); const o = {}; KEYS.forEach((k, i) => { const max = PARTS[k].length; o[k] = Number.isInteger(n[i]) && n[i] >= 0 && n[i] < max ? n[i] : 0; }); return o; };
   const encodeC = (o) => "c:" + KEYS.map((k) => o[k] || 0).join(".");
