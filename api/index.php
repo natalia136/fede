@@ -157,6 +157,37 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'login') {
   send(200, $r);
 }
 
+/* ---------- llamada a Claude (la usan todos los módulos: cursos, práctica, explicaciones y la prueba) ---------- */
+// Si Anthropic rechaza algún parámetro opcional (esfuerzo, pensamiento, respaldo), se reintenta solo con lo básico.
+function ai_call(string $prompt, int $maxTokens): array {
+  global $AI;
+  $model = (string) $AI['model']; $key = (string) $AI['api_key'];
+  $fallback = (bool) preg_match('/opus|sonnet|fable/', $model); // Haiku no acepta modelo de respaldo
+  $full = ['model' => $model, 'max_tokens' => $maxTokens, 'messages' => [['role' => 'user', 'content' => $prompt]], 'output_config' => ['effort' => (string) $AI['effort']]];
+  if (preg_match('/haiku/', $model)) $full['thinking'] = ['type' => 'disabled']; // respuestas más rápidas
+  if ($fallback) $full['fallbacks'] = 'default';
+  $plain = ['model' => $model, 'max_tokens' => $maxTokens, 'messages' => [['role' => 'user', 'content' => $prompt]]];
+  foreach ([$full, $plain] as $n => $body) {
+    $ch = curl_init('https://api.anthropic.com/v1/messages');
+    $headers = ['content-type: application/json', 'x-api-key: ' . $key, 'anthropic-version: 2023-06-01'];
+    if ($n === 0 && $fallback) $headers[] = 'anthropic-beta: server-side-fallback-2026-07-01';
+    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 100, CURLOPT_HTTPHEADER => $headers, CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE)]);
+    $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $cerr = curl_error($ch); curl_close($ch);
+    if ($raw === false) return ['status' => 502, 'error' => 'No se pudo conectar con la IA: ' . $cerr];
+    $data = json_decode((string) $raw, true) ?: [];
+    if ($code === 400 && $n === 0) continue; // parámetro no aceptado: reintento simple
+    if ($code === 401) return ['status' => 502, 'error' => 'La clave de Anthropic no es válida. Revísala en Cuenta → Claves de IA y voz.'];
+    if ($code === 402 || $code === 429) return ['status' => 502, 'error' => 'Anthropic dice que no hay saldo o se llegó al límite de la cuenta. Revisa console.anthropic.com → Billing.'];
+    if ($code === 404) return ['status' => 502, 'error' => "El modelo «$model» no está disponible para tu clave. Elige otro en Cuenta → Claves de IA y voz."];
+    if ($code < 200 || $code >= 300) return ['status' => 502, 'error' => (string) ($data['error']['message'] ?? "Error $code de la IA.")];
+    if (($data['stop_reason'] ?? '') === 'refusal') return ['status' => 422, 'error' => 'refusal'];
+    $text = ''; foreach ($data['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $text .= $c['text'];
+    if ($text === '' ) return ['status' => 502, 'error' => 'La IA no devolvió texto. Intenta de nuevo.'];
+    return ['text' => $text, 'model' => $data['model'] ?? $model];
+  }
+  return ['status' => 502, 'error' => 'La IA no aceptó la petición. Revisa el modelo elegido en Cuenta → Claves de IA y voz.'];
+}
+
 /* ---------- IA: tareas definidas en ai/prompts.json ---------- */
 if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
   $b = body(); $task = (string) ($b['task'] ?? ''); $vars = is_array($b['vars'] ?? null) ? $b['vars'] : [];
@@ -181,18 +212,9 @@ if ($method === 'POST' && ($parts[0] ?? '') === 'ai') {
     if (!in_array($m[1], $def['vars'] ?? [], true)) return '';
     $v = $vars[$m[1]] ?? ''; return mb_substr(is_scalar($v) ? (string) $v : '', 0, 2000);
   }, $def['template']);
-  // Los modelos Opus, Sonnet y Fable aceptan un modelo de respaldo automático; Haiku no.
-  $fallback = (bool) preg_match('/opus|sonnet|fable/', (string) $AI['model']);
-  $ch = curl_init('https://api.anthropic.com/v1/messages');
-  curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 100,
-    CURLOPT_HTTPHEADER => array_merge(['content-type: application/json', 'x-api-key: ' . $AI_KEY, 'anthropic-version: 2023-06-01'], $fallback ? ['anthropic-beta: server-side-fallback-2026-07-01'] : []),
-    CURLOPT_POSTFIELDS => json_encode(['model' => $AI['model'], 'max_tokens' => (int) $AI['max_tokens'], 'output_config' => ['effort' => $AI['effort']], 'messages' => [['role' => 'user', 'content' => $prompt]]] + ($fallback ? ['fallbacks' => 'default'] : []))]);
-  $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); $cerr = curl_error($ch); curl_close($ch);
-  if ($raw === false) fail(502, 'No se pudo conectar con la IA: ' . $cerr);
-  $data = json_decode((string) $raw, true) ?: [];
-  if ($code < 200 || $code >= 300) fail(502, $data['error']['message'] ?? "Error $code de la IA.");
-  if (($data['stop_reason'] ?? '') === 'refusal') fail(422, 'refusal');
-  $text = ''; foreach ($data['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $text .= $c['text'];
+  $r = ai_call($prompt, (int) $AI['max_tokens']);
+  if (isset($r['error'])) fail($r['status'], $r['error']);
+  $text = $r['text'];
   send(200, ['text' => $text]);
 }
 
@@ -297,13 +319,14 @@ if (($parts[0] ?? '') === 'admin' && in_array($parts[1] ?? '', ['settings', 'tes
   }
   if ($p1 === 'test-ai' && $method === 'POST') {
     if ($AI['api_key'] === '') fail(400, 'Primero guarda la clave de Anthropic.');
-    [$code, $raw] = http_call('POST', 'https://api.anthropic.com/v1/messages', ['content-type: application/json', 'x-api-key: ' . $AI['api_key'], 'anthropic-version: 2023-06-01'],
-      ['model' => $AI['model'], 'max_tokens' => 40, 'messages' => [['role' => 'user', 'content' => 'Saluda a un niño en una frase corta y alegre, en español.']]]);
-    if ($code < 200 || $code >= 300) fail(502, api_error_text($raw, $code, 'Anthropic'));
-    $d = json_decode((string) $raw, true) ?: []; $t = '';
-    foreach ($d['content'] ?? [] as $c) if (($c['type'] ?? '') === 'text') $t .= $c['text'];
-    send(200, ['ok' => true, 'text' => $t, 'model' => $d['model'] ?? $AI['model']]);
+    // misma llamada que usan los cursos (mismo modelo y opciones), con una respuesta en JSON como los cursos
+    $t0 = microtime(true);
+    $r = ai_call('Responde SOLO con JSON válido, sin texto adicional: {"saludo":"un saludo corto y alegre para un niño, en español"}', 300);
+    if (isset($r['error'])) fail(502, $r['error']);
+    $j = json_decode(substr($r['text'], (int) strpos($r['text'], '{'), (int) strrpos($r['text'], '}') - (int) strpos($r['text'], '{') + 1), true);
+    send(200, ['ok' => true, 'text' => is_array($j) && isset($j['saludo']) ? (string) $j['saludo'] : trim($r['text']), 'model' => $r['model'], 'seconds' => round(microtime(true) - $t0, 1)]);
   }
+
   if ($p1 === 'voices' && $method === 'GET') {
     if ($vkey === '') fail(400, 'Primero guarda la clave de ElevenLabs.');
     $H = ['accept: application/json', 'xi-api-key: ' . $vkey];

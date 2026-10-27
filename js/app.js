@@ -1226,7 +1226,7 @@
     const code = e && e.code;
     if (code === "no_ai" && API.configError) return "El archivo de configuración tiene un error de escritura, por eso la IA está apagada. " + API.configError + ". Revisa comillas y comas en esa línea.";
     if (code === "no_ai" && API.user && API.user.role === "admin") return "La IA no está activada todavía. Entra en Cuenta → Claves de IA y voz, pega la clave de Anthropic y pulsa «Probar la IA».";
-    if (code === "no_ai") return "La IA no está activada. Quien administra la app debe poner la clave de la API en el archivo de configuración del servidor (api/config.php). Mientras tanto, prueben los cursos listos.";
+    if (code === "no_ai") return "La IA todavía no está activada. Quien administra la app la activa una sola vez (en Cuenta → Claves de IA y voz) y queda lista para todas las cuentas. Mientras tanto, prueben los cursos listos.";
     if (code === "limit") return esc(e.message || "Llegaste al límite de usos de IA por hoy.");
     if (code === "not_granted") return "No se dio permiso para usar la IA. Puedes permitirlo desde el menú de permisos del artefacto e intentarlo de nuevo.";
     if (code === "rate_limited") return "La IA está ocupada en este momento. Espera un minuto y vuelve a intentarlo.";
@@ -1303,7 +1303,7 @@
     back.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="set-t"><h2 id="set-t">⚙️ Ajustes</h2>
       <button class="btn ghost" data-m="profile">👤 Cambiar nombre, país o grado</button>
       <button class="btn ghost" data-m="sound">${S.sound ? "🔊 Sonido activado" : "🔇 Sonido apagado"}</button>
-      <div class="notice">${ai ? `${I("sparkle")} <b>IA activa.</b> ${API.on ? "La clave está guardada de forma segura en el servidor." : "Funciona a través de Claude."}` : `<b>IA desactivada.</b> Se activa poniendo la clave en el archivo de configuración del servidor (<code>api/config.php</code>).`}</div>
+      <div class="notice">${ai ? `${I("sparkle")} <b>IA activa.</b> ${API.on ? "La clave está guardada de forma segura en el servidor." : "Funciona a través de Claude."}` : `<b>IA desactivada.</b> ${API.user && API.user.role === "admin" ? "Actívala una sola vez en Cuenta → Claves de IA y voz; queda activa para todas las cuentas." : "Quien administra la app la activa una sola vez para todas las cuentas."}`}</div>
       <div class="row"><span class="spacer"></span><button class="btn ghost small" data-m="reset" style="--bi:var(--bad)">Borrar progreso</button></div>
       <div id="confirm"></div>
       <button class="btn ghost small" data-m="close">Cerrar</button></div>`;
@@ -1521,14 +1521,25 @@
     if (!r.ok) throw Object.assign(new Error(data.error || `Error ${r.status}`), { status: r.status, data });
     return data;
   }
-  async function detectServer() {
+  // ¿Hay servidor? Si alguna vez lo hubo en esta dirección, se espera más y se reintenta: nunca se pasa en silencio
+  // al modo sin cuenta (ese modo guarda solo en el navegador y el avance no llegaría a la cuenta).
+  async function detectServer(quiet) {
     if (!/^https?:/.test(location.protocol)) return false;
-    try {
-      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 2500);
-      const r = await fetch("api/health", { signal: ctl.signal }); clearTimeout(t);
-      const d = r.ok ? await r.json() : null; if (!d || !d.ok) return false;
-      API.on = true; API.ai = !!d.ai; API.voice = !!d.voice; API.configError = d.configError || ""; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true;
-    } catch (e) { return false; }
+    let known = false; try { known = localStorage.getItem("ae-server") === "1" || !!localStorage.getItem("ae-token"); } catch (e) { /* */ }
+    const tries = quiet ? [8000] : known ? [8000, 12000, 20000] : [4000, 8000];
+    for (let i = 0; i < tries.length; i++) {
+      try {
+        const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), tries[i]);
+        const r = await fetch("api/health", { signal: ctl.signal, cache: "no-store" }); clearTimeout(t);
+        const d = r.ok ? await r.json().catch(() => null) : null;
+        if (d && d.ok) { remember("ae-server", "1"); API.on = true; API.ai = !!d.ai; API.voice = !!d.voice; API.configError = d.configError || ""; API.aiTasks = Array.isArray(d.aiTasks) ? d.aiTasks : []; return true; }
+        if (!known && r.status === 404) return false; // no hay servidor (por ejemplo, la versión de prueba)
+      } catch (e) { /* lento o sin conexión: se reintenta */ }
+      if (known && !quiet) { const el = document.getElementById("app"); if (el) el.innerHTML = `<section class="card" style="text-align:center"><h2>Conectando con el servidor…</h2><p class="muted">Intento ${i + 2} de ${tries.length}. Tu avance está a salvo.</p></section>`; }
+    }
+    if (quiet) return API.on;
+    if (known) { API.down = true; return true; } // conocido pero sin respuesta: mostrar aviso, no el modo sin cuenta
+    return false;
   }
   async function loadMe() { const d = await callApi("GET", "me"); API.user = d.user; API.profiles = d.profiles; }
   async function loadProfile(pid) {
@@ -1739,7 +1750,7 @@
     </section>`;
   }
   async function cfgSave(sec, body, msgOk) {
-    try { await callApi("PUT", "admin/settings", { [sec]: body }); cfg.msg[sec] = { ok: true, text: msgOk }; await detectServer(); await loadCfg(); }
+    try { await callApi("PUT", "admin/settings", { [sec]: body }); cfg.msg[sec] = { ok: true, text: msgOk }; await detectServer(true); aiReady = !!(API.ai && API.aiTasks.includes("explain")); await loadCfg(); }
     catch (e) { cfg.msg[sec] = { ok: false, text: e.message }; render(); }
   }
   let previewAudio = null;
@@ -1865,13 +1876,13 @@
       }
       case "lsnReveal": { const k = +b.dataset.i; lsn.reveal[k] = (lsn.reveal[k] || 0) + 1; sfx.step(); const y = window.scrollY; render(); window.scrollTo(0, y); const L = richLesson(unit(view.p.ref)), w = L && L.worked[k]; if (w) speak(lsn.reveal[k] >= w.steps.length ? sayParts(w.steps[lsn.reveal[k] - 1], `La respuesta es: ${w.answer}`) : w.steps[lsn.reveal[k] - 1], "es-ES"); return; }
       case "lsnRetry": { const L = richLesson(unit(view.p.ref)); if (L) { (lsn.prac || []).forEach((k) => { delete lsn.ans["p" + k]; delete lsn.opts["p" + k]; }); const rest = L.practice.map((_, k) => k).filter((k) => !(lsn.prac || []).includes(k)); lsn.prac = shuffle(rest.length >= 3 ? rest : L.practice.map((_, k) => k)).slice(0, 5); } return render(); }
-      case "cfgTestAI": { cfg.msg.ai = { ok: true, text: "Probando…" }; render(); callApi("POST", "admin/test-ai").then((d) => { cfg.msg.ai = { ok: true, text: `¡Funciona! La IA respondió: «${d.text.trim()}»` }; render(); }).catch((e) => { cfg.msg.ai = { ok: false, text: e.message }; render(); }); return; }
+      case "cfgTestAI": { cfg.msg.ai = { ok: true, text: "Probando…" }; render(); callApi("POST", "admin/test-ai").then((d) => { cfg.msg.ai = { ok: true, text: `¡Funciona para todas las cuentas! La IA (${d.model}) respondió en ${d.seconds} s: «${d.text.trim()}»` }; render(); }).catch((e) => { cfg.msg.ai = { ok: false, text: e.message }; render(); }); return; }
       case "cfgClear": { const sec = b.dataset.sec; return cfgSave(sec, sec === "voice" ? { api_key: "-", voice_id: "", voice_id_en: "" } : { api_key: "-" }, "Clave quitada."); }
       case "cfgMine": return cfgSearch(true);
       case "cfgPreview": { const x = cfg.voices[+b.dataset.i]; try { if (previewAudio) previewAudio.pause(); previewAudio = new Audio(x.preview_url); previewAudio.play(); } catch (e) { /* */ } return; }
       case "cfgUse": {
         const x = cfg.voices[+b.dataset.i], target = b.dataset.target; b.disabled = true;
-        callApi("POST", "admin/voices", { voice_id: x.voice_id, owner: x.owner || "", name: x.name, target }).then(async () => { cfg.msg.voice = { ok: true, text: `Listo: «${x.name}» es ahora la voz en ${target === "en" ? "inglés" : "español"}.` }; await detectServer(); await loadCfg(); window.scrollTo(0, 0); }).catch((e) => { toast(e.message); b.disabled = false; });
+        callApi("POST", "admin/voices", { voice_id: x.voice_id, owner: x.owner || "", name: x.name, target }).then(async () => { cfg.msg.voice = { ok: true, text: `Listo: «${x.name}» es ahora la voz en ${target === "en" ? "inglés" : "español"}.` }; await detectServer(true); await loadCfg(); window.scrollTo(0, 0); }).catch((e) => { toast(e.message); b.disabled = false; });
         return;
       }
       case "cfgTestVoice": voiceOff = false; return speak("¡Hola! Soy la voz de Aventura Escolar. Hoy vamos a aprender algo nuevo juntos.", "es-ES");
@@ -1994,16 +2005,21 @@
   document.body.insertAdjacentHTML("beforeend", `<div class="buddy" aria-live="polite"><div class="say"></div><span class="face">${NOVA}</span></div><canvas id="confetti"></canvas>`);
   (async function boot() {
     if (await detectServer()) {
+      if (API.down) { $("#app").innerHTML = `<section class="card stack" style="text-align:center;max-width:520px;margin:40px auto"><div class="mascot-mid">${ART.nova("sad")}</div><h2>No pudimos conectar con el servidor</h2><p class="muted">Puede ser la conexión a internet o que el servidor está ocupado. Tu avance está guardado en la cuenta; no juegues sin conexión para no perderlo.</p><button class="btn" onclick="location.reload()">Intentar de nuevo</button></section>`; return; }
       S = DEF(); const pid = API.pid; API.pid = null;
       if (API.token) {
         try { await loadMe(); if (pid && API.profiles.some((x) => x.id === pid)) await loadProfile(pid); }
-        catch (e) { API.token = null; API.user = null; remember("ae-token", null); }
+        catch (e) {
+          if (e.status === 401) { API.token = null; API.user = null; remember("ae-token", null); }
+          else { $("#app").innerHTML = `<section class="card stack" style="text-align:center;max-width:520px;margin:40px auto"><h2>No pudimos cargar tu cuenta</h2><p class="muted">${esc(e.message || "Error de conexión")}. Tu avance está a salvo.</p><button class="btn" onclick="location.reload()">Intentar de nuevo</button></section>`; return; }
+        }
       }
       view = { name: API.user ? (API.pid ? "home" : "profiles") : "auth", p: {} };
     }
     applySkin();
     render();
     aiAvailable("explain").then((v) => { aiReady = !!v; });
+    if (API.on) setInterval(() => { if (document.visibilityState === "visible") detectServer(true).then(() => { aiReady = !!(API.ai && API.aiTasks.includes("explain")); }); }, 5 * 60 * 1000); // si el admin activa la IA, todos la ven sin recargar
     if (S.profile) setTimeout(() => say(`¡Hola de nuevo, ${S.profile.name}! ${S.streak.n > 1 ? `Llevas ${S.streak.n} días seguidos 🔥` : "¿Qué aprendemos hoy?"}`), 600);
     if (!API.on) initCloud();
   })();

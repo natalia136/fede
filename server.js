@@ -84,6 +84,31 @@ function snapshot(dir, state) {
   const d = new Date(), file = path.join(dir, `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}.json`);
   try { if (fs.existsSync(file)) return; fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(file, JSON.stringify(state)); const all = fs.readdirSync(dir).filter((f) => f.endsWith(".json")).sort(); all.slice(0, Math.max(0, all.length - 14)).forEach((f) => fs.unlinkSync(path.join(dir, f))); } catch (e) { /* sin copia */ }
 }
+// llamada a Claude usada por todos los módulos; si rechaza un parámetro opcional, reintenta con lo básico
+async function aiCall(prompt, maxTokens) {
+  const model = AI.model, fallback = /opus|sonnet|fable/.test(model);
+  const full = { model, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }], output_config: { effort: AI.effort } };
+  if (/haiku/.test(model)) full.thinking = { type: "disabled" };
+  if (fallback) full.fallbacks = "default";
+  const plain = { model, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] };
+  for (const [n, body] of [[0, full], [1, plain]]) {
+    const headers = { "content-type": "application/json", "x-api-key": AI.api_key, "anthropic-version": "2023-06-01" };
+    if (n === 0 && fallback) headers["anthropic-beta"] = "server-side-fallback-2026-07-01";
+    const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers, body: JSON.stringify(body) }).catch(() => null);
+    if (!r) return { status: 502, error: "No se pudo conectar con la IA." };
+    const data = await r.json().catch(() => ({}));
+    if (r.status === 400 && n === 0) continue;
+    if (r.status === 401) return { status: 502, error: "La clave de Anthropic no es válida. Revísala en Cuenta → Claves de IA y voz." };
+    if (r.status === 402 || r.status === 429) return { status: 502, error: "Anthropic dice que no hay saldo o se llegó al límite de la cuenta." };
+    if (r.status === 404) return { status: 502, error: `El modelo «${model}» no está disponible para tu clave.` };
+    if (!r.ok) return { status: 502, error: (data.error && data.error.message) || `Error ${r.status} de la IA.` };
+    if (data.stop_reason === "refusal") return { status: 422, error: "refusal" };
+    const text = (data.content || []).filter((c) => c.type === "text").map((c) => c.text).join("");
+    if (!text) return { status: 502, error: "La IA no devolvió texto. Intenta de nuevo." };
+    return { text, model: data.model || model };
+  }
+  return { status: 502, error: "La IA no aceptó la petición. Revisa el modelo elegido." };
+}
 function tooMany(ip) {
   const now = Date.now(), list = (attempts.get(ip) || []).filter((t) => now - t < 15 * 60e3);
   attempts.set(ip, list);
@@ -198,15 +223,9 @@ async function api(req, res, pathname) {
     let prompts = {}; try { prompts = JSON.parse(fs.readFileSync(path.join(ROOT, "ai/prompts.json"), "utf8")); } catch (e) { /* */ }
     const def = prompts[task]; if (!def || !def.template) return fail(res, 500, "Falta la instrucción de esa tarea en ai/prompts.json.");
     const prompt = def.template.replace(/\{\{(\w+)\}\}/g, (_, k) => ((def.vars || []).includes(k) ? String(vars[k] ?? "").slice(0, 2000) : ""));
-    const fallback = /opus|sonnet|fable/.test(AI.model); // Haiku no acepta modelo de respaldo
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: Object.assign({ "content-type": "application/json", "x-api-key": AI_KEY, "anthropic-version": "2023-06-01" }, fallback ? { "anthropic-beta": "server-side-fallback-2026-07-01" } : {}),
-      body: JSON.stringify(Object.assign({ model: AI.model, max_tokens: AI.max_tokens, output_config: { effort: AI.effort }, messages: [{ role: "user", content: prompt }] }, fallback ? { fallbacks: "default" } : {}))
-    });
-    const data = await r.json().catch(() => ({}));
-    if (!r.ok) return fail(res, 502, (data.error && data.error.message) || `Error ${r.status} de la IA.`);
-    if (data.stop_reason === "refusal") return fail(res, 422, "refusal");
+    const r = await aiCall(prompt, AI.max_tokens);
+    if (r.error) return fail(res, r.status, r.error);
+    const data = { content: [{ type: "text", text: r.text }] };
     return send(res, 200, { text: (data.content || []).filter((c) => c.type === "text").map((c) => c.text).join("") });
   }
 
@@ -273,10 +292,10 @@ async function api(req, res, pathname) {
     }
     if (parts[1] === "test-ai" && method === "POST") {
       if (!AI.api_key) return fail(res, 400, "Primero guarda la clave de Anthropic.");
-      const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "content-type": "application/json", "x-api-key": AI.api_key, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model: AI.model, max_tokens: 40, messages: [{ role: "user", content: "Saluda a un niño en una frase corta y alegre, en español." }] }) }).catch(() => null);
-      if (!r) return fail(res, 502, "No se pudo conectar con Anthropic.");
-      if (!r.ok) return fail(res, 502, await extErr(r, "Anthropic"));
-      const d = await r.json(); return send(res, 200, { ok: true, text: (d.content || []).filter((c) => c.type === "text").map((c) => c.text).join(""), model: d.model });
+      const t0 = Date.now(), r = await aiCall('Responde SOLO con JSON válido, sin texto adicional: {"saludo":"un saludo corto y alegre para un niño, en español"}', 300);
+      if (r.error) return fail(res, 502, r.error);
+      let t = r.text.trim(); try { t = JSON.parse(t.slice(t.indexOf("{"), t.lastIndexOf("}") + 1)).saludo || t; } catch (e) { /* */ }
+      return send(res, 200, { ok: true, text: t, model: r.model, seconds: Math.round((Date.now() - t0) / 100) / 10 });
     }
     if (parts[1] === "voices") {
       if (!VOICE.api_key) return fail(res, 400, "Primero guarda la clave de ElevenLabs.");
