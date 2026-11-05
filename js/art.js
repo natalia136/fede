@@ -758,5 +758,15 @@
     return `<svg class="stk stk-${s.rarity}" viewBox="0 0 100 100" role="img" aria-label="${esc(s.name)}">${back}${sc ? fit(sc, art) : art}${front}</svg>`;
   }
 
-  window.ART = { nova, world, unit, trophy, NAMES, icon, avatar, avatarId, KID_AVATARS, ADULT_AVATARS, PARTS, AVKEYS: KEYS, HAIR_GROUPS, ORDERS, parseC, encodeC, randomC, STICKERS, STICKER_SETS, sticker, STICKER_FROM_EMOJI };
+  /* colecciones nuevas desde otros archivos (js/stickers_*.js): los ids siguen la numeración (s97, s98…), así que el orden de carga no debe cambiar */
+  function addStickers(sets) {
+    sets.forEach((st) => {
+      if (STICKER_SETS.some((x) => x.id === st.id)) return;
+      STICKER_SETS.push({ id: st.id, name: st.name }); SET_BG[st.id] = st.bg || "#eeeeee";
+      st.items.forEach((it) => { const id = "s" + String(STICKERS.length + 1).padStart(2, "0"); const s = { id, name: it.name, set: st.id, rarity: it.rarity || "comun" }; STICKERS.push(s); STICKER_BY_ID[id] = s; SA[id] = it.draw; if (it.fit) FIT[id] = it.fit; });
+    });
+  }
+  const STK_KIT = { K, fx, sE, sEyes, sSmile, sBlush, sFace, sStar, sSpark, starPts, pac, circ, regPoly, gear, spiral, fit, ringPts };
+
+  window.ART = { nova, world, unit, trophy, NAMES, icon, avatar, avatarId, KID_AVATARS, ADULT_AVATARS, PARTS, AVKEYS: KEYS, HAIR_GROUPS, ORDERS, parseC, encodeC, randomC, STICKERS, STICKER_SETS, sticker, STICKER_FROM_EMOJI, addStickers, STK_KIT };
 })();

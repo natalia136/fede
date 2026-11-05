@@ -738,3 +738,18 @@ svg.avi { border-radius: 50%; }
 @media (max-width: 560px) { .exp-detail { grid-template-columns: 1fr; justify-items: center; } .exp-big { max-width: 200px; } }
 .visual.art svg { width: min(200px, 60vw); height: auto; aspect-ratio: 1; }
 .lsn-dots button.explore { background: color-mix(in srgb, var(--cyan) 45%, var(--stroke)); }
+
+/* repaso durante la evaluación */
+.qtools { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px; }
+.review-modal { width: min(100%, 680px); }
+.rv-list { display: grid; gap: 10px; }
+.rv-block { border: 2px solid var(--stroke); border-radius: 16px; padding: 12px 14px; display: grid; gap: 6px; }
+.rv-block p, .rv-block ul { margin: 0; line-height: 1.6; }
+.rv-block ul { padding-left: 1.2em; }
+.rv-ex { background: var(--bg, #f7f7f7); border-radius: 10px; padding: 6px 10px; }
+.rv-card { display: grid; justify-items: center; gap: 4px; }
+.rv-card .visual.art svg { width: min(140px, 40vw); }
+.rv-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+.rv-cards figure { margin: 0; display: grid; justify-items: center; gap: 2px; font-size: .85rem; font-weight: 700; text-align: center; }
+.rv-cards .visual.art svg { width: 84px; }
+.stk-hint { margin: 0; }

@@ -24,6 +24,17 @@
     for (const x of free) { r -= (RARITY[x.rarity] || RARITY.comun)[1]; if (r <= 0) return x.id; }
     return free[free.length - 1].id;
   }
+  /* las láminas se ganan solo con un resultado muy bueno: 90 % o más; más fácil en Practica/Domina y sin repasos; máximo STK_PER_DAY al día */
+  const STK_PER_DAY = 4;
+  function stickerChance(g, pct, oldStars) {
+    if (pct < 90) return 0;
+    if (S.stkDay && S.stkDay.n >= STK_PER_DAY) return 0;
+    const lv = g.u.lv || 2;
+    let c = (pct === 100 ? 0.5 : 0.25) + (lv === 2 ? 0.15 : lv === 3 ? 0.35 : 0);
+    if (g.reviews) c *= 0.6;            // usó el repaso: vale, pero cuenta un poco menos
+    if (oldStars >= 3) c *= 0.5;        // repetir una lección ya perfecta da menos láminas
+    return Math.min(1, +c.toFixed(2));
+  }
   const stickerInfo = (id) => (NEW_STK() || []).find((x) => x.id === id) || null;
   const stickerArt = (id) => (stickerInfo(id) && window.ART.sticker ? window.ART.sticker(id) : `<span class="stk-emoji">${esc(id)}</span>`);
   const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
@@ -517,8 +528,8 @@
     if (X) {
       const names = X.items.map((x) => x.name), pool = [];
       X.items.forEach((it) => {
-        pool.push(choice(lv === 1 ? "¿Qué es esto? Recuerda lo que exploraste" : "¿Qué es esto?", it.name, shuffle(names.filter((x) => x !== it.name)).slice(0, 3), { visual: it.art, visualClass: "art", explain: it.facts[0] }));
-        if (it.q) pool.push(choice(it.q[0], it.q[1], it.q[2], { explain: it.facts.join(" "), visual: lv === 1 ? it.art : "", visualClass: "art" }));
+        pool.push(choice(lv === 1 ? "¿Qué es esto? Recuerda lo que exploraste" : "¿Qué es esto?", it.name, shuffle(names.filter((x) => x !== it.name)).slice(0, 3), { visual: it.art, visualClass: "art", explain: it.facts[0], expAll: true }));
+        if (it.q) pool.push(choice(it.q[0], it.q[1], it.q[2], { explain: it.facts.join(" "), visual: lv === 1 ? it.art : "", visualClass: "art", expItem: it.name }));
       });
       const fresh = shuffle(pool).filter((q) => { const k = qKey(q); if (seen.has(k)) return false; seen.add(k); return !old.has(k); });
       const take = Math.min(fresh.length, Math.ceil(n * 0.4));
@@ -813,6 +824,53 @@
 
   /* ---------- partida ---------- */
   let tmr = null;
+  /* ---------- repaso durante la evaluación: volver a ver, leer o escuchar el tema sin salir de la partida ---------- */
+  function reviewBlocks(g, q) {
+    const u = g.u, out = [], X = explorerOf(u), L = u.tid ? richLesson(u) : null;
+    const it = q.expItem && X ? X.items.find((x) => x.name === q.expItem) : null;
+    if (it) out.push({ h: "🔎 La tarjeta que exploraste", art: it.art, name: it.name, list: it.facts });
+    else if (q.expAll && X) out.push({ h: "🔎 Las tarjetas que exploraste", cards: X.items.map((x) => ({ art: x.art, name: x.name })) });
+    if (L) {
+      out.push({ h: "💡 La idea", text: L.hook });
+      L.steps.forEach((st, i) => out.push({ h: `Paso ${i + 1}: ${st.title}`, text: st.text, ex: st.example }));
+      if ((L.vocab || []).length) out.push({ h: "📖 Palabras clave", list: L.vocab.map(([w, d]) => `${w}: ${d}`) });
+      if ((L.worked || []).length) { const w = L.worked[0]; out.push({ h: "✏️ Ejemplo resuelto", text: w.problem, list: [...w.steps, `Respuesta: ${w.answer}`] }); }
+      out.push({ h: "⭐ Lo más importante", list: L.remember });
+      if (L.mistake) out.push({ h: "⚠️ ¡Ojo con este error!", text: L.mistake });
+    } else if (u.lesson) {
+      out.push({ h: "💡 La explicación", text: u.lesson, ex: u.example });
+      if (u.tip) out.push({ h: "⭐ Truco", text: u.tip });
+    }
+    if (X && !it && !q.expAll) out.push({ h: "🔎 Las tarjetas que exploraste", cards: X.items.map((x) => ({ art: x.art, name: x.name })) });
+    return out;
+  }
+  const hasReview = (g) => !!(g.u && (g.u.lesson || (g.u.tid && richLesson(g.u)) || explorerOf(g.u)));
+  function openReview() {
+    const g = play; if (!g || g.answered) return toast("Primero pasa a la siguiente pregunta");
+    const q = g.qs[g.i], blocks = reviewBlocks(g, q); if (!blocks.length) return;
+    const paused = g.timed && tmr; if (paused) stopTimer();
+    if (!g.reviewed) { g.reviewed = true; g.reviews++; }
+    const speech = (b) => sayParts(b.h.replace(/^\W+\s*/, ""), b.name || "", b.text || "", b.ex ? `Por ejemplo: ${b.ex}` : "", ...(b.list || []), ...(b.cards ? b.cards.map((c) => c.name) : []));
+    const back = document.createElement("div"); back.className = "modal-back";
+    back.innerHTML = `<div class="modal review-modal" role="dialog" aria-modal="true" aria-labelledby="rv-t">
+      <div class="row"><h2 id="rv-t" style="flex:1;margin:0">📖 Repaso: ${esc(g.u.title)}</h2><button class="btn ghost small" data-rv="all">🔊 Escuchar todo</button></div>
+      <p class="muted" style="margin:0">Lee o escucha con calma y luego vuelve a la pregunta.${g.timed ? " El reloj está en pausa." : ""} Si aciertas después de repasar, ganas la mitad de XP.</p>
+      <div class="rv-list">${blocks.map((b, i) => `<div class="rv-block"><div class="row"><b style="flex:1">${esc(b.h)}</b><button class="speak" data-rv="${i}" aria-label="Escuchar">${I("speaker")}</button></div>
+        ${b.art ? `<div class="rv-card"><div class="visual art">${b.art}</div><b>${esc(b.name)}</b></div>` : ""}
+        ${b.cards ? `<div class="rv-cards">${b.cards.map((c) => `<figure><div class="visual art">${c.art}</div><figcaption>${esc(c.name)}</figcaption></figure>`).join("")}</div>` : ""}
+        ${b.text ? `<p>${esc(b.text)}</p>` : ""}${b.ex ? `<p class="rv-ex"><b>Ejemplo:</b> ${esc(b.ex)}</p>` : ""}
+        ${b.list ? `<ul>${b.list.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}</div>`).join("")}</div>
+      <button class="btn big" data-rv="close">✔ Volver a la pregunta</button></div>`;
+    document.body.appendChild(back);
+    const close = () => { stopVoice(); back.remove(); if (paused && play === g && !g.answered) startTimer(Math.max(5, Math.ceil(g.tLeft))); };
+    back.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-rv]"); if (e.target === back) return close(); if (!b) return;
+      const k = b.dataset.rv; if (k === "close") return close();
+      if (k === "all") return speak(sayParts(...blocks.map(speech)), "es-ES");
+      speak(speech(blocks[+k]), "es-ES");
+    });
+    say("¡Buena idea repasar! Lee con calma.", "happy");
+  }
   function startPlay(ref, planIdx, mode, qsOverride) {
     const u = unit(ref); if (!u) return;
     const P = S.profile;
@@ -820,7 +878,7 @@
     const qs = qsOverride || buildQuestions(u);
     if (!qs.length) { toast("Esta lección no tiene actividades todavía"); return; }
     rememberQs(u, qs.filter((q) => q.kind !== "robot"));
-    play = { ref, u, planIdx, players, qs, mode, timed: mode === "reloj", i: 0, correct: 0, answered: false, hinted: false, combo: 0, bestCombo: 0, xp: 0, tLeft: 0 };
+    play = { ref, u, planIdx, players, qs, mode, timed: mode === "reloj", i: 0, correct: 0, answered: false, hinted: false, combo: 0, bestCombo: 0, xp: 0, tLeft: 0, reviews: 0, reviewed: false };
     go("play");
   }
   const qTime = (q) => (q.kind === "order" ? 45 : q.write ? 35 : q.small ? 30 : 20);
@@ -854,6 +912,7 @@
         ${turnMsg ? `<div class="turnmsg">${turnMsg}</div>` : ""}
         <div class="row" style="justify-content:center"><div class="prompt" style="${q.small ? "font-size:clamp(1.05rem,2.6vw,1.35rem)" : ""}">${esc(q.prompt)}</div>${canSpeak && !q.speakAfter ? `<button class="speak" data-act="speakQ" aria-label="Escuchar">${I("speaker")}</button>` : ""}</div>
         ${body}
+        ${g.boss ? "" : `<div class="qtools"><button class="btn ghost small" data-act="readQ">🔊 Leer pregunta</button>${hasReview(g) ? `<button class="btn ghost small" data-act="review">📖 Repasar el tema</button>` : ""}</div>`}
       </div>
       <div class="checkbar" id="checkbar"><div class="cb-inner">
         <div class="cb-left"><span class="cb-icon" aria-hidden="true"></span><div><div class="feedback" id="fb" role="status"></div><div id="fbx"></div></div>${q.kind === "choice" && !q.write && q.options.length > 2 ? `<button class="btn ghost" id="hintbtn" data-act="hint">${I("bulb")} Pista</button>` : ""}</div>
@@ -898,8 +957,9 @@
     const g = play, turn = g.players.length > 1 ? g.i % 2 : 0;
     const card = $("#qcard"); if (card) { card.classList.remove("flash-good", "flash-bad"); void card.offsetWidth; card.classList.add(ok ? "flash-good" : "flash-bad"); }
     if (ok) {
-      g.correct++; g.players[turn].pts++; g.combo++; g.bestCombo = Math.max(g.bestCombo, g.combo);
-      const gain = 10 + ((g.u && g.u.lv) === 3 ? 10 : (g.u && g.u.lv) === 2 ? 5 : 0) + (g.combo >= 3 ? 5 : 0) + (g.timed ? Math.ceil(g.tLeft / 2) : 0); g.xp += gain; // niveles más difíciles dan más XP
+      g.correct++; g.players[turn].pts++; if (!g.reviewed) g.combo++; g.bestCombo = Math.max(g.bestCombo, g.combo);
+      let gain = 10 + ((g.u && g.u.lv) === 3 ? 10 : (g.u && g.u.lv) === 2 ? 5 : 0) + (g.combo >= 3 ? 5 : 0) + (g.timed ? Math.ceil(g.tLeft / 2) : 0); // niveles más difíciles dan más XP
+      if (g.reviewed) gain = Math.ceil(gain / 2); g.xp += gain; // con repaso vale la mitad
       floatText(`+${gain} XP${g.combo >= 3 ? " 🔥" : ""}`, el); sfx.right();
       say(g.combo >= 3 ? `¡Combo x${g.combo}! Sigue así 🔥` : pick(CHEERS), "happy");
       if (g.combo >= 3) burst(el);
@@ -944,7 +1004,7 @@
     $("#fbx").innerHTML = `${q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ""}${!ok && aiReady ? '<button class="linkbtn" data-act="explainAI">🤖 Nova, explícame</button>' : ""}`;
     $("#after").innerHTML = nextBtn(); const h = $("#hintbtn"); if (h) h.remove();
   }
-  function nextQ() { const g = play; if (!g) return; if (g.boss && (g.boss.hp <= 0 || g.boss.hearts <= 0)) return finish(); g.i++; g.sel = null; g.answered = false; g.hinted = false; if (g.i >= g.qs.length) return finish(); render(); }
+  function nextQ() { const g = play; if (!g) return; if (g.boss && (g.boss.hp <= 0 || g.boss.hearts <= 0)) return finish(); g.i++; g.sel = null; g.answered = false; g.hinted = false; g.reviewed = false; if (g.i >= g.qs.length) return finish(); render(); }
   function hint() {
     const g = play, q = g.qs[g.i]; if (g.hinted || g.answered) return; g.hinted = true;
     const wrong = [...document.querySelectorAll("#opts .opt")].filter((b) => b.dataset.v !== q.answer && !b.classList.contains("dim"));
@@ -1042,9 +1102,11 @@
     const k = g.u.key, old = S.progress[k] || { stars: 0, best: 0, plays: 0 };
     S.progress[k] = { stars: Math.max(old.stars, stars), best: Math.max(old.best, pct), plays: old.plays + 1, last: todayStr(), lastPct: pct };
     S.stars += stars; S.coins += stars;
-    let sticker = null;
-    if (stars >= 2) { sticker = drawSticker(); if (sticker) S.stickers.push(sticker); }
-    let sticker2 = null; if (stars === 3 && Math.random() < 0.4) { sticker2 = drawSticker(); if (sticker2) S.stickers.push(sticker2); }
+    const t0 = todayStr(); if (!S.stkDay || S.stkDay.d !== t0) S.stkDay = { d: t0, n: 0 };
+    const chance = stickerChance(g, pct, old.stars), roll = Math.random();
+    let sticker = null, sticker2 = null;
+    if (chance > 0 && roll < chance) { sticker = drawSticker(); if (sticker) { S.stickers.push(sticker); S.stkDay.n++; } }
+    if (sticker && pct === 100 && (g.u.lv || 0) === 3 && !g.reviews && S.stkDay.n < STK_PER_DAY && Math.random() < 0.3) { sticker2 = drawSticker(); if (sticker2) { S.stickers.push(sticker2); S.stkDay.n++; } }
     const t = todayStr();
     if (S.streak.last !== t) { const y = todayStr(new Date(Date.now() - 864e5)); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
     S.history.push({ k, d: t, pct, title: g.u.title, subj: g.u.subj }); if (S.history.length > 200) S.history = S.history.slice(-200);
@@ -1053,7 +1115,7 @@
     const bonus = stars * 10 + (pct === 100 ? 20 : 0), xpGain = g.xp + bonus, before = levelInfo(S.xp);
     S.xp += xpGain; S.bestCombo = Math.max(S.bestCombo || 0, g.bestCombo);
     save();
-    play.result = { pct, stars, sticker, sticker2, xpGain, bonus, before, after: levelInfo(S.xp) };
+    play.result = { pct, stars, sticker, sticker2, chance, xpGain, bonus, before, after: levelInfo(S.xp) };
     go("result");
     animateResult(play.result);
     sfx.win(); if (stars >= 2) confetti();
@@ -1085,6 +1147,7 @@
       ${g.result.after.lv > g.result.before.lv ? `<div class="levelup">⬆️ ¡Subiste a nivel ${g.result.after.lv}!${g.result.after.rank !== g.result.before.rank ? ` Nuevo rango: ${g.result.after.rank}` : ""}</div>` : ""}
       ${g.players.length > 1 ? `<div class="scoreboard">${g.players.map((p) => `<span class="player"><span class="av">${av(p.av)}</span>${esc(p.name)}: ${p.pts}</span>`).join("")}</div><b>${winner}</b>` : ""}
       ${sticker ? `<div class="sticker-won-row">${[sticker, sticker2].filter(Boolean).map((id) => { const x = stickerInfo(id); return `<div class="sticker-won ${x ? x.rarity : ""}">${stickerArt(id)}${x ? `<b>${esc(x.name)}</b><span class="rar ${x.rarity}">${RARITY[x.rarity] ? RARITY[x.rarity][0] : ""}</span>` : ""}</div>`; }).join("")}</div><p style="margin:0">${sticker2 ? "¡Dos láminas nuevas para tu álbum!" : "¡Nueva lámina para tu álbum!"}</p>` : ""}
+      ${!sticker ? `<p class="muted stk-hint">🎴 ${S.stkDay && S.stkDay.n >= STK_PER_DAY && pct >= 90 ? `¡Ya ganaste ${STK_PER_DAY} láminas hoy! Mañana puedes ganar más.` : pct >= 90 ? "Esta vez no salió lámina. ¡Sigue así, en Practica y Domina salen más!" : "Las láminas se ganan con 90 % o más. ¡Tú puedes!"}</p>` : ""}
       ${stars < 2 ? `<div class="parent" style="text-align:left"><b>${av(S.profile.adultAvatar)} Sugerencia:</b> repasen juntos la explicación y vuelvan a intentarlo. Equivocarse es parte de aprender.</div>` : ""}
       <div class="row" style="justify-content:center">
         <button class="btn ghost" data-act="again">🔁 Otra vez</button>
@@ -1976,6 +2039,8 @@
       case "next": return nextQ();
       case "quit": stopTimer(); play = null; return go("home");
       case "again": return startPlay(play.ref, null, play.mode);
+      case "readQ": { const q = play.qs[play.i]; if (q.speak && !q.readText) return speak(q.speak, q.speakLang || "en-US"); return speak(sayParts(q.readText || q.prompt, q.kind === "choice" && !q.write ? "Las opciones son: " + (q.keepOrder || q.options).join(", ") : ""), "es-ES"); }
+      case "review": return openReview();
       case "speakQ": { const q = play.qs[play.i]; return speak(q.readText || q.speak, q.readText ? "es-ES" : q.speakLang || "en-US"); }
       case "askChip": return go("courses", { q: b.dataset.q });
       case "pl": {
