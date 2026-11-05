@@ -778,7 +778,7 @@ svg.avi { border-radius: 50%; }
 .ex-reading p { margin: 0; max-width: 68ch; line-height: 1.65; }
 .ex-hint-top { color: var(--ink-soft); font-size: .9rem; }
 .ex-poem { font-style: italic; border-left: 4px solid var(--c, var(--gold)); padding: 4px 0 4px 14px; }
-.ex-note { background: var(--panel-2); }
+.ex-note { background: var(--panel-2); display: block; line-height: 1.6; }
 .ex-section { margin: 10px 4px 0; font-size: 1.2rem; }
 .ex-opts { display: grid; gap: 8px; }
 .ex-opt { display: flex; align-items: center; gap: 10px; text-align: left; border: 2px solid var(--stroke); border-bottom-width: 4px; background: var(--panel); color: var(--ink); font: inherit; font-weight: 700; padding: 10px 12px; border-radius: 12px; min-height: 48px; }

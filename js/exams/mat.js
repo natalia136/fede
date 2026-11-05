@@ -34,7 +34,7 @@ EXAMS.add([
   {
     id: "mat-3-fracciones", subject: "mat", grade: 3, title: "Las fracciones: partes de un todo", tag: "Repaso · 3.º",
     items: [
-      { t: "note", text: "Toca las partes de las figuras para colorearlas (vuelve a tocar para borrar). Recuerda: el **denominador** (abajo) dice en cuántas partes iguales se divide el todo y el **numerador** (arriba) cuántas partes tomamos." },
+      { t: "note", text: "Toca las partes de las figuras para colorearlas (vuelve a tocar para borrar). Recuerda: el denominador (abajo) dice en cuántas partes iguales se divide el todo y el numerador (arriba) cuántas partes tomamos." },
       { t: "color", q: "Colorea en cada figura la fracción que se indica.", parts: [{ fig: { k: "bar", d: 5 }, n: 2 }, { fig: { k: "pie", d: 8 }, n: 5 }, { fig: { k: "grid", r: 2, c: 3 }, n: 4 }, { fig: { k: "hexa" }, n: 1 }] },
       { t: "frac", q: "En el cumpleaños de Valentina, la torta se partió en pedazos iguales. Las partes coloreadas son las que ya se comieron. ¿Qué fracción de la torta se comieron?", fig: { k: "pie", d: 6, shaded: 4 }, ans: [4, 6] },
       { t: "frac", q: "Escribe la fracción que representa la parte coloreada del cuadrado.", fig: { k: "square8", shaded: 3 }, ans: [3, 8] },
@@ -143,7 +143,7 @@ EXAMS.add([
   {
     id: "mat-2-multiplicar", subject: "mat", grade: 2, title: "Empezar a multiplicar, medir y la hora", tag: "Repaso · 2.º",
     items: [
-      { t: "note", text: "Multiplicar es sumar varias veces el mismo número. **3 × 4** quiere decir «3 grupos de 4»." },
+      { t: "note", text: "Multiplicar es sumar varias veces el mismo número. 3 × 4 quiere decir «3 grupos de 4»." },
       { t: "mc", q: "¿Qué multiplicación muestra esta cuadrícula?", fig: { k: "grid", r: 2, c: 5, shaded: 10 }, o: ["2 + 5", "5 × 5", "2 × 5", "2 × 10"], a: 2, hint: "Cuenta cuántas filas hay y cuántos cuadros tiene cada fila.", why: "Son 2 filas de 5 cuadros: 2 × 5 = 10." },
       { t: "mc", q: "¿Qué multiplicación es igual a 3 + 3 + 3 + 3?", o: ["4 × 3", "3 × 3", "4 + 3", "12 × 3"], a: 0, hint: "Cuenta cuántas veces aparece el 3.", why: "El 3 se suma 4 veces: 4 × 3 = 12." },
       { t: "table", q: "Completa la tabla: multiplica el número de la fila por el de la columna.", cols: ["×", "2", "3", "4"],
@@ -198,7 +198,7 @@ EXAMS.add([
   {
     id: "mat-4-fracciones-medidas", subject: "mat", grade: 4, title: "Fracciones, decimales y medidas", tag: "Repaso · 4.º",
     items: [
-      { t: "note", text: "Toca las partes de las figuras para colorearlas. Dos fracciones son **equivalentes** cuando representan la misma cantidad." },
+      { t: "note", text: "Toca las partes de las figuras para colorearlas. Dos fracciones son equivalentes cuando representan la misma cantidad." },
       { t: "color", q: "Colorea cada barra para comprobar que [[1/2]] = [[2/4]] = [[4/8]].", parts: [{ fig: { k: "bar", d: 2 }, n: 1 }, { fig: { k: "bar", d: 4 }, n: 2 }, { fig: { k: "bar", d: 8 }, n: 4 }] },
       { t: "mc", q: "¿Qué fracción es equivalente a [[2/3]]?", o: ["[[3/4]]", "[[2/6]]", "[[4/6]]", "[[4/3]]"], a: 2, hint: "Multiplica el numerador y el denominador por el mismo número (por ejemplo, por 2).", why: "2 × 2 = 4 y 3 × 2 = 6: [[2/3]] = [[4/6]]." },
       { t: "table", q: "Escribe la fracción equivalente multiplicando arriba y abajo por el número indicado.", cols: ["Fracción", "Multiplico por", "Fracción equivalente"],
