@@ -581,9 +581,10 @@
     document.body.classList.toggle("focus", ["play", "result"].includes(view.name) || (view.name === "duel" && !!duel));
     document.body.classList.toggle("bare", ["auth", "profiles"].includes(view.name) || (!S.profile && ["setup", "avatar"].includes(view.name)));
     $("#top").innerHTML = topbar();
-    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, config: vConfig, restore: vRestore, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, trophies: vTrophies }[view.name] || vHome;
+    const V = { avatar: vAvatar, auth: vAuth, profiles: vProfiles, admin: vAdmin, config: vConfig, restore: vRestore, shop: vShop, duel: vDuel, setup: vSetup, home: vHome, subject: vSubject, lesson: vLesson, play: vPlay, result: vResult, plan: vPlan, courses: vCourses, course: vCourse, maker: vMaker, exams: vExams, exam: vExam, trophies: vTrophies }[view.name] || vHome;
     app().innerHTML = V(view.p);
     if (view.name === "play") mountPlay();
+    if (view.name === "exam") mountExam(view.p);
   }
   const sv = (sub) => { const k = SUBJECTS[sub] ? sub : "mat"; return `--c:var(--c-${k});--g:var(--g-${k})`; };
   const RANKS = ["Aprendiz", "Explorador", "Aventurero", "Inventor", "Experto", "Maestro", "Genio", "Leyenda"];
@@ -593,13 +594,13 @@
     return { lv, cur: xp - base, need, pct: Math.round(((xp - base) / need) * 100), rank: RANKS[Math.min(RANKS.length - 1, Math.floor((lv - 1) / 3))] };
   }
   function topbar() {
-    const n = view.name, cur = (x) => (x === n || (x === "home" && ["subject", "lesson"].includes(n)) || (x === "courses" && ["course", "maker"].includes(n)) ? 'aria-current="page"' : "");
+    const n = view.name, cur = (x) => (x === n || (x === "home" && ["subject", "lesson"].includes(n)) || (x === "courses" && ["course", "maker"].includes(n)) || (x === "exams" && n === "exam") ? 'aria-current="page"' : "");
     const p = S.profile, L = levelInfo(S.xp);
     const item = (to, icon, label) => `<button class="navbtn" data-act="go" data-to="${to}" ${cur(to)}><span class="ni">${I(icon)}</span><span class="nl">${label}</span></button>`;
     return `<button class="brand" data-act="go" data-to="home" aria-label="Ir al inicio"><span class="logo">${NOVA}</span><span class="bt">aventura</span></button>
       ${p ? `<div class="stats-bar"><span class="stat streak" title="Días seguidos estudiando">${I("flame")} <b>${S.streak.n}</b></span><span class="stat coins" title="Monedas para la tienda">${I("coin")} <b>${S.coins}</b></span><span class="stat lvl" title="Nivel ${L.lv}: ${L.cur}/${L.need} XP">${I("gem")} <b>Nv. ${L.lv}</b></span></div>
       <nav aria-label="Principal">
-        ${item("home", "home", "Aprender")}${item("courses", "courses", "Cursos")}${item("duel", "duel", "Duelo")}${item("plan", "plan", "Plan")}${item("shop", "shop", "Tienda")}${item("trophies", "trophy", "Logros")}
+        ${item("home", "home", "Aprender")}${item("courses", "courses", "Cursos")}${item("exams", "book", "Exámenes")}${item("duel", "duel", "Duelo")}${item("plan", "plan", "Plan")}${item("shop", "shop", "Tienda")}${item("trophies", "trophy", "Logros")}
         ${API.on ? `<button class="navbtn" data-act="account"><span class="ni">${I("account")}</span><span class="nl">Cuenta</span></button>` : ""}
         <button class="navbtn" data-act="settings"><span class="ni">${I("settings")}</span><span class="nl">Ajustes</span></button>
       </nav>` : ""}`;
@@ -1155,6 +1156,54 @@
         ${nx ? `<button class="btn" data-act="open" data-ref='${esc(JSON.stringify(nx))}'>${nt ? `Siguiente tema: ${esc(nt.t.title)}` : "Siguiente lección"} ➜</button>` : ""}
         <button class="btn ghost" data-act="back" data-ref='${esc(JSON.stringify(g.ref))}'>Volver</button>
       </div></section>`;
+  }
+
+  /* ---------- exámenes tipo colegio (js/exam.js + js/exams/*.js) ---------- */
+  const EXLIST = () => (window.EXAMS ? window.EXAMS.list : []);
+  function vExams(p) {
+    const g = S.profile.grade, subj = p.s || "all";
+    const list = EXLIST().filter((e) => subj === "all" || e.subject === subj).slice().sort((a, b) => Math.abs(a.grade - g) - Math.abs(b.grade - g) || a.grade - b.grade);
+    const subs = Object.keys(SUBJECTS).filter((k) => EXLIST().some((e) => e.subject === k));
+    const card = (e) => { const r = (S.exams || {})[e.id], n = e.items.filter((x) => !["read", "h", "note"].includes(x.t)).length;
+      return `<button class="exam-card" style="${sv(e.subject)}" data-act="go" data-to="exam" data-id="${esc(e.id)}"><span class="dot">${I(e.subject in SUBJECTS ? e.subject : "book")}</span><span class="exam-info"><b>${esc(e.title)}</b><small>${esc(subjName(e.subject))} · ${esc(gradeLabel(S.profile.country, e.grade))} · ${n} preguntas${e.tag ? ` · ${esc(e.tag)}` : ""}</small></span>${r ? `<span class="pill ${r.best >= 90 ? "star" : ""}">${r.best}%</span>` : `<span class="pill">Nuevo</span>`}</button>`; };
+    return `<section class="stack">
+      <div class="section-head"><h1>📝 Exámenes de repaso</h1></div>
+      <p class="muted" style="margin:0">Como los del colegio: lectura con preguntas, figuras para colorear, cuadros para completar… Si te equivocas, te damos una pista y lo intentas otra vez. Gana láminas si aciertas casi todo <b>al primer intento</b>.</p>
+      <div class="row chips"><button class="chip ${subj === "all" ? "on" : ""}" data-act="go" data-to="exams" data-s="all">Todas</button>${subs.map((k) => `<button class="chip ${subj === k ? "on" : ""}" data-act="go" data-to="exams" data-s="${k}">${esc(subjName(k))}</button>`).join("")}</div>
+      ${list.length ? `<div class="exam-list">${list.map(card).join("")}</div>` : '<p class="muted">Todavía no hay exámenes aquí.</p>'}
+    </section>`;
+  }
+  let exRun = null;
+  function vExam(p) {
+    const e = EXLIST().find((x) => x.id === p.id); if (!e) return `<p>No encontramos ese examen.</p>`;
+    return `<section class="stack exam" style="${sv(e.subject)}">
+      <button class="btn ghost small" style="justify-self:start" data-act="go" data-to="exams" data-s="${esc(e.subject)}">← Exámenes</button>
+      <div><p class="eyebrow">${esc(subjName(e.subject))} · ${esc(gradeLabel(S.profile.country, e.grade))}${e.tag ? ` · ${esc(e.tag)}` : ""}</p><h1>📝 ${esc(e.title)}</h1></div>
+      <div id="exam-root" class="exam-root"></div></section>`;
+  }
+  function mountExam(p) {
+    const e = EXLIST().find((x) => x.id === p.id), root = $("#exam-root"); if (!e || !root || !window.ExamEngine) return;
+    exRun = window.ExamEngine.mount(root, e, { speak: (t) => speak(t, "es-ES"), sfx, speakIcon: I("speaker"), onDone: (r) => finishExam(e, r) });
+    say("¡Lee con calma! Si te equivocas, te doy una pista.", "happy");
+  }
+  function finishExam(e, r) {
+    const pct = Math.round((r.first / r.total) * 100), t = todayStr();
+    S.exams = S.exams || {}; const old = S.exams[e.id] || { best: 0, plays: 0 };
+    S.exams[e.id] = { best: Math.max(old.best, pct), plays: old.plays + 1, last: t };
+    const xp = r.first * 8 + (r.total - r.first) * 3 + (pct === 100 ? 25 : 0), before = levelInfo(S.xp); S.xp += xp; S.coins += pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
+    if (!S.stkDay || S.stkDay.d !== t) S.stkDay = { d: t, n: 0 };
+    let chance = pct < 90 || S.stkDay.n >= STK_PER_DAY ? 0 : (pct === 100 ? 0.8 : 0.45) * (old.best >= 90 ? 0.5 : 1);
+    let stk = null; if (chance && Math.random() < chance) { stk = drawSticker(); if (stk) { S.stickers.push(stk); S.stkDay.n++; } }
+    if (S.streak.last !== t) { const y = todayStr(new Date(Date.now() - 864e5)); S.streak.n = S.streak.last === y ? S.streak.n + 1 : 1; S.streak.last = t; }
+    S.history.push({ k: "exam:" + e.id, d: t, pct, title: "Examen: " + e.title, subj: e.subject }); if (S.history.length > 200) S.history = S.history.slice(-200);
+    save(); sfx.win(); if (pct >= 60) confetti();
+    const x = stk && stickerInfo(stk), after = levelInfo(S.xp);
+    exRun.finish(`<h2>${pct >= 90 ? "¡Excelente trabajo! 🌟" : pct >= 60 ? "¡Muy bien! 👏" : "¡Terminaste! 💪"}</h2>
+      <p>Terminaste todo el examen. Acertaste <b>${r.first} de ${r.total}</b> al primer intento (${pct}%).</p>
+      <p class="xp-total">+${xp} XP</p>${after.lv > before.lv ? `<div class="levelup">⬆️ ¡Subiste a nivel ${after.lv}!</div>` : ""}
+      ${stk ? `<div class="sticker-won-row"><div class="sticker-won ${x ? x.rarity : ""}">${stickerArt(stk)}${x ? `<b>${esc(x.name)}</b>` : ""}</div></div><p>¡Nueva lámina para tu álbum!</p>` : `<p class="muted">🎴 ${pct >= 90 ? (S.stkDay.n >= STK_PER_DAY ? `Ya ganaste ${STK_PER_DAY} láminas hoy. ¡Mañana hay más!` : "Esta vez no salió lámina, ¡pero vas muy bien!") : "Las láminas se ganan acertando el 90 % al primer intento."}</p>`}
+      <div class="row" style="justify-content:center"><button class="btn ghost" data-act="go" data-to="exam" data-id="${esc(e.id)}">🔁 Hacerlo otra vez</button><button class="btn" data-act="go" data-to="exams" data-s="${esc(e.subject)}">Más exámenes</button></div>`);
+    say(pct >= 90 ? "¡Examen casi perfecto! ¡Eres increíble!" : "¡Terminaste el examen! Repasa lo que te costó y vuelve a intentarlo.", "happy");
   }
 
   /* ---------- recuperar avance de días anteriores (copias diarias del servidor) ---------- */
@@ -1767,6 +1816,7 @@
     if (!out.plan && extra.plan) out.plan = extra.plan;
     out.seen = Object.assign({}, extra.seen || {}, out.seen || {});
     out.bosses = Object.assign({}, extra.bosses || {}, out.bosses || {});
+    out.exams = Object.assign({}, extra.exams || {}, out.exams || {}); Object.entries(extra.exams || {}).forEach(([k, v]) => { const a = out.exams[k]; if (a && v) out.exams[k] = { best: Math.max(a.best || 0, v.best || 0), plays: Math.max(a.plays || 0, v.plays || 0), last: a.last > v.last ? a.last : v.last }; });
     return out;
   }
   async function importLocal(targetId) {
@@ -1973,7 +2023,7 @@
         if (b.dataset.to === "plan" && b.dataset.edit) { planDraft = S.plan ? JSON.parse(JSON.stringify(S.plan.settings)) : null; }
         if (b.dataset.to === "profiles" && b.dataset.q === "import") return go("profiles", { importTo: b.dataset.id });
         if (b.dataset.to === "admin") return go("admin", { reset: b.dataset.q === "reset" ? b.dataset.id : null, del: b.dataset.q === "del" ? b.dataset.id : null });
-        return go(b.dataset.to, { id: b.dataset.id, q: b.dataset.q, edit: b.dataset.edit });
+        return go(b.dataset.to, { id: b.dataset.id, q: b.dataset.q, edit: b.dataset.edit, s: b.dataset.s });
       }
       case "draft": draft[b.dataset.k] = b.dataset.k === "grade" ? +b.dataset.v : b.dataset.v; if (b.dataset.k === "country" && draft.grade > 6) draft.grade = 3; sfx.tap(); return render();
       case "saveProfile": {
